@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="margin: 50px 100px">
+        <h2 th:each="category : ${categories}">
+            <a th:href="@{/categories/{id} (id = ${category.id})}" style="text-decoration: none">
+                <span th:text="${category.name}"/>
+            </a>
+        </h2>
+        <input type="button" value="Back" onclick="history.back()" style="color: black">
+    </div>
+</body>
+</html>

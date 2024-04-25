@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Brand</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="text-align: center; margin-top: 7%">
+        <form th:method="PATCH" th:action="@{/brands/{id}/edit (id = *{id})}" th:object="${brand}">
+            <label for="title">Title</label><br>
+            <input type="text" id="title" th:field="*{title}" >
+            <th:block th:if="${#fields.hasErrors('title')}">
+                <span th:errors="*{title}" style="color: red">Title Errors</span>
+            </th:block>
+            <br><br>
+
+            <label for="image">Image</label><br>
+            <input type="text" id="image" th:field="*{image}" alt="image" ><br><br>
+
+            <label for="website">Website</label><br>
+            <input type="url" id="website" th:field="*{website}" ><br><br>
+
+            <label for="description">Description</label><br>
+            <textarea th:field="*{description}" id="description" cols="40" rows="5" ></textarea>
+            <br><br>
+
+            <input type="submit" value="OK" style="color: black">
+            <input type="button" value="Back" onclick="history.back()" style="color: black">
+        </form>
+    </div>
+</body>
+</html>

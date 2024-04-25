@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Brands</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="margin: 50px 100px">
+        <div style="display: inline-flex; horiz-align: center">
+            <h2 th:each="brand : ${brands}" style="margin: 50px">
+                <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
+                    <img th:src="${brand.image}" alt="image" style="display: inline-flex; width: 250px">
+                    <p th:text="${brand.title}" style="margin-left: 20px; vertical-align: bottom"/>
+                </a>
+            </h2>
+        </div>
+        <br>
+        <div>
+            <input type="button" value="Add Brand" onclick="location.assign('/brands/add')" style="color: black">
+            <input type="button" value="Back" onclick="location.assign('/')" style="color: black">
+        </div>
+    </div>
+</body>
+</html>

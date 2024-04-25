@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Page</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="margin-left: 100px; margin-top: 50px; margin-bottom: 50px; display: inline-flex" th:object="${car}">
+
+        <div style="display: inline-block">
+            <h1 th:text="*{title}">Title</h1>
+            <img th:src="*{image}" alt="image" style="width: 600px; border-radius: 10%">
+            <h2>
+                Class:
+                <a th:href="@{/classes/{id} (id = *{classId})}">
+                    <span th:text="${carClass.name.substring(0,7)}" style="font-weight: normal"/>
+                </a><br>
+                <a href="/classes" style="font-weight: normal; font-size: 12px; color: gray">All classes</a>
+            </h2>
+            <h2>
+                Category:
+                <a th:href="@{/categories/{id} (id = *{categoryId})}" >
+                    <span th:text="${category.name}" style="font-weight: normal"/>
+                </a><br>
+                <a href="/categories" style="font-weight: normal; font-size: 12px; color: gray">All categories</a>
+            </h2>
+            <h2>
+                Brand: <a th:href="@{/brands/{id} (id = ${brand.id})}" th:text="${brand.title}" style="font-weight: normal">Brand</a>
+            </h2>
+            <h2>
+                Webpage: <a th:href="*{webpage}" th:text="*{title}" target="_blank" style="font-weight: normal">Webpage</a>
+            </h2>
+            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 50px">
+        </div>
+
+        <div style="display: inline-block; margin-left: 100px; margin-top: 100px">
+            <h3>Description</h3>
+            <p th:text="*{description}" style="text-align: justify; padding-right: 250px;">Description</p>
+
+            <h2>Price: <span th:text="*{price}" style="font-weight: bolder"/> ₽ </h2>
+
+            <h3 style="margin-top: 50px">Tags</h3>
+            <div style="display: inline-flex">
+                <form th:method="POST" th:action="@{/cars/{id}/attachTag (id = *{id})}">
+                    <label for="tags">Ready Tags</label><br>
+                    <select th:field="${carTag.tagId}" id="tags" size="1" onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
+                        <option th:each="tag : ${allTags}" th:value="${tag.id}" th:text="${tag.name}"></option>
+                    </select><br><br>
+                    <input type="submit" value="Attach Tag" style="color: black">
+                </form>
+                <form th:method="POST" th:action="@{/cars/{id}/addTag (id = *{id})}" style="margin-left: 20px">
+                    <label for="tag">New Tag</label><br>
+                    <input type="text" id="tag" th:field="${newTag.name}"><br><br>
+                    <input type="submit" value="Add and Attach" style="color: black">
+                </form>
+            </div>
+            <br><br>
+
+            <div th:each="tag : ${tags}" style="font-size: 18px; display: inline-flex; width: 200px">
+                <a th:href="@{/cars/searchByTag (search = ${tag.name})}" target="_blank">
+                    <span th:text="${tag.name}" style="margin: 5px"/>
+                </a>
+            </div>
+            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
+
+            <div style="display: inline-flex; margin-top: 50px">
+                <form th:method="GET" th:action="@{/cars/{id}/edit (id = *{id})}">
+                    <input type="submit" value="Edit Car" style="color: black">
+                </form>
+                <form th:method="DELETE" th:action="@{/cars/{id}/delete (id = *{id})}">
+                    <input type="submit" value="Delete" style="color: black; margin-left: 10px">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

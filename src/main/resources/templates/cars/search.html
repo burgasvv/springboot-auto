@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <th:block th:if="${searchBrands.size() < 1 && cars.size() < 1}">
+        <div style="margin-left: 100px; margin-top: 50px">
+            <h2>No results</h2>
+        </div>
+    </th:block>
+    <div style="margin-left: 100px; margin-top: 50px">
+        <th:block th:if="${searchBrands.size() > 0}">
+            <div style="margin-top: 50px">
+                <h2>Brands</h2>
+                <h2 th:each="brand : ${searchBrands}" style="display: inline-flex">
+                    <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
+                        <img th:src="${brand.image}" alt="image" style="display: inline-flex; width: 150px">
+                        <p th:text="${brand.title}" style="margin-left: 20px; vertical-align: bottom"/>
+                    </a>
+                </h2>
+            </div>
+        </th:block>
+        <th:block th:if="${cars.size() > 0}">
+            <h2>Cars</h2>
+            <h2 th:each="car : ${cars}" style="display: inline-flex">
+                <div th:each="brand : ${brands}" th:if="${car.brandId == brand.id}">
+                    <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none; margin: 25px">
+                        <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 100px; border-radius: 10%"><br>
+                        <div th:text="${brand.title}" style="margin-left: 20px"/>
+                        <div th:text="${car.title}" style="margin-left: 20px"/>
+                    </a>
+                </div>
+            </h2>
+        </th:block>
+    </div>
+</body>
+</html>
