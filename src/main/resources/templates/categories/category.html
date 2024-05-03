@@ -6,14 +6,19 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="margin: 50px 100px" th:object="${category}">
-        <h1>
-            <span th:text="*{name}"/>
-        </h1>
-        <img th:src="@{*{image}}" alt="image" style="width: 700px; border-radius: 5%">
-        <h2>Description</h2>
-        <p th:text="*{description}" style="text-align: justify; margin-right: 400px">Description</p>
-        <input type="button" value="Back" onclick="history.back()" style="color: black">
+    <div style="display: inline-flex" th:object="${category}">
+        <div style="margin: 50px 100px; display: inline-block">
+            <h1><span th:text="*{name}"/></h1>
+            <img th:src="@{*{image}}" alt="image" style="width: 700px; border-radius: 5%">
+            <h2>
+                <a th:href="@{/categories/{id}/cars (id = *{id})}" style="text-decoration: none; margin-top: 50px">Category Cars</a>
+            </h2>
+            <input type="button" value="Back" onclick="history.back()" style="color: black;margin-top: 100px">
+        </div>
+        <div style="margin: 50px 100px; display: inline-block">
+            <h2>Description</h2>
+            <p th:text="*{description}" style="text-align: justify">Description</p>
+        </div>
     </div>
 </body>
 </html>

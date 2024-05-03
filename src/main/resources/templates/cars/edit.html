@@ -17,21 +17,21 @@
             <br><br>
 
             <label for="brand">Brand</label><br>
-            <select size="1" th:field="*{brandId}" id="brand" onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
+            <select size="1" th:field="*{brand.id}" id="brand" onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
                 <option th:each="brand : ${brands}" th:value="${brand.id}"
-                        th:text="${brand.title}" th:selected="${car.brandId eq brand.id}">Brand</option>
+                        th:text="${brand.title}" th:selected="${car.brand.id eq brand.id}">Brand</option>
             </select><br><br>
 
             <label for="class">Class</label><br>
-            <select th:field="*{classId}" id="class">
+            <select th:field="*{classification.id}" id="class">
                 <option th:each="class : ${classes}" th:value="${class.id}"
-                        th:text="${class.name}" th:selected="${car.classId eq class.id}">Class</option>
+                        th:text="${class.name}" th:selected="${car.classification.id eq class.id}">Class</option>
             </select><br><br>
 
             <label for="category">Category</label><br>
-            <select th:field="*{categoryId}" id="category">
+            <select th:field="*{category.id}" id="category">
                 <option th:each="category : ${categories}" th:value="${category.id}"
-                        th:text="${category.name}" th:selected="${car.categoryId eq category.id}"></option>
+                        th:text="${category.name}" th:selected="${car.category.id eq category.id}"></option>
             </select><br><br>
 
             <label for="image">Image</label><br>

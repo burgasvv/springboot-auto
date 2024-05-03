@@ -13,23 +13,25 @@
             <img th:src="*{image}" alt="image" style="width: 600px; border-radius: 10%">
             <h2>
                 Class:
-                <a th:href="@{/classes/{id} (id = *{classId})}">
-                    <span th:text="${carClass.name.substring(0,7)}" style="font-weight: normal"/>
+                <a th:href="@{/classes/{id} (id = *{classification.id})}" style="text-decoration: none">
+                    <span th:text="*{classification.name.substring(0,7)}" style="font-weight: normal"/>
                 </a><br>
-                <a href="/classes" style="font-weight: normal; font-size: 12px; color: gray">All classes</a>
+                <a href="/classes" style="font-weight: normal; text-decoration: none; font-size: 12px; color: gray">All classes</a>
             </h2>
             <h2>
                 Category:
-                <a th:href="@{/categories/{id} (id = *{categoryId})}" >
-                    <span th:text="${category.name}" style="font-weight: normal"/>
+                <a th:href="@{/categories/{id} (id = *{category.id})}" style="text-decoration: none">
+                    <span th:text="*{category.name}" style="font-weight: normal"/>
                 </a><br>
-                <a href="/categories" style="font-weight: normal; font-size: 12px; color: gray">All categories</a>
+                <a href="/categories" style="font-weight: normal; font-size: 12px; color: gray; text-decoration: none">All categories</a>
             </h2>
             <h2>
-                Brand: <a th:href="@{/brands/{id} (id = ${brand.id})}" th:text="${brand.title}" style="font-weight: normal">Brand</a>
+                Brand: <a th:href="@{/brands/{id} (id = *{brand.id})}" th:text="*{brand.title}"
+                          style="font-weight: normal; text-decoration: none">Brand</a>
             </h2>
             <h2>
-                Webpage: <a th:href="*{webpage}" th:text="*{title}" target="_blank" style="font-weight: normal">Webpage</a>
+                Webpage: <a th:href="*{webpage}" th:text="*{title}" target="_blank"
+                            style="font-weight: normal; text-decoration: none">Webpage</a>
             </h2>
             <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 50px">
         </div>
@@ -42,14 +44,14 @@
 
             <h3 style="margin-top: 50px">Tags</h3>
             <div style="display: inline-flex">
-                <form th:method="POST" th:action="@{/cars/{id}/attachTag (id = *{id})}">
+                <form th:method="POST" th:action="@{/cars/{id}/attach-tag (id = *{id})}">
                     <label for="tags">Ready Tags</label><br>
-                    <select th:field="${carTag.tagId}" id="tags" size="1" onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
+                    <select th:field="${attachTag.id}" id="tags" size="1" onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
                         <option th:each="tag : ${allTags}" th:value="${tag.id}" th:text="${tag.name}"></option>
                     </select><br><br>
                     <input type="submit" value="Attach Tag" style="color: black">
                 </form>
-                <form th:method="POST" th:action="@{/cars/{id}/addTag (id = *{id})}" style="margin-left: 20px">
+                <form th:method="POST" th:action="@{/cars/{id}/add-tag (id = *{id})}" style="margin-left: 20px">
                     <label for="tag">New Tag</label><br>
                     <input type="text" id="tag" th:field="${newTag.name}"><br><br>
                     <input type="submit" value="Add and Attach" style="color: black">
@@ -57,8 +59,8 @@
             </div>
             <br><br>
 
-            <div th:each="tag : ${tags}" style="font-size: 18px; display: inline-flex; width: 200px">
-                <a th:href="@{/cars/searchByTag (search = ${tag.name})}" target="_blank">
+            <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex; width: 200px">
+                <a th:href="@{/cars/search-by-tag (search = ${tag.name})}" target="_blank" style="text-decoration: none">
                     <span th:text="${tag.name}" style="margin: 5px"/>
                 </a>
             </div>

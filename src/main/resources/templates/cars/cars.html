@@ -8,13 +8,11 @@
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
     <div style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
         <h2 th:each="car : ${cars}" style="display: inline-flex">
-            <th:block th:each="brand : ${brands}" th:if="${car.brandId == brand.id}">
-                <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
-                    <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%"><br>
-                    <div th:text="${brand.title}" style="margin-left: 20px"/>
-                    <div th:text="${car.title}" style="margin-left: 20px"/>
-                </a>
-            </th:block>
+            <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
+                <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%"><br>
+                <div th:text="${car.brand.title}" style="margin-left: 20px"/>
+                <div th:text="${car.title}" style="margin-left: 20px"/>
+            </a>
         </h2>
         <br><br>
         <input type="button" value="Add Car" onclick="location.assign('/cars/add')" style="color: black">

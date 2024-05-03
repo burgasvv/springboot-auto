@@ -1,10 +1,8 @@
 package com.burgas.springbootauto.controller;
 
-import com.burgas.springbootauto.dao.BrandDao;
-import com.burgas.springbootauto.dao.CarDao;
-import com.burgas.springbootauto.model.Brand;
+import com.burgas.springbootauto.entity.Brand;
+import com.burgas.springbootauto.service.BrandService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,31 +12,29 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/brands")
 public class BrandController {
 
-    private final BrandDao brandDao;
-    private final CarDao carDao;
+    private final BrandService brandService;
 
-    @Autowired
-    public BrandController(BrandDao brandDao, CarDao carDao) {
-        this.brandDao = brandDao;
-        this.carDao = carDao;
+    public BrandController(BrandService brandService) {
+        this.brandService = brandService;
     }
 
     @GetMapping
     public String brands(Model model) {
-        model.addAttribute("brands", brandDao.findAll());
+        model.addAttribute("brands", brandService.findAll());
         return "brands/brands";
     }
 
     @GetMapping("/{id}")
-    public String brand(@PathVariable("id") int id, Model model) {
-        model.addAttribute("brand", brandDao.find(id));
+    public String brand(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("brand", brandService.findById(id));
         return "brands/brand";
     }
 
     @GetMapping("/{id}/cars")
-    public String brandCars(@PathVariable("id") int id, Model model) {
-        model.addAttribute("brand", brandDao.find(id));
-        model.addAttribute("cars", carDao.findAll());
+    public String brandCars(@PathVariable("id") Long id, Model model) {
+        Brand brand = brandService.findById(id);
+        model.addAttribute("brand", brand);
+        model.addAttribute("cars", brand.getCars());
         return "brands/cars";
     }
 
@@ -53,13 +49,13 @@ public class BrandController {
         if (bindingResult.hasErrors()) {
             return "brands/add";
         }
-        brandDao.save(brand);
+        brandService.save(brand);
         return "redirect:/brands";
     }
 
     @GetMapping("/{id}/edit")
-    public String editBrandForm(@PathVariable("id") int id, Model model) {
-        model.addAttribute("brand", brandDao.find(id));
+    public String editBrandForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("brand", brandService.findById(id));
         return "brands/edit";
     }
 
@@ -68,13 +64,13 @@ public class BrandController {
         if (bindingResult.hasErrors()) {
             return "brands/edit";
         }
-        brandDao.update(brand);
+        brandService.update(brand);
         return "redirect:/brands/{id}";
     }
 
     @DeleteMapping("/{id}/delete")
     public String deleteBrand(@ModelAttribute("brand") Brand brand) {
-        brandDao.delete(brand);
+        brandService.delete(brand.getId());
         return "redirect:/brands";
     }
 }
