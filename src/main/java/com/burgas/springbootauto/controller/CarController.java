@@ -107,8 +107,8 @@ public class CarController {
         Car car = carService.findById(id);
         Tag newTag = new Tag();
         newTag.setName(tag.getName());
-        tagService.save(newTag);
         car.getTags().add(newTag);
+        tagService.save(newTag);
         carService.save(car);
         return "redirect:/cars/{id}";
     }
