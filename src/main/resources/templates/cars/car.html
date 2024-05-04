@@ -51,7 +51,7 @@
                     </select><br><br>
                     <input type="submit" value="Attach Tag" style="color: black">
                 </form>
-                <form th:method="POST" th:action="@{/cars/{id}/add-tag (id = *{id})}" style="margin-left: 20px">
+                <form th:method="PUT" th:action="@{/cars/{id}/add-tag (id = *{id})}" style="margin-left: 20px">
                     <label for="tag">New Tag</label><br>
                     <input type="text" id="tag" th:field="${newTag.name}"><br><br>
                     <input type="submit" value="Add and Attach" style="color: black">

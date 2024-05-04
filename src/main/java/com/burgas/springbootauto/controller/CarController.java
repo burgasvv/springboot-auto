@@ -102,7 +102,7 @@ public class CarController {
         return "redirect:/cars/{id}";
     }
 
-    @PostMapping("/{id}/add-tag")
+    @PutMapping("/{id}/add-tag")
     public String addTag(@ModelAttribute("newTag") Tag tag, @PathVariable("id") Long id) {
         Car car = carService.findById(id);
         Tag newTag = new Tag();

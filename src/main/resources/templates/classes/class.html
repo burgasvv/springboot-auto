@@ -10,10 +10,11 @@
         <div style="margin: 50px 100px; display: inline-block">
             <h1><span th:text="*{name}"/></h1>
             <img th:src="@{*{image}}" alt="image" style="width: 700px; border-radius: 5%">
-            <h2>
-                <a th:href="@{/classes/{id}/cars (id = *{id})}" style="text-decoration: none; margin-top: 50px">Class Cars</a>
+            <h2 style="margin-top: 50px">
+                <a th:href="@{/classes}" style="text-decoration: none">Classes</a><br><br>
+                <a th:href="@{/classes/{id}/cars (id = *{id})}" style="text-decoration: none">Class Cars</a>
             </h2>
-            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 50px">
         </div>
         <div style="margin: 50px 100px; display: inline-block">
             <h2>Description</h2>
