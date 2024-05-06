@@ -1,6 +1,6 @@
 package com.burgas.springbootauto.repository;
 
-import com.burgas.springbootauto.entity.Classification;
+import com.burgas.springbootauto.entity.car.Classification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

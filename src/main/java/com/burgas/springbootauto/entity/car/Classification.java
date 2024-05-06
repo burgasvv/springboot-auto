@@ -1,31 +1,28 @@
-package com.burgas.springbootauto.entity;
+package com.burgas.springbootauto.entity.car;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
-public class Brand {
+public class Classification {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String name;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
 
-    @Column(nullable = false)
-    private String website;
-
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "classification", cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();
 }

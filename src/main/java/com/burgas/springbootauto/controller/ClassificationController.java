@@ -1,6 +1,6 @@
 package com.burgas.springbootauto.controller;
 
-import com.burgas.springbootauto.entity.Classification;
+import com.burgas.springbootauto.entity.car.Classification;
 import com.burgas.springbootauto.service.CarService;
 import com.burgas.springbootauto.service.ClassificationService;
 import org.springframework.stereotype.Controller;

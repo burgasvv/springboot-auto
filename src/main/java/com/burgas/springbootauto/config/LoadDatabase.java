@@ -1,6 +1,11 @@
 package com.burgas.springbootauto.config;
 
-import com.burgas.springbootauto.entity.*;
+import com.burgas.springbootauto.entity.brand.Brand;
+import com.burgas.springbootauto.entity.car.*;
+import com.burgas.springbootauto.entity.engine.Engine;
+import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
+import com.burgas.springbootauto.entity.engine.EngineEdition;
+import com.burgas.springbootauto.entity.engine.Fuel;
 import com.burgas.springbootauto.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +25,12 @@ public class LoadDatabase {
                                           CarRepository carRepository,
                                           CategoryRepository categoryRepository,
                                           ClassificationRepository classificationRepository,
-                                          TagRepository tagRepository) {
+                                          TagRepository tagRepository,
+                                          FuelRepository fuelRepository,
+                                          EngineRepository engineRepository,
+                                          EquipmentRepository equipmentRepository,
+                                          EngineEditionRepository engineEditionRepository,
+                                          EngineCharacteristicsRepository engineCharacteristicsRepository) {
 
         return _ -> {
             Category hatchBack = new Category();
@@ -427,6 +437,62 @@ public class LoadDatabase {
                             'предлагается эксклюзивный пакет оснащения AMG Performance Package."""
             );
 
+            EngineEdition eeR6 = new EngineEdition();
+            eeR6.setName("R6");
+            eeR6.setImage("https://otoba.ru/dvigatel/servis/img/icons/bmw/r6-dizel.png");
+            eeR6.setBrand(bmw);
+
+            Equipment equipM5 = new Equipment();
+            equipM5.setCar(m5);
+            Equipment equipM4 = new Equipment();
+            equipM4.setCar(m4);
+
+            Fuel petrol = new Fuel();
+            petrol.setName("Petrol");
+            Fuel diesel = new Fuel();
+            diesel.setName("Diesel");
+
+            Engine em51 = new Engine();
+            em51.setName("M51");
+            em51.setImage("https://otoba.ru/dvigatel/bmw/img/m51/dvigatel-bmw-m51-pod-kapotom.jpg");
+            em51.setFuel(diesel);
+            em51.setEquipment(equipM5);
+            em51.setEngineEdition(eeR6);
+            em51.setDescription(
+                    "2.5-литровый дизельный двигатель БМВ М51 собирали на заводе в Австрии с 1991 по 2001 год " +
+                    "и ставили на такие популярные модели, как 3-Series в кузове E36 и 5-Series в кузовах E34 и E39. " +
+                    "Данный силовой агрегат модернизировали в 1996 году и он получил себе новый индекс M51TU."
+            );
+            Engine em57 = new Engine();
+            em57.setName("M57");
+            em57.setImage("https://otoba.ru/dvigatel/bmw/img/m57/dvs-bmw-m57-pod-kapotom.jpg");
+            em57.setFuel(diesel);
+            em57.setEquipment(equipM4);
+            em57.setEngineEdition(eeR6);
+            em57.setDescription(
+                    "6-цилиндровые дизельные двигатели БМВ М57 на 2.5 и 3.0 литра собирали с 1998 по 2012 " +
+                    "год и устанавливали практически на все более или менее крупные модели концерна своего времени. " +
+                    "Существует три поколения этих силовых агрегатов обычно именуемых как M57, M57N и M57N2."
+            );
+
+            EngineCharacteristics chem51 = new EngineCharacteristics();
+            chem51.setCompression(17.5);
+            chem51.setCylinders(6);
+            chem51.setEngine(em51);
+            chem51.setPower("115 л.с.");
+            chem51.setPiston("82.8 мм");
+            chem51.setTorque("222 Нм");
+            chem51.setVolume("2457 см3");
+
+            EngineCharacteristics chem57 = new EngineCharacteristics();
+            chem57.setCompression(16.5);
+            chem57.setCylinders(6);
+            chem57.setEngine(em57);
+            chem57.setPower("204 л.с.");
+            chem57.setPiston("90 мм");
+            chem57.setTorque("430 Нм");
+            chem57.setVolume("2993 см3");
+
             LOGGER.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))
             );
@@ -441,6 +507,21 @@ public class LoadDatabase {
             ));
             LOGGER.info("Preload: {}", carRepository.saveAll(
                     List.of(m5, m4, r8, g63, cls63)
+            ));
+            LOGGER.info("Preload: {}", engineEditionRepository.saveAll(
+                    List.of(eeR6)
+            ));
+            LOGGER.info("Preload: {}", equipmentRepository.saveAll(
+                    List.of(equipM5, equipM4)
+            ));
+            LOGGER.info("Preload: {}", fuelRepository.saveAll(
+                    List.of(petrol, diesel)
+            ));
+            LOGGER.info("Preload: {}", engineRepository.saveAll(
+                    List.of(em51, em57)
+            ));
+            LOGGER.info("Preload: {}", engineCharacteristicsRepository.saveAll(
+                    List.of(chem51, chem57)
             ));
         };
     }

@@ -1,7 +1,7 @@
 package com.burgas.springbootauto.controller;
 
-import com.burgas.springbootauto.entity.Car;
-import com.burgas.springbootauto.entity.Tag;
+import com.burgas.springbootauto.entity.car.Car;
+import com.burgas.springbootauto.entity.car.Tag;
 import com.burgas.springbootauto.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

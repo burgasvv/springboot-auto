@@ -1,6 +1,6 @@
 package com.burgas.springbootauto.service;
 
-import com.burgas.springbootauto.entity.Classification;
+import com.burgas.springbootauto.entity.car.Classification;
 import com.burgas.springbootauto.repository.ClassificationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

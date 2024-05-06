@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.entity;
+package com.burgas.springbootauto.entity.engine;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Tag {
+public class Fuel {
 
     @Id
     @GeneratedValue
@@ -17,6 +17,6 @@ public class Tag {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "tags", cascade = CascadeType.ALL)
-    private List<Car>cars = new ArrayList<>();
+    @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL)
+    private List<Engine>engines = new ArrayList<>();
 }

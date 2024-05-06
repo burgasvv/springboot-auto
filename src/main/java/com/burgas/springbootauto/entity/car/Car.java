@@ -1,5 +1,6 @@
-package com.burgas.springbootauto.entity;
+package com.burgas.springbootauto.entity.car;
 
+import com.burgas.springbootauto.entity.brand.Brand;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Check;
@@ -42,6 +43,9 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "classification_id", referencedColumnName = "id")
     private Classification classification;
+
+    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL)
+    private Equipment equipment;
 
     @ManyToMany
     @JoinTable(

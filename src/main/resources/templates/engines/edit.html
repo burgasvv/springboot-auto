@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Engine</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="display: inline-flex">
+        <form th:method="PATCH" th:action="@{/engines/{id}/edit (id = ${engine.id})}">
+
+            <div style=" margin: 12% 100px 12% 600px; display: inline-block">
+                <h2>Engine</h2>
+                <label for="name">Name</label><br>
+                <input type="text" id="name" th:field="${engine.name}"><br><br>
+
+                <label for="image">Image</label><br>
+                <input type="text" id="image" th:field="${engine.image}"><br><br>
+
+                <label for="fuel">Fuel</label><br>
+                <select th:field="${engine.fuel.id}" id="fuel">
+                    <option th:each="type : ${fuel}"
+                            th:value="${type.id}" th:text="${type.name}" th:selected="${engine.fuel.id eq type.id}">Fuel Type</option>
+                </select><br><br>
+
+                <label for="description">Description</label><br>
+                <textarea th:field="${engine.description}" id="description" cols="30" rows="10">Description</textarea>><br><br>
+            </div>
+
+            <div style="margin: 12% 100px 50px; display: inline-block">
+                <h2>Characteristics</h2>
+                <label for="volume">Volume</label><br>
+                <input type="text" id="volume" th:field="${characteristics.volume}"><br><br>
+
+                <label for="torque">Torque</label><br>
+                <input type="text" id="torque" th:field="${characteristics.torque}"><br><br>
+
+                <label for="power">Power</label><br>
+                <input type="text" id="power" th:field="${characteristics.power}"><br><br>
+
+                <label for="piston">Piston</label><br>
+                <input type="text" id="piston" th:field="${characteristics.piston}"><br><br>
+
+                <label for="cylinders">Cylinders</label><br>
+                <input type="text" id="cylinders" th:field="${characteristics.cylinders}"><br><br>
+
+                <label for="compression">Compression</label><br>
+                <input type="text" id="compression" th:field="${characteristics.compression}"><br><br>
+            </div>
+            <div style="text-align: center">
+                <input type="submit" value="OK" style="color: black">
+                <input type="button" value="Back" onclick="history.back()" style="color: black">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

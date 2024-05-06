@@ -19,10 +19,11 @@
             <h3>Description</h3>
             <p th:text="*{description}" style="text-align: justify; padding-right: 250px"></p>
             <h2>
-                <a style="text-decoration: none" th:href="@{/brands/{id}/cars (id = *{id})}">Brand Cars</a>
+                <a style="text-decoration: none" th:href="@{/brands/{id}/cars (id = *{id})}">Brand Cars</a><br><br>
+                <a style="text-decoration: none" th:href="@{/brands/{id}/editions (id = *{id})}">Brand Engines</a>
             </h2>
 
-            <div style="display: inline-flex">
+            <div style="display: inline-flex; margin-top: 100px">
                 <form th:method="GET" th:action="@{/brands/{id}/edit (id = *{id})}">
                     <input type="submit" value="Edit" style="color: black">
                 </form>

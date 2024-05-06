@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Edition</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="text-align: center; margin: 15% 100px 50px;">
+        <form th:method="POST" th:action="@{/brands/{id}/add-edition (id = ${brand.id})}" th:object="${edition}">
+            <label for="name">Name</label><br>
+            <input type="text" id="name" th:field="*{name}"><br><br>
+            <label for="image">Image</label><br>
+            <input type="text" id="image" th:field="*{image}"><br><br>
+            <input type="submit" value="OK" style="color: black">
+            <input type="button" value="Back" onclick="history.back()" style="color: black">
+        </form>
+    </div>
+</body>
+</html>

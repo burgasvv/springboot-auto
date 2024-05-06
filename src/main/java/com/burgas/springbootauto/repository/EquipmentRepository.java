@@ -1,9 +1,9 @@
 package com.burgas.springbootauto.repository;
 
-import com.burgas.springbootauto.entity.car.Category;
+import com.burgas.springbootauto.entity.car.Equipment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface EquipmentRepository extends JpaRepository<Equipment, Long> {
 }

@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.entity;
+package com.burgas.springbootauto.entity.car;
 
 import jakarta.persistence.*;
 import lombok.Data;
