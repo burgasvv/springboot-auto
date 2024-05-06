@@ -1,8 +1,6 @@
 package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.engine.Engine;
-import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
-import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.service.EngineCharacteristicsService;
 import com.burgas.springbootauto.service.EngineService;
 import com.burgas.springbootauto.service.FuelService;
@@ -35,20 +33,14 @@ public class EngineController {
 
     @GetMapping("/{id}/edit")
     public String editEngineForm(Model model, @PathVariable("id") Long id) {
-        Engine engine = engineService.findById(id);
-        model.addAttribute("engine", engine);
-        model.addAttribute("characteristics", engine.getEngineCharacteristics());
-        model.addAttribute("edition", engine.getEngineEdition());
+        model.addAttribute("engine", engineService.findById(id));
         model.addAttribute("fuel", fuelService.findAll());
         return "engines/edit";
     }
 
     @PatchMapping("/{id}/edit")
-    public String editEngine(@ModelAttribute Engine engine,
-                            @ModelAttribute EngineCharacteristics characteristics,
-                            @ModelAttribute EngineEdition edition) {
+    public String editEngine(@ModelAttribute Engine engine) {
         engineService.update(engine);
-        engineCharacteristicsService.update(characteristics);
         return "redirect:/engines/{id}";
     }
 
