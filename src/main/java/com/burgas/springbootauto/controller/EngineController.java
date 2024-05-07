@@ -39,9 +39,10 @@ public class EngineController {
     }
 
     @PatchMapping("/{id}/edit")
-    public String editEngine(@ModelAttribute Engine engine) {
+    public String editEngine(@ModelAttribute("engine") Engine engine, Model model) {
+        model.addAttribute("characteristics", engineCharacteristicsService.findByEngineId(engine.getId()));
         engineService.update(engine);
-        return "redirect:/engines/{id}";
+        return "engines/editCharacteristics";
     }
 
     @DeleteMapping("/{id}/delete")

@@ -28,6 +28,10 @@ public class EngineCharacteristicsService {
         return engineCharacteristicsRepository.searchEngineCharacteristicsByEngineId(id);
     }
 
+    public EngineCharacteristics findByEngineId(Long id) {
+        return engineCharacteristicsRepository.searchEngineCharacteristicsByEngineId(id);
+    }
+
     @Transactional
     public void save(EngineCharacteristics engineCharacteristics) {
         engineCharacteristicsRepository.save(engineCharacteristics);
@@ -41,5 +45,10 @@ public class EngineCharacteristicsService {
     @Transactional
     public void delete(Long id) {
         engineCharacteristicsRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void deleteByEngineId(Long id) {
+        engineCharacteristicsRepository.deleteByEngineId(id);
     }
 }

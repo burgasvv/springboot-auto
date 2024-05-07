@@ -40,7 +40,33 @@
             <h3>Description</h3>
             <p th:text="*{description}" style="text-align: justify; padding-right: 250px;">Description</p>
 
+            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
+
+            <th:block th:if="*{equipment != null}">
+                <h3>Equipment</h3>
+                <div style="display: inline-flex">
+                    <div style="display: inline-block">
+                        <h4>
+                            <span>Engine</span><br><br>
+                            <a th:href="@{/engines/{id} (id = *{equipment.engine.id})}" style="text-decoration: none">
+                                <img th:src="*{equipment.engine.image}" alt="image" style="width: 150px; border-radius: 10%"><br>
+                                <span th:text="*{equipment.engine.engineEdition.brand.title}" style="color: grey"/><br>
+                                <span th:text="*{equipment.engine.engineEdition.name}"/>
+                                <span th:text="*{equipment.engine.name}"/>
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+            </th:block>
+            <th:block th:if="*{equipment == null}">
+                <h3>No equipment</h3>
+            </th:block>
+
+            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
+
             <h2>Price: <span th:text="*{price}" style="font-weight: bolder"/> ₽ </h2>
+
+            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
 
             <h3 style="margin-top: 50px">Tags</h3>
             <div style="display: inline-flex">

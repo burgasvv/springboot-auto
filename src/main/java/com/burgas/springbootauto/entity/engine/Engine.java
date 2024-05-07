@@ -33,6 +33,6 @@ public class Engine {
     @JoinColumn(name = "equipment_id", referencedColumnName = "id")
     private Equipment equipment;
 
-    @OneToOne(mappedBy = "engine", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private EngineCharacteristics engineCharacteristics;
 }

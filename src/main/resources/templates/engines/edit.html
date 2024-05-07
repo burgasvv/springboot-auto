@@ -6,61 +6,36 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="display: inline-flex">
-        <form th:method="PATCH" th:action="@{/engines/{id}/edit (id = ${engine.id})}" th:object="${engine}">
+    <div style="margin: 10% 50px 100px; text-align: center">
+        <form th:method="PATCH" th:action="@{/engines/{id}/edit (id = *{id})}" th:object="${engine}">
 
-            <div style=" margin: 12% 100px 12% 600px; display: inline-block">
-                <h2>Engine</h2>
-                <label for="edition">Edition</label><br>
-                <select th:field="*{engineEdition.id}" id="edition">
-                    <option th:value="*{engineEdition.id}" th:text="*{engineEdition.name}"></option>
-                </select><br><br>
+            <h2>Engine</h2>
+            <label for="edition">Edition</label><br>
+            <select th:field="*{engineEdition.id}" id="edition">
+                <option th:value="*{engineEdition.id}" th:text="*{engineEdition.name}"></option>
+            </select><br><br>
 
-                <label for="car"></label>Car<br>
-                <select th:field="*{equipment.id}" id="car">
-                    <option th:value="*{equipment.id}" th:text="*{equipment.car.title}"></option>
-                </select><br><br>
+            <label for="car"></label>Car<br>
+            <select th:field="*{equipment.id}" id="car">
+                <option th:value="*{equipment.id}" th:text="*{equipment.car.title}"></option>
+            </select><br><br>
 
-                <label for="name">Name</label><br>
-                <input type="text" id="name" th:field="*{name}"><br><br>
+            <label for="name">Name</label><br>
+            <input type="text" id="name" th:field="*{name}"><br><br>
 
-                <label for="image">Image</label><br>
-                <input type="text" id="image" th:field="*{image}"><br><br>
+            <label for="image">Image</label><br>
+            <input type="text" id="image" th:field="*{image}"><br><br>
 
-                <label for="fuel">Fuel</label><br>
-                <select th:field="*{fuel.id}" id="fuel">
-                    <option th:each="type : ${fuel}"
-                            th:value="${type.id}" th:text="${type.name}" th:selected="${engine.fuel.id eq type.id}">Fuel Type</option>
-                </select><br><br>
+            <label for="fuel">Fuel</label><br>
+            <select th:field="*{fuel.id}" id="fuel">
+                <option th:each="type : ${fuel}"
+                        th:value="${type.id}" th:text="${type.name}" th:selected="${engine.fuel.id eq type.id}">Fuel Type</option>
+            </select><br><br>
 
-                <label for="description">Description</label><br>
-                <textarea th:field="*{description}" id="description" cols="30" rows="10">Description</textarea>><br><br>
-            </div>
-
-            <div style="margin: 12% 100px 50px; display: inline-block">
-                <h2>Characteristics</h2>
-                <label for="volume">Volume</label><br>
-                <input type="text" id="volume" th:field="*{engineCharacteristics.volume}"><br><br>
-
-                <label for="torque">Torque</label><br>
-                <input type="text" id="torque" th:field="*{engineCharacteristics.torque}"><br><br>
-
-                <label for="power">Power</label><br>
-                <input type="text" id="power" th:field="*{engineCharacteristics.power}"><br><br>
-
-                <label for="piston">Piston</label><br>
-                <input type="text" id="piston" th:field="*{engineCharacteristics.piston}"><br><br>
-
-                <label for="cylinders">Cylinders</label><br>
-                <input type="text" id="cylinders" th:field="*{engineCharacteristics.cylinders}"><br><br>
-
-                <label for="compression">Compression</label><br>
-                <input type="text" id="compression" th:field="*{engineCharacteristics.compression}"><br><br>
-            </div>
-            <div style="text-align: center">
-                <input type="submit" value="OK" style="color: black">
-                <input type="button" value="Back" onclick="history.back()" style="color: black">
-            </div>
+            <label for="description">Description</label><br>
+            <textarea th:field="*{description}" id="description" cols="30" rows="10">Description</textarea>><br><br>
+            <input type="submit" value="Next" style="color: black">
+            <input type="button" value="Back" onclick="history.back()" style="color: black">
         </form>
     </div>
 </body>
