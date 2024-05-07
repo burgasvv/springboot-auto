@@ -2,10 +2,13 @@ package com.burgas.springbootauto.entity.engine;
 
 import com.burgas.springbootauto.entity.car.Equipment;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-@Data
 @Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Engine {
 
     @Id
@@ -33,6 +36,6 @@ public class Engine {
     @JoinColumn(name = "equipment_id", referencedColumnName = "id")
     private Equipment equipment;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "engine", cascade = CascadeType.ALL)
     private EngineCharacteristics engineCharacteristics;
 }

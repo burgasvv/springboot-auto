@@ -2,12 +2,15 @@ package com.burgas.springbootauto.entity.engine;
 
 import com.burgas.springbootauto.entity.brand.Brand;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Data
 @Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EngineEdition {
 
     @Id

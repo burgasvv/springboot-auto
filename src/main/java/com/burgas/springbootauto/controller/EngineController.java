@@ -47,7 +47,8 @@ public class EngineController {
 
     @DeleteMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
+        engineCharacteristicsService.deleteByEngineId(id);
         engineService.delete(id);
-        return "redirect:/brands/{id}/editions";
+        return "redirect:/brands";
     }
 }

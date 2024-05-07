@@ -8,8 +8,11 @@ import org.hibernate.annotations.Check;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Car {
 
     @Id
@@ -53,4 +56,5 @@ public class Car {
             inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id")
     )
     private List<Tag>tags = new ArrayList<>();
+
 }

@@ -2,10 +2,13 @@ package com.burgas.springbootauto.entity.car;
 
 import com.burgas.springbootauto.entity.engine.Engine;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-@Data
 @Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Equipment {
 
     @Id

@@ -46,7 +46,7 @@
                 <h3>Equipment</h3>
                 <div style="display: inline-flex">
                     <div style="display: inline-block">
-                        <h4>
+                        <h4 th:if="*{equipment.engine != null}">
                             <span>Engine</span><br><br>
                             <a th:href="@{/engines/{id} (id = *{equipment.engine.id})}" style="text-decoration: none">
                                 <img th:src="*{equipment.engine.image}" alt="image" style="width: 150px; border-radius: 10%"><br>

@@ -8,8 +8,11 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Brand {
 
     @Id
