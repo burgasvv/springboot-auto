@@ -57,4 +57,23 @@ public class Car {
     )
     private List<Tag>tags = new ArrayList<>();
 
+    public void addEquipment(Equipment equipment) {
+        this.equipment = equipment;
+        equipment.setCar(this);
+    }
+
+    public void removeEquipment(Equipment equipment) {
+        this.equipment = null;
+        equipment.setCar(null);
+    }
+
+    public void addTag(Tag tag) {
+        tags.add(tag);
+        tag.getCars().add(this);
+    }
+
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
+        tag.getCars().remove(this);
+    }
 }

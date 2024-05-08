@@ -4,6 +4,7 @@ import com.burgas.springbootauto.entity.brand.Brand;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,5 +29,5 @@ public class EngineEdition {
     private Brand brand;
 
     @OneToMany(mappedBy = "engineEdition", cascade = CascadeType.ALL)
-    private List<Engine>engines;
+    private List<Engine>engines = new ArrayList<>();
 }

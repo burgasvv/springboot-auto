@@ -21,4 +21,14 @@ public class Equipment {
 
     @OneToOne(mappedBy = "equipment", cascade = CascadeType.ALL)
     private Engine engine;
+
+    public void addEngine(Engine engine) {
+        this.engine = engine;
+        engine.setEquipment(this);
+    }
+
+    public void removeEngine(Engine engine) {
+        this.engine = null;
+        engine.setEquipment(null);
+    }
 }

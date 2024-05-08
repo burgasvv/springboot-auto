@@ -28,4 +28,14 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();
+
+    public void addCar(Car car) {
+        cars.add(car);
+        car.setCategory(this);
+    }
+
+    public void removeCar(Car car) {
+        cars.remove(car);
+        car.setCategory(null);
+    }
 }

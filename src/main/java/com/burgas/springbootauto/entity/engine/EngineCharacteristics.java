@@ -2,7 +2,6 @@ package com.burgas.springbootauto.entity.engine;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Check;
 
 @Entity
 @Setter
@@ -33,7 +32,7 @@ public class EngineCharacteristics {
     @Column
     private String torque;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne
     @JoinColumn(name = "engine_id", referencedColumnName = "id")
     private Engine engine;
 }

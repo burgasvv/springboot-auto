@@ -38,4 +38,14 @@ public class Engine {
 
     @OneToOne(mappedBy = "engine", cascade = CascadeType.ALL)
     private EngineCharacteristics engineCharacteristics;
+
+    public void addEngineCharacteristics(EngineCharacteristics engineCharacteristics) {
+        this.engineCharacteristics = engineCharacteristics;
+        engineCharacteristics.setEngine(this);
+    }
+
+    public void removeEngineCharacteristics(EngineCharacteristics engineCharacteristics) {
+        this.engineCharacteristics = null;
+        engineCharacteristics.setEngine(null);
+    }
 }

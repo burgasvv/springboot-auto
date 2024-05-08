@@ -32,8 +32,28 @@ public class Brand {
     private String description;
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
-    private List<EngineEdition>engineEditions;
+    private List<EngineEdition>engineEditions = new ArrayList<>();
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();
+
+    public void addEngineEdition(EngineEdition engineEdition) {
+        engineEditions.add(engineEdition);
+        engineEdition.setBrand(this);
+    }
+
+    public void removeEngineEdition(EngineEdition engineEdition) {
+        engineEditions.remove(engineEdition);
+        engineEdition.setBrand(null);
+    }
+
+    public void addCar(Car car) {
+        cars.add(car);
+        car.setBrand(this);
+    }
+
+    public void removeCar(Car car) {
+        cars.remove(car);
+        car.setBrand(null);
+    }
 }
