@@ -11,6 +11,11 @@
 
             <div style=" margin: 12% 100px 12% 600px; display: inline-block">
                 <h2>Engine</h2>
+                <label for="edition"></label><br>
+                <select th:field="${edition.id}" id="edition">
+                    <option th:value="${edition.id}" th:text="${edition.name}">Edition</option>
+                </select><br><br>
+
                 <label for="name">Name</label><br>
                 <input type="text" id="name" th:field="${engine.name}"><br><br>
 

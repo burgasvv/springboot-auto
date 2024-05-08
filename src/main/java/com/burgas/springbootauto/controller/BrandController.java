@@ -42,6 +42,42 @@ public class BrandController {
         return "brands/brand";
     }
 
+    @GetMapping("/add")
+    public String addBrandForm(Model model) {
+        model.addAttribute("brand", new Brand());
+        return "brands/add";
+    }
+
+    @PostMapping("/add")
+    public String addBrand(@ModelAttribute("brand") @Valid Brand brand, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "brands/add";
+        }
+        brandService.save(brand);
+        return "redirect:/brands";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editBrandForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("brand", brandService.findById(id));
+        return "brands/edit";
+    }
+
+    @PatchMapping("/{id}/edit")
+    public String editBrand(@ModelAttribute("brand") @Valid Brand brand, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "brands/edit";
+        }
+        brandService.update(brand);
+        return "redirect:/brands/{id}";
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public String deleteBrand(@ModelAttribute("brand") Brand brand) {
+        brandService.delete(brand.getId());
+        return "redirect:/brands";
+    }
+
     @GetMapping("/{id}/cars")
     public String brandCars(@PathVariable("id") Long id, Model model) {
         Brand brand = brandService.findById(id);
@@ -62,7 +98,7 @@ public class BrandController {
         });
         brandService.update(brand);
         model.addAttribute("brand", brand);
-        return "brands/editions";
+        return "editions/editions";
     }
 
     @GetMapping("/{id}/add-edition")
@@ -115,41 +151,5 @@ public class BrandController {
         engineService.save(newEngine);
         engineCharacteristicsService.save(engineCharacteristics);
         return "redirect:/brands/{id}/editions";
-    }
-
-    @GetMapping("/add")
-    public String addBrandForm(Model model) {
-        model.addAttribute("brand", new Brand());
-        return "brands/add";
-    }
-
-    @PostMapping("/add")
-    public String addBrand(@ModelAttribute("brand") @Valid Brand brand, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "brands/add";
-        }
-        brandService.save(brand);
-        return "redirect:/brands";
-    }
-
-    @GetMapping("/{id}/edit")
-    public String editBrandForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("brand", brandService.findById(id));
-        return "brands/edit";
-    }
-
-    @PatchMapping("/{id}/edit")
-    public String editBrand(@ModelAttribute("brand") @Valid Brand brand, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "brands/edit";
-        }
-        brandService.update(brand);
-        return "redirect:/brands/{id}";
-    }
-
-    @DeleteMapping("/{id}/delete")
-    public String deleteBrand(@ModelAttribute("brand") Brand brand) {
-        brandService.delete(brand.getId());
-        return "redirect:/brands";
     }
 }

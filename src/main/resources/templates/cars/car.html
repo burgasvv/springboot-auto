@@ -60,6 +60,9 @@
             </th:block>
             <th:block th:if="*{equipment == null}">
                 <h3>No equipment</h3>
+                <form th:method="POST" th:action="@{/cars/{id}/add-equipment (id = *{id})}">
+                    <input type="submit" value="Add Equipment" style="color: black">
+                </form>
             </th:block>
 
             <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>

@@ -24,7 +24,7 @@ public class EngineController {
     }
 
     @GetMapping("/{id}")
-    public String find(@PathVariable("id") Long id, Model model) {
+    public String findEngine(@PathVariable("id") Long id, Model model) {
         Engine engine = engineService.findById(id);
         engine.setEngineCharacteristics(engineCharacteristicsService.searchEngineCharacteristicsByEngineId(id));
         model.addAttribute("engine", engine);
@@ -46,7 +46,7 @@ public class EngineController {
     }
 
     @DeleteMapping("/{id}/delete")
-    public String delete(@PathVariable("id") Long id) {
+    public String deleteEngine(@PathVariable("id") Long id) {
         engineCharacteristicsService.deleteByEngineId(id);
         engineService.delete(id);
         return "redirect:/brands";

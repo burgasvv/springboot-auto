@@ -476,8 +476,8 @@ public class LoadDatabase {
             );
 
             EngineCharacteristics chem51 = new EngineCharacteristics();
-            chem51.setCompression(17.5);
-            chem51.setCylinders(6);
+            chem51.setCompression("17.5");
+            chem51.setCylinders("6");
             chem51.setEngine(em51);
             chem51.setPower("115 л.с.");
             chem51.setPiston("82.8 мм");
@@ -485,8 +485,8 @@ public class LoadDatabase {
             chem51.setVolume("2457 см3");
 
             EngineCharacteristics chem57 = new EngineCharacteristics();
-            chem57.setCompression(16.5);
-            chem57.setCylinders(6);
+            chem57.setCompression("16.5");
+            chem57.setCylinders("6");
             chem57.setEngine(em57);
             chem57.setPower("204 л.с.");
             chem57.setPiston("90 мм");

@@ -16,8 +16,7 @@ public class EngineCharacteristics {
     private Long id;
 
     @Column
-    @Check(constraints = "cylinders >= 0")
-    private Integer cylinders;
+    private String cylinders;
 
     @Column
     private String volume;
@@ -26,8 +25,7 @@ public class EngineCharacteristics {
     private String piston;
 
     @Column
-    @Check(constraints = "compression >= 0")
-    private Double compression;
+    private String compression;
 
     @Column
     private String power;

@@ -1,6 +1,7 @@
 package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.car.Car;
+import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.car.Tag;
 import com.burgas.springbootauto.service.*;
 import jakarta.validation.Valid;
@@ -15,15 +16,17 @@ import org.springframework.web.bind.annotation.*;
 public class CarController {
 
     private final CarService carService;
+    private final EquipmentService equipmentService;
     private final BrandService brandService;
     private final ClassificationService classificationService;
     private final CategoryService categoryService;
     private final TagService tagService;
 
     @Autowired
-    public CarController(CarService carService, BrandService brandService, ClassificationService classificationService,
-                         CategoryService categoryService, TagService tagService) {
+    public CarController(CarService carService, EquipmentService equipmentService, BrandService brandService,
+                         ClassificationService classificationService, CategoryService categoryService, TagService tagService) {
         this.carService = carService;
+        this.equipmentService = equipmentService;
         this.brandService = brandService;
         this.classificationService = classificationService;
         this.categoryService = categoryService;
@@ -42,6 +45,7 @@ public class CarController {
         model.addAttribute("allTags", tagService.findAll());
         model.addAttribute("attachTag", new Tag());
         model.addAttribute("newTag", new Tag());
+        model.addAttribute("equipment", new Equipment());
         return "cars/car";
     }
 
@@ -110,6 +114,13 @@ public class CarController {
         car.getTags().add(newTag);
         tagService.save(newTag);
         carService.save(car);
+        return "redirect:/cars/{id}";
+    }
+
+    @PostMapping("/{id}/add-equipment")
+    public String addEquipment(@ModelAttribute("equipment") Equipment equipment, @PathVariable("id") Long id) {
+        equipment.setCar(carService.findById(id));
+        equipmentService.save(equipment);
         return "redirect:/cars/{id}";
     }
 
