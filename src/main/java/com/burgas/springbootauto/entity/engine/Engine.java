@@ -4,6 +4,9 @@ import com.burgas.springbootauto.entity.car.Equipment;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
@@ -32,12 +35,21 @@ public class Engine {
     @JoinColumn(name = "fuel_id", referencedColumnName = "id")
     private Fuel fuel;
 
-    @OneToOne
-    @JoinColumn(name = "equipment_id", referencedColumnName = "id")
-    private Equipment equipment;
+    @OneToMany(mappedBy = "engine", cascade = CascadeType.ALL)
+    private List<Equipment> equipments = new ArrayList<>();
 
     @OneToOne(mappedBy = "engine", cascade = CascadeType.ALL)
     private EngineCharacteristics engineCharacteristics;
+
+    public void addEquipment(Equipment equipment) {
+        equipments.add(equipment);
+        equipment.setEngine(this);
+    }
+
+    public void removeEquipment(Equipment equipment) {
+        equipments.remove(equipment);
+        equipment.setEngine(null);
+    }
 
     public void addEngineCharacteristics(EngineCharacteristics engineCharacteristics) {
         this.engineCharacteristics = engineCharacteristics;

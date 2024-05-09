@@ -19,16 +19,7 @@ public class Equipment {
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 
-    @OneToOne(mappedBy = "equipment", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "engine_id", referencedColumnName = "id")
     private Engine engine;
-
-    public void addEngine(Engine engine) {
-        this.engine = engine;
-        engine.setEquipment(this);
-    }
-
-    public void removeEngine(Engine engine) {
-        this.engine = null;
-        engine.setEquipment(null);
-    }
 }
