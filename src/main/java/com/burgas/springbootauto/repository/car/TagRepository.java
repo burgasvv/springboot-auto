@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.repository;
+package com.burgas.springbootauto.repository.car;
 
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Tag;

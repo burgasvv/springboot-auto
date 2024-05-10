@@ -4,7 +4,10 @@ import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
-import com.burgas.springbootauto.service.*;
+import com.burgas.springbootauto.service.brand.BrandService;
+import com.burgas.springbootauto.service.engine.EnginEditionService;
+import com.burgas.springbootauto.service.engine.EngineService;
+import com.burgas.springbootauto.service.engine.FuelService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,15 +21,13 @@ public class BrandController {
     private final BrandService brandService;
     private final EngineService engineService;
     private final EnginEditionService enginEditionService;
-    private final EngineCharacteristicsService engineCharacteristicsService;
     private final FuelService fuelService;
 
     public BrandController(BrandService brandService, EngineService engineService, EnginEditionService enginEditionService,
-                           EngineCharacteristicsService engineCharacteristicsService, FuelService fuelService) {
+                           FuelService fuelService) {
         this.brandService = brandService;
         this.engineService = engineService;
         this.enginEditionService = enginEditionService;
-        this.engineCharacteristicsService = engineCharacteristicsService;
         this.fuelService = fuelService;
     }
 
@@ -89,14 +90,6 @@ public class BrandController {
     @GetMapping("/{id}/editions")
     public String editions(@PathVariable("id") Long id, Model model) {
         Brand brand = brandService.findById(id);
-        brand.setEngineEditions(enginEditionService.searchEngineEditionsByBrandId(brand.getId()));
-        brand.getEngineEditions().forEach(engineEdition -> {
-            engineEdition.setEngines(engineService.searchEnginesByEngineEditionId(engineEdition.getId()));
-            engineEdition.getEngines().forEach(engine ->
-                engine.setEngineCharacteristics(engineCharacteristicsService.searchEngineCharacteristicsByEngineId(engine.getId()))
-            );
-        });
-        brandService.update(brand);
         model.addAttribute("brand", brand);
         return "editions/editions";
     }
@@ -147,9 +140,10 @@ public class BrandController {
         engineCharacteristics.setPiston(characteristics.getPiston());
         engineCharacteristics.setCylinders(characteristics.getCylinders());
         engineCharacteristics.setCompression(characteristics.getCompression());
-        engineCharacteristics.setEngine(newEngine);
+
+        newEngine.addEngineCharacteristics(engineCharacteristics);
         engineService.save(newEngine);
-        engineCharacteristicsService.save(engineCharacteristics);
+
         return "redirect:/brands/{id}/editions";
     }
 }

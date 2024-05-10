@@ -6,7 +6,18 @@ import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.entity.engine.Fuel;
-import com.burgas.springbootauto.repository.*;
+import com.burgas.springbootauto.entity.transmission.DriveType;
+import com.burgas.springbootauto.entity.transmission.Gearbox;
+import com.burgas.springbootauto.entity.transmission.Transmission;
+import com.burgas.springbootauto.repository.brand.BrandRepository;
+import com.burgas.springbootauto.repository.car.*;
+import com.burgas.springbootauto.repository.engine.EngineCharacteristicsRepository;
+import com.burgas.springbootauto.repository.engine.EngineEditionRepository;
+import com.burgas.springbootauto.repository.engine.EngineRepository;
+import com.burgas.springbootauto.repository.engine.FuelRepository;
+import com.burgas.springbootauto.repository.transmission.DriveTypeRepository;
+import com.burgas.springbootauto.repository.transmission.GearboxRepository;
+import com.burgas.springbootauto.repository.transmission.TransmissionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -30,7 +41,9 @@ public class LoadDatabase {
                                           EngineRepository engineRepository,
                                           EquipmentRepository equipmentRepository,
                                           EngineEditionRepository engineEditionRepository,
-                                          EngineCharacteristicsRepository engineCharacteristicsRepository) {
+                                          EngineCharacteristicsRepository engineCharacteristicsRepository,
+                                          GearboxRepository gearboxRepository, DriveTypeRepository driveTypeRepository,
+                                          TransmissionRepository transmissionRepository) {
 
         return _ -> {
             Category hatchBack = new Category();
@@ -485,12 +498,65 @@ public class LoadDatabase {
             chem57.setTorque("430 Нм");
             chem57.setVolume("2993 см3");
 
+            Gearbox st4 = new Gearbox();
+            st4.setName("4-х ступенчатая");
+            st4.setStairs(4);
+            st4.setImage("https://otoba.ru/transmissii/servis/img/icons/vag/rubriki/akpp-4st.png");
+            Gearbox st5 = new Gearbox();
+            st5.setName("5-и ступенчатая");
+            st5.setStairs(5);
+            st5.setImage("https://otoba.ru/transmissii/servis/img/icons/zf/rubriki/akpp-5st.png");
+            Gearbox st6 = new Gearbox();
+            st6.setName("6-и ступенчатая");
+            st6.setStairs(6);
+            st6.setImage("https://otoba.ru/transmissii/servis/img/icons/aisin/rubriki/akpp-6st-pp.png");
+            Gearbox st7 = new Gearbox();
+            st7.setName("7-и ступенчатая");
+            st7.setStairs(7);
+            st7.setImage("https://otoba.ru/transmissii/servis/img/icons/vag/rubriki/robot-7st.png");
+            Gearbox st8 = new Gearbox();
+            st8.setName("8-и ступенчатая");
+            st8.setStairs(8);
+            st8.setImage("https://otoba.ru/transmissii/servis/img/icons/aisin/rubriki/akpp-8st-zp.png");
+
+            DriveType mechanic = new DriveType();
+            mechanic.setName("Механическая Коробка");
+            DriveType autoType = new DriveType();
+            autoType.setName("Автоматическая Коробка");
+            DriveType robot = new DriveType();
+            robot.setName("Роботизированная Коробка");
+
+            Transmission al950 = new Transmission();
+            al950.setName("AL950");
+            al950.setGearbox(st6);
+            al950.setBrand(audi);
+            al950.setDriveType(autoType);
+            al950.setImage("https://otoba.ru/transmissii/vag/img/al950/transmissiya-vag-al950-v-salone.jpg");
+            al950.setDescription("""
+                    6-ступенчатая автоматическая коробка VW AL950 производилась концерном с 2002 по 2012 год \
+                    и ставилась на VW Phaeton V10 TDI под индексом HDQ либо Audi Q7 V12 TDI под индексом 0BQ. \
+                    Такой автомат по своей сути является одной из разновидностей особо мощной акпп ZF 6HP32X.
+                    """);
+            Transmission al750 = new Transmission();
+            al750.setName("AL750");
+            al750.setGearbox(st6);
+            al750.setBrand(audi);
+            al750.setDriveType(autoType);
+            al750.setImage("https://otoba.ru/transmissii/vag/img/al750/transmissiya-vag-al750-v-salone.jpg");
+            al750.setDescription("""
+                    6-ступенчатая автоматическая коробка VW AL750 производилась компанией с 2002 по 2010 год \
+                    и ставилась на кроссоверы VW Touareg, Porsche Cayenne либо Audi Q7 под своим индексом 09D. \
+                    Этот автомат существует в двух версиях и по сути являлся разновидностью акпп Aisin TR-60SN.
+                    """);
+
             Equipment equipM5 = new Equipment();
             equipM5.setCar(m5);
             equipM5.setEngine(em51);
+            equipM5.setTransmission(al950);
             Equipment equipM4 = new Equipment();
             equipM4.setCar(m4);
             equipM4.setEngine(em51);
+            equipM4.setTransmission(al750);
 
             LOGGER.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))
@@ -518,6 +584,15 @@ public class LoadDatabase {
             ));
             LOGGER.info("Preload: {}", engineCharacteristicsRepository.saveAll(
                     List.of(chem51, chem57)
+            ));
+            LOGGER.info("Preload: {}", gearboxRepository.saveAll(
+                    List.of(st4, st5, st6, st7, st8)
+            ));
+            LOGGER.info("Preload: {}", driveTypeRepository.saveAll(
+                    List.of(mechanic, autoType, robot)
+            ));
+            LOGGER.info("Preload: {}", transmissionRepository.saveAll(
+                    List.of(al950, al750)
             ));
             LOGGER.info("Preload: {}", equipmentRepository.saveAll(
                     List.of(equipM5, equipM4)

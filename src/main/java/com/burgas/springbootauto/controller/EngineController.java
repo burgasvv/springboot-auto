@@ -1,9 +1,9 @@
 package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.engine.Engine;
-import com.burgas.springbootauto.service.EngineCharacteristicsService;
-import com.burgas.springbootauto.service.EngineService;
-import com.burgas.springbootauto.service.FuelService;
+import com.burgas.springbootauto.service.engine.EngineCharacteristicsService;
+import com.burgas.springbootauto.service.engine.EngineService;
+import com.burgas.springbootauto.service.engine.FuelService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

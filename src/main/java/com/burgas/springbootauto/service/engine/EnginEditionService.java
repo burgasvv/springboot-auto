@@ -1,7 +1,7 @@
-package com.burgas.springbootauto.service;
+package com.burgas.springbootauto.service.engine;
 
 import com.burgas.springbootauto.entity.engine.EngineEdition;
-import com.burgas.springbootauto.repository.EngineEditionRepository;
+import com.burgas.springbootauto.repository.engine.EngineEditionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

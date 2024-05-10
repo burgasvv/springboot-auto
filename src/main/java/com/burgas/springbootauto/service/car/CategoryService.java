@@ -1,7 +1,7 @@
-package com.burgas.springbootauto.service;
+package com.burgas.springbootauto.service.car;
 
 import com.burgas.springbootauto.entity.car.Category;
-import com.burgas.springbootauto.repository.CategoryRepository;
+import com.burgas.springbootauto.repository.car.CategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

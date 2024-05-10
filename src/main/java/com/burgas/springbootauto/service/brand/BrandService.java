@@ -1,7 +1,7 @@
-package com.burgas.springbootauto.service;
+package com.burgas.springbootauto.service.brand;
 
 import com.burgas.springbootauto.entity.brand.Brand;
-import com.burgas.springbootauto.repository.BrandRepository;
+import com.burgas.springbootauto.repository.brand.BrandRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

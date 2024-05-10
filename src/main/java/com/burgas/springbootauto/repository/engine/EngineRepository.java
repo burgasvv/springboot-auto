@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.repository;
+package com.burgas.springbootauto.repository.engine;
 
 import com.burgas.springbootauto.entity.engine.Engine;
 import org.jetbrains.annotations.NotNull;

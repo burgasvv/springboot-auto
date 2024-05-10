@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.repository;
+package com.burgas.springbootauto.repository.brand;
 
 import com.burgas.springbootauto.entity.brand.Brand;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -39,6 +39,16 @@ public class Car {
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     private Brand brand;
 
+    public void addBrand(Brand brand) {
+        this.brand = brand;
+        this.brand.getCars().add(this);
+    }
+
+    public void removeBrand(Brand brand) {
+        this.brand = null;
+        brand.getCars().remove(this);
+    }
+
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
@@ -50,22 +60,22 @@ public class Car {
     @OneToOne(mappedBy = "car", cascade = CascadeType.ALL)
     private Equipment equipment;
 
-    @ManyToMany
-    @JoinTable(
-            joinColumns = @JoinColumn(name = "car_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id")
-    )
-    private List<Tag>tags = new ArrayList<>();
-
     public void addEquipment(Equipment equipment) {
         this.equipment = equipment;
-        equipment.setCar(this);
+        this.equipment.setCar(this);
     }
 
     public void removeEquipment(Equipment equipment) {
         this.equipment = null;
         equipment.setCar(null);
     }
+
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "car_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id")
+    )
+    private List<Tag>tags = new ArrayList<>();
 
     public void addTag(Tag tag) {
         tags.add(tag);
@@ -75,5 +85,15 @@ public class Car {
     public void removeTag(Tag tag) {
         tags.remove(tag);
         tag.getCars().remove(this);
+    }
+
+    public void addTags(List<Tag> tags) {
+        this.tags.addAll(tags);
+        tags.forEach(tag -> tag.getCars().add(this));
+    }
+
+    public void removeTags(List<Tag> tags) {
+        this.tags.removeAll(tags);
+        tags.forEach(tag -> tag.getCars().remove(this));
     }
 }
