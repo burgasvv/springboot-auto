@@ -30,7 +30,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
                     join classification c3 on c3.id = c.classification_id
                     join car_tags ct on c.id = ct.car_id
                     join tag t on t.id = ct.tag_id
-                    where concat(c.price,' ',c.title,' ',c2.name,' ',c3.name,' ',t.name,' ',b.title,' ') ilike concat('%',?1,'%')"""
+                    where concat(c.title,' ',c2.name,' ',c3.name,' ',t.name,' ',b.title,' ') ilike concat('%',?1,'%')"""
     )
     List<Car> searchCarsByAllNames(String search);
 }

@@ -2,6 +2,7 @@ package com.burgas.springbootauto.entity.brand;
 
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
+import com.burgas.springbootauto.entity.transmission.Gearbox;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,9 @@ public class Brand {
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     private List<EngineEdition>engineEditions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    private List<Gearbox>gearboxes = new ArrayList<>();
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();

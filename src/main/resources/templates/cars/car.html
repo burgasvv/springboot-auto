@@ -45,7 +45,7 @@
             <th:block th:if="*{equipment != null}">
                 <h3>Equipment</h3>
                 <div style="display: inline-flex">
-                    <div style="display: inline-block">
+                    <div style="display: inline-block; margin-right: 10px">
                         <h4 th:if="*{equipment.engine != null}">
                             <span>Engine</span><br><br>
                             <a th:href="@{/engines/{id} (id = *{equipment.engine.id})}" style="text-decoration: none">
@@ -53,6 +53,17 @@
                                 <span th:text="*{equipment.engine.engineEdition.brand.title}" style="color: grey"/><br>
                                 <span th:text="*{equipment.engine.engineEdition.name}"/>
                                 <span th:text="*{equipment.engine.name}"/>
+                            </a>
+                        </h4>
+                    </div>
+                    <div style="display: inline-block; margin-right: 10px">
+                        <h4 th:if="*{equipment.transmission != null}">
+                            <span>Transmission</span><br><br>
+                            <a th:href="@{/transmissions/{id} (id = *{equipment.transmission.id})}" style="text-decoration: none">
+                                <img th:src="*{equipment.transmission.image}" alt="image" style="width: 150px; border-radius: 10%"><br>
+                                <span th:text="*{equipment.transmission.gearbox.brand.title}" style="color: grey"/><br>
+                                <span th:text="*{equipment.transmission.gearbox.name}"/>
+                                <span th:text="*{equipment.transmission.name}"/>
                             </a>
                         </h4>
                     </div>
@@ -67,9 +78,9 @@
 
             <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
 
-            <h2>Price: <span th:text="*{price}" style="font-weight: bolder"/> ₽ </h2>
+<!--            <h2>Price: <span th:text="*{price}" style="font-weight: bolder"/> ₽ </h2>-->
 
-            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
+<!--            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>-->
 
             <h3 style="margin-top: 50px">Tags</h3>
             <div style="display: inline-flex">

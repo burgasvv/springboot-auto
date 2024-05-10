@@ -362,7 +362,7 @@ public class LoadDatabase {
             m5.setBrand(bmw);
             m5.setClassification(dClass);
             m5.setCategory(sedan);
-            m5.setPrice(11450000);
+//            m5.setPrice(11450000);
             m5.setTags(
                     List.of(tag3,tag9,tag11,tag1,tag12)
             );
@@ -385,7 +385,7 @@ public class LoadDatabase {
             r8.setBrand(audi);
             r8.setClassification(sClass);
             r8.setCategory(coupe);
-            r8.setPrice(9000000);
+//            r8.setPrice(9000000);
             r8.setTags(
                     List.of(tag1,tag10,tag5,tag12,tag4,tag14)
             );
@@ -401,7 +401,7 @@ public class LoadDatabase {
             m4.setBrand(bmw);
             m4.setClassification(dClass);
             m4.setCategory(coupe);
-            m4.setPrice(9000000);
+//            m4.setPrice(9000000);
             m4.setTags(
                     List.of(tag1,tag4,tag5,tag9,tag12,tag13)
             );
@@ -423,7 +423,7 @@ public class LoadDatabase {
             g63.setBrand(mercedes);
             g63.setClassification(jClass);
             g63.setCategory(crossOver);
-            g63.setPrice(17099684);
+//            g63.setPrice(17099684);
             g63.setTags(
                     List.of(tag2,tag5,tag11,tag12,tag8)
             );
@@ -440,7 +440,7 @@ public class LoadDatabase {
             cls63.setBrand(mercedes);
             cls63.setClassification(fClass);
             cls63.setCategory(sedan);
-            cls63.setPrice(10450000);
+//            cls63.setPrice(10450000);
             cls63.setTags(
                     List.of(tag16,tag3,tag9,tag15,tag5,tag11)
             );
@@ -501,22 +501,27 @@ public class LoadDatabase {
             Gearbox st4 = new Gearbox();
             st4.setName("4-х ступенчатая");
             st4.setStairs(4);
+            st4.setBrand(audi);
             st4.setImage("https://otoba.ru/transmissii/servis/img/icons/vag/rubriki/akpp-4st.png");
             Gearbox st5 = new Gearbox();
             st5.setName("5-и ступенчатая");
             st5.setStairs(5);
+            st5.setBrand(audi);
             st5.setImage("https://otoba.ru/transmissii/servis/img/icons/zf/rubriki/akpp-5st.png");
             Gearbox st6 = new Gearbox();
             st6.setName("6-и ступенчатая");
             st6.setStairs(6);
+            st6.setBrand(audi);
             st6.setImage("https://otoba.ru/transmissii/servis/img/icons/aisin/rubriki/akpp-6st-pp.png");
             Gearbox st7 = new Gearbox();
             st7.setName("7-и ступенчатая");
             st7.setStairs(7);
+            st7.setBrand(audi);
             st7.setImage("https://otoba.ru/transmissii/servis/img/icons/vag/rubriki/robot-7st.png");
             Gearbox st8 = new Gearbox();
             st8.setName("8-и ступенчатая");
             st8.setStairs(8);
+            st8.setBrand(audi);
             st8.setImage("https://otoba.ru/transmissii/servis/img/icons/aisin/rubriki/akpp-8st-zp.png");
 
             DriveType mechanic = new DriveType();
@@ -529,7 +534,6 @@ public class LoadDatabase {
             Transmission al950 = new Transmission();
             al950.setName("AL950");
             al950.setGearbox(st6);
-            al950.setBrand(audi);
             al950.setDriveType(autoType);
             al950.setImage("https://otoba.ru/transmissii/vag/img/al950/transmissiya-vag-al950-v-salone.jpg");
             al950.setDescription("""
@@ -540,7 +544,6 @@ public class LoadDatabase {
             Transmission al750 = new Transmission();
             al750.setName("AL750");
             al750.setGearbox(st6);
-            al750.setBrand(audi);
             al750.setDriveType(autoType);
             al750.setImage("https://otoba.ru/transmissii/vag/img/al750/transmissiya-vag-al750-v-salone.jpg");
             al750.setDescription("""

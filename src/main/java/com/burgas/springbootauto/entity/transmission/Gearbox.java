@@ -1,5 +1,6 @@
 package com.burgas.springbootauto.entity.transmission;
 
+import com.burgas.springbootauto.entity.brand.Brand;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,10 @@ public class Gearbox {
 
     @Column(nullable = false)
     private String image;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id", referencedColumnName = "id")
+    private Brand brand;
 
     @OneToMany(mappedBy = "gearbox", cascade = CascadeType.ALL)
     private List<Transmission>transmissions = new ArrayList<>();

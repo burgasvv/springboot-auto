@@ -51,6 +51,11 @@ public class Engine {
         equipment.setEngine(null);
     }
 
+    public void removeEquipments(List<Equipment> equipments) {
+        this.equipments.removeAll(equipments);
+        equipments.forEach(equipment -> equipment.setEngine(null));
+    }
+
     public void addEngineCharacteristics(EngineCharacteristics engineCharacteristics) {
         this.engineCharacteristics = engineCharacteristics;
         engineCharacteristics.setEngine(this);

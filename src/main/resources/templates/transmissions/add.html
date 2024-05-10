@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Transmission</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style=" margin: 15% 100px 50px">
+        <form th:method="POST" th:action="@{/brands/{id}/add-transmission (id = ${brand.id})}">
+            <h2>Transmission</h2>
+            <label for="gearbox"></label><br>
+            <select th:field="${gearbox.id}" id="gearbox">
+                <option th:value="${gearbox.id}" th:text="${gearbox.name}">Edition</option>
+            </select><br><br>
+
+            <label for="name">Name</label><br>
+            <input type="text" id="name" th:field="${transmission.name}"><br><br>
+
+            <label for="image">Image</label><br>
+            <input type="text" id="image" th:field="${transmission.image}"><br><br>
+
+            <label for="fuel">Drive type</label><br>
+            <select th:field="${transmission.driveType.id}" id="fuel">
+                <option th:each="driveType : ${driveTypes}" th:value="${driveType.id}" th:text="${driveType.name}">Drive Type</option>
+            </select><br><br>
+
+            <label for="description">Description</label><br>
+            <textarea th:field="${transmission.description}" id="description" cols="30" rows="10">Description</textarea>>
+
+            <input type="submit" value="OK" style="color: black">
+            <input type="button" value="Back" onclick="history.back()" style="color: black">
+        </form>
+    </div>
+</body>
+</html>

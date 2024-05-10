@@ -31,9 +31,9 @@ public class Car {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false)
-    @Check(constraints = "price >= 0")
-    private Integer price;
+//    @Column(nullable = false)
+//    @Check(constraints = "price >= 0")
+//    private Integer price;
 
     @ManyToOne
     @JoinColumn(name = "brand_id", referencedColumnName = "id")

@@ -4,10 +4,15 @@ import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
+import com.burgas.springbootauto.entity.transmission.Gearbox;
+import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.engine.EnginEditionService;
 import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.engine.FuelService;
+import com.burgas.springbootauto.service.transmission.DriveTypeService;
+import com.burgas.springbootauto.service.transmission.GearboxService;
+import com.burgas.springbootauto.service.transmission.TransmissionService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,13 +27,20 @@ public class BrandController {
     private final EngineService engineService;
     private final EnginEditionService enginEditionService;
     private final FuelService fuelService;
+    private final GearboxService gearboxService;
+    private final DriveTypeService driveTypeService;
+    private final TransmissionService transmissionService;
 
     public BrandController(BrandService brandService, EngineService engineService, EnginEditionService enginEditionService,
-                           FuelService fuelService) {
+                           FuelService fuelService, GearboxService gearboxService, DriveTypeService driveTypeService,
+                           TransmissionService transmissionService) {
         this.brandService = brandService;
         this.engineService = engineService;
         this.enginEditionService = enginEditionService;
         this.fuelService = fuelService;
+        this.gearboxService = gearboxService;
+        this.driveTypeService = driveTypeService;
+        this.transmissionService = transmissionService;
     }
 
     @GetMapping
@@ -89,8 +101,7 @@ public class BrandController {
 
     @GetMapping("/{id}/editions")
     public String editions(@PathVariable("id") Long id, Model model) {
-        Brand brand = brandService.findById(id);
-        model.addAttribute("brand", brand);
+        model.addAttribute("brand", brandService.findById(id));
         return "editions/editions";
     }
 
@@ -145,5 +156,50 @@ public class BrandController {
         engineService.save(newEngine);
 
         return "redirect:/brands/{id}/editions";
+    }
+
+    @GetMapping("{id}/gearboxes")
+    public String driveTypes(@PathVariable("id")Long id, Model model) {
+        model.addAttribute("brand", brandService.findById(id));
+        return "gearboxes/gearboxes";
+    }
+
+    @GetMapping("/{id}/add-gearbox")
+    public String addGearboxForm(Model model, @PathVariable("id") Long brandId) {
+        model.addAttribute("gearbox", new Gearbox());
+        model.addAttribute("brand", brandService.findById(brandId));
+        return "gearboxes/add";
+    }
+
+    @PostMapping("/{id}/add-gearbox")
+    public String addGearbox(@ModelAttribute("gearbox") Gearbox gearbox, @PathVariable("id") Long id) {
+        Gearbox newGearbox = new Gearbox();
+        newGearbox.setName(gearbox.getName());
+        newGearbox.setStairs(gearbox.getStairs());
+        newGearbox.setImage(gearbox.getImage());
+        newGearbox.setBrand(brandService.findById(id));
+        gearboxService.save(newGearbox);
+        return "redirect:/brands/{id}/gearboxes";
+    }
+
+    @GetMapping("/{id}/add-transmission")
+    public String addTransmissionForm(Model model, @PathVariable("id") Long id, @RequestParam("gearboxId") Long gearboxId) {
+        model.addAttribute("transmission", new Transmission());
+        model.addAttribute("gearbox", gearboxService.findById(gearboxId));
+        model.addAttribute("brand", brandService.findById(id));
+        model.addAttribute("driveTypes", driveTypeService.findAll());
+        return "transmissions/add";
+    }
+
+    @PostMapping("/{id}/add-transmission")
+    public String addTransmission(@ModelAttribute Transmission transmission, @ModelAttribute Gearbox gearbox) {
+        Transmission newTransmission = new Transmission();
+        newTransmission.setName(transmission.getName());
+        newTransmission.setGearbox(gearbox);
+        newTransmission.setDriveType(transmission.getDriveType());
+        newTransmission.setImage(transmission.getImage());
+        newTransmission.setDescription(transmission.getDescription());
+        transmissionService.save(newTransmission);
+        return "redirect:/brands/{id}/gearboxes";
     }
 }

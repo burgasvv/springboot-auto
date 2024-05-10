@@ -1,6 +1,5 @@
 package com.burgas.springbootauto.entity.transmission;
 
-import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.car.Equipment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,10 +31,6 @@ public class Transmission {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "brand_id", referencedColumnName = "id")
-    private Brand brand;
-
-    @ManyToOne
     @JoinColumn(name = "drivetype_id", referencedColumnName = "id")
     private DriveType driveType;
 
@@ -45,4 +40,9 @@ public class Transmission {
 
     @OneToMany(mappedBy = "transmission", cascade = CascadeType.ALL)
     private List<Equipment>equipments = new ArrayList<>();
+
+    public void removeEquipments(List<Equipment> equipments) {
+        this.equipments.removeAll(equipments);
+        equipments.forEach(equipment -> equipment.setTransmission(null));
+    }
 }

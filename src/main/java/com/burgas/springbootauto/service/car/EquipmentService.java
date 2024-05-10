@@ -24,6 +24,14 @@ public class EquipmentService {
         return equipmentRepository.findById(id).orElse(null);
     }
 
+    public List<Equipment>findAllByTransmissionId(Long id) {
+        return equipmentRepository.findAllByTransmissionId(id);
+    }
+
+    public List<Equipment>findAllByEngineId(Long id) {
+        return equipmentRepository.findAllByEngineId(id);
+    }
+
     @Transactional
     public void save(Equipment equipment) {
         equipmentRepository.save(equipment);
@@ -34,6 +42,7 @@ public class EquipmentService {
         equipmentRepository.save(equipment);
     }
 
+    @Transactional
     public void delete(Long id) {
         equipmentRepository.deleteById(id);
     }
