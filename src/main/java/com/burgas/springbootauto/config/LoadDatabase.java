@@ -553,7 +553,7 @@ public class LoadDatabase {
             equipM5.setEngine(em51);
             equipM5.setTransmission(al950);
             Equipment equipM4 = new Equipment();
-            equipM4.setName("M5 test 1");
+            equipM4.setName("M4 test 1");
             equipM4.setCar(m4);
             equipM4.setEngine(em51);
             equipM4.setTransmission(al750);

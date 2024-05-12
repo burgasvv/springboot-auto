@@ -131,11 +131,8 @@ public class CarController {
     }
 
     @DeleteMapping("/{id}/delete-equipment")
-    public String deleteEquipment(@ModelAttribute("complectation") Equipment equipment, @PathVariable("id") Long id) {
-        Car car = carService.findById(id);
-        car.removeEquipment(equipment);
-        carService.save(car);
-        equipmentService.delete(equipment.getId());
+    public String deleteEquipment(@PathVariable("id") Long id, @RequestParam("complId") Long complId) {
+        equipmentService.delete(complId);
         return "redirect:/cars/{id}";
     }
 

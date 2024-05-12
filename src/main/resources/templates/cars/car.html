@@ -56,7 +56,7 @@
                             <a th:href="@{/equipments/{id} (id = ${complectation.id})}" th:text="${complectation.name}"
                                style="text-decoration: none"></a>
                             <div style="margin-top: 10px">
-                                <form th:method="DELETE" th:action="@{/cars/{id}/delete-equipment (id = *{id})}">
+                                <form th:method="DELETE" th:action="@{/cars/{id}/delete-equipment (id = *{id}, complId = ${complectation.id})}">
                                     <input type="submit" value="Remove" style="color: black">
                                 </form>
                             </div>
