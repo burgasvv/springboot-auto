@@ -362,7 +362,6 @@ public class LoadDatabase {
             m5.setBrand(bmw);
             m5.setClassification(dClass);
             m5.setCategory(sedan);
-//            m5.setPrice(11450000);
             m5.setTags(
                     List.of(tag3,tag9,tag11,tag1,tag12)
             );
@@ -385,7 +384,6 @@ public class LoadDatabase {
             r8.setBrand(audi);
             r8.setClassification(sClass);
             r8.setCategory(coupe);
-//            r8.setPrice(9000000);
             r8.setTags(
                     List.of(tag1,tag10,tag5,tag12,tag4,tag14)
             );
@@ -401,7 +399,6 @@ public class LoadDatabase {
             m4.setBrand(bmw);
             m4.setClassification(dClass);
             m4.setCategory(coupe);
-//            m4.setPrice(9000000);
             m4.setTags(
                     List.of(tag1,tag4,tag5,tag9,tag12,tag13)
             );
@@ -423,7 +420,6 @@ public class LoadDatabase {
             g63.setBrand(mercedes);
             g63.setClassification(jClass);
             g63.setCategory(crossOver);
-//            g63.setPrice(17099684);
             g63.setTags(
                     List.of(tag2,tag5,tag11,tag12,tag8)
             );
@@ -440,7 +436,6 @@ public class LoadDatabase {
             cls63.setBrand(mercedes);
             cls63.setClassification(fClass);
             cls63.setCategory(sedan);
-//            cls63.setPrice(10450000);
             cls63.setTags(
                     List.of(tag16,tag3,tag9,tag15,tag5,tag11)
             );
@@ -553,10 +548,12 @@ public class LoadDatabase {
                     """);
 
             Equipment equipM5 = new Equipment();
+            equipM5.setName("M5 test 1");
             equipM5.setCar(m5);
             equipM5.setEngine(em51);
             equipM5.setTransmission(al950);
             Equipment equipM4 = new Equipment();
+            equipM4.setName("M5 test 1");
             equipM4.setCar(m4);
             equipM4.setEngine(em51);
             equipM4.setTransmission(al750);

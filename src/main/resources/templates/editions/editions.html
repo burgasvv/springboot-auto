@@ -13,7 +13,7 @@
             <div th:each="engine : ${edition.engines}"  style="display: inline-flex">
                 <div style="display: inline-block">
                     <h2>
-                        <a th:href="@{/engines/{id} (id = ${engine.id})}" style="text-decoration: none; margin-right: 50px">
+                        <a th:href="@{/engines/{id} (id = ${engine.id}, brandId = *{id})}" style="text-decoration: none; margin-right: 50px">
                             <span th:text="${engine.name}">Engine Name</span><br>
                             <span th:text="${engine.fuel.name}" style="color: grey; font-size: 14px">Fuel</span>
                         </a>

@@ -15,11 +15,6 @@
                 <option th:value="*{engineEdition.id}" th:text="*{engineEdition.name}"></option>
             </select><br><br>
 
-            <label for="car"></label>Car<br>
-            <select th:field="*{equipment.id}" id="car">
-                <option th:value="*{equipment.id}" th:text="*{equipment.car.title}"></option>
-            </select><br><br>
-
             <label for="name">Name</label><br>
             <input type="text" id="name" th:field="*{name}"><br><br>
 

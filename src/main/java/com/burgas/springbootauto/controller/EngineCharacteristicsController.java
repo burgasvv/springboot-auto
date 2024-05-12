@@ -3,9 +3,8 @@ package com.burgas.springbootauto.controller;
 import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.service.engine.EngineCharacteristicsService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/engine-characteristics")
@@ -18,8 +17,9 @@ public class EngineCharacteristicsController {
     }
 
     @PatchMapping("/{id}/edit")
-    public String edit(@ModelAttribute("characteristics") EngineCharacteristics characteristics) {
+    public String edit(@ModelAttribute("characteristics") EngineCharacteristics characteristics, Model model) {
         engineCharacteristicsService.update(characteristics);
-        return "brands/brands";
+        model.addAttribute("id", characteristics.getEngine().getId());
+        return "redirect:/engines/{id}";
     }
 }

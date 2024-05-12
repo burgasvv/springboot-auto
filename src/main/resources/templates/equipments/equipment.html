@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipment</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="margin: 50px 100px">
+        <h1 th:text="${equipment.name}">Equipment</h1>
+        <div style="display: inline-flex" th:object="${equipment}">
+            <div style="display: inline-block; margin-right: 50px">
+                <h4 th:if="*{engine != null}">
+                    <span>Engine</span><br><br>
+                    <a th:href="@{/engines/{id} (id = *{engine.id})}" style="text-decoration: none">
+                        <img th:src="*{engine.image}" alt="image" style="width: 300px; border-radius: 10%"><br>
+                        <span th:text="*{engine.engineEdition.brand.title}" style="color: grey"/><br>
+                        <span th:text="*{engine.engineEdition.name}"/>
+                        <span th:text="*{engine.name}"/>
+                    </a>
+                </h4>
+            </div>
+            <div style="display: inline-block; margin-right: 50px">
+                <h4 th:if="*{transmission != null}">
+                    <span>Transmission</span><br><br>
+                    <a th:href="@{/transmissions/{id} (id = *{transmission.id})}" style="text-decoration: none">
+                        <img th:src="*{transmission.image}" alt="image" style="width: 300px; border-radius: 10%"><br>
+                        <span th:text="*{transmission.gearbox.brand.title}" style="color: grey"/><br>
+                        <span th:text="*{transmission.gearbox.name}"/>
+                        <span th:text="*{transmission.name}"/>
+                    </a>
+                </h4>
+            </div>
+        </div>
+        <br>
+        <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+    </div>
+</body>
+</html>

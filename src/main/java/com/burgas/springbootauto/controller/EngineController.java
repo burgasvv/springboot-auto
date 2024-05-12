@@ -2,12 +2,15 @@ package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.service.car.EquipmentService;
+import com.burgas.springbootauto.service.engine.EnginEditionService;
 import com.burgas.springbootauto.service.engine.EngineCharacteristicsService;
 import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.engine.FuelService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/engines")
@@ -16,13 +19,15 @@ public class EngineController {
     private final EngineService engineService;
     private final FuelService fuelService;
     private final EquipmentService equipmentService;
+    private final EnginEditionService enginEditionService;
     private final EngineCharacteristicsService engineCharacteristicsService;
 
     public EngineController(EngineService engineService, FuelService fuelService, EquipmentService equipmentService,
-                            EngineCharacteristicsService engineCharacteristicsService) {
+                            EnginEditionService enginEditionService, EngineCharacteristicsService engineCharacteristicsService) {
         this.engineService = engineService;
         this.fuelService = fuelService;
         this.equipmentService = equipmentService;
+        this.enginEditionService = enginEditionService;
         this.engineCharacteristicsService = engineCharacteristicsService;
     }
 
@@ -51,10 +56,12 @@ public class EngineController {
     @DeleteMapping("/{id}/delete")
     public String deleteEngine(@PathVariable("id") Long id) {
         Engine engine = engineService.findById(id);
+        Long brandId = enginEditionService.searchEngineEditionByEngines(List.of(engine)).getBrand().getId();
         engine.removeEquipments(equipmentService.findAllByEngineId(id));
         engineService.update(engine);
         engineCharacteristicsService.deleteByEngineId(id);
         engineService.delete(id);
-        return "redirect:/brands";
+        //noinspection SpringMVCViewInspection
+        return "redirect:/brands/" + brandId + "/editions";
     }
 }

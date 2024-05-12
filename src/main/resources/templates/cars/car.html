@@ -42,34 +42,36 @@
 
             <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
 
-            <th:block th:if="*{equipment != null}">
-                <h3>Equipment</h3>
-                <div style="display: inline-flex">
+            <th:block th:if="*{equipments != null}">
+                <h3>Complectations</h3>
+                <div style="color: grey" th:if="*{equipments.size() != 0}">
+                    <span th:text="*{equipments.size()}"/><span>/5</span>
+                </div>
+                <div style="color: grey" th:if="*{equipments.size() == 0}">
+                    <span>Empty</span>
+                </div>
+                <div style="display: inline-flex" th:each="complectation : *{equipments}">
                     <div style="display: inline-block; margin-right: 10px">
-                        <h4 th:if="*{equipment.engine != null}">
-                            <span>Engine</span><br><br>
-                            <a th:href="@{/engines/{id} (id = *{equipment.engine.id})}" style="text-decoration: none">
-                                <img th:src="*{equipment.engine.image}" alt="image" style="width: 150px; border-radius: 10%"><br>
-                                <span th:text="*{equipment.engine.engineEdition.brand.title}" style="color: grey"/><br>
-                                <span th:text="*{equipment.engine.engineEdition.name}"/>
-                                <span th:text="*{equipment.engine.name}"/>
-                            </a>
-                        </h4>
-                    </div>
-                    <div style="display: inline-block; margin-right: 10px">
-                        <h4 th:if="*{equipment.transmission != null}">
-                            <span>Transmission</span><br><br>
-                            <a th:href="@{/transmissions/{id} (id = *{equipment.transmission.id})}" style="text-decoration: none">
-                                <img th:src="*{equipment.transmission.image}" alt="image" style="width: 150px; border-radius: 10%"><br>
-                                <span th:text="*{equipment.transmission.gearbox.brand.title}" style="color: grey"/><br>
-                                <span th:text="*{equipment.transmission.gearbox.name}"/>
-                                <span th:text="*{equipment.transmission.name}"/>
-                            </a>
+                        <h4>
+                            <a th:href="@{/equipments/{id} (id = ${complectation.id})}" th:text="${complectation.name}"
+                               style="text-decoration: none"></a>
+                            <div style="margin-top: 10px">
+                                <form th:method="DELETE" th:action="@{/cars/{id}/delete-equipment (id = *{id})}">
+                                    <input type="submit" value="Remove" style="color: black">
+                                </form>
+                            </div>
                         </h4>
                     </div>
                 </div>
+                <div th:if="*{equipments.size() < 5}" style="margin-top: 50px">
+                    <form th:method="POST" th:action="@{/cars/{id}/add-equipment (id = *{id})}">
+                        <label for="complect name">Name</label>
+                        <input type="text" id="complect name" th:field="${equipment.name}">
+                        <input type="submit" value="Add Complect" style="color: black">
+                    </form>
+                </div>
             </th:block>
-            <th:block th:if="*{equipment == null}">
+            <th:block th:if="*{equipments == null}">
                 <h3>No equipment</h3>
                 <form th:method="POST" th:action="@{/cars/{id}/add-equipment (id = *{id})}">
                     <input type="submit" value="Add Equipment" style="color: black">
@@ -77,10 +79,6 @@
             </th:block>
 
             <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
-
-<!--            <h2>Price: <span th:text="*{price}" style="font-weight: bolder"/> ₽ </h2>-->
-
-<!--            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>-->
 
             <h3 style="margin-top: 50px">Tags</h3>
             <div style="display: inline-flex">

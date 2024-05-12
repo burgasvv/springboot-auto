@@ -120,8 +120,22 @@ public class CarController {
 
     @PostMapping("/{id}/add-equipment")
     public String addEquipment(@ModelAttribute("equipment") Equipment equipment, @PathVariable("id") Long id) {
-        equipment.setCar(carService.findById(id));
-        equipmentService.save(equipment);
+        Equipment newEquipment = new Equipment();
+        newEquipment.setName(equipment.getName());
+        newEquipment.setEngine(equipment.getEngine());
+        newEquipment.setTransmission(equipment.getTransmission());
+        Car car = carService.findById(id);
+        car.addEquipment(newEquipment);
+        carService.save(car);
+        return "redirect:/cars/{id}";
+    }
+
+    @DeleteMapping("/{id}/delete-equipment")
+    public String deleteEquipment(@ModelAttribute("complectation") Equipment equipment, @PathVariable("id") Long id) {
+        Car car = carService.findById(id);
+        car.removeEquipment(equipment);
+        carService.save(car);
+        equipmentService.delete(equipment.getId());
         return "redirect:/cars/{id}";
     }
 

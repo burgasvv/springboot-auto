@@ -27,6 +27,7 @@ public class Engine {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
+    @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToOne
     @JoinColumn(name = "edition_id", referencedColumnName = "id")
     private EngineEdition engineEdition;

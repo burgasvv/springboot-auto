@@ -24,6 +24,7 @@ public class EngineEdition {
     @Column(nullable = false)
     private String image;
 
+    @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToOne
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     private Brand brand;

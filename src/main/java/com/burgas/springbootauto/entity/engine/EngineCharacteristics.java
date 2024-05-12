@@ -32,6 +32,7 @@ public class EngineCharacteristics {
     @Column
     private String torque;
 
+    @SuppressWarnings("JpaDataSourceORMInspection")
     @OneToOne
     @JoinColumn(name = "engine_id", referencedColumnName = "id")
     private Engine engine;

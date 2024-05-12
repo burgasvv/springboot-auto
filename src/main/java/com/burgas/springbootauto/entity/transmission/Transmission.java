@@ -30,6 +30,7 @@ public class Transmission {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
+    @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToOne
     @JoinColumn(name = "drivetype_id", referencedColumnName = "id")
     private DriveType driveType;

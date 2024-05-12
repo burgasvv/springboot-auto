@@ -1,6 +1,7 @@
 package com.burgas.springbootauto.service.transmission;
 
 import com.burgas.springbootauto.entity.transmission.Gearbox;
+import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.repository.transmission.GearboxRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,10 @@ public class GearboxService {
 
     public Gearbox findById(Long id) {
         return gearboxRepository.findById(id).orElse(null);
+    }
+
+    public Gearbox searchGearboxByTransmissions(List<Transmission> transmissions) {
+        return gearboxRepository.searchGearboxByTransmissions(transmissions);
     }
 
     @Transactional

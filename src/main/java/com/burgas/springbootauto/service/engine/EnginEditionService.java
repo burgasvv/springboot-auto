@@ -1,5 +1,6 @@
 package com.burgas.springbootauto.service.engine;
 
+import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.repository.engine.EngineEditionRepository;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,10 @@ public class EnginEditionService {
 
     public List<EngineEdition> searchEngineEditionsByBrandId(Long id) {
         return engineEditionRepository.searchEngineEditionsByBrandId(id);
+    }
+
+    public EngineEdition searchEngineEditionByEngines(List<Engine> engines) {
+        return engineEditionRepository.searchEngineEditionByEngines(engines);
     }
 
     @Transactional

@@ -16,7 +16,10 @@ public class Equipment {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @Column(nullable = false)
+    private String name;
+
+    @ManyToOne
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 
