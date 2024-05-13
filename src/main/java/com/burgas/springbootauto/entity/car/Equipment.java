@@ -27,7 +27,27 @@ public class Equipment {
     @JoinColumn(name = "engine_id", referencedColumnName = "id")
     private Engine engine;
 
+    public void addEngine(Engine engine) {
+        engine.getEquipments().add(this);
+        this.engine = engine;
+    }
+
+    public void removeEngine(Engine engine) {
+        engine.getEquipments().remove(this);
+        this.engine = null;
+    }
+
     @ManyToOne
     @JoinColumn(name = "transmission_id", referencedColumnName = "id")
     private Transmission transmission;
+
+    public void addTransmission(Transmission transmission) {
+        transmission.getEquipments().add(this);
+        this.transmission = transmission;
+    }
+
+    public void removeTransmission(Transmission transmission) {
+        transmission.getEquipments().remove(this);
+        this.transmission = null;
+    }
 }

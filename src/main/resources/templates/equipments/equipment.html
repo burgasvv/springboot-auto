@@ -10,25 +10,61 @@
         <h1 th:text="${equipment.name}">Equipment</h1>
         <div style="display: inline-flex" th:object="${equipment}">
             <div style="display: inline-block; margin-right: 50px">
+                <h2>Engine</h2>
                 <h4 th:if="*{engine != null}">
-                    <span>Engine</span><br><br>
                     <a th:href="@{/engines/{id} (id = *{engine.id})}" style="text-decoration: none">
                         <img th:src="*{engine.image}" alt="image" style="width: 300px; border-radius: 10%"><br>
                         <span th:text="*{engine.engineEdition.brand.title}" style="color: grey"/><br>
                         <span th:text="*{engine.engineEdition.name}"/>
                         <span th:text="*{engine.name}"/>
-                    </a>
+                    </a><br><br>
+                    <div>
+                        <form th:method="DELETE" th:action="@{/equipments/{id}/remove-engine (id = *{id})}">
+                            <input type="submit" value="Change" style="color: black">
+                        </form>
+                    </div>
+                </h4>
+                <h4 th:if="*{engine == null}">
+                    <span style="color: grey">Empty</span>
+                    <div style="margin-top: 50px">
+                        <form th:method="POST" th:action="@{/equipments/{id}/add-engine (id = *{id})}">
+                            <label for="engine" style="color: grey">Engine</label><br>
+                            <select th:field="${addEngine.id}" id="engine">
+                                <option th:each="chooseEngine : ${engines}" th:value="${chooseEngine.id}"
+                                        th:text="${chooseEngine.name}">Engine</option>
+                            </select><br><br>
+                            <input type="submit" value="Add" style="color: black">
+                        </form>
+                    </div>
                 </h4>
             </div>
             <div style="display: inline-block; margin-right: 50px">
+                <h2>Transmission</h2>
                 <h4 th:if="*{transmission != null}">
-                    <span>Transmission</span><br><br>
                     <a th:href="@{/transmissions/{id} (id = *{transmission.id})}" style="text-decoration: none">
                         <img th:src="*{transmission.image}" alt="image" style="width: 300px; border-radius: 10%"><br>
                         <span th:text="*{transmission.gearbox.brand.title}" style="color: grey"/><br>
                         <span th:text="*{transmission.gearbox.name}"/>
                         <span th:text="*{transmission.name}"/>
-                    </a>
+                    </a><br><br>
+                    <div>
+                        <form th:method="DELETE" th:action="@{/equipments/{id}/remove-transmission (id = *{id})}">
+                            <input type="submit" value="Change" style="color: black">
+                        </form>
+                    </div>
+                </h4>
+                <h4 th:if="*{transmission == null}">
+                    <span style="color: grey">Empty</span>
+                    <div style="margin-top: 50px">
+                        <form th:method="POST" th:action="@{/equipments/{id}/add-transmission (id = *{id})}">
+                            <label for="transmission" style="color: grey">Transmission</label><br>
+                            <select th:field="${addTransmission.id}" id="transmission">
+                                <option th:each="chooseTransmission : ${transmissions}" th:value="${chooseTransmission.id}"
+                                        th:text="${chooseTransmission.name}">Transmission</option>
+                            </select><br><br>
+                            <input type="submit" value="Add" style="color: black">
+                        </form>
+                    </div>
                 </h4>
             </div>
         </div>
