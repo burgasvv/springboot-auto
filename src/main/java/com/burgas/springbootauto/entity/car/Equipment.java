@@ -8,6 +8,7 @@ import lombok.*;
 @Entity
 @Setter
 @Getter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Equipment {

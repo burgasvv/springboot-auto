@@ -33,7 +33,9 @@
                 Webpage: <a th:href="*{webpage}" th:text="*{title}" target="_blank"
                             style="font-weight: normal; text-decoration: none">Webpage</a>
             </h2>
-            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 50px">
+            <div style="margin-top: 100px">
+                <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 50px">
+            </div>
         </div>
 
         <div style="display: inline-block; margin-left: 100px; margin-top: 100px">
@@ -50,8 +52,9 @@
                 <div style="color: grey" th:if="*{equipments.size() == 0}">
                     <span>Empty</span>
                 </div>
-                <div style="display: inline-flex" th:each="complectation : *{equipments}">
-                    <div style="display: inline-block; margin-right: 10px">
+                <div style="display: inline-flex; border: 1px grey dashed; margin-right: 10px; margin-top: 10px"
+                     th:each="complectation : *{equipments}">
+                    <div style="display: inline-block; margin-right: 10px; margin-left: 10px">
                         <h3>
                             <a th:href="@{/equipments/{id} (id = ${complectation.id})}" th:text="${complectation.name}"
                                style="text-decoration: none"></a>
@@ -103,13 +106,15 @@
                 </a>
             </div>
             <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
-
-            <div style="display: inline-flex; margin-top: 50px">
+            <div>
+                <h2>Car</h2>
+            </div>
+            <div style="display: inline-flex; margin-top: 10px">
                 <form th:method="GET" th:action="@{/cars/{id}/edit (id = *{id})}">
-                    <input type="submit" value="Edit Car" style="color: black">
+                    <input type="submit" value="Edit" style="color: black">
                 </form>
                 <form th:method="DELETE" th:action="@{/cars/{id}/delete (id = *{id})}">
-                    <input type="submit" value="Delete" style="color: black; margin-left: 10px">
+                    <input type="submit" value="Remove" style="color: black; margin-left: 10px">
                 </form>
             </div>
         </div>

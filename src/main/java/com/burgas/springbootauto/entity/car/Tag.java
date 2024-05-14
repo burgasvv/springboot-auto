@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Tag {
@@ -22,14 +23,4 @@ public class Tag {
 
     @ManyToMany(mappedBy = "tags", cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();
-
-    public void addCar(Car car) {
-        cars.add(car);
-        car.getTags().add(this);
-    }
-
-    public void removeCar(Car car) {
-        cars.remove(car);
-        car.getTags().remove(this);
-    }
 }

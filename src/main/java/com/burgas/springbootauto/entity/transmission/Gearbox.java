@@ -2,10 +2,7 @@ package com.burgas.springbootauto.entity.transmission;
 
 import com.burgas.springbootauto.entity.brand.Brand;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Check;
 
 import java.util.ArrayList;
@@ -14,6 +11,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Gearbox {
@@ -32,9 +30,8 @@ public class Gearbox {
     @Column(nullable = false)
     private String image;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id", referencedColumnName = "id")
-    private Brand brand;
+    @ManyToMany(mappedBy = "gearboxes", cascade = CascadeType.ALL)
+    private List<Brand> brands = new ArrayList<>();
 
     @OneToMany(mappedBy = "gearbox", cascade = CascadeType.ALL)
     private List<Transmission>transmissions = new ArrayList<>();

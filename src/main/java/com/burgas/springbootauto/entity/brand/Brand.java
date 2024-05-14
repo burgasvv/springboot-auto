@@ -3,6 +3,7 @@ package com.burgas.springbootauto.entity.brand;
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
+import com.burgas.springbootauto.entity.transmission.Transmission;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Brand {
@@ -35,8 +37,16 @@ public class Brand {
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     private List<EngineEdition>engineEditions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    @SuppressWarnings("JpaDataSourceORMInspection")
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "brand_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "gearbox_id", referencedColumnName = "id")
+    )
     private List<Gearbox>gearboxes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    private List<Transmission>transmissions = new ArrayList<>();
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();

@@ -1,10 +1,7 @@
-package com.burgas.springbootauto.entity.car;
+package com.burgas.springbootauto.entity.turbocharging;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Setter
@@ -12,7 +9,7 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Classification {
+public class Turbocharger {
 
     @Id
     @GeneratedValue
@@ -21,12 +18,14 @@ public class Classification {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false)
     private String image;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "classification", cascade = CascadeType.ALL)
-    private List<Car>cars = new ArrayList<>();
+    @SuppressWarnings("JpaDataSourceORMInspection")
+    @ManyToOne
+    @JoinColumn(name = "turbotype_id", referencedColumnName = "id")
+    private TurboType turboType;
 }

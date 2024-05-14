@@ -10,7 +10,9 @@
         <div style="display: inline-flex; horiz-align: center">
             <h2 th:each="brand : ${brands}" style="margin: 50px">
                 <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
-                    <img th:src="${brand.image}" alt="image" style="display: inline-flex; width: 250px">
+                    <div style="width: 250px; height: 250px">
+                        <img th:src="${brand.image}" alt="image" style="display: inline-flex; width: 250px">
+                    </div>
                     <p th:text="${brand.title}" style="margin-left: 20px; vertical-align: bottom"/>
                 </a>
             </h2>

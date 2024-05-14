@@ -1,11 +1,9 @@
 package com.burgas.springbootauto.entity.transmission;
 
+import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.car.Equipment;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +11,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transmission {
@@ -29,6 +28,10 @@ public class Transmission {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id", referencedColumnName = "id")
+    private Brand brand;
 
     @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToOne

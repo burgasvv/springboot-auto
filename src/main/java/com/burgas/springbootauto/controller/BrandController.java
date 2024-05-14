@@ -19,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/brands")
 public class BrandController {
@@ -159,7 +161,7 @@ public class BrandController {
     }
 
     @GetMapping("{id}/gearboxes")
-    public String driveTypes(@PathVariable("id")Long id, Model model) {
+    public String gearboxes(@PathVariable("id")Long id, Model model) {
         model.addAttribute("brand", brandService.findById(id));
         return "gearboxes/gearboxes";
     }
@@ -177,7 +179,7 @@ public class BrandController {
         newGearbox.setName(gearbox.getName());
         newGearbox.setStairs(gearbox.getStairs());
         newGearbox.setImage(gearbox.getImage());
-        newGearbox.setBrand(brandService.findById(id));
+        newGearbox.setBrands(List.of(brandService.findById(id)));
         gearboxService.save(newGearbox);
         return "redirect:/brands/{id}/gearboxes";
     }
@@ -195,6 +197,7 @@ public class BrandController {
     public String addTransmission(@ModelAttribute Transmission transmission, @ModelAttribute Gearbox gearbox) {
         Transmission newTransmission = new Transmission();
         newTransmission.setName(transmission.getName());
+        newTransmission.setBrand(transmission.getBrand());
         newTransmission.setGearbox(gearbox);
         newTransmission.setDriveType(transmission.getDriveType());
         newTransmission.setImage(transmission.getImage());

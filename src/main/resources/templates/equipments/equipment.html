@@ -41,9 +41,9 @@
             <div style="display: inline-block; margin-right: 50px">
                 <h2>Transmission</h2>
                 <h4 th:if="*{transmission != null}">
-                    <a th:href="@{/transmissions/{id} (id = *{transmission.id})}" style="text-decoration: none">
+                    <a th:href="@{/transmissions/{id} (id = *{transmission.id}, brandId = *{transmission.brand.id})}" style="text-decoration: none">
                         <img th:src="*{transmission.image}" alt="image" style="width: 300px; border-radius: 10%"><br>
-                        <span th:text="*{transmission.gearbox.brand.title}" style="color: grey"/><br>
+                        <span th:text="*{transmission.brand.title}" style="color: grey"/><br>
                         <span th:text="*{transmission.gearbox.name}"/>
                         <span th:text="*{transmission.name}"/>
                     </a><br><br>

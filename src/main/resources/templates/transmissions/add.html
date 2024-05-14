@@ -9,6 +9,11 @@
     <div style=" margin: 15% 100px 50px">
         <form th:method="POST" th:action="@{/brands/{id}/add-transmission (id = ${brand.id})}">
             <h2>Transmission</h2>
+            <label for="brand"></label><br>
+            <select th:field="${transmission.brand.id}" id="brand">
+                <option th:value="${brand.id}" th:text="${brand.title}">Edition</option>
+            </select><br><br>
+
             <label for="gearbox"></label><br>
             <select th:field="${gearbox.id}" id="gearbox">
                 <option th:value="${gearbox.id}" th:text="${gearbox.name}">Edition</option>

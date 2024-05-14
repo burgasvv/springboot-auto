@@ -11,15 +11,17 @@
             <h1 th:text="${gearbox.name}">Edition</h1>
             <img th:src="${gearbox.image}" alt="image"><br>
             <div th:each="transmission : ${gearbox.transmissions}"  style="display: inline-flex">
-                <div style="display: inline-block">
-                    <h2>
-                        <a th:href="@{/transmissions/{id} (id = ${transmission.id}, brandId = *{id})}"
-                           style="text-decoration: none; margin-right: 50px">
-                            <span th:text="${transmission.name}">Engine Name</span><br>
-                            <span th:text="${transmission.driveType.name}" style="color: grey; font-size: 14px">Fuel</span>
-                        </a>
-                    </h2>
-                </div>
+                <th:block th:if="${transmission.brand.id eq brand.id}">
+                    <div style="display: inline-block">
+                        <h2>
+                            <a th:href="@{/transmissions/{id} (id = ${transmission.id}, brandId = *{id})}"
+                               style="text-decoration: none; margin-right: 50px">
+                                <span th:text="${transmission.name}">Engine Name</span><br>
+                                <span th:text="${transmission.driveType.name}" style="color: grey; font-size: 14px">Fuel</span>
+                            </a>
+                        </h2>
+                    </div>
+                </th:block>
                 <br>
             </div>
             <br>
