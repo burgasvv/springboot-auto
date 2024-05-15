@@ -24,12 +24,16 @@ public class EquipmentService {
         return equipmentRepository.findById(id).orElse(null);
     }
 
+    public List<Equipment>findAllByEngineId(Long id) {
+        return equipmentRepository.findAllByEngineId(id);
+    }
+
     public List<Equipment>findAllByTransmissionId(Long id) {
         return equipmentRepository.findAllByTransmissionId(id);
     }
 
-    public List<Equipment>findAllByEngineId(Long id) {
-        return equipmentRepository.findAllByEngineId(id);
+    public List<Equipment> findAllByTurbochargerId(Long id) {
+        return equipmentRepository.findAllByTurbochargerId(id);
     }
 
     @Transactional

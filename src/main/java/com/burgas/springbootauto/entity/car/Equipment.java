@@ -2,6 +2,7 @@ package com.burgas.springbootauto.entity.car;
 
 import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.transmission.Transmission;
+import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -50,5 +51,20 @@ public class Equipment {
     public void removeTransmission(Transmission transmission) {
         transmission.getEquipments().remove(this);
         this.transmission = null;
+    }
+
+    @SuppressWarnings("JpaDataSourceORMInspection")
+    @ManyToOne
+    @JoinColumn(name = "turbocharger_id", referencedColumnName = "id")
+    private Turbocharger turbocharger;
+
+    public void addTurbocharger(Turbocharger turbocharger) {
+        turbocharger.getEquipments().add(this);
+        this.turbocharger = turbocharger;
+    }
+
+    public void removeTurbocharger(Turbocharger turbocharger) {
+        turbocharger.getEquipments().remove(this);
+        this.turbocharger = null;
     }
 }

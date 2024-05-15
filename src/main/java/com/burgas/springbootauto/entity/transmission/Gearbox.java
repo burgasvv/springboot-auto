@@ -33,6 +33,11 @@ public class Gearbox {
     @ManyToMany(mappedBy = "gearboxes", cascade = CascadeType.ALL)
     private List<Brand> brands = new ArrayList<>();
 
+    public void addBrand(Brand brand) {
+        brands.add(brand);
+        brand.getGearboxes().add(this);
+    }
+
     @OneToMany(mappedBy = "gearbox", cascade = CascadeType.ALL)
     private List<Transmission>transmissions = new ArrayList<>();
 }

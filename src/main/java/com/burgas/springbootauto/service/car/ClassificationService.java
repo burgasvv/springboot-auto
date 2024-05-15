@@ -23,7 +23,8 @@ public class ClassificationService {
     public Classification findById(Long id) {
         return classificationRepository.findById(id).orElse(null);
     }
-     @Transactional
+
+    @Transactional
     public void save(Classification classification) {
         classificationRepository.save(classification);
     }

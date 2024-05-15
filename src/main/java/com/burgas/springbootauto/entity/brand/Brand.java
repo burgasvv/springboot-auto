@@ -4,6 +4,8 @@ import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.entity.transmission.Transmission;
+import com.burgas.springbootauto.entity.turbocharging.TurboType;
+import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -45,29 +47,20 @@ public class Brand {
     )
     private List<Gearbox>gearboxes = new ArrayList<>();
 
+    @SuppressWarnings("JpaDataSourceORMInspection")
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "brand_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "turbotype_id", referencedColumnName = "id")
+    )
+    private List<TurboType>turboTypes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    private List<Turbocharger>turbochargers = new ArrayList<>();
+
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     private List<Transmission>transmissions = new ArrayList<>();
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();
-
-    public void addEngineEdition(EngineEdition engineEdition) {
-        engineEditions.add(engineEdition);
-        engineEdition.setBrand(this);
-    }
-
-    public void removeEngineEdition(EngineEdition engineEdition) {
-        engineEditions.remove(engineEdition);
-        engineEdition.setBrand(null);
-    }
-
-    public void addCar(Car car) {
-        cars.add(car);
-        car.setBrand(this);
-    }
-
-    public void removeCar(Car car) {
-        cars.remove(car);
-        car.setBrand(null);
-    }
 }

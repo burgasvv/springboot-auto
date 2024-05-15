@@ -4,13 +4,10 @@ import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.transmission.DriveTypeService;
-import com.burgas.springbootauto.service.transmission.GearboxService;
 import com.burgas.springbootauto.service.transmission.TransmissionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/transmissions")
@@ -18,16 +15,13 @@ public class TransmissionController {
 
     private final BrandService brandService;
     private final TransmissionService transmissionService;
-    private final GearboxService gearboxService;
     private final DriveTypeService driveTypeService;
     private final EquipmentService equipmentService;
 
     public TransmissionController(BrandService brandService, TransmissionService transmissionService,
-                                  GearboxService gearboxService, DriveTypeService driveTypeService,
-                                  EquipmentService equipmentService) {
+                                  DriveTypeService driveTypeService, EquipmentService equipmentService) {
         this.brandService = brandService;
         this.transmissionService = transmissionService;
-        this.gearboxService = gearboxService;
         this.driveTypeService = driveTypeService;
         this.equipmentService = equipmentService;
     }

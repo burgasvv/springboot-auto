@@ -34,6 +34,7 @@ public class TransmissionService {
         transmissionRepository.save(transmission);
     }
 
+    @Transactional
     public void delete(Long id) {
         transmissionRepository.deleteById(id);
     }

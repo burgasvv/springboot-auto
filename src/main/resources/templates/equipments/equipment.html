@@ -67,6 +67,35 @@
                     </div>
                 </h4>
             </div>
+            <div style="display: inline-block; margin-right: 50px">
+                <h2>Turbocharger</h2>
+                <h4 th:if="*{turbocharger != null}">
+                    <a th:href="@{/turbochargers/{id} (id = *{turbocharger.id}, brandId = *{turbocharger.brand.id})}" style="text-decoration: none">
+                        <img th:src="*{turbocharger.image}" alt="image" style="width: 300px; border-radius: 10%"><br>
+                        <span th:text="*{turbocharger.brand.title}" style="color: grey"/><br>
+                        <span th:text="*{turbocharger.turboType.name}"/>
+                        <span th:text="*{turbocharger.name}"/>
+                    </a><br><br>
+                    <div>
+                        <form th:method="DELETE" th:action="@{/equipments/{id}/remove-turbocharger (id = *{id})}">
+                            <input type="submit" value="Change" style="color: black">
+                        </form>
+                    </div>
+                </h4>
+                <h4 th:if="*{turbocharger == null}">
+                    <span style="color: grey">Empty</span>
+                    <div style="margin-top: 50px">
+                        <form th:method="POST" th:action="@{/equipments/{id}/add-turbocharger (id = *{id})}">
+                            <label for="turbocharger" style="color: grey">Turbocharger</label><br>
+                            <select th:field="${addTurbocharger.id}" id="turbocharger">
+                                <option th:each="chooseTurbocharger : ${turbochargers}" th:value="${chooseTurbocharger.id}"
+                                        th:text="${chooseTurbocharger.name}">Turbocharger</option>
+                            </select><br><br>
+                            <input type="submit" value="Add" style="color: black">
+                        </form>
+                    </div>
+                </h4>
+            </div>
         </div>
         <br>
         <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">

@@ -9,6 +9,8 @@ import com.burgas.springbootauto.entity.engine.Fuel;
 import com.burgas.springbootauto.entity.transmission.DriveType;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.entity.transmission.Transmission;
+import com.burgas.springbootauto.entity.turbocharging.TurboType;
+import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
 import com.burgas.springbootauto.repository.brand.BrandRepository;
 import com.burgas.springbootauto.repository.car.*;
 import com.burgas.springbootauto.repository.engine.EngineCharacteristicsRepository;
@@ -18,6 +20,8 @@ import com.burgas.springbootauto.repository.engine.FuelRepository;
 import com.burgas.springbootauto.repository.transmission.DriveTypeRepository;
 import com.burgas.springbootauto.repository.transmission.GearboxRepository;
 import com.burgas.springbootauto.repository.transmission.TransmissionRepository;
+import com.burgas.springbootauto.repository.turbocharging.TurboTypeRepository;
+import com.burgas.springbootauto.repository.turbocharging.TurbochargerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -43,7 +47,9 @@ public class LoadDatabase {
                                           EngineEditionRepository engineEditionRepository,
                                           EngineCharacteristicsRepository engineCharacteristicsRepository,
                                           GearboxRepository gearboxRepository, DriveTypeRepository driveTypeRepository,
-                                          TransmissionRepository transmissionRepository) {
+                                          TransmissionRepository transmissionRepository,
+                                          TurbochargerRepository turbochargerRepository,
+                                          TurboTypeRepository turboTypeRepository) {
 
         return _ -> {
             Category hatchBack = new Category();
@@ -496,31 +502,23 @@ public class LoadDatabase {
             Gearbox st4 = new Gearbox();
             st4.setName("4-х ступенчатая");
             st4.setStairs(4);
-//            st4.setBrands(List.of(audi));
             st4.setImage("https://otoba.ru/transmissii/servis/img/icons/vag/rubriki/akpp-4st.png");
             Gearbox st5 = new Gearbox();
             st5.setName("5-и ступенчатая");
             st5.setStairs(5);
-//            st5.setBrands(List.of(audi));
             st5.setImage("https://otoba.ru/transmissii/servis/img/icons/zf/rubriki/akpp-5st.png");
             Gearbox st6 = new Gearbox();
             st6.setName("6-и ступенчатая");
             st6.setStairs(6);
-//            st5.setBrands(List.of(audi));
             st6.setImage("https://otoba.ru/transmissii/servis/img/icons/aisin/rubriki/akpp-6st-pp.png");
             Gearbox st7 = new Gearbox();
             st7.setName("7-и ступенчатая");
             st7.setStairs(7);
-//            st5.setBrands(List.of(audi));
             st7.setImage("https://otoba.ru/transmissii/servis/img/icons/vag/rubriki/robot-7st.png");
             Gearbox st8 = new Gearbox();
             st8.setName("8-и ступенчатая");
             st8.setStairs(8);
-//            st5.setBrands(List.of(audi));
             st8.setImage("https://otoba.ru/transmissii/servis/img/icons/aisin/rubriki/akpp-8st-zp.png");
-
-            audi.setGearboxes(List.of(st5,st6,st7,st8));
-            mercedes.setGearboxes(List.of(st4,st5,st6,st7));
 
             DriveType mechanic = new DriveType();
             mechanic.setName("Механическая Коробка");
@@ -552,16 +550,74 @@ public class LoadDatabase {
                     Этот автомат существует в двух версиях и по сути являлся разновидностью акпп Aisin TR-60SN.
                     """);
 
+            TurboType vtgTurbo = new TurboType();
+            vtgTurbo.setName("Турбина с изменяемой геометрией");
+            vtgTurbo.setImage("https://a.d-cd.net/xCAAAgCcy-A-960.jpg");
+            vtgTurbo.setDescription("VNT турбина, или турбина с изменяемой геометрией, чаще всего устанавливается на автомобили " +
+                    "с дизельным мотором. Установка VNT турбины позволяет оптимизировать движение отработанных газов и " +
+                    "устранить неприятные эффекты «турбоямы» и «турбоподхвата».");
+            TurboType compressor = new TurboType();
+            compressor.setName("Турбонаддув с двумя параллельными турбокомпрессорами");
+            compressor.setImage("https://www.tomiokaracing.com/cdn/shop/products/DSC_7839_med.jpg?v=1679596676");
+            compressor.setDescription("Турбонаддув с двумя параллельными турбокомпрессорами – как правило используется " +
+                    "для двигателей V-типа. Комбинированный наддув – система, при которой совместно используются турбонаддув " +
+                    "и механически наддув. На низких оборотах работает механический нагнетатель, а на высоких – турбокомпрессор.");
+            TurboType comboTurbo = new TurboType();
+            comboTurbo.setName("Комбинированный наддув");
+            comboTurbo.setImage("https://www.turbozentrum.de/media/image/product/211231/lg/audi-s3-8y-20-tfsi-stage-upgrade-turbo-06q145703f.jpg");
+            comboTurbo.setDescription("Комбинированный наддув – система, при которой совместно используются турбонаддув " +
+                    "и механически наддув. На низких оборотах работает механический нагнетатель, а на высоких – турбокомпрессор.");
+
+            Turbocharger gtb2260vk = new Turbocharger();
+            gtb2260vk.setName("GTB2260vk");
+            gtb2260vk.setBrand(mercedes);
+            gtb2260vk.setTurboType(vtgTurbo);
+            gtb2260vk.setPowerGeneration("250 л.с.");
+            gtb2260vk.setPowerIntake("25 л.с.");
+            gtb2260vk.setImage("https://cdn11.bigcommerce.com/s-f4487/images/stencil/original/products/1255/18962/DSD8632.1_-_DSD4010.1_-_Converted_Reconditioned_GTB2260VK_with_Billet_Compressor_2_new__22166.1627481916.jpg?c=2&imbypass=on&imbypass=on");
+            gtb2260vk.setDescription("Journal Bearing GTB2260VK hybrid based on the turbochargers from 3.0TDI VAG or 3.0D " +
+                    "BMW M57/N57 engines is the ultimate upgrade for the 1.9 & 2.0 TDI for someone looking for a fast daily driver.");
+            Turbocharger vagis20 = new Turbocharger();
+            vagis20.setName("VAG IS20");
+            vagis20.setBrand(audi);
+            vagis20.setTurboType(compressor);
+            vagis20.setPowerGeneration("420 л.с.");
+            vagis20.setPowerIntake("40 л.с.");
+            vagis20.setImage("https://urbanracers.shop/upload/iblock/b79/shhcy152c2k4439p4oz88ads6yntdf6f/1tervdfj2esz4mp2h1b1dgtd4h6hc0ls.jpg");
+            vagis20.setDescription("The VAG IS20 turbo is a popular upgrade for the IS12 turbo due to its improved performance and efficiency. " +
+                    "With a larger compressor and turbine inlet, the IS20 can push more air into the engine and deliver more power than the IS12. " +
+                    "Additionally, the IS20 has better cooling and lubrication, which extends its lifespan and reduces the likelihood of " +
+                    "malfunctions. Because of these benefits, the IS20 turbo is a popular choice for VW and Audi owners looking for more " +
+                    "power and reliability.");
+            Turbocharger sk3rr = new Turbocharger();
+            sk3rr.setName("SK3RR");
+            sk3rr.setBrand(bmw);
+            sk3rr.setTurboType(comboTurbo);
+            sk3rr.setPowerGeneration("600 л.с.");
+            sk3rr.setPowerIntake("80 л.с.");
+            sk3rr.setImage("https://pkfst.ru/800/600/https/www.automachi.com/wp-content/uploads/2017/06/tt-blowertbodyintake-lg.gif");
+            sk3rr.setDescription("SK3RR увеличивает максимальную отдачу, снижает турболаг и обостряет реакцию двигателя " +
+                    "на нажатие педали газа. Это объясняется тем, что высокий уровень давления развивается ранее на впуске, " +
+                    "нежели при штатной системе. Разработчики предусмотрели пять видов форсировки для трехлитрового агрегата с Hybrid Charger.");
+
+            audi.setGearboxes(List.of(st5,st6,st7,st8));
+            mercedes.setGearboxes(List.of(st4,st5,st6,st7));
+            bmw.setTurboTypes(List.of(vtgTurbo,compressor,comboTurbo));
+            audi.setTurboTypes(List.of(vtgTurbo,compressor,comboTurbo));
+            mercedes.setTurboTypes(List.of(vtgTurbo,compressor,comboTurbo));
+
             Equipment equipM5 = new Equipment();
             equipM5.setName("M5 test 1");
             equipM5.setCar(m5);
             equipM5.setEngine(em51);
             equipM5.setTransmission(al950);
+            equipM5.setTurbocharger(gtb2260vk);
             Equipment equipM4 = new Equipment();
             equipM4.setName("M4 test 1");
             equipM4.setCar(m4);
             equipM4.setEngine(em51);
             equipM4.setTransmission(al750);
+            equipM4.setTurbocharger(vagis20);
 
             LOGGER.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))
@@ -574,6 +630,9 @@ public class LoadDatabase {
             ));
             LOGGER.info("Preload: {}", gearboxRepository.saveAll(
                     List.of(st4, st5, st6, st7, st8)
+            ));
+            LOGGER.info("Preload: {}", turboTypeRepository.saveAll(
+                    List.of(vtgTurbo, compressor, comboTurbo)
             ));
             LOGGER.info("Preload: {}", brandRepository.saveAll(
                     List.of(bmw, audi, mercedes)
@@ -598,6 +657,9 @@ public class LoadDatabase {
             ));
             LOGGER.info("Preload: {}", transmissionRepository.saveAll(
                     List.of(al950, al750)
+            ));
+            LOGGER.info("Preload: {}", turbochargerRepository.saveAll(
+                    List.of(gtb2260vk, vagis20, sk3rr)
             ));
             LOGGER.info("Preload: {}", equipmentRepository.saveAll(
                     List.of(equipM5, equipM4)

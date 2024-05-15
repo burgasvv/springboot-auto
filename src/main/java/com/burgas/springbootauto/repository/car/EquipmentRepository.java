@@ -12,9 +12,11 @@ import java.util.List;
 @Repository
 public interface EquipmentRepository extends JpaRepository<Equipment, Long> {
 
+    List<Equipment> findAllByEngineId(Long id);
+
     List<Equipment> findAllByTransmissionId(Long id);
 
-    List<Equipment> findAllByEngineId(Long id);
+    List<Equipment> findAllByTurbochargerId(Long id);
 
     @Modifying
     @Query(
