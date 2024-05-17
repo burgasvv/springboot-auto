@@ -6,7 +6,17 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
+    <div style="margin-top: 50px; margin-left: 100px">
+        <form th:method="GET" th:action="@{/brands/search-brand-cars (id = ${searchBrand.id})}">
+            <label for="brands">Brands</label><br>
+            <select th:field="${searchBrand.id}" id="brands">
+                <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.title}">Brand</option>
+            </select>
+            <input type="submit" value="Brand Cars" style="color: black">
+        </form>
+    </div>
+    <div style="margin-left: 100px; margin-top: 20px; margin-right: 100px">
+        <h1>All Cars</h1>
         <h2 th:each="car : ${cars}" style="display: inline-flex">
             <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
                 <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%"><br>
@@ -14,9 +24,10 @@
                 <div th:text="${car.title}" style="margin-left: 20px"/>
             </a>
         </h2>
-        <br><br>
-        <input type="button" value="Add Car" onclick="location.assign('/cars/add')" style="color: black">
-        <input type="button" value="Back" onclick="history.back()" style="color: black">
+        <div style="margin-top: 100px">
+            <input type="button" value="Add Car" onclick="location.assign('/cars/add')" style="color: black">
+            <input type="button" value="Back" onclick="history.back()" style="color: black">
+        </div>
     </div>
 </body>
 </html>

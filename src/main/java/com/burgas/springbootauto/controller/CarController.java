@@ -1,5 +1,6 @@
 package com.burgas.springbootauto.controller;
 
+import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.car.Tag;
@@ -37,6 +38,8 @@ public class CarController {
     @GetMapping
     public String cars(Model model) {
         model.addAttribute("cars", carService.findAll());
+        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("searchBrand", new Brand());
         return "cars/cars";
     }
 

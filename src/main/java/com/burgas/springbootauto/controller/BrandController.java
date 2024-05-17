@@ -104,8 +104,18 @@ public class BrandController {
     public String brandCars(@PathVariable("id") Long id, Model model) {
         Brand brand = brandService.findById(id);
         model.addAttribute("brand", brand);
+        model.addAttribute("searchBrand", new Brand());
+        model.addAttribute("brands", brandService.findAll());
         model.addAttribute("cars", brand.getCars());
         return "brands/cars";
+    }
+
+    @GetMapping("/search-brand-cars")
+    public String searchBrandCars(@RequestParam("id") Long id, Model model) {
+        Brand brand = brandService.findById(id);
+        model.addAttribute("brand", brand);
+        //noinspection SpringMVCViewInspection
+        return "redirect:/brands/" + brand.getId() + "/cars";
     }
 
     @GetMapping("/{id}/editions")

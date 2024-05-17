@@ -6,8 +6,9 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="text-align: center; margin-top: 7%">
+    <div style="text-align: center; margin-top: 10%">
         <form th:method="POST" th:action="@{/brands/add}" th:object="${brand}">
+            <h1>Brand</h1>
             <label for="title">Title</label><br>
             <input type="text" id="title" th:field="*{title}" >
             <th:block th:if="${#fields.hasErrors('title')}">
