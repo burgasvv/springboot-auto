@@ -13,6 +13,9 @@
         </h3>
     </div>
     <div style="margin: 50px 100px" th:object="${brand}">
+        <th:block th:if="*{turboTypes.size() < 1}">
+            <h2 style="color: grey">Empty</h2>
+        </th:block>
         <div th:each="type : *{turboTypes}">
             <h1 th:text="${type.name}">Edition</h1>
             <img th:src="${type.image}" alt="image" style="width: 250px"><br>

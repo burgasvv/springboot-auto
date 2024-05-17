@@ -13,16 +13,19 @@
         </h3>
     </div>
     <div style="margin-top: 50px; margin-left: 100px">
-        <form th:method="GET" th:action="@{/brands/search-brand-cars (id = ${searchBrand.id})}">
+        <form th:method="GET" th:action="@{/brands/search-brand-cars (id = ${brand.id})}">
             <label for="brands">Brands</label><br>
-            <select th:field="${searchBrand.id}" id="brands">
-                <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.title}">Brand</option>
+            <select th:field="${brand.id}" id="brands">
+                <option th:each="br : ${brands}" th:value="${br.id}" th:text="${br.title}" th:selected="${brand.id eq br.id}">Brand</option>
             </select>
             <input type="submit" value="Brand Cars" style="color: black">
         </form>
     </div>
     <div style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
         <h1>Brand Cars</h1>
+        <th:block th:if="${cars.size() < 1}">
+            <h2>No results</h2>
+        </th:block>
         <h2 th:each="car : ${cars}" style="display: inline-flex">
             <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
                 <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%">

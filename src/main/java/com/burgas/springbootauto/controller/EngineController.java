@@ -6,6 +6,7 @@ import com.burgas.springbootauto.service.engine.EnginEditionService;
 import com.burgas.springbootauto.service.engine.EngineCharacteristicsService;
 import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.engine.FuelService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/engines")
+@RequiredArgsConstructor
 public class EngineController {
 
     private final EngineService engineService;
@@ -21,15 +23,6 @@ public class EngineController {
     private final EquipmentService equipmentService;
     private final EnginEditionService enginEditionService;
     private final EngineCharacteristicsService engineCharacteristicsService;
-
-    public EngineController(EngineService engineService, FuelService fuelService, EquipmentService equipmentService,
-                            EnginEditionService enginEditionService, EngineCharacteristicsService engineCharacteristicsService) {
-        this.engineService = engineService;
-        this.fuelService = fuelService;
-        this.equipmentService = equipmentService;
-        this.enginEditionService = enginEditionService;
-        this.engineCharacteristicsService = engineCharacteristicsService;
-    }
 
     @GetMapping("/{id}")
     public String findEngine(@PathVariable("id") Long id, Model model) {

@@ -13,9 +13,15 @@
         </h3>
     </div>
     <div style="margin: 50px 100px" th:object="${brand}">
+        <th:block th:if="*{engineEditions.size() < 1}">
+            <h2 style="color: grey">Empty</h2>
+        </th:block>
         <div th:each="edition : *{engineEditions}">
             <h1 th:text="${edition.name}">Edition</h1>
             <img th:src="${edition.image}" alt="image"><br>
+            <th:block th:if="${edition.engines.size() < 1}">
+                <h3 style="color: grey">Empty</h3>
+            </th:block>
             <div th:each="engine : ${edition.engines}"  style="display: inline-flex">
                 <div style="display: inline-block">
                     <h2>

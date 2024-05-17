@@ -5,26 +5,20 @@ import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.transmission.DriveTypeService;
 import com.burgas.springbootauto.service.transmission.TransmissionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/transmissions")
+@RequiredArgsConstructor
 public class TransmissionController {
 
     private final BrandService brandService;
     private final TransmissionService transmissionService;
     private final DriveTypeService driveTypeService;
     private final EquipmentService equipmentService;
-
-    public TransmissionController(BrandService brandService, TransmissionService transmissionService,
-                                  DriveTypeService driveTypeService, EquipmentService equipmentService) {
-        this.brandService = brandService;
-        this.transmissionService = transmissionService;
-        this.driveTypeService = driveTypeService;
-        this.equipmentService = equipmentService;
-    }
 
     @GetMapping("/{id}")
     public String getTransmission(@PathVariable("id") Long id, Model model, @RequestParam("brandId") Long brandId) {

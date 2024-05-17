@@ -13,6 +13,9 @@
         </h3>
     </div>
     <div style="margin: 50px 100px" th:object="${brand}">
+        <th:block th:if="*{gearboxes.size() < 1}">
+            <h2 style="color: grey">Empty</h2>
+        </th:block>
         <div th:each="gearbox : *{gearboxes}">
             <h1 th:text="${gearbox.name}">Edition</h1>
             <img th:src="${gearbox.image}" alt="image"><br>

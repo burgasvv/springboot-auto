@@ -2,19 +2,17 @@ package com.burgas.springbootauto.service.engine;
 
 import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.repository.engine.EngineCharacteristicsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class EngineCharacteristicsService {
 
     private final EngineCharacteristicsRepository engineCharacteristicsRepository;
-
-    public EngineCharacteristicsService(EngineCharacteristicsRepository engineCharacteristicsRepository) {
-        this.engineCharacteristicsRepository = engineCharacteristicsRepository;
-    }
 
     public List<EngineCharacteristics> findAll() {
         return engineCharacteristicsRepository.findAll();

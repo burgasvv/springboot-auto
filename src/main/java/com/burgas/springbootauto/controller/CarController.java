@@ -7,7 +7,7 @@ import com.burgas.springbootauto.entity.car.Tag;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.*;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/cars")
+@RequiredArgsConstructor
 public class CarController {
 
     private final CarService carService;
@@ -24,21 +25,12 @@ public class CarController {
     private final CategoryService categoryService;
     private final TagService tagService;
 
-    @Autowired
-    public CarController(CarService carService, EquipmentService equipmentService, BrandService brandService,
-                         ClassificationService classificationService, CategoryService categoryService, TagService tagService) {
-        this.carService = carService;
-        this.equipmentService = equipmentService;
-        this.brandService = brandService;
-        this.classificationService = classificationService;
-        this.categoryService = categoryService;
-        this.tagService = tagService;
-    }
-
     @GetMapping
     public String cars(Model model) {
         model.addAttribute("cars", carService.findAll());
-        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("brands",
+                brandService.findAll().stream().filter(brand -> !brand.getCars().isEmpty()).toList()
+        );
         model.addAttribute("searchBrand", new Brand());
         return "cars/cars";
     }

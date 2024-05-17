@@ -2,19 +2,17 @@ package com.burgas.springbootauto.service.car;
 
 import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.repository.car.EquipmentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class EquipmentService {
 
     private final EquipmentRepository equipmentRepository;
-
-    public EquipmentService(EquipmentRepository equipmentRepository) {
-        this.equipmentRepository = equipmentRepository;
-    }
 
     public List<Equipment> findAll() {
         return equipmentRepository.findAll();

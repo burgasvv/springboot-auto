@@ -9,12 +9,12 @@
     <div style=" margin: 10% 100px 50px; text-align: center">
         <form th:method="PATCH" th:action="@{/transmissions/{id}/edit (id = ${transmission.id})}">
             <h2>Transmission</h2>
-            <label for="brand"></label><br>
+            <label for="brand">Brand</label><br>
             <select th:field="${transmission.brand.id}" id="brand">
                 <option th:value="${transmission.brand.id}" th:text="${transmission.brand.title}">Brand</option>
             </select><br><br>
 
-            <label for="gearbox"></label><br>
+            <label for="gearbox">Gearbox</label><br>
             <select th:field="${transmission.gearbox.id}" id="gearbox">
                 <option th:value="${transmission.gearbox.id}" th:text="${transmission.gearbox.name}">Gearbox</option>
             </select><br><br>

@@ -6,16 +6,16 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style=" margin: 10% 100px 50px; text-align: center">
+    <div style=" margin: 7% 100px 50px; text-align: center">
         <form th:method="PATCH" th:action="@{/turbochargers/{id}/edit (id = ${turbocharger.id})}">
-            <h2>Transmission</h2>
-            <label for="brand"></label><br>
+            <h2>Turbocharger</h2>
+            <label for="brand">Brand</label><br>
             <select th:field="${turbocharger.brand.id}" id="brand">
                 <option th:value="${turbocharger.brand.id}" th:text="${turbocharger.brand.title}">Brand</option>
             </select><br><br>
 
-            <label for="gearbox"></label><br>
-            <select th:field="${turbocharger.turboType.id}" id="gearbox">
+            <label for="turboType">Turbo Type</label><br>
+            <select th:field="${turbocharger.turboType.id}" id="turboType">
                 <option th:value="${turbocharger.turboType.id}" th:text="${turbocharger.turboType.name}">Turbo Type</option>
             </select><br><br>
 
@@ -32,7 +32,7 @@
             <input type="text" id="powerGeneration" th:field="${turbocharger.powerGeneration}"><br><br>
 
             <label for="description">Description</label><br>
-            <textarea th:field="${turbocharger.description}" id="description" cols="30" rows="10">Description</textarea>>
+            <textarea th:field="${turbocharger.description}" id="description" cols="30" rows="10">Description</textarea>><br><br>
 
             <input type="submit" value="OK" style="color: black">
             <input type="button" value="Back" onclick="history.back()" style="color: black">

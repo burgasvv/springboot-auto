@@ -3,19 +3,17 @@ package com.burgas.springbootauto.service.car;
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Tag;
 import com.burgas.springbootauto.repository.car.TagRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TagService {
 
     private final TagRepository tagRepository;
-
-    public TagService(TagRepository tagRepository) {
-        this.tagRepository = tagRepository;
-    }
 
     public List<Tag> findAll() {
         return tagRepository.findAll().stream().toList();

@@ -18,6 +18,7 @@ import com.burgas.springbootauto.service.transmission.TransmissionService;
 import com.burgas.springbootauto.service.turbocharging.TurboTypeService;
 import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/brands")
+@RequiredArgsConstructor
 public class BrandController {
 
     private final BrandService brandService;
@@ -36,21 +38,6 @@ public class BrandController {
     private final TransmissionService transmissionService;
     private final TurboTypeService turboTypeService;
     private final TurbochargerService turbochargerService;
-
-    public BrandController(BrandService brandService, EngineService engineService, EnginEditionService enginEditionService,
-                           FuelService fuelService, GearboxService gearboxService, DriveTypeService driveTypeService,
-                           TransmissionService transmissionService, TurboTypeService turboTypeService,
-                           TurbochargerService turbochargerService) {
-        this.brandService = brandService;
-        this.engineService = engineService;
-        this.enginEditionService = enginEditionService;
-        this.fuelService = fuelService;
-        this.gearboxService = gearboxService;
-        this.driveTypeService = driveTypeService;
-        this.transmissionService = transmissionService;
-        this.turboTypeService = turboTypeService;
-        this.turbochargerService = turbochargerService;
-    }
 
     @GetMapping
     public String brands(Model model) {
@@ -104,8 +91,8 @@ public class BrandController {
     public String brandCars(@PathVariable("id") Long id, Model model) {
         Brand brand = brandService.findById(id);
         model.addAttribute("brand", brand);
-        model.addAttribute("searchBrand", new Brand());
-        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("brands",
+                brandService.findAll().stream().filter(b -> !b.getCars().isEmpty()).toList());
         model.addAttribute("cars", brand.getCars());
         return "brands/cars";
     }

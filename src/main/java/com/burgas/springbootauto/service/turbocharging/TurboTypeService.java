@@ -2,19 +2,17 @@ package com.burgas.springbootauto.service.turbocharging;
 
 import com.burgas.springbootauto.entity.turbocharging.TurboType;
 import com.burgas.springbootauto.repository.turbocharging.TurboTypeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TurboTypeService {
 
     private final TurboTypeRepository turboTypeRepository;
-
-    public TurboTypeService(TurboTypeRepository turboTypeRepository) {
-        this.turboTypeRepository = turboTypeRepository;
-    }
 
     public List<TurboType> findAll() {
         return turboTypeRepository.findAll();

@@ -2,19 +2,17 @@ package com.burgas.springbootauto.service.transmission;
 
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.repository.transmission.TransmissionRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TransmissionService {
 
     private final TransmissionRepository transmissionRepository;
-
-    public TransmissionService(TransmissionRepository transmissionRepository) {
-        this.transmissionRepository = transmissionRepository;
-    }
 
     public List<Transmission> findAll() {
         return transmissionRepository.findAll();

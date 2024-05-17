@@ -4,24 +4,19 @@ import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/turbochargers")
+@RequiredArgsConstructor
 public class TurbochargerController {
 
     private final BrandService brandService;
     private final TurbochargerService turbochargerService;
     private final EquipmentService equipmentService;
-
-    public TurbochargerController(BrandService brandService, TurbochargerService turbochargerService,
-                                  EquipmentService equipmentService) {
-        this.brandService = brandService;
-        this.turbochargerService = turbochargerService;
-        this.equipmentService = equipmentService;
-    }
 
     @GetMapping("/{id}")
     public String getTurbocharger(@PathVariable("id") Long id, Model model, @RequestParam("brandId") Long brandId) {

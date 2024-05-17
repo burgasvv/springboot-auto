@@ -3,19 +3,17 @@ package com.burgas.springbootauto.service.engine;
 import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.repository.engine.EngineEditionRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class EnginEditionService {
 
     private final EngineEditionRepository engineEditionRepository;
-
-    public EnginEditionService(EngineEditionRepository engineEditionRepository) {
-        this.engineEditionRepository = engineEditionRepository;
-    }
 
     public List<EngineEdition> findAll() {
         return engineEditionRepository.findAll();

@@ -3,6 +3,7 @@ package com.burgas.springbootauto.controller;
 import com.burgas.springbootauto.entity.car.Category;
 import com.burgas.springbootauto.service.car.CarService;
 import com.burgas.springbootauto.service.car.CategoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/categories")
+@RequiredArgsConstructor
 public class CategoryController {
 
     private final CategoryService categoryService;
     private final CarService carService;
-
-    public CategoryController(CategoryService categoryService, CarService carService) {
-        this.categoryService = categoryService;
-        this.carService = carService;
-    }
 
     @GetMapping
     public String categories(Model model) {
