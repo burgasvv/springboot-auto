@@ -23,7 +23,7 @@ public class BrandService {
     }
 
     public List<Brand> searchBrandByTitle(String title) {
-        return brandRepository.searchBrandByTitleIgnoreCase(title);
+        return brandRepository.searchBrandByTitle(title);
     }
 
     @Transactional
