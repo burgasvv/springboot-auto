@@ -6,6 +6,11 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="margin: 25px 100px">
+        <h3>
+            <a th:href="@{/brands}">Brands</a>
+        </h3>
+    </div>
     <div style="margin: 50px 100px 100px; display: inline-flex" th:object="${brand}">
         <div style="display: inline-block">
             <h1 th:text="*{title}">Title</h1>
@@ -18,10 +23,11 @@
         <div style="display: inline-block; margin-left: 100px; margin-top: 100px">
             <h3>Description</h3>
             <p th:text="*{description}" style="text-align: justify; padding-right: 250px"></p>
-            <h2>
+
+            <h2 style="margin-top: 100px">
                 <a style="text-decoration: none" th:href="@{/brands/{id}/cars (id = *{id})}">Cars</a><br>
                 <a style="text-decoration: none" th:href="@{/brands/{id}/editions (id = *{id})}">Engines</a><br>
-                <a style="text-decoration: none" th:href="@{/brands/{id}/gearboxes (id = *{id})}">Transmission</a><br>
+                <a style="text-decoration: none" th:href="@{/brands/{id}/gearboxes (id = *{id})}">Transmissions</a><br>
                 <a style="text-decoration: none" th:href="@{/brands/{id}/turbo-types (id = *{id})}">Turbochargers</a><br>
             </h2>
 

@@ -27,7 +27,7 @@ public class Gearbox {
     @Check(constraints = "stairs > 0 and stairs < 10")
     private Integer stairs;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
 
     @ManyToMany(mappedBy = "gearboxes", cascade = CascadeType.ALL)

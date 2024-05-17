@@ -6,6 +6,12 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="margin: 25px 100px">
+        <h3>
+            <a th:href="@{/brands}">Brands</a> /
+            <a th:href="@{/brands/{id} (id = ${brand.id})}" th:text="${brand.title}">Brand</a>
+        </h3>
+    </div>
     <div style="margin: 50px 100px" th:object="${brand}">
         <div th:each="edition : *{engineEditions}">
             <h1 th:text="${edition.name}">Edition</h1>
