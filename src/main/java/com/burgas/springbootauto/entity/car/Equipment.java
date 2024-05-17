@@ -53,7 +53,6 @@ public class Equipment {
         this.transmission = null;
     }
 
-    @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToOne
     @JoinColumn(name = "turbocharger_id", referencedColumnName = "id")
     private Turbocharger turbocharger;

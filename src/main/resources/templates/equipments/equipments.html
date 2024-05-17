@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Equipments</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+        .a_class {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="margin: 50px 100px">
+        <table style="width: 40%">
+            <tr>
+                <th><h2>Brand</h2></th>
+                <th><h2>Car</h2></th>
+                <th><h2>Complectation</h2></th>
+            </tr>
+            <tr th:each="complectation : ${equipments}">
+                <th>
+                    <a class="a_class" th:href="@{/brands/{id} (id = ${complectation.car.brand.id})}"
+                       th:text="${complectation.car.brand.title}">Brand</a>
+                </th>
+                <th>
+                    <a class="a_class" th:href="@{/cars/{id} (id = ${complectation.car.id})}"
+                       th:text="${complectation.car.title}">Car</a>
+                </th>
+                <th>
+                    <a class="a_class" th:href="@{/equipments/{id} (id = ${complectation.id})}"
+                       th:text="${complectation.name}">Complectation</a>
+                </th>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

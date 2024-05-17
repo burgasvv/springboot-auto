@@ -141,6 +141,6 @@ public class CarController {
         model.addAttribute("cars", carService.searchCarsByAllNames(search));
         model.addAttribute("searchBrands", brandService.searchBrandByTitle(search));
         model.addAttribute("search", search);
-        return "cars/search";
+        return "search/search";
     }
 }

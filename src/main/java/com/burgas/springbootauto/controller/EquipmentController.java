@@ -8,12 +8,14 @@ import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.transmission.TransmissionService;
 import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/equipments")
+@RequiredArgsConstructor
 public class EquipmentController {
 
     private final EquipmentService equipmentService;
@@ -21,12 +23,10 @@ public class EquipmentController {
     private final TransmissionService transmissionService;
     private final TurbochargerService turbochargerService;
 
-    public EquipmentController(EquipmentService equipmentService, EngineService engineService,
-                               TransmissionService transmissionService, TurbochargerService turbochargerService) {
-        this.equipmentService = equipmentService;
-        this.engineService = engineService;
-        this.transmissionService = transmissionService;
-        this.turbochargerService = turbochargerService;
+    @GetMapping
+    public String getAllEquipments(Model model) {
+        model.addAttribute("equipments", equipmentService.findAll());
+        return "equipments/equipments";
     }
 
     @GetMapping("/{id}")
