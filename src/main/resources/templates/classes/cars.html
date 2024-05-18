@@ -6,6 +6,12 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="margin: 25px 100px">
+        <h3>
+            <a th:href="@{/classes}">Classes</a> /
+            <a th:href="@{/classes/{id} (id = ${class.id})}" th:text="${class.name.substring(0,7)}">Class</a>
+        </h3>
+    </div>
     <div style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
         <h2 th:each="car : ${cars}" style="display: inline-flex">
             <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">

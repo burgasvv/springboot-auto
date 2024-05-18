@@ -6,6 +6,11 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="margin: 25px 100px">
+        <h3>
+            <a th:href="@{/categories}">Categories</a>
+        </h3>
+    </div>
     <div style="display: inline-flex" th:object="${category}">
         <div style="margin: 50px 100px; display: inline-block">
             <h1><span th:text="*{name}"/></h1>

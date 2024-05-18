@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,8 +31,9 @@ public class ClassificationController {
     }
 
     @GetMapping("/{id}/cars")
-    public String cars(@ModelAttribute("class") Classification classification, Model model) {
-        classification.setCars(carService.searchCarByClassificationId(classification.getId()));
+    public String cars(@PathVariable("id") Long id, Model model) {
+        Classification classification = classificationService.findById(id);
+        model.addAttribute("class", classification);
         model.addAttribute("cars", classification.getCars());
         return "classes/cars";
     }

@@ -6,11 +6,25 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="margin: 25px 100px">
+    <div style="margin: 25px 100px 10px;">
         <h3>
             <a th:href="@{/brands}">Brands</a> /
             <a th:href="@{/brands/{id} (id = ${car.brand.id})}" th:text="${car.brand.title}">Brand</a> /
             <a th:href="@{/brands/{id}/cars (id = ${car.brand.id})}">Brand Cars</a>
+        </h3>
+    </div>
+    <div style="margin: 10px 100px">
+        <h3>
+            <a th:href="@{/classes}">Classes</a> /
+            <a th:href="@{/classes/{id} (id = ${car.classification.id})}" th:text="${car.classification.name.substring(0,7)}">Class</a> /
+            <a th:href="@{/classes/{id}/cars (id = ${car.classification.id})}">Classification Cars</a>
+        </h3>
+    </div>
+    <div style="margin: 10px 100px">
+        <h3>
+            <a th:href="@{/categories}">Categories</a> / {
+            <a th:href="@{/categories/{id} (id = ${car.category.id})}" th:text="${car.category.name}"></a>} /
+            <a th:href="@{/categories/{id}/cars (id = ${car.category.id})}">Category Cars</a>
         </h3>
     </div>
     <div style="margin-left: 100px; margin-top: 50px; margin-bottom: 50px; display: inline-flex" th:object="${car}">
