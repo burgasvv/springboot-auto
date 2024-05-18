@@ -12,18 +12,21 @@
                 <div style="text-align: center; display: inline-block; margin-right: 25px">
                     <label for="brands">Brands</label><br>
                     <select th:field="${searchBrand.title}" id="brands">
+                        <option value=""></option>
                         <option th:each="brand : ${brands}" th:value="${brand.title}" th:text="${brand.title}">Brand</option>
                     </select>
                 </div>
                 <div style="text-align: center; display: inline-block; margin-right: 25px">
                     <label for="classes">Classes</label><br>
                     <select th:field="${searchClass.name}" id="classes">
+                        <option value=""></option>
                         <option th:each="class : ${classes}" th:value="${class.name}" th:text="${class.name}">Brand</option>
                     </select>
                 </div>
                 <div style="text-align: center; display: inline-block; margin-right: 25px">
                     <label for="categories">Categories</label><br>
                     <select th:field="${searchCategory.name}" id="categories">
+                        <option value=""></option>
                         <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}">Brand</option>
                     </select>
                 </div>

@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @Controller
 @RequestMapping("/cars")
 @RequiredArgsConstructor
@@ -47,18 +49,20 @@ public class CarController {
 
     @GetMapping("/find-cars")
     public String findCars(@RequestParam("title") String brand,
-                           @RequestParam("name") String classification, Model model) {
-        model.addAttribute("cars",
-                carService.searchCarsByAllNames(brand.concat(" " + classification).replace(',', ' '))
-        );
+                           @RequestParam("name") String classification,
+                           @RequestParam("name") String category, Model model) {
+
         getSearchLists(model);
         int i = classification.indexOf(",");
-        String categoryName = classification.substring(i);
-        categoryName = categoryName.substring(1);
+        String categoryName = category.substring(i).substring(1);
         String classificationName = classification.substring(0, i);
-        model.addAttribute("searchBrand", brandService.findBrandByTitle(brand));
-        model.addAttribute("searchClass", classificationService.findClassificationByName(classificationName));
-        model.addAttribute("searchCategory", categoryService.findCategoryByName(categoryName));
+        model.addAttribute("cars", carService.searchCarsByAllNames(brand + classificationName + categoryName));
+        Brand brandByTitle = brandService.findBrandByTitle(brand);
+        model.addAttribute("searchBrand", Objects.requireNonNullElseGet(brandByTitle, Brand::new));
+        Classification classificationByName = classificationService.findClassificationByName(classificationName);
+        model.addAttribute("searchClass", Objects.requireNonNullElseGet(classificationByName, Classification::new));
+        Category categoryByName = categoryService.findCategoryByName(categoryName);
+        model.addAttribute("searchCategory", Objects.requireNonNullElseGet(categoryByName, Category::new));
         return "cars/findCars";
     }
 
