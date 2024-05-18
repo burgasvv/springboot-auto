@@ -1,9 +1,7 @@
 package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.brand.Brand;
-import com.burgas.springbootauto.entity.car.Car;
-import com.burgas.springbootauto.entity.car.Equipment;
-import com.burgas.springbootauto.entity.car.Tag;
+import com.burgas.springbootauto.entity.car.*;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.*;
 import jakarta.validation.Valid;
@@ -129,13 +127,5 @@ public class CarController {
     public String deleteEquipment(@SuppressWarnings("unused") @PathVariable("id") Long id, @RequestParam("complId") Long complId) {
         equipmentService.delete(complId);
         return "redirect:/cars/{id}";
-    }
-
-    @GetMapping("/search")
-    public String search(@RequestParam("search") String search ,Model model) {
-        model.addAttribute("cars", carService.searchCarsByAllNames(search));
-        model.addAttribute("searchBrands", brandService.searchBrandByTitle(search));
-        model.addAttribute("search", search);
-        return "search/search";
     }
 }

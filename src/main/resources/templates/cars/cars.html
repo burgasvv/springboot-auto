@@ -8,11 +8,15 @@
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
     <div style="margin-top: 50px; margin-left: 100px">
         <form th:method="GET" th:action="@{/brands/search-brand-cars (id = ${searchBrand.id})}">
-            <label for="brands">Brands</label><br>
-            <select th:field="${searchBrand.id}" id="brands">
-                <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.title}">Brand</option>
-            </select>
-            <input type="submit" value="Brand Cars" style="color: black">
+            <div style="display: inline-flex">
+                <div style="text-align: center; display: inline-block; margin-right: 25px">
+                    <label for="brands">Brands</label><br>
+                    <select th:field="${searchBrand.id}" id="brands">
+                        <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.title}">Brand</option>
+                    </select>
+                </div>
+                <input type="submit" value="Get Cars" style="color: black">
+            </div>
         </form>
     </div>
     <div style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
