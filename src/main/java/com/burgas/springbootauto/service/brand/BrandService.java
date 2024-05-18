@@ -26,6 +26,10 @@ public class BrandService {
         return brandRepository.searchBrandByTitle(title);
     }
 
+    public Brand findBrandByTitle(String title) {
+        return brandRepository.findBrandByTitle(title);
+    }
+
     @Transactional
     public void save(Brand brand) {
         brandRepository.save(brand);

@@ -15,4 +15,6 @@ public interface BrandRepository extends JpaRepository<Brand, Long> {
             value = "select br.* from brand br where concat(title,' ') ilike concat('%',?1,'%')"
     )
     List<Brand> searchBrandByTitle(String brandName);
+
+    Brand findBrandByTitle(String title);
 }

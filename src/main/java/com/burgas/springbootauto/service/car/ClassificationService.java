@@ -22,6 +22,10 @@ public class ClassificationService {
         return classificationRepository.findById(id).orElse(null);
     }
 
+    public Classification findClassificationByName(String name) {
+        return classificationRepository.findClassificationByName(name);
+    }
+
     @Transactional
     public void save(Classification classification) {
         classificationRepository.save(classification);

@@ -23,14 +23,43 @@ public class CarController {
     private final CategoryService categoryService;
     private final TagService tagService;
 
-    @GetMapping
-    public String cars(Model model) {
-        model.addAttribute("cars", carService.findAll());
+    private void getSearchLists(Model model) {
         model.addAttribute("brands",
                 brandService.findAll().stream().filter(brand -> !brand.getCars().isEmpty()).toList()
         );
+        model.addAttribute("classes",
+                classificationService.findAll().stream().filter(classification -> !classification.getCars().isEmpty()).toList()
+        );
+        model.addAttribute("categories",
+                categoryService.findAll().stream().filter(category -> !category.getCars().isEmpty()).toList()
+        );
+    }
+
+    @GetMapping
+    public String cars(Model model) {
+        model.addAttribute("cars", carService.findAll());
+        getSearchLists(model);
         model.addAttribute("searchBrand", new Brand());
+        model.addAttribute("searchClass", new Classification());
+        model.addAttribute("searchCategory", new Category());
         return "cars/cars";
+    }
+
+    @GetMapping("/find-cars")
+    public String findCars(@RequestParam("title") String brand,
+                           @RequestParam("name") String classification, Model model) {
+        model.addAttribute("cars",
+                carService.searchCarsByAllNames(brand.concat(" " + classification).replace(',', ' '))
+        );
+        getSearchLists(model);
+        int i = classification.indexOf(",");
+        String categoryName = classification.substring(i);
+        categoryName = categoryName.substring(1);
+        String classificationName = classification.substring(0, i);
+        model.addAttribute("searchBrand", brandService.findBrandByTitle(brand));
+        model.addAttribute("searchClass", classificationService.findClassificationByName(classificationName));
+        model.addAttribute("searchCategory", categoryService.findCategoryByName(categoryName));
+        return "cars/findCars";
     }
 
     @GetMapping("/{id}")
