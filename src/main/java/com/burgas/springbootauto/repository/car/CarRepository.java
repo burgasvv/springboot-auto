@@ -26,11 +26,13 @@ public interface CarRepository extends JpaRepository<Car, Long> {
             nativeQuery = true,
             value = """
                     select c.* from car c join brand b on b.id = c.brand_id
-                    join category c2 on c2.id = c.category_id
-                    join classification c3 on c3.id = c.classification_id
-                    join car_tags ct on c.id = ct.car_id
-                    join tag t on t.id = ct.tag_id
-                    where concat(b.title,c3.name,c2.name,t.name,c.title) ilike concat('%',?1,'%')"""
+                                          join category c2 on c2.id = c.category_id
+                                          join classification c3 on c3.id = c.classification_id
+                                          join car_tags ct on c.id = ct.car_id
+                                          join tag t on t.id = ct.tag_id
+                    where
+                        concat(b.title,c3.name,c2.name,b.title,c2.name,b.title,t.name,c.title,t.name,b.title,c.title,b.title)
+                              ilike concat('%',?1,'%')"""
     )
     List<Car> searchCarsByAllNames(String search);
 }

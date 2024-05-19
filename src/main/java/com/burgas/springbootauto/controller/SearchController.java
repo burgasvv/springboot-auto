@@ -19,6 +19,7 @@ public class SearchController {
 
     @GetMapping
     public String search(@RequestParam("search") String search , Model model) {
+        search = search.replaceAll(" ", "");
         model.addAttribute("cars", carService.searchCarsByAllNames(search));
         model.addAttribute("searchBrands", brandService.searchBrandByTitle(search));
         model.addAttribute("search", search);

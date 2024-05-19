@@ -212,7 +212,7 @@ public class LoadDatabase {
 
 
             Classification aClass = new Classification();
-            aClass.setName("A class/Mini/Мини");
+            aClass.setName("A_class/Mini/Мини");
             aClass.setImage("https://image.made-in-china.com/2f0j00GUMcnAVKbYgR/Chery-Ant-251km-True-Love-Version-Chinese-Small-EV-Cars-with-Hatchback-a-Class-Electric-Vehicle-New-Used-Car-Green-Fashion-New-Car-Price-Mini-Car.webp");
             aClass.setDescription("""
                     Включает в себя самые маленькие автомобили. Их габариты редко не превышают 3,6-3,7 м в длину, а исполнение '
@@ -222,7 +222,7 @@ public class LoadDatabase {
                             'двигателями и сегодня среди них есть даже электрифицированные экземпляры.'"""
             );
             Classification bClass = new Classification();
-            bClass.setName("B class/Small/Небольшой");
+            bClass.setName("B_class/Small/Небольшой");
             bClass.setImage("https://autoreview.ru/images/Article/1728/Article_172866_860_575.jpg");
             bClass.setDescription("""
                     Как и класс А, этот сегмент преимущественно ориентирован на городские поездки. Размеры моделей B-сегмента варьируются '
@@ -231,7 +231,7 @@ public class LoadDatabase {
                              'в том числе в России. Автомобили класса B, как правило, находятся в среднем ценовом сегменте."""
             );
             Classification cClass = new Classification();
-            cClass.setName("C class/Low Middle/Низший Средний");
+            cClass.setName("C_class/Low/Middle/Низкий/Средний");
             cClass.setImage("https://images.hgmsites.net/lrg/2024-toyota-corolla-hybrid-le-fwd-natl-angular-front-exterior-view_100915609_l.webp");
             cClass.setDescription("""
                     Также известен как гольф-класс, его родоначальником принято считать модель Volkswagen Golf. Машины С-класса —\s
@@ -240,7 +240,7 @@ public class LoadDatabase {
                              'универсалы, пятидверные хэтчбеки."""
             );
             Classification dClass = new Classification();
-            dClass.setName("D class/Middle/Средний");
+            dClass.setName("D_class/Middle/Средний");
             dClass.setImage("https://mosautoshina.ru/i/auto/audi_a4_2024.jpg");
             dClass.setDescription("""
                     Именно с этого сегмента начинаются настоящие большие седаны. Размеры моделей стремятся к пяти метрам и они\s
@@ -249,7 +249,7 @@ public class LoadDatabase {
                              'ассортимент моторов и трансмиссий довольно широк."""
             );
             Classification eClass = new Classification();
-            eClass.setName("E class/Middle High/Средний Высший/Business/Бизнес");
+            eClass.setName("E_class/Business/Бизнес");
             eClass.setImage("https://www.bmw.ru/content/dam/bmw/marketRU/bmw_ru/all-models/5-series/sedan/2020/bmw-5-series-sedan-models-and-equipment-lines-01-01.jpg.asset.1598262155329.jpg");
             eClass.setDescription("""
                     Автомобили E-сегмента отличают внушительные размеры, более сложное техническое оснащение и, соответственно, цена.
@@ -257,7 +257,7 @@ public class LoadDatabase {
                              'отделки салона и прочего."""
             );
             Classification fClass = new Classification();
-            fClass.setName("F class/High/Высший/Luxury/Люкс");
+            fClass.setName("F_class/Luxury/Люкс");
             fClass.setImage("https://images.hgmsites.net/lrg/2024-mercedes-benz-s-class-maybach-s-580-4matic-sedan-angular-front-exterior-view_100915802_l.webp");
             fClass.setDescription("""
                     Это автомобили класса люкс. Их выделяют не только высокотехнологичные характеристики, но и безусловная роскошь и комфорт.
@@ -268,7 +268,7 @@ public class LoadDatabase {
                              'предложить дополнительно бронирование кузова."""
             );
             Classification sClass = new Classification();
-            sClass.setName("S class/Sport/Спорт");
+            sClass.setName("S_class/Sport/Спорт");
             sClass.setImage("https://news.dupontregistry.com/wp-content/uploads/2023/12/2023-lamborghini-huracan-tecnic-9-915x570.jpg");
             sClass.setDescription("""
                     Этот класс концентрируется на спортивном характере и включает в себя родстеры, гранд-туреры, кабриолеты и маслкары.
@@ -278,7 +278,7 @@ public class LoadDatabase {
                              'диван часто носит чисто номинальный характер."""
             );
             Classification mClass = new Classification();
-            mClass.setName("M class/Minivans/Минивэны");
+            mClass.setName("M_class/Minivans/Минивэны");
             mClass.setImage("https://cdn.24.co.za/files/Cms/General/d/122/978d1e26dcf54f12b5fb3ed09e79192d.jpg");
             mClass.setDescription("""
                     Эти многоцелевые транспортные средства, которые перевозят как пассажиров, так и грузы.
@@ -287,7 +287,7 @@ public class LoadDatabase {
                              'или долгих поездок, отдельные модели также используются в бизнесе."""
             );
             Classification jClass = new Classification();
-            jClass.setName("J class/Crossovers and SUV/Джипы и внедорожники");
+            jClass.setName("J_class/Crossovers/SUV/Джипы/Внедорожники");
             jClass.setImage("https://bilweb.se/i?u=55366585&w=836&h=530&c=1");
             jClass.setDescription("""
                     Как правило, в этот сегмент записывают все модели авто, которые отличаются внедорожными характеристиками
