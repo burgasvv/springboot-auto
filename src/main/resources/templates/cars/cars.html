@@ -6,7 +6,7 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="margin-top: 50px; margin-left: 100px">
+    <div style="margin: 50px 100px">
         <form th:method="GET" th:action="@{/cars/find-cars}">
             <div style="display: inline-flex">
                 <div style="text-align: center; display: inline-block; margin-right: 25px">
@@ -36,13 +36,18 @@
     </div>
     <div style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
         <h1>All Cars</h1>
-        <h2 th:each="car : ${cars}" style="display: inline-flex">
-            <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
-                <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%"><br>
-                <div th:text="${car.brand.title}" style="margin-left: 20px"/>
-                <div th:text="${car.title}" style="margin-left: 20px"/>
-            </a>
-        </h2>
+        <th:block th:if="${cars.size() < 1}">
+            <h2>No results</h2>
+        </th:block>
+        <div th:each="car : ${cars}" style="display: inline-flex">
+            <h2 style="height: 250px; width: 250px; margin-right: 80px">
+                <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
+                    <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%"><br>
+                    <div th:text="${car.brand.title}" style="margin-left: 20px"/>
+                    <div th:text="${car.title}" style="margin-left: 20px"/>
+                </a>
+            </h2>
+        </div>
         <div style="margin-top: 100px">
             <input type="button" value="Add Car" onclick="location.assign('/cars/add')" style="color: black">
             <input type="button" value="Back" onclick="history.back()" style="color: black">
