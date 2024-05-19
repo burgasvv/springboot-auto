@@ -12,6 +12,16 @@
             <a th:href="@{/categories/{id} (id = ${category.id})}" th:text="${category.name}"></a>}
         </h3>
     </div>
+    <div style="margin-top: 50px; margin-left: 100px">
+        <form th:method="GET" th:action="@{/categories/find-category (id = ${category.id})}">
+            <label for="brands">Categories</label><br>
+            <select th:field="${category.id}" id="brands">
+                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"
+                        th:selected="${category.id eq cat.id}">Category</option>
+            </select>
+            <input type="submit" value="Class Cars" style="color: black">
+        </form>
+    </div>
     <div style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
         <h2 th:each="car : ${cars}" style="display: inline-flex">
             <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">

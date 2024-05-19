@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/classes")
@@ -33,8 +34,19 @@ public class ClassificationController {
     @GetMapping("/{id}/cars")
     public String cars(@PathVariable("id") Long id, Model model) {
         Classification classification = classificationService.findById(id);
+        model.addAttribute("classes",
+                classificationService.findAll().stream().filter(cl -> !cl.getCars().isEmpty()).toList()
+        );
         model.addAttribute("class", classification);
         model.addAttribute("cars", classification.getCars());
         return "classes/cars";
+    }
+
+    @GetMapping("/find-class")
+    public String findClass(@RequestParam("id") Long id, Model model) {
+        Classification classification = classificationService.findById(id);
+        model.addAttribute("class", classification);
+        //noinspection SpringMVCViewInspection
+        return "redirect:/classes/" + classification.getId() + "/cars";
     }
 }

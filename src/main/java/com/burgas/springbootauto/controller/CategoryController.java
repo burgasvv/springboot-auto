@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/categories")
@@ -33,8 +34,19 @@ public class CategoryController {
     @GetMapping("/{id}/cars")
     public String cars(@PathVariable("id") Long id, Model model) {
         Category category = categoryService.findById(id);
+        model.addAttribute("categories",
+                categoryService.findAll().stream().filter(cat -> !cat.getCars().isEmpty()).toList()
+        );
         model.addAttribute("category", category);
         model.addAttribute("cars", category.getCars());
         return "categories/cars";
+    }
+
+    @GetMapping("/find-category")
+    public String findCategory(@RequestParam("id") Long id, Model model) {
+        Category category = categoryService.findById(id);
+        model.addAttribute("category", category);
+        //noinspection SpringMVCViewInspection
+        return "redirect:/categories/" + category.getId() + "/cars";
     }
 }
