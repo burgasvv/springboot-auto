@@ -6,22 +6,25 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="margin: 50px 100px">
-        <div style="display: inline-flex; horiz-align: center">
-            <h2 th:each="brand : ${brands}" style="margin: 50px">
+    <div style="margin: 50px 100px; text-align: center">
+        <th:block th:if="${brands.size() < 1}">
+            <h2>No results</h2>
+        </th:block>
+        <div style="display: inline-flex; text-align: center">
+            <h2 th:each="brand : ${brands}" style="margin: 50px; width: 400px; height: 400px">
                 <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
-                    <div style="width: 250px; height: 250px">
-                        <img th:src="${brand.image}" alt="image" style="display: inline-flex; width: 250px">
+                    <div style="width: 400px; height: 400px">
+                        <img th:src="${brand.image}" alt="image" style="width: 400px">
                     </div>
-                    <p th:text="${brand.title}" style="margin-left: 20px; vertical-align: bottom"/>
+                    <p th:text="${brand.title}"/>
                 </a>
             </h2>
         </div>
         <br>
-        <div>
-            <input type="button" value="Add Brand" onclick="location.assign('/brands/add')" style="color: black">
-            <input type="button" value="Back" onclick="location.assign('/')" style="color: black">
-        </div>
+    </div>
+    <div style="margin: 100px">
+        <input type="button" value="Add Brand" onclick="location.assign('/brands/add')" style="color: black">
+        <input type="button" value="Back" onclick="location.assign('/')" style="color: black">
     </div>
 </body>
 </html>
