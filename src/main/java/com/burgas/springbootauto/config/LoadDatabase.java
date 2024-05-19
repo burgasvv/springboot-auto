@@ -223,7 +223,7 @@ public class LoadDatabase {
             );
             Classification bClass = new Classification();
             bClass.setName("B_class/Small/Небольшой");
-            bClass.setImage("https://autoreview.ru/images/Article/1728/Article_172866_860_575.jpg");
+            bClass.setImage("https://www.mercedes-benz.co.uk/content/dam/hq/passengercars/cars/B-Class/b-class-sports-tourer-w247-pi/modeloverview/09-2022/images/mercedes-benz-b-class-w247-modeloverview-696x392-09-2022.png");
             bClass.setDescription("""
                     Как и класс А, этот сегмент преимущественно ориентирован на городские поездки. Размеры моделей B-сегмента варьируются '
                              'от 3,7 до 4,2 м для хэтчбеков, но бывают седаны длиной более 4,4 м. А это значит, что в салоне больше места для '
@@ -269,7 +269,7 @@ public class LoadDatabase {
             );
             Classification sClass = new Classification();
             sClass.setName("S_class/Sport/Спорт");
-            sClass.setImage("https://news.dupontregistry.com/wp-content/uploads/2023/12/2023-lamborghini-huracan-tecnic-9-915x570.jpg");
+            sClass.setImage("https://inv.assets.ansira.net/ChromeColorMatch/us/TRANSPARENT_cc_2023AUC170052_01_1280_L5L5.png");
             sClass.setDescription("""
                     Этот класс концентрируется на спортивном характере и включает в себя родстеры, гранд-туреры, кабриолеты и маслкары.
                              'Это высокопроизводительные и высокотехнологичные автомобили рассчитаны на определенный круг покупателей,
