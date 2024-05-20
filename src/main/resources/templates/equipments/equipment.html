@@ -14,7 +14,7 @@
                 <h4 th:if="*{engine != null}">
                     <a th:href="@{/engines/{id} (id = *{engine.id})}" style="text-decoration: none">
                         <div style="width: 300px; height: 300px">
-                            <img th:src="*{engine.image}" alt="image" style="width: 300px; border-radius: 10%"><br>
+                            <img src="/images/car-engine.jpg" alt="image" style="width: 300px; border-radius: 10%"><br>
                         </div>
                         <span th:text="*{engine.engineEdition.brand.title}" style="color: grey"/><br>
                         <span th:text="*{engine.engineEdition.name}"/>
@@ -45,7 +45,7 @@
                 <h4 th:if="*{transmission != null}">
                     <a th:href="@{/transmissions/{id} (id = *{transmission.id}, brandId = *{transmission.brand.id})}" style="text-decoration: none">
                         <div style="width: 300px; height: 300px">
-                            <img th:src="*{transmission.image}" alt="image" style="width: 300px; border-radius: 10%"><br>
+                            <img src="/images/transmission.jpg" alt="image" style="width: 300px; border-radius: 10%"><br>
                         </div>
                         <span th:text="*{transmission.brand.title}" style="color: grey"/><br>
                         <span th:text="*{transmission.gearbox.name}"/>
@@ -76,7 +76,7 @@
                 <h4 th:if="*{turbocharger != null}">
                     <a th:href="@{/turbochargers/{id} (id = *{turbocharger.id}, brandId = *{turbocharger.brand.id})}" style="text-decoration: none">
                         <div style="width: 300px; height: 300px">
-                            <img th:src="*{turbocharger.image}" alt="image" style="width: 300px; border-radius: 10%"><br>
+                            <img src="/images/turbocharger.jpg" alt="image" style="width: 300px; border-radius: 10%"><br>
                         </div>
                         <span th:text="*{turbocharger.brand.title}" style="color: grey"/><br>
                         <span th:text="*{turbocharger.turboType.name}"/>
