@@ -8,11 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Setter
-@Getter
-@EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class Car {
 
     @Id

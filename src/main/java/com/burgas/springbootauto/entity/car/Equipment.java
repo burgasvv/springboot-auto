@@ -7,11 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Setter
-@Getter
-@EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class Equipment {
 
     @Id
