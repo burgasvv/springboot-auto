@@ -22,18 +22,16 @@ import com.burgas.springbootauto.repository.transmission.GearboxRepository;
 import com.burgas.springbootauto.repository.transmission.TransmissionRepository;
 import com.burgas.springbootauto.repository.turbocharging.TurboTypeRepository;
 import com.burgas.springbootauto.repository.turbocharging.TurbochargerRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
+@Slf4j
 @Configuration
 public class LoadDatabase {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoadDatabase.class);
 
     @Bean
     public CommandLineRunner initDatabase(BrandRepository brandRepository,
@@ -619,49 +617,49 @@ public class LoadDatabase {
             equipM4.setTransmission(al750);
             equipM4.setTurbocharger(vagis20);
 
-            LOGGER.info("Preload: {}", categoryRepository.saveAll(
+            log.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))
             );
-            LOGGER.info("Preload: {}", classificationRepository.saveAll(
+            log.info("Preload: {}", classificationRepository.saveAll(
                     List.of(aClass, bClass, cClass, eClass, dClass, fClass, sClass, mClass, jClass)
             ));
-            LOGGER.info("Preload: {}", tagRepository.saveAll(
+            log.info("Preload: {}", tagRepository.saveAll(
                     List.of(tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10, tag11, tag12, tag13, tag14, tag15, tag16, tag17)
             ));
-            LOGGER.info("Preload: {}", gearboxRepository.saveAll(
+            log.info("Preload: {}", gearboxRepository.saveAll(
                     List.of(st4, st5, st6, st7, st8)
             ));
-            LOGGER.info("Preload: {}", turboTypeRepository.saveAll(
+            log.info("Preload: {}", turboTypeRepository.saveAll(
                     List.of(vtgTurbo, compressor, comboTurbo)
             ));
-            LOGGER.info("Preload: {}", brandRepository.saveAll(
+            log.info("Preload: {}", brandRepository.saveAll(
                     List.of(bmw, audi, mercedes)
             ));
-            LOGGER.info("Preload: {}", carRepository.saveAll(
+            log.info("Preload: {}", carRepository.saveAll(
                     List.of(m5, m4, r8, g63, cls63)
             ));
-            LOGGER.info("Preload: {}", engineEditionRepository.saveAll(
+            log.info("Preload: {}", engineEditionRepository.saveAll(
                     List.of(eeR6)
             ));
-            LOGGER.info("Preload: {}", fuelRepository.saveAll(
+            log.info("Preload: {}", fuelRepository.saveAll(
                     List.of(petrol, diesel)
             ));
-            LOGGER.info("Preload: {}", engineRepository.saveAll(
+            log.info("Preload: {}", engineRepository.saveAll(
                     List.of(em51, em57)
             ));
-            LOGGER.info("Preload: {}", engineCharacteristicsRepository.saveAll(
+            log.info("Preload: {}", engineCharacteristicsRepository.saveAll(
                     List.of(chem51, chem57)
             ));
-            LOGGER.info("Preload: {}", driveTypeRepository.saveAll(
+            log.info("Preload: {}", driveTypeRepository.saveAll(
                     List.of(mechanic, autoType, robot)
             ));
-            LOGGER.info("Preload: {}", transmissionRepository.saveAll(
+            log.info("Preload: {}", transmissionRepository.saveAll(
                     List.of(al950, al750)
             ));
-            LOGGER.info("Preload: {}", turbochargerRepository.saveAll(
+            log.info("Preload: {}", turbochargerRepository.saveAll(
                     List.of(gtb2260vk, vagis20, sk3rr)
             ));
-            LOGGER.info("Preload: {}", equipmentRepository.saveAll(
+            log.info("Preload: {}", equipmentRepository.saveAll(
                     List.of(equipM5, equipM4)
             ));
         };
