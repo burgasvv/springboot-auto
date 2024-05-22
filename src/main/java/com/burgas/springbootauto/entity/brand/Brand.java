@@ -20,7 +20,7 @@ public class Brand {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -32,7 +32,7 @@ public class Brand {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<EngineEdition>engineEditions = new ArrayList<>();
 
     @SuppressWarnings("JpaDataSourceORMInspection")
@@ -51,12 +51,12 @@ public class Brand {
     )
     private List<TurboType>turboTypes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Turbocharger>turbochargers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Transmission>transmissions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();
 }

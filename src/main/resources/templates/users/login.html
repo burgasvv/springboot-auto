@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="text-align: center; margin-top: 10%">
+        <form method="post" action="/login">
+            <h1>Login in</h1>
+            <label for="username">Name</label><br>
+            <input type="text" id="username" name="username"><br><br>
+
+            <label for="password">Password</label><br>
+            <input type="password" id="password" name="password"><br><br>
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+            <input type="submit" value="Log in" style="color: black">
+        </form>
+        <a href="/registration">Registration</a>
+    </div>
+</body>
+</html>

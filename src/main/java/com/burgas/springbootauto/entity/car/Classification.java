@@ -14,7 +14,7 @@ public class Classification {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -23,6 +23,6 @@ public class Classification {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "classification", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "classification", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();
 }

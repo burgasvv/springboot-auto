@@ -14,9 +14,9 @@ public class DriveType {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "driveType", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "driveType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Transmission>transmissions = new ArrayList<>();
 }

@@ -15,7 +15,7 @@ public class Engine {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -33,10 +33,10 @@ public class Engine {
     @JoinColumn(name = "fuel_id", referencedColumnName = "id")
     private Fuel fuel;
 
-    @OneToMany(mappedBy = "engine", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "engine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Equipment> equipments = new ArrayList<>();
 
-    @OneToOne(mappedBy = "engine", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "engine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private EngineCharacteristics engineCharacteristics;
 
     public void addEquipment(Equipment equipment) {

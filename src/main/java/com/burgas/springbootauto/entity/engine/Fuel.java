@@ -14,7 +14,7 @@ public class Fuel {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL)

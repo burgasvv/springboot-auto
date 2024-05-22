@@ -6,6 +6,8 @@ import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.entity.engine.Fuel;
+import com.burgas.springbootauto.entity.person.Person;
+import com.burgas.springbootauto.entity.person.Role;
 import com.burgas.springbootauto.entity.transmission.DriveType;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.entity.transmission.Transmission;
@@ -17,21 +19,27 @@ import com.burgas.springbootauto.repository.engine.EngineCharacteristicsReposito
 import com.burgas.springbootauto.repository.engine.EngineEditionRepository;
 import com.burgas.springbootauto.repository.engine.EngineRepository;
 import com.burgas.springbootauto.repository.engine.FuelRepository;
+import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.repository.transmission.DriveTypeRepository;
 import com.burgas.springbootauto.repository.transmission.GearboxRepository;
 import com.burgas.springbootauto.repository.transmission.TransmissionRepository;
 import com.burgas.springbootauto.repository.turbocharging.TurboTypeRepository;
 import com.burgas.springbootauto.repository.turbocharging.TurbochargerRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
 @Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class LoadDatabase {
+
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
     public CommandLineRunner initDatabase(BrandRepository brandRepository,
@@ -47,9 +55,18 @@ public class LoadDatabase {
                                           GearboxRepository gearboxRepository, DriveTypeRepository driveTypeRepository,
                                           TransmissionRepository transmissionRepository,
                                           TurbochargerRepository turbochargerRepository,
-                                          TurboTypeRepository turboTypeRepository) {
+                                          TurboTypeRepository turboTypeRepository,
+                                          PersonRepository personRepository) {
 
         return _ -> {
+
+            Person admin = new Person();
+            admin.setEnabled(true);
+            admin.setName("admin");
+            admin.setPassword(passwordEncoder.encode("admin"));
+            admin.setEmail("admin@admin.com");
+            admin.getRoles().add(Role.ADMIN);
+
             Category hatchBack = new Category();
             hatchBack.setName("Hatchback/Хэтчбек");
             hatchBack.setImage("https://img.hyperauto.ru/applications/hyperauto-ru/6ddf532daac4d0d1fbafe343f7624f8a.jpeg");
@@ -617,6 +634,7 @@ public class LoadDatabase {
             equipM4.setTransmission(al750);
             equipM4.setTurbocharger(vagis20);
 
+            log.info("Preload: " + personRepository.save(admin));
             log.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))
             );

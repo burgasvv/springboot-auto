@@ -16,7 +16,7 @@ public class Gearbox {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
@@ -26,7 +26,7 @@ public class Gearbox {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
 
-    @ManyToMany(mappedBy = "gearboxes", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "gearboxes", fetch = FetchType.LAZY)
     private List<Brand> brands = new ArrayList<>();
 
     public void addBrand(Brand brand) {
@@ -34,6 +34,6 @@ public class Gearbox {
         brand.getGearboxes().add(this);
     }
 
-    @OneToMany(mappedBy = "gearbox", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "gearbox", fetch = FetchType.LAZY)
     private List<Transmission>transmissions = new ArrayList<>();
 }
