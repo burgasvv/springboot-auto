@@ -4,8 +4,10 @@ import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.car.*;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.*;
+import com.burgas.springbootauto.service.person.PersonService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +26,7 @@ public class CarController {
     private final ClassificationService classificationService;
     private final CategoryService categoryService;
     private final TagService tagService;
+    private final PersonService personService;
 
     private void getSearchLists(Model model) {
         model.addAttribute("brands",
@@ -68,6 +71,8 @@ public class CarController {
 
     @GetMapping("/{id}")
     public String car(@PathVariable("id") Long id, Model model) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("user", personService.findByName(name));
         model.addAttribute("car",carService.findById(id));
         model.addAttribute("allTags", tagService.findAll());
         model.addAttribute("attachTag", new Tag());
@@ -90,6 +95,7 @@ public class CarController {
         if (bindingResult.hasErrors()) {
             return "cars/add";
         }
+        car.setPerson(personService.findByName(SecurityContextHolder.getContext().getAuthentication().getName()));
         carService.save(car);
         return "redirect:/cars";
     }

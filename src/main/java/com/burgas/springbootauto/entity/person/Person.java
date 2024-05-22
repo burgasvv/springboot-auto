@@ -1,5 +1,6 @@
 package com.burgas.springbootauto.entity.person;
 
+import com.burgas.springbootauto.entity.car.Car;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,6 +37,19 @@ public class Person implements UserDetails {
     )
     @Enumerated(EnumType.STRING)
     private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Car>cars = new ArrayList<>();
+
+    public void addCar(Car car) {
+        cars.add(car);
+        car.setPerson(this);
+    }
+
+    public void removeCar(Car car) {
+        cars.remove(car);
+        car.setPerson(null);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

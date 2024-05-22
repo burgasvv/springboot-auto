@@ -1,6 +1,7 @@
 package com.burgas.springbootauto.entity.car;
 
 import com.burgas.springbootauto.entity.brand.Brand;
+import com.burgas.springbootauto.entity.person.Person;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,6 +39,11 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "classification_id", referencedColumnName = "id")
     private Classification classification;
+
+    @SuppressWarnings("JpaDataSourceORMInspection")
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
 
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<Equipment> equipments = new ArrayList<>();

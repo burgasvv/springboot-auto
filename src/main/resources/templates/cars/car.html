@@ -65,79 +65,96 @@
 
             <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
 
-            <th:block th:if="*{equipments != null}">
-                <h2>Complectations</h2>
-                <div style="color: grey" th:if="*{equipments.size() != 0}">
-                    <span th:text="*{equipments.size()}"/><span>/5</span>
-                </div>
-                <div style="color: grey" th:if="*{equipments.size() == 0}">
-                    <span>Empty</span>
-                </div>
-                <div style="display: inline-flex; border: 1px grey dashed; margin-right: 10px; margin-top: 10px"
-                     th:each="complectation : *{equipments}">
-                    <div style="display: inline-block; margin-right: 10px; margin-left: 10px">
-                        <h3>
-                            <a th:href="@{/equipments/{id} (id = ${complectation.id})}" th:text="${complectation.name}"
-                               style="text-decoration: none"></a>
-                            <div style="margin-top: 10px">
-                                <form th:method="DELETE" th:action="@{/cars/{id}/delete-equipment (id = *{id}, complId = ${complectation.id})}">
-                                    <input type="submit" value="Remove" style="color: black">
-                                </form>
-                            </div>
-                        </h3>
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <th:block th:if="*{equipments != null}">
+                    <h2>Complectations</h2>
+                    <div style="color: grey" th:if="*{equipments.size() != 0}">
+                        <span th:text="*{equipments.size()}"/><span>/5</span>
                     </div>
-                </div>
-                <div th:if="*{equipments.size() < 5}" style="margin-top: 50px">
+                    <div style="color: grey" th:if="*{equipments.size() == 0}">
+                        <span>Empty</span>
+                    </div>
+                    <div style="display: inline-flex; border: 1px grey dashed; margin-right: 10px; margin-top: 10px"
+                         th:each="complectation : *{equipments}">
+                        <div style="display: inline-block; margin-right: 10px; margin-left: 10px">
+                            <h3>
+                                <a th:href="@{/equipments/{id} (id = ${complectation.id})}" th:text="${complectation.name}"
+                                   style="text-decoration: none"></a>
+                                <div style="margin-top: 10px">
+                                    <form th:method="DELETE" th:action="@{/cars/{id}/delete-equipment (id = *{id}, complId = ${complectation.id})}">
+                                        <input type="submit" value="Remove" style="color: black">
+                                    </form>
+                                </div>
+                            </h3>
+                        </div>
+                    </div>
+                    <div th:if="*{equipments.size() < 5}" style="margin-top: 50px">
+                        <form th:method="POST" th:action="@{/cars/{id}/add-equipment (id = *{id})}">
+                            <label for="complect name">Name</label>
+                            <input type="text" id="complect name" th:field="${equipment.name}">
+                            <input type="submit" value="Add Complect" style="color: black">
+                        </form>
+                    </div>
+                </th:block>
+
+                <th:block th:if="*{equipments == null}">
+                    <h3>No equipment</h3>
                     <form th:method="POST" th:action="@{/cars/{id}/add-equipment (id = *{id})}">
-                        <label for="complect name">Name</label>
-                        <input type="text" id="complect name" th:field="${equipment.name}">
-                        <input type="submit" value="Add Complect" style="color: black">
+                        <input type="submit" value="Add Equipment" style="color: black">
+                    </form>
+                </th:block>
+
+                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
+
+                <h2 style="margin-top: 50px">Tags</h2>
+                <div style="display: inline-flex">
+                    <form th:method="POST" th:action="@{/cars/{id}/attach-tag (id = *{id})}">
+                        <label for="tags">Ready Tags</label><br>
+                        <select th:field="${attachTag.id}" id="tags" size="1" onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
+                            <option th:each="tag : ${allTags}" th:value="${tag.id}" th:text="${tag.name}"></option>
+                        </select><br><br>
+                        <input type="submit" value="Attach Tag" style="color: black">
+                    </form>
+                    <form th:method="PUT" th:action="@{/cars/{id}/add-tag (id = *{id})}" style="margin-left: 20px">
+                        <label for="tag">New Tag</label><br>
+                        <input type="text" id="tag" th:field="${newTag.name}"><br><br>
+                        <input type="submit" value="Add and Attach" style="color: black">
+                    </form>
+                </div>
+                <br><br>
+
+                <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex; width: 200px">
+                    <a th:href="@{/cars/search-by-tag (search = ${tag.name})}" target="_blank" style="text-decoration: none">
+                        <span th:text="${tag.name}" style="margin: 5px"/>
+                    </a>
+                </div>
+
+                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
+
+                <div>
+                    <h2>Car</h2>
+                </div>
+                <div style="display: inline-flex; margin-top: 10px">
+                    <form th:method="GET" th:action="@{/cars/{id}/edit (id = *{id})}">
+                        <input type="submit" value="Edit" style="color: black">
+                    </form>
+                    <form th:method="DELETE" th:action="@{/cars/{id}/delete (id = *{id})}">
+                        <input type="submit" value="Remove" style="color: black; margin-left: 10px">
                     </form>
                 </div>
             </th:block>
-            <th:block th:if="*{equipments == null}">
-                <h3>No equipment</h3>
-                <form th:method="POST" th:action="@{/cars/{id}/add-equipment (id = *{id})}">
-                    <input type="submit" value="Add Equipment" style="color: black">
-                </form>
+
+            <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+                <th:block th:case="${false}">
+                    <h2 style="margin-top: 50px">Tags</h2>
+                    <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex; width: 200px">
+                        <a th:href="@{/cars/search-by-tag (search = ${tag.name})}" target="_blank" style="text-decoration: none">
+                            <span th:text="${tag.name}" style="margin: 5px"/>
+                        </a>
+                    </div>
+                    <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
+                </th:block>
             </th:block>
-
-            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
-
-            <h2 style="margin-top: 50px">Tags</h2>
-            <div style="display: inline-flex">
-                <form th:method="POST" th:action="@{/cars/{id}/attach-tag (id = *{id})}">
-                    <label for="tags">Ready Tags</label><br>
-                    <select th:field="${attachTag.id}" id="tags" size="1" onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
-                        <option th:each="tag : ${allTags}" th:value="${tag.id}" th:text="${tag.name}"></option>
-                    </select><br><br>
-                    <input type="submit" value="Attach Tag" style="color: black">
-                </form>
-                <form th:method="PUT" th:action="@{/cars/{id}/add-tag (id = *{id})}" style="margin-left: 20px">
-                    <label for="tag">New Tag</label><br>
-                    <input type="text" id="tag" th:field="${newTag.name}"><br><br>
-                    <input type="submit" value="Add and Attach" style="color: black">
-                </form>
-            </div>
-            <br><br>
-
-            <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex; width: 200px">
-                <a th:href="@{/cars/search-by-tag (search = ${tag.name})}" target="_blank" style="text-decoration: none">
-                    <span th:text="${tag.name}" style="margin: 5px"/>
-                </a>
-            </div>
-            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
-            <div>
-                <h2>Car</h2>
-            </div>
-            <div style="display: inline-flex; margin-top: 10px">
-                <form th:method="GET" th:action="@{/cars/{id}/edit (id = *{id})}">
-                    <input type="submit" value="Edit" style="color: black">
-                </form>
-                <form th:method="DELETE" th:action="@{/cars/{id}/delete (id = *{id})}">
-                    <input type="submit" value="Remove" style="color: black; margin-left: 10px">
-                </form>
-            </div>
         </div>
     </div>
 </body>

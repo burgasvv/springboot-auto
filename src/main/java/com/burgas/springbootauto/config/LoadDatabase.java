@@ -377,6 +377,7 @@ public class LoadDatabase {
 
 
             Car m5 = new Car();
+            m5.setPerson(admin);
             m5.setTitle("M5");
             m5.setImage("https://imgd.aeplcdn.com/1280x720/cw/ec/33136/BMW-M5-Exterior-172905.jpg?wm=0&q=80");
             m5.setWebpage("https://www.bmw.ru/ru/all-models/m-series/m5-sedan/2021/bmw-5-series-sedan-m-automobiles-overview.html");
@@ -399,6 +400,7 @@ public class LoadDatabase {
                             'и впечатляет идеально сбалансированной комбинацией спортивности, комфорта и экономичности."""
             );
             Car r8 = new Car();
+            r8.setPerson(admin);
             r8.setTitle("R8");
             r8.setImage("https://imgd.aeplcdn.com/664x374/cw/ec/21724/Audi-R8-Right-Front-Three-Quarter-66713.jpg?v=201711021421&q=80");
             r8.setWebpage("https://www.audiusa.com/us/web/en/models/r8/r8-heritage/2024/overview.html");
@@ -414,6 +416,7 @@ public class LoadDatabase {
                             'Production ended in the first quarter of 2024."""
             );
             Car m4 = new Car();
+            m4.setPerson(admin);
             m4.setTitle("M4");
             m4.setImage("https://prod.cosy.bmw.cloud/bmwweb/cosySec?COSY-EU-100-7331cqgv2Z7d%25i02uCaY3MuO2kOHUtWPfbYf0jD110tLhu1XzWVo7puMLWFmdkAj5DOP5tpsZ8XgY1nTNIowJ4HO3zkyXq%25sGM8snGhMQSk%2508Xc9Vo74giU2NF1VgxNJ0%25lJfVZ8XJaFBVKLB9MEWO5GalL7GqGAt6GCrv0s9O9DJE4GA0ogRxQNF9OALUollkIogOybLKynvLUgChSXF5GybUEqgtc89ChbNmKXNPoEqhk7BRKMLNmqn1cSJDyk7m5VKJXYCn178zBPltE5V1PaHVqfN8zVMRJw9SkPazDxK07dnMRaYWB9EQ5DxRte2LcZ8YWxfjfEgcPteWS6GERKMfjedw9hbBDS6jQ%250502Ydw6Zuj8KptQ%25wc3lLMifZu%25KXsyTHSc3uBr0UTJdKX324BDpTQLXg7AF3D%25zhrLGwg6QuiVpRBn5Y3");
             m4.setWebpage("https://www.bmw.ru/ru/index.html");
@@ -435,6 +438,7 @@ public class LoadDatabase {
                             'в повседневной эксплуатации. *M xDrive предлагается ориентировочно с лета 2021 года."""
             );
             Car g63 = new Car();
+            g63.setPerson(admin);
             g63.setTitle("AMG G-63");
             g63.setImage("https://platform.cstatic-images.com/xlarge/in/v2/stock_photos/799a84ca-4aec-4459-8984-41bea8603148/34dd2126-c630-4221-a3e2-f711ab4149c2.png");
             g63.setWebpage("https://www.mercedes-benz.com/en/vehicles/g-class/");
@@ -451,6 +455,7 @@ public class LoadDatabase {
                             'kombiniert: 281-248g/km | CO2-Klasse: G"""
             );
             Car cls63 = new Car();
+            cls63.setPerson(admin);
             cls63.setTitle("CLS 63 AMG");
             cls63.setImage("https://platform.cstatic-images.com/xlarge/in/v2/stock_photos/d70fc0aa-3936-44d1-809b-d09a4bfaf3c5/4e731530-0992-41b9-bf7e-2ab2e70c2ff9.png");
             cls63.setWebpage("https://panavto-mercedes.ru/new_cars/cls-class/cls-63-amg-cls-class/");
