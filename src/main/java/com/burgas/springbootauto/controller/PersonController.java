@@ -21,9 +21,9 @@ public class PersonController {
         return "users/users";
     }
 
-    @GetMapping("/{id}")
-    public String user(@PathVariable Long id, Model model) {
-        model.addAttribute("user", personService.findById(id));
+    @GetMapping("/{name}")
+    public String user(@PathVariable String name, Model model) {
+        model.addAttribute("user", personService.findByName(name));
         return "users/user";
     }
 }
