@@ -11,13 +11,23 @@
             <input type="text" id="search" name="search">
             <input type="submit" value="Search" style="margin-left: 10px; color: black">
         </form>
-        <div style="text-align: right; margin-right: 100px; margin-top: -65px">
-            <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/login">Login</a></h3>
-            <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/registration">Registration</a></h3>
-            <form action="/logout" method="post" style="display: inline-flex">
-                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                <input type="submit" value="Logout" style="color: black">
-            </form>
-        </div>
+        <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+            <th:block th:case="${false}">
+                <div style="text-align: right; margin-right: 100px; margin-top: -62px">
+                    <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/login">Login</a></h3>
+                    <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/registration">Registration</a></h3>
+                </div>
+            </th:block>
+            <th:block th:case="${true}">
+                <div style="text-align: right; margin-right: 100px; margin-top: -42px">
+                    <form action="/logout" method="post" style="display: inline-flex; margin-right: 20px">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                        <input type="submit" value="Logout"
+                               style="background: none; border: none; color: #1a0dab; text-decoration: none;
+                               cursor: pointer; font-size: 16px; font-weight: bold">
+                    </form>
+                </div>
+            </th:block>
+        </th:block>
     </div>
 </th:block>
