@@ -23,8 +23,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(requests ->
-                        requests.requestMatchers("/", "/registration", "/brands", "/brands/**",
-                                        "/cars", "/cars/**", "/equipments", "/equipments/**")
+                        requests.requestMatchers("/", "/registration", "/brands","/brands/{id}",
+                                        "/cars","/cars/{id}", "/equipments","/classes","/classes/{id}",
+                                        "/categories","/categories/{id}")
                                 .permitAll().anyRequest().authenticated())
                 .formLogin(login -> login.loginPage("/login").defaultSuccessUrl("/").permitAll())
                 .logout(logout -> logout.logoutSuccessUrl("/login").permitAll());
