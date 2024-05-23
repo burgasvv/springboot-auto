@@ -34,8 +34,8 @@ public class EquipmentController {
         return "equipments/equipments";
     }
 
-    @GetMapping("/{id}")
-    public String getEquipment(@PathVariable("id") Long id, @RequestParam(name = "carId") Long carId, Model model) {
+    @GetMapping("/{id}/{carId}")
+    public String getEquipment(@PathVariable("id") Long id, @PathVariable(name = "carId") Long carId, Model model) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
@@ -50,52 +50,54 @@ public class EquipmentController {
         return "equipments/equipment";
     }
 
-    @PostMapping("/{id}/add-engine")
-    public String addEngine(@PathVariable("id") Long id, @ModelAttribute("engine") Engine engine) {
-        System.out.println(engine.getId());
+    @PostMapping("/{id}/{carId}/add-engine")
+    public String addEngine(@PathVariable("id") Long id, @PathVariable(name = "carId") Long carId,
+                            @ModelAttribute("engine") Engine engine) {
         Equipment equipment = equipmentService.findById(id);
         equipment.addEngine(engine);
         equipmentService.update(equipment);
-        return "redirect:/equipments/{id}";
+        return "redirect:/equipments/{id}/" + carId;
     }
 
-    @DeleteMapping("/{id}/remove-engine")
-    public String removeEngine(@PathVariable("id") Long id) {
+    @DeleteMapping("/{id}/{carId}/remove-engine")
+    public String removeEngine(@PathVariable("id") Long id, @PathVariable(name = "carId") Long carId) {
         Equipment equipment = equipmentService.findById(id);
         equipment.removeEngine(equipment.getEngine());
         equipmentService.update(equipment);
-        return "redirect:/equipments/{id}";
+        return "redirect:/equipments/{id}/" + carId;
     }
 
-    @PostMapping("/{id}/add-transmission")
-    public String addTransmission(@PathVariable("id") Long id, @ModelAttribute("transmission") Transmission transmission) {
+    @PostMapping("/{id}/{carId}/add-transmission")
+    public String addTransmission(@PathVariable("id") Long id, @PathVariable(name = "carId") Long carId,
+                                  @ModelAttribute("transmission") Transmission transmission) {
         Equipment equipment = equipmentService.findById(id);
         equipment.addTransmission(transmission);
         equipmentService.update(equipment);
-        return "redirect:/equipments/{id}";
+        return "redirect:/equipments/{id}/" + carId;
     }
 
-    @DeleteMapping("/{id}/remove-transmission")
-    public String removeTransmission(@PathVariable("id") Long id) {
+    @DeleteMapping("/{id}/{carId}/remove-transmission")
+    public String removeTransmission(@PathVariable("id") Long id, @PathVariable(name = "carId") Long carId) {
         Equipment equipment = equipmentService.findById(id);
         equipment.removeTransmission(equipment.getTransmission());
         equipmentService.update(equipment);
-        return "redirect:/equipments/{id}";
+        return "redirect:/equipments/{id}/" + carId;
     }
 
-    @PostMapping("/{id}/add-turbocharger")
-    public String addTurbocharger(@PathVariable("id") Long id, @ModelAttribute("turbocharger") Turbocharger turbocharger) {
+    @PostMapping("/{id}/{carId}/add-turbocharger")
+    public String addTurbocharger(@PathVariable("id") Long id, @PathVariable(name = "carId") Long carId ,
+                                  @ModelAttribute("turbocharger") Turbocharger turbocharger) {
         Equipment equipment = equipmentService.findById(id);
         equipment.addTurbocharger(turbocharger);
         equipmentService.update(equipment);
-        return "redirect:/equipments/{id}";
+        return "redirect:/equipments/{id}/" + carId;
     }
 
-    @DeleteMapping("/{id}/remove-turbocharger")
-    public String removeTurbocharger(@PathVariable("id") Long id) {
+    @DeleteMapping("/{id}/{carId}/remove-turbocharger")
+    public String removeTurbocharger(@PathVariable("id") Long id, @PathVariable(name = "carId") Long carId) {
         Equipment equipment = equipmentService.findById(id);
         equipment.removeTurbocharger(equipment.getTurbocharger());
         equipmentService.update(equipment);
-        return "redirect:/equipments/{id}";
+        return "redirect:/equipments/{id}/" + carId;
     }
 }

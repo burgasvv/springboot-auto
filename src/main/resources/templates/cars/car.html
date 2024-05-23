@@ -34,7 +34,7 @@
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <h3 style="color: grey">
                     Owner: <a style="font-weight: normal; text-decoration: none"
-                              th:href="@{/users/{name} (name = *{person.getUsername})}" th:text="*{person.getUsername}"></a>
+                              th:href="@{/users/{name} (name = *{person.username})}" th:text="*{person.username}"></a>
                 </h3>
             </th:block>
             <img th:src="*{image}" alt="image" style="width: 600px; border-radius: 10%">
@@ -84,9 +84,9 @@
                          th:each="complectation : *{equipments}">
                         <div style="display: inline-block; margin-right: 10px; margin-left: 10px">
                             <h3>
-                                <a th:href="@{/equipments/{id} (id = ${complectation.id}, carId = ${car.id})}" th:text="${complectation.name}"
+                                <a th:href="@{/equipments/{id}/{carId} (id = ${complectation.id}, carId = ${car.id})}" th:text="${complectation.name}"
                                    style="text-decoration: none"></a>
-                                <th:block th:if="${user.getUsername eq car.person.getUsername}">
+                                <th:block th:if="${user.username eq car.person.username}">
                                     <div style="margin-top: 10px">
                                         <form th:method="DELETE"
                                               th:action="@{/cars/{id}/delete-equipment (id = *{id}, complId = ${complectation.id})}">
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                     <div th:if="*{equipments.size() < 5}" style="margin-top: 50px">
-                        <th:block th:if="${user.getUsername eq car.person.getUsername}">
+                        <th:block th:if="${user.username eq car.person.username}">
                             <form th:method="POST" th:action="@{/cars/{id}/add-equipment (id = *{id})}">
                                 <label for="complect name">Name</label>
                                 <input type="text" id="complect name" th:field="${equipment.name}">
@@ -110,7 +110,7 @@
 
                 <th:block th:if="*{equipments == null}">
                     <h3>No equipment</h3>
-                    <th:block th:if="${user.getUsername eq car.person.getUsername}">
+                    <th:block th:if="${user.username eq car.person.username}">
                         <form th:method="POST" th:action="@{/cars/{id}/add-equipment (id = *{id})}">
                             <input type="submit" value="Add Equipment" style="color: black">
                         </form>
@@ -121,7 +121,7 @@
 
                 <h2 style="margin-top: 50px">Tags</h2>
 
-                <th:block th:if="${user.getUsername eq car.person.getUsername}">
+                <th:block th:if="${user.username eq car.person.username}">
                     <div style="display: inline-flex">
                         <form th:method="POST" th:action="@{/cars/{id}/attach-tag (id = *{id})}">
                             <label for="tags">Ready Tags</label><br>
@@ -148,7 +148,7 @@
                 <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
 
 
-                <th:block th:if="${user.getUsername eq car.person.getUsername}">
+                <th:block th:if="${user.username eq car.person.username}">
                     <div>
                         <h2>Car</h2>
                     </div>
