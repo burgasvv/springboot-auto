@@ -6,6 +6,9 @@ import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 public class Equipment {
@@ -17,9 +20,23 @@ public class Equipment {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "car_id", referencedColumnName = "id")
-    private Car car;
+    @SuppressWarnings("JpaDataSourceORMInspection")
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "car_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipment_id")
+    )
+    private List<Car> cars = new ArrayList<>();
+
+    public void addCar(Car car) {
+        cars.add(car);
+        car.getEquipments().add(this);
+    }
+
+    public void removeCar(Car car) {
+        cars.remove(car);
+        car.getEquipments().remove(this);
+    }
 
     @ManyToOne
     @JoinColumn(name = "engine_id", referencedColumnName = "id")

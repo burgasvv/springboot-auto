@@ -632,13 +632,13 @@ public class LoadDatabase {
 
             Equipment equipM5 = new Equipment();
             equipM5.setName("M5 test 1");
-            equipM5.setCar(m5);
+            equipM5.setCars(List.of(m5));
             equipM5.setEngine(em51);
             equipM5.setTransmission(al950);
             equipM5.setTurbocharger(gtb2260vk);
             Equipment equipM4 = new Equipment();
             equipM4.setName("M4 test 1");
-            equipM4.setCar(m4);
+            equipM4.setCars(List.of(m4));
             equipM4.setEngine(em51);
             equipM4.setTransmission(al750);
             equipM4.setTurbocharger(vagis20);

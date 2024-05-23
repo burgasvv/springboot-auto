@@ -40,22 +40,21 @@ public class Car {
     @JoinColumn(name = "classification_id", referencedColumnName = "id")
     private Classification classification;
 
-    @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "cars", cascade = CascadeType.ALL)
     private List<Equipment> equipments = new ArrayList<>();
 
     public void addEquipment(Equipment equipment) {
         equipments.add(equipment);
-        equipment.setCar(this);
+        equipment.getCars().add(this);
     }
 
     public void removeEquipment(Equipment equipment) {
         equipments.remove(equipment);
-        equipment.setCar(null);
+        equipment.getCars().remove(this);
     }
 
     @SuppressWarnings("JpaDataSourceORMInspection")
