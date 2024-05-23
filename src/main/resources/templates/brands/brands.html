@@ -23,7 +23,11 @@
         <br>
     </div>
     <div style="margin: 100px">
-        <input type="button" value="Add Brand" onclick="location.assign('/brands/add')" style="color: black">
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block th:if="${user.roles.first.name() == 'ADMIN'}">
+                <input type="button" value="Add Brand" onclick="location.assign('/brands/add')" style="color: black">
+            </th:block>
+        </th:block>
         <input type="button" value="Back" onclick="location.assign('/')" style="color: black">
     </div>
 </body>

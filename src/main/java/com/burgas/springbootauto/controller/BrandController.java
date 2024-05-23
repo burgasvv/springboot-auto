@@ -12,6 +12,7 @@ import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.engine.EnginEditionService;
 import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.engine.FuelService;
+import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.transmission.DriveTypeService;
 import com.burgas.springbootauto.service.transmission.GearboxService;
 import com.burgas.springbootauto.service.transmission.TransmissionService;
@@ -19,6 +20,7 @@ import com.burgas.springbootauto.service.turbocharging.TurboTypeService;
 import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,15 +40,22 @@ public class BrandController {
     private final TransmissionService transmissionService;
     private final TurboTypeService turboTypeService;
     private final TurbochargerService turbochargerService;
+    private final PersonService personService;
 
     @GetMapping
     public String brands(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("brands", brandService.findAll());
         return "brands/brands";
     }
 
     @GetMapping("/{id}")
     public String brand(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("brand", brandService.findById(id));
         return "brands/brand";
     }
@@ -107,6 +116,9 @@ public class BrandController {
 
     @GetMapping("/{id}/editions")
     public String editions(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("brand", brandService.findById(id));
         return "editions/editions";
     }
@@ -166,6 +178,9 @@ public class BrandController {
 
     @GetMapping("{id}/gearboxes")
     public String gearboxes(@PathVariable("id")Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("brand", brandService.findById(id));
         return "gearboxes/gearboxes";
     }
@@ -212,6 +227,9 @@ public class BrandController {
 
     @GetMapping("/{id}/turbo-types")
     public String turboTypes(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("brand", brandService.findById(id));
         return "turbotypes/turbotypes";
     }

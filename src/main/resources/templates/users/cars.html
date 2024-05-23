@@ -2,16 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Search By Tag</title>
+    <title>My Cars</title>
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
-        <h1>Find Cars</h1>
-        <th:block th:if="${carsByTag.size() < 1}">
+    <div style="margin: 50px 100px" th:object="${owner}">
+        <th:block th:if="${owner.username eq guest.username}">
+            <h1>My Cars</h1>
+        </th:block>
+        <th:block th:if="${owner.username != guest.username}">
+            <h1 th:text="|${owner.username} Cars|"></h1>
+        </th:block>
+        <th:block th:if="*{cars.size() < 1}">
             <h2>No results</h2>
         </th:block>
-        <div th:each="car : ${carsByTag}" style="display: inline-flex">
+        <div th:each="car : *{cars}" style="display: inline-flex">
             <h2 style="height: 250px; width: 250px; margin-right: 80px">
                 <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
                     <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%"><br>
@@ -21,6 +26,11 @@
             </h2>
         </div>
         <div style="margin-top: 100px">
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <th:block th:if="${owner.username eq guest.username}">
+                    <input type="button" value="Add Car" onclick="location.assign('/cars/add')" style="color: black">
+                </th:block>
+            </th:block>
             <input type="button" value="Back" onclick="history.back()" style="color: black">
         </div>
     </div>

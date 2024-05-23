@@ -30,14 +30,18 @@
             <p th:text="*{description}" style="text-align: justify">Description</p>
             <h3>Power Intake: <span style="font-weight: normal" th:text="*{powerIntake}"/></h3>
             <h3>Power Generation: <span style="font-weight: normal" th:text="*{powerGeneration}"/></h3>
-            <div style="margin-top: 50px; display: inline-flex">
-                <form th:method="GET" th:action="@{/turbochargers/{id}/edit (id = *{id})}" style="margin-right: 10px">
-                    <input type="submit" value="Edit" style="color: black">
-                </form>
-                <form th:method="DELETE" th:action="@{/turbochargers/{id}/delete (id = *{id})}">
-                    <input type="submit" value="Delete" style="color: black">
-                </form>
-            </div>
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <th:block th:if="${user.roles.first.name() == 'ADMIN'}">
+                    <div style="margin-top: 50px; display: inline-flex">
+                        <form th:method="GET" th:action="@{/turbochargers/{id}/edit (id = *{id})}" style="margin-right: 10px">
+                            <input type="submit" value="Edit" style="color: black">
+                        </form>
+                        <form th:method="DELETE" th:action="@{/turbochargers/{id}/delete (id = *{id})}">
+                            <input type="submit" value="Delete" style="color: black">
+                        </form>
+                    </div>
+                </th:block>
+            </th:block>
         </div>
     </div>
 </body>

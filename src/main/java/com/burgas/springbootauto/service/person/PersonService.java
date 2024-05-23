@@ -24,12 +24,12 @@ public class PersonService {
         return personRepository.findById(id).orElse(null);
     }
 
-    public Person findByName(String name) {
-        return personRepository.findByName(name);
+    public Person findPersonByUsername(String name) {
+        return personRepository.findPersonByUsername(name);
     }
 
     public void createUser(Person person) {
-        if (personRepository.findByName(person.getName()) != null)
+        if (personRepository.findPersonByUsername(person.getUsername()) != null)
             return;
         person.setEnabled(true);
         person.setPassword(passwordEncoder.encode(person.getPassword()));

@@ -31,7 +31,7 @@
                        th:text="${complectation.car.title}">Car</a>
                 </th>
                 <th>
-                    <a class="a_class" th:href="@{/equipments/{id} (id = ${complectation.id})}"
+                    <a class="a_class" th:href="@{/equipments/{id} (id = ${complectation.id}, carId = ${complectation.car.id})}"
                        th:text="${complectation.name}">Complectation</a>
                 </th>
             </tr>

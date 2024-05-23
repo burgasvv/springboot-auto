@@ -3,8 +3,10 @@ package com.burgas.springbootauto.controller;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.EquipmentService;
+import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +19,16 @@ public class TurbochargerController {
     private final BrandService brandService;
     private final TurbochargerService turbochargerService;
     private final EquipmentService equipmentService;
+    private final PersonService personService;
 
     @GetMapping("/{id}")
     public String getTurbocharger(@PathVariable("id") Long id, Model model, @RequestParam("brandId") Long brandId) {
         Turbocharger turbocharger = turbochargerService.findById(id);
         turbocharger.setBrand(brandService.findById(brandId));
         model.addAttribute("turbocharger", turbocharger);
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         return "turbochargers/turbocharger";
     }
 

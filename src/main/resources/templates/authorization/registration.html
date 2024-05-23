@@ -9,15 +9,30 @@
     <div style="text-align: center; margin-top: 10%">
         <form method="post" action="/registration">
             <h1>Registration</h1>
-            <label for="name">Name</label><br>
-            <input type="text" id="name" name="name"><br><br>
+
+            <label for="firstname">First Name</label><br>
+            <input type="text" id="firstname" name="firstname"><br><br>
+
+            <label for="lastname">Last Name</label><br>
+            <input type="text" id="lastname" name="lastname"><br><br>
+
+            <label for="username">User Name</label><br>
+            <input type="text" id="username" name="username"><br><br>
 
             <label for="email">Email</label><br>
             <input type="email" id="email" name="email"><br><br>
 
             <label for="password">Password</label><br>
             <input type="password" id="password" name="password"><br><br>
+
+            <label for="image">Image</label><br>
+            <input type="text" id="image" name="image"><br><br>
+
+            <label for="description">Description</label><br>
+            <textarea name="description" id="description" cols="30" rows="10"></textarea><br><br>
+
             <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+
             <input type="submit" value="Register" style="color: black">
             <input type="button" value="Back" style="color: black">
         </form>

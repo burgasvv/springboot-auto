@@ -4,11 +4,14 @@ import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
+import com.burgas.springbootauto.service.car.CarService;
 import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.engine.EngineService;
+import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.transmission.TransmissionService;
 import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,8 @@ public class EquipmentController {
     private final EngineService engineService;
     private final TransmissionService transmissionService;
     private final TurbochargerService turbochargerService;
+    private final CarService carService;
+    private final PersonService personService;
 
     @GetMapping
     public String getAllEquipments(Model model) {
@@ -30,7 +35,11 @@ public class EquipmentController {
     }
 
     @GetMapping("/{id}")
-    public String getEquipment(@PathVariable("id") Long id, Model model) {
+    public String getEquipment(@PathVariable("id") Long id, @RequestParam(name = "carId") Long carId, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        model.addAttribute("car", carService.findById(carId));
         model.addAttribute("equipment", equipmentService.findById(id));
         model.addAttribute("engines", engineService.findAll());
         model.addAttribute("addEngine", new Engine());

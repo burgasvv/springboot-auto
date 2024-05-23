@@ -71,8 +71,9 @@ public class CarController {
 
     @GetMapping("/{id}")
     public String car(@PathVariable("id") Long id, Model model) {
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("user", personService.findByName(name));
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("car",carService.findById(id));
         model.addAttribute("allTags", tagService.findAll());
         model.addAttribute("attachTag", new Tag());
@@ -95,13 +96,14 @@ public class CarController {
         if (bindingResult.hasErrors()) {
             return "cars/add";
         }
-        car.setPerson(personService.findByName(SecurityContextHolder.getContext().getAuthentication().getName()));
+        car.setPerson(personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         carService.save(car);
         return "redirect:/cars";
     }
 
     @GetMapping("/{id}/edit")
     public String editCarForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("users", personService.findAll());
         model.addAttribute("car", carService.findById(id));
         model.addAttribute("brands", brandService.findAll());
         model.addAttribute("classes", classificationService.findAll());
@@ -110,7 +112,7 @@ public class CarController {
     }
 
     @PatchMapping("/{id}/edit")
-    public String editCar(@ModelAttribute("car") @Valid Car car, BindingResult bindingResult) {
+    public String editCar(@ModelAttribute("car") @Valid Car car,  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "cars/edit";
         }

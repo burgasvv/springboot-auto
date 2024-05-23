@@ -6,7 +6,9 @@ import com.burgas.springbootauto.service.engine.EnginEditionService;
 import com.burgas.springbootauto.service.engine.EngineCharacteristicsService;
 import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.engine.FuelService;
+import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +25,16 @@ public class EngineController {
     private final EquipmentService equipmentService;
     private final EnginEditionService enginEditionService;
     private final EngineCharacteristicsService engineCharacteristicsService;
+    private final PersonService personService;
 
     @GetMapping("/{id}")
     public String findEngine(@PathVariable("id") Long id, Model model) {
         Engine engine = engineService.findById(id);
         engine.setEngineCharacteristics(engineCharacteristicsService.searchEngineCharacteristicsByEngineId(id));
         model.addAttribute("engine", engine);
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         return "engines/engine";
     }
 

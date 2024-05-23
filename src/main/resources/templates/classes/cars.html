@@ -21,7 +21,7 @@
             <input type="submit" value="Class Cars" style="color: black">
         </form>
     </div>
-    <div style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
+    <div style="margin: 50px 100px">
         <h1>Find Cars</h1>
         <th:block th:if="${cars.size() < 1}">
             <h2>No results</h2>
@@ -36,7 +36,6 @@
             </h2>
         </div>
         <div style="margin-top: 100px">
-            <input type="button" value="Add Car" onclick="location.assign('/cars/add')" style="color: black">
             <input type="button" value="Back" onclick="history.back()" style="color: black">
         </div>
     </div>

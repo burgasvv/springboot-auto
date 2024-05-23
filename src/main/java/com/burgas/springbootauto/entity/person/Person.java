@@ -18,14 +18,26 @@ public class Person implements UserDetails {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
+    private String firstname;
+
+    @Column(nullable = false)
+    private String lastname;
+
     @Column(nullable = false, unique = true)
-    private String name;
+    private String username;
 
     @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String image;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String description;
 
     @Column(nullable = false)
     private boolean enabled;
@@ -58,7 +70,7 @@ public class Person implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override

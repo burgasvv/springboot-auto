@@ -3,9 +3,11 @@ package com.burgas.springbootauto.controller;
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.EquipmentService;
+import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.transmission.DriveTypeService;
 import com.burgas.springbootauto.service.transmission.TransmissionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +21,16 @@ public class TransmissionController {
     private final TransmissionService transmissionService;
     private final DriveTypeService driveTypeService;
     private final EquipmentService equipmentService;
+    private final PersonService personService;
 
     @GetMapping("/{id}")
     public String getTransmission(@PathVariable("id") Long id, Model model, @RequestParam("brandId") Long brandId) {
         Transmission transmission = transmissionService.findById(id);
         transmission.setBrand(brandService.findById(brandId));
         model.addAttribute("transmission", transmission);
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         return "transmissions/transmission";
     }
 

@@ -62,10 +62,14 @@ public class LoadDatabase {
 
             Person admin = new Person();
             admin.setEnabled(true);
-            admin.setName("admin");
+            admin.setFirstname("Tommy");
+            admin.setLastname("Vercetty");
+            admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("admin"));
             admin.setEmail("admin@admin.com");
+            admin.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/User-admin.svg/424px-User-admin.svg.png?20120117141527");
             admin.getRoles().add(Role.ADMIN);
+            admin.setDescription("Hello everyone! I'm admin on this site!");
 
             Category hatchBack = new Category();
             hatchBack.setName("Hatchback/Хэтчбек");
@@ -639,7 +643,7 @@ public class LoadDatabase {
             equipM4.setTransmission(al750);
             equipM4.setTurbocharger(vagis20);
 
-            log.info("Preload: " + personRepository.save(admin));
+            log.info("Preload: {}", personRepository.save(admin));
             log.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))
             );

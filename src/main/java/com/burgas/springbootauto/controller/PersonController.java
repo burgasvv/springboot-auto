@@ -2,6 +2,7 @@ package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,19 @@ public class PersonController {
 
     @GetMapping("/{name}")
     public String user(@PathVariable String name, Model model) {
-        model.addAttribute("user", personService.findByName(name));
+        model.addAttribute("owner", personService.findPersonByUsername(name));
+        model.addAttribute("guest",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         return "users/user";
+    }
+
+    @GetMapping("/{name}/cars")
+    public String cars(@PathVariable String name, Model model) {
+        model.addAttribute("owner", personService.findPersonByUsername(name));
+        model.addAttribute("guest",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "users/cars";
     }
 }

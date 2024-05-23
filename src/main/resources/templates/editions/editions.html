@@ -34,12 +34,20 @@
                 <br>
             </div>
             <br>
-            <a th:href="@{/brands/{id}/add-engine (id = *{id}, editionId = ${edition.id})}" style="text-decoration: none">Add Engine</a>
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <th:block th:if="${user.roles.first.name() == 'ADMIN'}">
+                    <a th:href="@{/brands/{id}/add-engine (id = *{id}, editionId = ${edition.id})}" style="text-decoration: none">Add Engine</a>
+                </th:block>
+            </th:block>
             <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
         </div>
-        <form th:method="GET" th:action="@{/brands/{id}/add-edition (id = *{id})}" style="margin-top: 100px">
-            <input type="submit" value="Add Edition" style="color: black">
-        </form>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block th:if="${user.roles.first.name() == 'ADMIN'}">
+                <form th:method="GET" th:action="@{/brands/{id}/add-edition (id = *{id})}" style="margin-top: 100px">
+                    <input type="submit" value="Add Edition" style="color: black">
+                </form>
+            </th:block>
+        </th:block>
         <br><br>
         <input type="button" value="Back" onclick="history.back()" style="color: black">
     </div>
