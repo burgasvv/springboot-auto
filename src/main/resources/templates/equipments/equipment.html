@@ -7,8 +7,34 @@
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
     <div style="margin: 50px 100px">
-        <h1 th:text="${equipment.name}">Equipment</h1>
-        <div style="display: inline-flex" th:object="${equipment}">
+        <div style="display: inline-flex">
+            <img th:src="${equipment.image}" alt="image" style="width: 50px; height: 50px; border-radius: 10%; margin-right: 20px">
+            <h1 th:text="${equipment.name}">Equipment</h1>
+            <div style="margin-left: 20px">
+                <th:block th:if="${equipment.attached == false}">
+                    <h4 style="color: grey">Not attached</h4>
+                </th:block>
+                <th:block th:if="${equipment.attached == true}">
+                    <h2 style="color: grey">
+                        <span>Attached: </span>
+                        <a th:href="@{/cars/{id} (id = ${equipment.car.id})}" style="text-decoration: none">
+                            <span th:text="${equipment.car.title}"/>
+                        </a>
+                    </h2>
+                </th:block>
+            </div>
+        </div>
+        <br>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block th:if="${user.username eq owner.username}">
+                <div style="margin-top: 50px">
+                    <form th:method="GET" th:action="@{/equipments/{id}/edit-equipment (id = *{id})}">
+                        <input type="submit" value="Edit" style="color: black">
+                    </form>
+                </div>
+            </th:block>
+        </th:block>
+        <div style="display: inline-flex; margin-top: 50px" th:object="${equipment}">
             <div style="display: inline-block; margin-right: 50px">
                 <h2>Engine</h2>
                 <h4 th:if="*{engine != null}">
@@ -21,9 +47,9 @@
                         <span th:text="*{engine.name}"/>
                     </a><br><br>
                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                        <th:block th:if="${user.username eq car.person.username}">
+                        <th:block th:if="${user.username eq owner.username}">
                             <div>
-                                <form th:method="DELETE" th:action="@{/equipments/{id}/{carId}/remove-engine (id = *{id}, carId = ${car.id})}">
+                                <form th:method="DELETE" th:action="@{/equipments/{id}/remove-engine (id = *{id})}">
                                     <input type="submit" value="Change" style="color: black">
                                 </form>
                             </div>
@@ -34,8 +60,8 @@
                     <span style="color: grey">Empty</span>
                     <div style="margin-top: 50px">
                         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                            <th:block th:if="${user.username eq car.person.username}">
-                                <form th:method="POST" th:action="@{/equipments/{id}/{carId}/add-engine (id = *{id}, carId = ${car.id})}">
+                            <th:block th:if="${user.username eq owner.username}">
+                                <form th:method="POST" th:action="@{/equipments/{id}/add-engine (id = *{id})}">
                                     <label for="engine" style="color: grey">Engine</label><br>
                                     <select th:field="${addEngine.id}" id="engine">
                                         <option th:each="chooseEngine : ${engines}" th:value="${chooseEngine.id}"
@@ -60,9 +86,9 @@
                         <span th:text="*{transmission.name}"/>
                     </a><br><br>
                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                        <th:block th:if="${user.username eq car.person.username}">
+                        <th:block th:if="${user.username eq owner.username}">
                             <div>
-                                <form th:method="DELETE" th:action="@{/equipments/{id}/{carId}/remove-transmission (id = *{id}, carId = ${car.id})}">
+                                <form th:method="DELETE" th:action="@{/equipments/{id}/remove-transmission (id = *{id})}">
                                     <input type="submit" value="Change" style="color: black">
                                 </form>
                             </div>
@@ -73,8 +99,8 @@
                     <span style="color: grey">Empty</span>
                     <div style="margin-top: 50px">
                         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                            <th:block th:if="${user.username eq car.person.username}">
-                                <form th:method="POST" th:action="@{/equipments/{id}/{carId}/add-transmission (id = *{id}, carId = ${car.id})}">
+                            <th:block th:if="${user.username eq owner.username}">
+                                <form th:method="POST" th:action="@{/equipments/{id}/add-transmission (id = *{id})}">
                                     <label for="transmission" style="color: grey">Transmission</label><br>
                                     <select th:field="${addTransmission.id}" id="transmission">
                                         <option th:each="chooseTransmission : ${transmissions}" th:value="${chooseTransmission.id}"
@@ -99,9 +125,9 @@
                         <span th:text="*{turbocharger.name}"/>
                     </a><br><br>
                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                        <th:block th:if="${user.username eq car.person.username}">
+                        <th:block th:if="${user.username eq owner.username}">
                             <div>
-                                <form th:method="DELETE" th:action="@{/equipments/{id}/{carId}/remove-turbocharger (id = *{id}, carId = ${car.id})}">
+                                <form th:method="DELETE" th:action="@{/equipments/{id}/remove-turbocharger (id = *{id})}">
                                     <input type="submit" value="Change" style="color: black">
                                 </form>
                             </div>
@@ -112,8 +138,8 @@
                     <span style="color: grey">Empty</span>
                     <div style="margin-top: 50px">
                         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                            <th:block th:if="${user.username eq car.person.username}">
-                                <form th:method="POST" th:action="@{/equipments/{id}/{carId}/add-turbocharger (id = *{id}, carId = ${car.id})}">
+                            <th:block th:if="${user.username eq owner.username}">
+                                <form th:method="POST" th:action="@{/equipments/{id}/add-turbocharger (id = *{id})}">
                                     <label for="turbocharger" style="color: grey">Turbocharger</label><br>
                                     <select th:field="${addTurbocharger.id}" id="turbocharger">
                                         <option th:each="chooseTurbocharger : ${turbochargers}" th:value="${chooseTurbocharger.id}"
@@ -129,11 +155,11 @@
         </div>
         <br>
         <div style="display: inline-flex">
-            <div>
-                <form th:method="GET" th:action="@{/cars/{id} (id = ${car.id})}">
-                    <input type="submit" value="To Car" style="color: black; margin-top: 100px; margin-right: 10px">
-                </form>
-            </div>
+<!--            <div>-->
+<!--                <form th:method="GET" th:action="@{/cars/{id} (id = ${car.id})}">-->
+<!--                    <input type="submit" value="To Car" style="color: black; margin-top: 100px; margin-right: 10px">-->
+<!--                </form>-->
+<!--            </div>-->
             <div>
                 <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
             </div>

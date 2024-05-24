@@ -29,39 +29,47 @@ public class Car {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "brand_id", referencedColumnName = "id")
+    @JoinColumn(name = "brand_id")
     private Brand brand;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "classification_id", referencedColumnName = "id")
+    @JoinColumn(name = "classification_id")
     private Classification classification;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
 
-    @ManyToMany(mappedBy = "cars", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<Equipment> equipments = new ArrayList<>();
 
     public void addEquipment(Equipment equipment) {
+        equipment.setAttached(true);
+        equipment.setCar(this);
         equipments.add(equipment);
-        equipment.getCars().add(this);
     }
 
     public void removeEquipment(Equipment equipment) {
+        equipment.setAttached(false);
+        equipment.setCar(null);
         equipments.remove(equipment);
-        equipment.getCars().remove(this);
+    }
+
+    public void removeEquipments(List<Equipment> equipments) {
+        equipments.forEach(equipment -> equipment.setAttached(false));
+        equipments.forEach(equipment -> equipment.setCar(null));
+        this.equipments.removeAll(equipments);
     }
 
     @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToMany
     @JoinTable(
-            joinColumns = @JoinColumn(name = "car_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "car_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<Tag>tags = new ArrayList<>();
 }

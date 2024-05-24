@@ -35,9 +35,8 @@ public class Turbocharger {
     @Column(nullable = false)
     private String powerGeneration;
 
-    @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToOne
-    @JoinColumn(name = "turbotype_id", referencedColumnName = "id")
+    @JoinColumn(name = "turbotype_id")
     private TurboType turboType;
 
     @OneToMany(mappedBy = "turbocharger", cascade = CascadeType.ALL)

@@ -7,7 +7,7 @@
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
     <div style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
-        <h1>Find Cars</h1>
+        <h2 th:text="|Found cars by tag ${search}|">Cars</h2>
         <th:block th:if="${carsByTag.size() < 1}">
             <h2>No results</h2>
         </th:block>

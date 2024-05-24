@@ -24,13 +24,12 @@ public class Engine {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToOne
-    @JoinColumn(name = "edition_id", referencedColumnName = "id")
+    @JoinColumn(name = "edition_id")
     private EngineEdition engineEdition;
 
     @ManyToOne
-    @JoinColumn(name = "fuel_id", referencedColumnName = "id")
+    @JoinColumn(name = "fuel_id")
     private Fuel fuel;
 
     @OneToMany(mappedBy = "engine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -16,7 +16,6 @@
             <h1><span th:text="*{name}"/></h1>
             <img th:src="@{*{image}}" alt="image" style="width: 700px; border-radius: 5%">
             <h2 style="margin-top: 50px">
-                <a th:href="@{/classes}" style="text-decoration: none">Classes</a><br><br>
                 <a th:href="@{/classes/{id}/cars (id = *{id})}" style="text-decoration: none">Class Cars</a>
             </h2>
             <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 50px">

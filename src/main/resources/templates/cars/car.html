@@ -65,73 +65,76 @@
             </div>
         </div>
 
-        <div style="display: inline-block; margin-left: 100px; margin-top: 100px">
+        <div style="display: inline-block; margin-left: 100px">
             <h2>Description</h2>
             <p th:text="*{description}" style="text-align: justify; padding-right: 250px;">Description</p>
 
             <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="*{equipments != null}">
-                    <h2>Complectations</h2>
-                    <div style="color: grey" th:if="*{equipments.size() != 0}">
-                        <span th:text="*{equipments.size()}"/><span>/5</span>
+                <h2 style="margin-top: 50px">Complectations</h2>
+                <div style="color: grey" th:if="*{equipments.size() != 0}">
+                    <span th:text="|*{equipments.size()}/5|"/>
+                </div>
+                <div style="color: grey" th:if="${car.equipments.size() == 0 && user.equipments.size() == 0}">
+                    <span>Create a complectation on your user page to install it on your vehicle.</span>
+                </div>
+                <div style="display: inline-flex; border: 1px grey dashed; margin-right: 10px; margin-top: 10px"
+                     th:each="complectation : *{equipments}">
+                    <div style="display: inline-block; margin-right: 10px; margin-left: 10px">
+                        <h3 style="text-align: center">
+                            <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
+                               style="text-decoration: none">
+                                <img th:src="${complectation.image}" alt="image" style="width: 50px; border-radius: 10%"><br>
+                                <span th:text="${complectation.name}"/>
+                            </a>
+                            <th:block th:if="${user.username eq car.person.username}">
+                                <div style="margin-top: 25px">
+                                    <form th:method="DELETE"
+                                          th:action="@{/cars/{id}/remove-equipment-from-car (id = *{id}, complId = ${complectation.id})}">
+                                        <input type="submit" value="Remove" style="color: black">
+                                    </form>
+                                </div>
+                            </th:block>
+                        </h3>
                     </div>
-                    <div style="color: grey" th:if="*{equipments.size() == 0}">
-                        <span>Empty</span>
-                    </div>
-                    <div style="display: inline-flex; border: 1px grey dashed; margin-right: 10px; margin-top: 10px"
-                         th:each="complectation : *{equipments}">
-                        <div style="display: inline-block; margin-right: 10px; margin-left: 10px">
-                            <h3>
-                                <a th:href="@{/equipments/{id}/{carId} (id = ${complectation.id}, carId = ${car.id})}" th:text="${complectation.name}"
-                                   style="text-decoration: none"></a>
-                                <th:block th:if="${user.username eq car.person.username}">
-                                    <div style="margin-top: 10px">
-                                        <form th:method="DELETE"
-                                              th:action="@{/cars/{id}/delete-equipment (id = *{id}, complId = ${complectation.id})}">
-                                            <input type="submit" value="Remove" style="color: black">
-                                        </form>
-                                    </div>
-                                </th:block>
-                            </h3>
-                        </div>
-                    </div>
-                    <div th:if="*{equipments.size() < 5}" style="margin-top: 50px">
-                        <th:block th:if="${user.username eq car.person.username}">
-                            <form th:method="POST" th:action="@{/cars/{id}/add-equipment (id = *{id})}">
-                                <label for="complect name">Name</label>
-                                <input type="text" id="complect name" th:field="${equipment.name}">
-                                <input type="submit" value="Add Complect" style="color: black">
-                            </form>
-                        </th:block>
-                    </div>
-                </th:block>
-
-                <th:block th:if="*{equipments == null}">
-                    <h3>No equipment</h3>
+                </div>
+                <div th:if="*{equipments.size() < 5}" style="margin-top: 50px">
                     <th:block th:if="${user.username eq car.person.username}">
-                        <form th:method="POST" th:action="@{/cars/{id}/add-equipment (id = *{id})}">
-                            <input type="submit" value="Add Equipment" style="color: black">
-                        </form>
+                        <h4 style="color: grey" th:if="*{equipments.size() == 0}">Empty</h4>
+                        <th:block th:if="${userEquipments.size() > 0}">
+                            <div style="width: 200px">
+                                <form th:method="POST" th:action="@{/cars/{id}/attach-equipment (id = *{id})}">
+                                    <label for="equipments">Your Complectations</label><br><br>
+                                    <select th:field="${addingEquipment.id}" id="equipments">
+                                        <option th:each="userEquipment : ${userEquipments}"
+                                                th:value="${userEquipment.id}" th:text="${userEquipment.name}"></option>
+                                    </select>
+                                    <input type="submit" value="Attach" style="color: black">
+                                </form>
+                            </div>
+                        </th:block>
+                        <th:block th:if="${userEquipments.size() == 0}">
+                            <h4 style="color: grey">All your complectations attached. Create new complectations in your profile page.</h4>
+                        </th:block>
                     </th:block>
-                </th:block>
+                </div>
 
                 <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
 
                 <h2 style="margin-top: 50px">Tags</h2>
-
                 <th:block th:if="${user.username eq car.person.username}">
-                    <div style="display: inline-flex">
+                    <div style="display: inline-flex; margin-top: 25px">
                         <form th:method="POST" th:action="@{/cars/{id}/attach-tag (id = *{id})}">
-                            <label for="tags">Ready Tags</label><br>
-                            <select th:field="${attachTag.id}" id="tags" size="1" onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
+                            <label for="tags">Ready Tags</label><br><br>
+                            <select th:field="${attachTag.id}" id="tags" size="1"
+                                    onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
                                 <option th:each="tag : ${allTags}" th:value="${tag.id}" th:text="${tag.name}"></option>
                             </select><br><br>
                             <input type="submit" value="Attach Tag" style="color: black">
                         </form>
                         <form th:method="PUT" th:action="@{/cars/{id}/add-tag (id = *{id})}" style="margin-left: 20px">
-                            <label for="tag">New Tag</label><br>
+                            <label for="tag">New Tag</label><br><br>
                             <input type="text" id="tag" th:field="${newTag.name}"><br><br>
                             <input type="submit" value="Add and Attach" style="color: black">
                         </form>
@@ -139,9 +142,9 @@
                 </th:block>
                 <br><br>
 
-                <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex; width: 200px">
+                <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
                     <a th:href="@{/cars/search-by-tag (search = ${tag.name})}" target="_blank" style="text-decoration: none">
-                        <span th:text="${tag.name}" style="margin: 5px"/>
+                        <span th:text="|'#'${tag.name}|" style="margin-right: 25px"/>
                     </a>
                 </div>
 
@@ -149,9 +152,7 @@
 
 
                 <th:block th:if="${user.username eq car.person.username}">
-                    <div>
-                        <h2>Car</h2>
-                    </div>
+                    <h2 style="margin-top: 50px">Car</h2>
                     <div style="display: inline-flex; margin-top: 10px">
                         <form th:method="GET" th:action="@{/cars/{id}/edit (id = *{id})}">
                             <input type="submit" value="Edit" style="color: black">
@@ -166,9 +167,9 @@
             <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
                 <th:block th:case="${false}">
                     <h2 style="margin-top: 50px">Tags</h2>
-                    <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex; width: 200px">
+                    <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
                         <a th:href="@{/cars/search-by-tag (search = ${tag.name})}" target="_blank" style="text-decoration: none">
-                            <span th:text="${tag.name}" style="margin: 5px"/>
+                            <span th:text="|'#'${tag.name}|" style="margin: 5px"/>
                         </a>
                     </div>
                     <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>

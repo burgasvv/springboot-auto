@@ -2,6 +2,7 @@ package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.car.*;
+import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.*;
 import com.burgas.springbootauto.service.person.PersonService;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -71,14 +74,20 @@ public class CarController {
 
     @GetMapping("/{id}")
     public String car(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user",
-                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
-        );
-        model.addAttribute("car",carService.findById(id));
+        Person user = personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        Car car = carService.findById(id);
+        List<Equipment>equipments = new ArrayList<>();
+        if (user != null) {
+            List<Equipment> temp = user.getEquipments().stream().filter(equipment -> !equipment.isAttached()).toList();
+            equipments.addAll(temp);
+        }
+        model.addAttribute("user", user);
+        model.addAttribute("car",car);
         model.addAttribute("allTags", tagService.findAll());
         model.addAttribute("attachTag", new Tag());
         model.addAttribute("newTag", new Tag());
-        model.addAttribute("equipment", new Equipment());
+        model.addAttribute("userEquipments", equipments);
+        model.addAttribute("addingEquipment", new Equipment());
         return "cars/car";
     }
 
@@ -122,13 +131,18 @@ public class CarController {
     }
 
     @DeleteMapping("/{id}/delete")
-    public String delete(@ModelAttribute("car") Car car) {
+    public String delete(@PathVariable("id") Long id) {
+        Car car = carService.findById(id);
+
+        car.removeEquipments(car.getEquipments());
+        carService.update(car);
         carService.delete(car.getId());
-        return "redirect:/cars";
+        return "redirect:/users/" + car.getPerson().getUsername();
     }
 
     @GetMapping("/search-by-tag")
     public String searchByTag(@RequestParam("search") String search, Model model) {
+        model.addAttribute("search", search);
         model.addAttribute("carsByTag", carService.searchCarsByTagName(search));
         return "cars/carsByTag";
     }
@@ -152,21 +166,19 @@ public class CarController {
         return "redirect:/cars/{id}";
     }
 
-    @PostMapping("/{id}/add-equipment")
-    public String addEquipment(@ModelAttribute("equipment") Equipment equipment, @PathVariable("id") Long id) {
-        Equipment newEquipment = new Equipment();
-        newEquipment.setName(equipment.getName());
-        newEquipment.setEngine(equipment.getEngine());
-        newEquipment.setTransmission(equipment.getTransmission());
+    @PostMapping("/{id}/attach-equipment")
+    public String attachEquipment(@ModelAttribute("addingEquipment") Equipment equipment, @PathVariable("id") Long id) {
         Car car = carService.findById(id);
-        car.addEquipment(newEquipment);
+        car.addEquipment(equipmentService.findById(equipment.getId()));
         carService.save(car);
         return "redirect:/cars/{id}";
     }
 
-    @DeleteMapping("/{id}/delete-equipment")
+    @DeleteMapping("/{id}/remove-equipment-from-car")
     public String deleteEquipment(@SuppressWarnings("unused") @PathVariable("id") Long id, @RequestParam("complId") Long complId) {
-        equipmentService.delete(complId);
+        Car car = carService.findById(id);
+        car.removeEquipment(equipmentService.findById(complId));
+        carService.save(car);
         return "redirect:/cars/{id}";
     }
 }

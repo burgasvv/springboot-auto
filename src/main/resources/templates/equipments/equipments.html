@@ -17,29 +17,28 @@
     <div style="margin: 50px 100px">
         <table style="width: 40%">
             <tr>
-                <th><h2>Brand</h2></th>
                 <th><h2>Car</h2></th>
                 <th><h2>Complectation</h2></th>
                 <th><h2>User</h2></th>
             </tr>
             <tr th:each="complectation : ${equipments}">
-                <th:block th:each="car : ${complectation.cars}">
-                    <th>
-                        <a class="a_class" th:href="@{/brands/{id} (id = ${car.brand.id})}"
-                           th:text="${car.brand.title}">Brand</a>
-                    </th>
-                    <th>
-                        <a class="a_class" th:href="@{/cars/{id} (id = ${car.id})}"
-                           th:text="${car.title}">Car</a>
-                    </th>
-                    <th>
-                        <a class="a_class" th:href="@{/equipments/{id} (id = ${complectation.id}, carId = ${car.id})}"
-                           th:text="${complectation.name}">Complectation</a>
-                    </th>
-                    <th>
-                        <a class="a_class" th:href="@{/users/{name} (name = ${car.person.username})}" th:text="${car.person.username}">User</a>
-                    </th>
-                </th:block>
+                <th>
+                    <th:block th:if="${complectation.car == null}">
+                        <span style="color: red">Not attached</span>
+                    </th:block>
+                    <th:block th:if="${complectation.car != null}">
+                        <a class="a_class" th:href="@{/cars/{id} (id = ${complectation.car.id})}"
+                           th:text="|${complectation.car.brand.title} ${complectation.car.title}|">Car</a>
+                    </th:block>
+                </th>
+                <th>
+                    <a class="a_class" th:href="@{/equipments/{id} (id = ${complectation.id})}"
+                       th:text="${complectation.name}">Complectation</a>
+                </th>
+                <th>
+                    <a class="a_class" th:href="@{/users/{name} (name = ${complectation.person.username})}"
+                       th:text="${complectation.person.username}">User</a>
+                </th>
             </tr>
         </table>
         <input type="button" value="Back" onclick="history.back()" style="margin-top: 100px">

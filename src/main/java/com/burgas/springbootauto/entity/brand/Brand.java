@@ -38,16 +38,16 @@ public class Brand {
     @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToMany
     @JoinTable(
-            joinColumns = @JoinColumn(name = "brand_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "gearbox_id", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "brand_id"),
+            inverseJoinColumns = @JoinColumn(name = "gearbox_id")
     )
     private List<Gearbox>gearboxes = new ArrayList<>();
 
     @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToMany
     @JoinTable(
-            joinColumns = @JoinColumn(name = "brand_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "turbotype_id", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "brand_id"),
+            inverseJoinColumns = @JoinColumn(name = "turbotype_id")
     )
     private List<TurboType>turboTypes = new ArrayList<>();
 

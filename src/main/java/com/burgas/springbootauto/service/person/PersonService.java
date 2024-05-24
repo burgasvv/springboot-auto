@@ -1,8 +1,10 @@
 package com.burgas.springbootauto.service.person;
 
+import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.person.Role;
 import com.burgas.springbootauto.repository.person.PersonRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,11 @@ public class PersonService {
         return personRepository.findPersonByUsername(name);
     }
 
+    public Person findPersonByEquipments(List<Equipment> equipments) {
+        return personRepository.findPersonByEquipments(equipments);
+    }
+
+    @Transactional
     public void createUser(Person person) {
         if (personRepository.findPersonByUsername(person.getUsername()) != null)
             return;

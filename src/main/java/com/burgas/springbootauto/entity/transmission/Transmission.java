@@ -26,16 +26,15 @@ public class Transmission {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "brand_id", referencedColumnName = "id")
+    @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToOne
-    @JoinColumn(name = "drivetype_id", referencedColumnName = "id")
+    @JoinColumn(name = "drivetype_id")
     private DriveType driveType;
 
     @ManyToOne
-    @JoinColumn(name = "gearbox_id", referencedColumnName = "id")
+    @JoinColumn(name = "gearbox_id")
     private Gearbox gearbox;
 
     @OneToMany(mappedBy = "transmission", cascade = CascadeType.ALL)

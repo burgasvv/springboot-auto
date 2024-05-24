@@ -31,6 +31,6 @@ public class EngineCharacteristics {
 
     @SuppressWarnings("JpaDataSourceORMInspection")
     @OneToOne
-    @JoinColumn(name = "engine_id", referencedColumnName = "id")
+    @JoinColumn(name = "engine_id")
     private Engine engine;
 }

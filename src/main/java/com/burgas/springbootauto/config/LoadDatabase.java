@@ -631,17 +631,23 @@ public class LoadDatabase {
             mercedes.setTurboTypes(List.of(vtgTurbo,compressor,comboTurbo));
 
             Equipment equipM5 = new Equipment();
-            equipM5.setName("M5 test 1");
-            equipM5.setCars(List.of(m5));
+            equipM5.setName("Test 1");
+            equipM5.setImage("https://yt3.googleusercontent.com/hH4Xd006S0TDIblxoWjQQyykaKJDt_Zwn5YmAbQMUsKnxpI3Vm3-H7xLzuQjPwYvBds1u-U89A=s900-c-k-c0x00ffffff-no-rj");
+            equipM5.setPerson(admin);
+            equipM5.setCar(m5);
             equipM5.setEngine(em51);
             equipM5.setTransmission(al950);
             equipM5.setTurbocharger(gtb2260vk);
+            equipM5.setAttached(true);
             Equipment equipM4 = new Equipment();
-            equipM4.setName("M4 test 1");
-            equipM4.setCars(List.of(m4));
+            equipM4.setName("Test 2");
+            equipM4.setImage("https://yt3.googleusercontent.com/ytc/AIdro_kCMYAHys71pMwA60E-2waY13Uii8C5yLmvas117_g7vw=s900-c-k-c0x00ffffff-no-rj");
+            equipM4.setPerson(admin);
+            equipM4.setCar(m4);
             equipM4.setEngine(em51);
             equipM4.setTransmission(al750);
             equipM4.setTurbocharger(vagis20);
+            equipM4.setAttached(true);
 
             log.info("Preload: {}", personRepository.save(admin));
             log.info("Preload: {}", categoryRepository.saveAll(

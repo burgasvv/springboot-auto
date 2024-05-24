@@ -1,6 +1,7 @@
 package com.burgas.springbootauto.entity.person;
 
 import com.burgas.springbootauto.entity.car.Car;
+import com.burgas.springbootauto.entity.car.Equipment;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -61,6 +62,19 @@ public class Person implements UserDetails {
     public void removeCar(Car car) {
         cars.remove(car);
         car.setPerson(null);
+    }
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private List<Equipment>equipments = new ArrayList<>();
+
+    public void addEquipment(Equipment equipment) {
+        equipments.add(equipment);
+        equipment.setPerson(this);
+    }
+
+    public void removeEquipment(Equipment equipment) {
+        equipments.remove(equipment);
+        equipment.setPerson(null);
     }
 
     @Override
