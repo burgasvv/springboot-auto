@@ -31,6 +31,9 @@
                     <form th:method="GET" th:action="@{/equipments/{id}/edit-equipment (id = *{id})}" style="margin-right: 25px">
                         <input type="submit" value="Edit" style="color: black">
                     </form>
+                    <form th:method="DELETE" th:action="@{/equipments/{id}/delete-equipment (id = ${equipment.id})}" style="margin-right: 25px">
+                        <input type="submit" value="Delete" style="color: black">
+                    </form>
                     <form th:method="POST" th:action="@{/equipments/{id}/share-equipment (id = ${equipment.id})}" style="margin-top: -17px">
                         <label for="users">Share with user</label><br>
                         <select th:field="${userForShare.id}" id="users">

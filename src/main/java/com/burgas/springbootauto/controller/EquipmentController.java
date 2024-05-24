@@ -90,6 +90,13 @@ public class EquipmentController {
         return "redirect:/equipments/{id}";
     }
 
+    @DeleteMapping("/{id}/delete-equipment")
+    public String deleteEquipment(@PathVariable("id") Long id) {
+        Equipment equipment = equipmentService.findById(id);
+        equipmentService.delete(equipment.getId());
+        return "redirect:/users/" + equipment.getPerson().getUsername();
+    }
+
     @PostMapping("/{id}/share-equipment")
     public String shareEquipment(@PathVariable("id") Long id, @ModelAttribute("userForShare") Person userForShare) {
         Equipment equipment = equipmentService.findById(id);
