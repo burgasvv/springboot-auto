@@ -27,13 +27,22 @@
         <br>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.username eq owner.username}">
-                <div style="margin-top: 50px">
-                    <form th:method="GET" th:action="@{/equipments/{id}/edit-equipment (id = *{id})}">
+                <div style="margin-top: 50px; display: inline-flex">
+                    <form th:method="GET" th:action="@{/equipments/{id}/edit-equipment (id = *{id})}" style="margin-right: 25px">
                         <input type="submit" value="Edit" style="color: black">
+                    </form>
+                    <form th:method="POST" th:action="@{/equipments/{id}/share-equipment (id = ${equipment.id})}" style="margin-top: -17px">
+                        <label for="users">Share with user</label><br>
+                        <select th:field="${userForShare.id}" id="users">
+                            <option th:each="somebody : ${users}" th:value="${somebody.id}" th:text="${somebody.username}"
+                            th:selected="${owner.username eq somebody.username}">Somebody</option>
+                        </select>
+                        <input type="submit" value="Share" style="color: black">
                     </form>
                 </div>
             </th:block>
         </th:block>
+        <br>
         <div style="display: inline-flex; margin-top: 50px" th:object="${equipment}">
             <div style="display: inline-block; margin-right: 50px">
                 <h2>Engine</h2>

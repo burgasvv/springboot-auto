@@ -49,6 +49,8 @@ public class EquipmentController {
         model.addAttribute("addTransmission", new Transmission());
         model.addAttribute("turbochargers", turbochargerService.findAll());
         model.addAttribute("addTurbocharger", new Turbocharger());
+        model.addAttribute("users", personService.findAll());
+        model.addAttribute("userForShare", new Person());
         return "equipments/equipment";
     }
 
@@ -70,7 +72,6 @@ public class EquipmentController {
     @GetMapping("/{id}/edit-equipment")
     public String editEquipment(@PathVariable("id") Long id,  Model model) {
         Equipment equipment = equipmentService.findById(id);
-        model.addAttribute("car", carService.findById(equipment.getCar().getId()));
         model.addAttribute("equipment", equipment);
         return "equipments/edit";
     }
@@ -86,6 +87,23 @@ public class EquipmentController {
         equipment.setTurbocharger(temp.getTurbocharger());
         model.addAttribute("equipment", equipment);
         equipmentService.update(equipment);
+        return "redirect:/equipments/{id}";
+    }
+
+    @PostMapping("/{id}/share-equipment")
+    public String shareEquipment(@PathVariable("id") Long id, @ModelAttribute("userForShare") Person userForShare) {
+        Equipment equipment = equipmentService.findById(id);
+        Person person = personService.findById(userForShare.getId());
+        Equipment newEquipment = new Equipment();
+        newEquipment.setPerson(person);
+        newEquipment.setName(equipment.getName());
+        newEquipment.setCar(null);
+        newEquipment.setEngine(equipment.getEngine());
+        newEquipment.setTransmission(equipment.getTransmission());
+        newEquipment.setTurbocharger(equipment.getTurbocharger());
+        newEquipment.setAttached(false);
+        newEquipment.setImage(equipment.getImage());
+        equipmentService.save(newEquipment);
         return "redirect:/equipments/{id}";
     }
 

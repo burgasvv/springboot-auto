@@ -34,7 +34,9 @@
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <h3 style="color: grey">
                     Owner: <a style="font-weight: normal; text-decoration: none"
-                              th:href="@{/users/{name} (name = *{person.username})}" th:text="*{person.username}"></a>
+                              th:href="@{/users/{name} (name = *{person.username})}" th:text="*{person.username}"></a><br>
+                    <a style="font-weight: normal; font-size: 14px; text-decoration: none"
+                       th:href="@{/users/{name}/cars (name = *{person.username})}">All cars of this user</a>
                 </h3>
             </th:block>
             <img th:src="*{image}" alt="image" style="width: 600px; border-radius: 10%">

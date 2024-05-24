@@ -45,8 +45,8 @@
                     <h3 style="height: 100px; width: 100px; margin-right: 20px">
                         <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
                             <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 100px; border-radius: 10%"><br>
-                            <div th:text="${car.brand.title}"/>
-                            <div th:text="${car.title}"/>
+                            <div style="color: grey; font-size: 14px" th:text="${car.brand.title}"/>
+                            <div style="font-size: 18px" th:text="${car.title}"/>
                         </a>
                     </h3>
                 </div>
@@ -71,6 +71,9 @@
                         <a th:href="@{/equipments/{id} (id = ${complectation.id})}" style="text-decoration: none">
                             <img th:src="${complectation.image}" alt="image" style="display: inline-flex; width: 50px; border-radius: 10%"><br>
                             <div th:text="${complectation.name}"/>
+                            <th:block th:if="${complectation.attached == true}">
+                                <span style="font-size: 12px; color: grey">Attached</span>
+                            </th:block>
                         </a>
                     </h3>
                 </div>
