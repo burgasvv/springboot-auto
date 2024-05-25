@@ -41,7 +41,8 @@ public class EquipmentController {
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         Equipment equipment = equipmentService.findById(id);
-        model.addAttribute("owner", equipment.getPerson());
+        Person owner = equipment.getPerson();
+        model.addAttribute("owner", owner);
         model.addAttribute("equipment", equipment);
         model.addAttribute("engines", engineService.findAll());
         model.addAttribute("addEngine", new Engine());
@@ -49,7 +50,9 @@ public class EquipmentController {
         model.addAttribute("addTransmission", new Transmission());
         model.addAttribute("turbochargers", turbochargerService.findAll());
         model.addAttribute("addTurbocharger", new Turbocharger());
-        model.addAttribute("users", personService.findAll());
+        model.addAttribute("users",
+                personService.findAll().stream().filter(person -> !person.equals(owner)).toList()
+        );
         model.addAttribute("userForShare", new Person());
         return "equipments/equipment";
     }

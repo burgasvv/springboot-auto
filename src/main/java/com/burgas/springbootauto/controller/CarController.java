@@ -142,11 +142,12 @@ public class CarController {
 
     @GetMapping("/{id}/handover")
     public String handOver(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user",
-                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
-        );
+        Person user = personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("user", user);
         model.addAttribute("car", carService.findById(id));
-        model.addAttribute("users", personService.findAll());
+        model.addAttribute("users",
+                personService.findAll().stream().filter(person -> !person.equals(user)).toList()
+        );
         return "cars/handover";
     }
 
