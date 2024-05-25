@@ -7,6 +7,7 @@
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
     <div style="margin: 50px 100px">
+        <h1 style="margin-bottom: 50px">Users</h1>
         <div th:each="user : ${users}">
             <a th:href="@{/users/{name} (name = ${user.username})}">
                 <div style="display: inline-flex">
