@@ -21,11 +21,14 @@
                 </div>
             </th:block>
             <th:block th:case="${true}">
-                <div style="text-align: right; margin-right: 100px; margin-top: -62px">
+                <div style="text-align: right; margin-right: 100px; margin-top: -67px">
                     <h3 style="display: inline-flex; margin-right: 20px">
+                        <a style="text-decoration: none" th:href="@{/users}" >Users</a>
+                    </h3>
+                    <h2 style="display: inline-flex; margin-right: 20px">
                         <a style="text-decoration: none"
                            th:href="@{/users/{name} (name = ${#authentication.name})}" th:text="${#authentication.name}">User</a>
-                    </h3>
+                    </h2>
                     <form action="/logout" method="post" style="display: inline-flex; margin-right: 20px">
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                         <input type="submit" value="Logout"

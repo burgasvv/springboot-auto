@@ -31,7 +31,7 @@
         </div>
         <form th:method="POST" th:action="@{/cars/{id}/handover-done (id = ${car.id})}">
 
-            <label for="users" style="font-size: 18px; font-weight: bold"></label><br>
+            <label for="users" style="font-size: 18px; font-weight: bold">Users</label><br>
             <select th:field="${car.person.id}" id="users">
                 <option th:each="person : ${users}" th:value="${person.id}" th:text="${person.username}"
                         th:selected="${person.id eq car.person.id}">User</option>

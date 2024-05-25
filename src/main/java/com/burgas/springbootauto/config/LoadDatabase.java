@@ -62,14 +62,25 @@ public class LoadDatabase {
 
             Person admin = new Person();
             admin.setEnabled(true);
-            admin.setFirstname("Tommy");
-            admin.setLastname("Vercetty");
+            admin.setFirstname("Admin");
+            admin.setLastname("Admin");
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("admin"));
             admin.setEmail("admin@admin.com");
             admin.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/User-admin.svg/424px-User-admin.svg.png?20120117141527");
             admin.getRoles().add(Role.ADMIN);
             admin.setDescription("Hello everyone! I'm admin on this site!");
+
+            Person user = new Person();
+            user.setEnabled(true);
+            user.setFirstname("User");
+            user.setLastname("One");
+            user.setUsername("user");
+            user.setPassword(passwordEncoder.encode("user"));
+            user.setEmail("user@user.com");
+            user.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png");
+            user.getRoles().add(Role.USER);
+            user.setDescription("Hello everyone! I'm user on this site!");
 
             Category hatchBack = new Category();
             hatchBack.setName("Hatchback/Хэтчбек");
@@ -442,7 +453,7 @@ public class LoadDatabase {
                             'в повседневной эксплуатации. *M xDrive предлагается ориентировочно с лета 2021 года."""
             );
             Car g63 = new Car();
-            g63.setPerson(admin);
+            g63.setPerson(user);
             g63.setTitle("AMG G-63");
             g63.setImage("https://platform.cstatic-images.com/xlarge/in/v2/stock_photos/799a84ca-4aec-4459-8984-41bea8603148/34dd2126-c630-4221-a3e2-f711ab4149c2.png");
             g63.setWebpage("https://www.mercedes-benz.com/en/vehicles/g-class/");
@@ -459,7 +470,7 @@ public class LoadDatabase {
                             'kombiniert: 281-248g/km | CO2-Klasse: G"""
             );
             Car cls63 = new Car();
-            cls63.setPerson(admin);
+            cls63.setPerson(user);
             cls63.setTitle("CLS 63 AMG");
             cls63.setImage("https://platform.cstatic-images.com/xlarge/in/v2/stock_photos/d70fc0aa-3936-44d1-809b-d09a4bfaf3c5/4e731530-0992-41b9-bf7e-2ab2e70c2ff9.png");
             cls63.setWebpage("https://panavto-mercedes.ru/new_cars/cls-class/cls-63-amg-cls-class/");
@@ -649,7 +660,7 @@ public class LoadDatabase {
             equipM4.setTurbocharger(vagis20);
             equipM4.setAttached(true);
 
-            log.info("Preload: {}", personRepository.save(admin));
+            log.info("Preload: {}", personRepository.saveAll(List.of(admin,user)));
             log.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))
             );
