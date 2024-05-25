@@ -26,7 +26,7 @@
     </div>
     <div style="margin: 100px">
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-            <th:block th:if="${user.roles.first.name() == 'ADMIN'}">
+            <th:block th:if="${user.role.name == 'ADMIN'}">
                 <input type="button" value="Add Brand" onclick="location.assign('/brands/add')" style="color: black">
             </th:block>
         </th:block>

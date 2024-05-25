@@ -4,6 +4,7 @@ import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.person.Role;
 import com.burgas.springbootauto.repository.person.PersonRepository;
+import com.burgas.springbootauto.repository.person.RoleRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,7 @@ import java.util.List;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     public List<Person> findAll() {
@@ -40,7 +42,7 @@ public class PersonService {
             return;
         person.setEnabled(true);
         person.setPassword(passwordEncoder.encode(person.getPassword()));
-        person.getRoles().add(Role.USER);
+        person.setRole(roleRepository.findByName("USER"));
         personRepository.save(person);
     }
 }

@@ -11,7 +11,7 @@
             <h1><span style="font-weight: normal" th:text="*{username}"/></h1>
             <h2><img style="border-radius: 10%; width: 300px" th:src="*{image}" alt="image"></h2>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <h3 style="color: grey">Role: <span style="font-weight: normal" th:text="*{roles.first}"/></h3>
+                <h3 style="color: grey">Role: <span style="font-weight: normal" th:text="*{role.name}"/></h3>
                 <h2>First Name: <span th:text="*{firstname}" style="font-weight: normal"/></h2>
                 <h2>Last Name: <span th:text="*{lastname}" style="font-weight: normal"/></h2>
                 <h2>Email: <span style="font-weight: normal" th:text="*{email}"/></h2>
@@ -64,7 +64,7 @@
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <h2 style="margin-top: 50px">Complectations</h2>
                 <th:block th:if="${owner.equipments.size() < 1}">
-                    <h2>No results</h2>
+                    <h3 style="color: grey">No results</h3>
                 </th:block>
                 <div th:each="complectation : ${owner.equipments}" style="display: inline-flex">
                     <h3 style="margin-right: 20px; text-align: center">
@@ -77,9 +77,11 @@
                         </a>
                     </h3>
                 </div>
-                <div style="margin-top: 50px">
-                    <input type="button" value="Add" onclick="location.assign('/equipments/add')" style="color: black">
-                </div>
+                <th:block th:if="${owner.username eq guest.username}">
+                    <div style="margin-top: 50px">
+                        <input type="button" value="Add" onclick="location.assign('/equipments/add')" style="color: black">
+                    </div>
+                </th:block>
             </th:block>
         </div>
     </div>

@@ -35,14 +35,14 @@
             </div>
             <br>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${user.roles.first.name() == 'ADMIN'}">
+                <th:block th:if="${user.role.name == 'ADMIN'}">
                     <a th:href="@{/brands/{id}/add-engine (id = *{id}, editionId = ${edition.id})}" style="text-decoration: none">Add Engine</a>
                 </th:block>
             </th:block>
             <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
         </div>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-            <th:block th:if="${user.roles.first.name() == 'ADMIN'}">
+            <th:block th:if="${user.role.name == 'ADMIN'}">
                 <form th:method="GET" th:action="@{/brands/{id}/add-edition (id = *{id})}" style="margin-top: 100px">
                     <input type="submit" value="Add Edition" style="color: black">
                 </form>

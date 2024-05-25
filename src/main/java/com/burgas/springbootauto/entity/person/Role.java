@@ -1,13 +1,22 @@
 package com.burgas.springbootauto.entity.person;
 
-import org.springframework.security.core.GrantedAuthority;
+import jakarta.persistence.*;
+import lombok.Data;
 
-public enum Role implements GrantedAuthority {
+import java.util.ArrayList;
+import java.util.List;
 
-    USER, ADMIN;
+@Entity
+@Data
+public class Role {
 
-    @Override
-    public String getAuthority() {
-        return name();
-    }
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private List<Person> persons = new ArrayList<>();
 }

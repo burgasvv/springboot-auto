@@ -20,6 +20,7 @@ import com.burgas.springbootauto.repository.engine.EngineEditionRepository;
 import com.burgas.springbootauto.repository.engine.EngineRepository;
 import com.burgas.springbootauto.repository.engine.FuelRepository;
 import com.burgas.springbootauto.repository.person.PersonRepository;
+import com.burgas.springbootauto.repository.person.RoleRepository;
 import com.burgas.springbootauto.repository.transmission.DriveTypeRepository;
 import com.burgas.springbootauto.repository.transmission.GearboxRepository;
 import com.burgas.springbootauto.repository.transmission.TransmissionRepository;
@@ -56,9 +57,15 @@ public class LoadDatabase {
                                           TransmissionRepository transmissionRepository,
                                           TurbochargerRepository turbochargerRepository,
                                           TurboTypeRepository turboTypeRepository,
-                                          PersonRepository personRepository) {
+                                          PersonRepository personRepository,
+                                          RoleRepository roleRepository) {
 
         return _ -> {
+
+            Role adm = new Role();
+            adm.setName("ADMIN");
+            Role usr = new Role();
+            usr.setName("USER");
 
             Person admin = new Person();
             admin.setEnabled(true);
@@ -68,7 +75,7 @@ public class LoadDatabase {
             admin.setPassword(passwordEncoder.encode("admin"));
             admin.setEmail("admin@admin.com");
             admin.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/User-admin.svg/424px-User-admin.svg.png?20120117141527");
-            admin.getRoles().add(Role.ADMIN);
+            admin.setRole(adm);
             admin.setDescription("Hello everyone! I'm admin on this site!");
 
             Person user = new Person();
@@ -79,7 +86,7 @@ public class LoadDatabase {
             user.setPassword(passwordEncoder.encode("user"));
             user.setEmail("user@user.com");
             user.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png");
-            user.getRoles().add(Role.USER);
+            user.setRole(usr);
             user.setDescription("Hello everyone! I'm user on this site!");
 
             Category hatchBack = new Category();
@@ -660,6 +667,7 @@ public class LoadDatabase {
             equipM4.setTurbocharger(vagis20);
             equipM4.setAttached(true);
 
+            log.info("Preload: {}", roleRepository.saveAll(List.of(adm,usr)));
             log.info("Preload: {}", personRepository.saveAll(List.of(admin,user)));
             log.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))

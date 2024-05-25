@@ -32,7 +32,7 @@
             </h2>
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${user.roles.first.name() == 'ADMIN'}">
+                <th:block th:if="${user.role.name == 'ADMIN'}">
                     <div style="display: inline-flex; margin-top: 100px">
                         <form th:method="GET" th:action="@{/brands/{id}/edit (id = *{id})}">
                             <input type="submit" value="Edit" style="color: black">

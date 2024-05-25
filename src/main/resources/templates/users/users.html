@@ -10,11 +10,14 @@
         <div th:each="user : ${users}">
             <a th:href="@{/users/{name} (name = ${user.username})}">
                 <div style="display: inline-flex">
-                    <img th:src="${user.image}" alt="image" style="width: 200px; border-radius: 5%">
-                    <h3 th:text="|${user.firstname} ${user.lastname}|">Name</h3>
+                    <img th:src="${user.image}" alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
+                    <div style="display: inline-block">
+                        <h3 th:text="|${user.firstname} ${user.lastname}|">Name</h3>
+                        <h5 th:text="${user.role.name}" style="color: grey">Role</h5>
+                    </div>
                 </div>
             </a>
-            <div style="border-top: 1px solid gray; margin-top: 50px; margin-bottom: 50px; margin-right: 1000px"></div>
+            <div style="border-top: 1px solid gray; margin-top: 25px; margin-bottom: 25px; margin-right: 1000px"></div>
         </div>
         <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 250px">
     </div>
