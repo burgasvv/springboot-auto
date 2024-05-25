@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Handover</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="text-align: center; margin-top: 10%">
+        <h1>Handover</h1>
+        <h2>Equipments</h2>
+        <div style="display: inline-flex; border: 1px grey dashed; margin-right: 10px; margin-top: 10px"
+             th:each="complectation : ${car.equipments}">
+            <div style="display: inline-block; margin-right: 10px; margin-left: 10px">
+                <h3 style="text-align: center">
+                    <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
+                       style="text-decoration: none">
+                        <img th:src="${complectation.image}" alt="image" style="width: 50px; border-radius: 10%"><br>
+                        <span th:text="${complectation.name}"/>
+                    </a>
+                    <th:block th:if="${user.username eq car.person.username}">
+                        <div style="margin-top: 25px">
+                            <form th:method="POST"
+                                  th:action="@{/cars/{id}/remove-equipment-from-car-in-form (id = *{id}, complId = ${complectation.id})}">
+                                <input type="submit" value="Remove" style="color: black">
+                            </form>
+                        </div>
+                    </th:block>
+                </h3>
+            </div>
+        </div>
+        <form th:method="POST" th:action="@{/cars/{id}/handover-done (id = ${car.id})}">
+
+            <label for="users" style="font-size: 18px; font-weight: bold"></label><br>
+            <select th:field="${car.person.id}" id="users">
+                <option th:each="person : ${users}" th:value="${person.id}" th:text="${person.username}"
+                        th:selected="${person.id eq car.person.id}">User</option>
+            </select><br><br>
+            <input type="submit" value="OK" style="color: black">
+        </form>
+    </div>
+</body>
+</html>

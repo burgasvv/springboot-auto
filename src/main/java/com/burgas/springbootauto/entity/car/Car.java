@@ -59,6 +59,12 @@ public class Car {
         equipments.remove(equipment);
     }
 
+    public void addEquipments(List<Equipment> equipments) {
+        equipments.forEach(equipment -> equipment.setAttached(true));
+        equipments.forEach(equipment -> equipment.setCar(this));
+        this.equipments.addAll(equipments);
+    }
+
     public void removeEquipments(List<Equipment> equipments) {
         equipments.forEach(equipment -> equipment.setAttached(false));
         equipments.forEach(equipment -> equipment.setCar(null));

@@ -6,7 +6,7 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="margin: 25px 100px 10px;">
+    <div style="margin: 25px 100px 10px">
         <h3>
             <a th:href="@{/brands}">Brands</a> /
             <a th:href="@{/brands/{id} (id = ${car.brand.id})}" th:text="${car.brand.title}">Brand</a> /
@@ -152,7 +152,6 @@
 
                 <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
 
-
                 <th:block th:if="${user.username eq car.person.username}">
                     <h2 style="margin-top: 50px">Car</h2>
                     <div style="display: inline-flex; margin-top: 10px">
@@ -160,7 +159,10 @@
                             <input type="submit" value="Edit" style="color: black">
                         </form>
                         <form th:method="DELETE" th:action="@{/cars/{id}/delete (id = *{id})}">
-                            <input type="submit" value="Remove" style="color: black; margin-left: 10px">
+                            <input type="submit" value="Remove" style="color: black; margin-left: 20px">
+                        </form>
+                        <form th:method="GET" th:action="@{/cars/{id}/handover (id = *{id})}">
+                            <input type="submit" value="Handover" style="color: black; margin-left: 20px">
                         </form>
                     </div>
                 </th:block>

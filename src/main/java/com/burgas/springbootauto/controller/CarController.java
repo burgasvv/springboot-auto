@@ -140,6 +140,46 @@ public class CarController {
         return "redirect:/users/" + car.getPerson().getUsername();
     }
 
+    @GetMapping("/{id}/handover")
+    public String handOver(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        model.addAttribute("car", carService.findById(id));
+        model.addAttribute("users", personService.findAll());
+        return "cars/handover";
+    }
+
+    @PostMapping("/{id}/handover-done")
+    public String handOver(@ModelAttribute("car") Car car) {
+        Car handoverCar = carService.findById(car.getId()); //Old car
+        List<Equipment> handoverEquipments = equipmentService.findAllByCarId(car.getId());
+        Person handoverPerson = car.getPerson();
+        handoverCar.setPerson(handoverPerson);
+        handoverCar.removeEquipments(handoverEquipments);
+        carService.update(handoverCar);
+
+        List<Equipment>newEquipments = new ArrayList<>();
+        for (Equipment equipment : handoverEquipments) {
+            Equipment newEquipment = new Equipment();
+            newEquipment.setCar(equipment.getCar());
+            newEquipment.setAttached(equipment.isAttached());
+            newEquipment.setImage(equipment.getImage());
+            newEquipment.setName(equipment.getName());
+            newEquipment.setPerson(handoverPerson);
+            newEquipment.setEngine(equipment.getEngine());
+            newEquipment.setTransmission(equipment.getTransmission());
+            newEquipment.setTurbocharger(equipment.getTurbocharger());
+            newEquipments.add(newEquipment);
+        }
+        equipmentService.saveAll(newEquipments);
+
+        handoverCar.addEquipments(newEquipments);
+        carService.update(handoverCar);
+
+        return "redirect:/users/" + SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
     @GetMapping("/search-by-tag")
     public String searchByTag(@RequestParam("search") String search, Model model) {
         model.addAttribute("search", search);
@@ -175,10 +215,18 @@ public class CarController {
     }
 
     @DeleteMapping("/{id}/remove-equipment-from-car")
-    public String deleteEquipment(@SuppressWarnings("unused") @PathVariable("id") Long id, @RequestParam("complId") Long complId) {
+    public String removeEquipment(@SuppressWarnings("unused") @PathVariable("id") Long id, @RequestParam("complId") Long complId) {
         Car car = carService.findById(id);
         car.removeEquipment(equipmentService.findById(complId));
         carService.save(car);
         return "redirect:/cars/{id}";
+    }
+
+    @PostMapping("/{id}/remove-equipment-from-car-in-form")
+    public String removeEquipmentInForm(@SuppressWarnings("unused") @PathVariable("id") Long id, @RequestParam("complId") Long complId) {
+        Car car = carService.findById(id);
+        car.removeEquipment(equipmentService.findById(complId));
+        carService.save(car);
+        return "redirect:/cars/{id}/handover";
     }
 }

@@ -12,6 +12,10 @@ import java.util.List;
 @Repository
 public interface EquipmentRepository extends JpaRepository<Equipment, Long> {
 
+    List<Equipment> findAllByCarId(@NotNull Long carId);
+
+    List<Equipment> findAllByPersonId(@NotNull Long personId);
+
     List<Equipment> findAllByEngineId(Long id);
 
     List<Equipment> findAllByTransmissionId(Long id);
