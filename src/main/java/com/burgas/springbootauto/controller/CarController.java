@@ -122,9 +122,11 @@ public class CarController {
 
     @PatchMapping("/{id}/edit")
     public String editCar(@ModelAttribute("car") @Valid Car car,  BindingResult bindingResult) {
+        Car temp = carService.findById(car.getId());
         if (bindingResult.hasErrors()) {
             return "cars/edit";
         }
+        car.setPerson(temp.getPerson());
         car.setTags(tagService.searchTagsByCars(car));
         carService.update(car);
         return "redirect:/cars/{id}";

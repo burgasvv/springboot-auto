@@ -9,12 +9,6 @@
     <div style="text-align: center; margin-top: 7%">
         <form th:method="PATCH" th:action="@{/cars/{id}/edit (id = *{id})}" th:object="${car}">
 
-            <label for="owner">Owner</label><br>
-            <select th:field="*{person.id}" id="owner">
-                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"
-                        th:selected="${car.person.username eq user.username}">Users</option>
-            </select><br><br>
-
             <label for="title">Title</label><br>
             <input type="text" id="title" th:field="*{title}">
             <th:block th:if="${#fields.hasErrors('title')}">
