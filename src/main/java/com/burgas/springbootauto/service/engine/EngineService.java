@@ -30,6 +30,14 @@ public class EngineService {
         return engineRepository.searchEnginesByEngineEditionId(id);
     }
 
+    public List<Engine> searchEnginesByEngineBrandEditionCar(String search) {
+        return engineRepository.searchEnginesByEngineBrandEditionCar(search).stream().distinct().toList();
+    }
+
+    public List<Engine> searchEnginesByEngineBrandEditionCarNoSpaces(String search) {
+        return engineRepository.searchEnginesByEngineBrandEditionCarNoSpaces(search);
+    }
+
     @Transactional
     public void save(Engine engine) {
         engineRepository.save(engine);

@@ -2,6 +2,7 @@ package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.CarService;
+import com.burgas.springbootauto.service.engine.EngineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +17,12 @@ public class SearchController {
 
     private final CarService carService;
     private final BrandService brandService;
+    private final EngineService engineService;
 
     @GetMapping
     public String search(@RequestParam("search") String search , Model model) {
         model.addAttribute("cars", carService.searchCarsByAllNames(search));
+        model.addAttribute("engines", engineService.searchEnginesByEngineBrandEditionCar(search));
         model.addAttribute("searchBrands", brandService.searchBrandByTitle(search));
         model.addAttribute("search", search);
         return "search/global";
