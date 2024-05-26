@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/users")
@@ -38,5 +39,12 @@ public class PersonController {
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         return "users/cars";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("search") String search, Model model) {
+        model.addAttribute("search", search);
+        model.addAttribute("users", personService.searchAllByFirstnameAndLastnameAndUsername(search));
+        return "users/search";
     }
 }

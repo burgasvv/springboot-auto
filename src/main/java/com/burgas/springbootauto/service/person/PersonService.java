@@ -24,6 +24,10 @@ public class PersonService {
         return personRepository.findAll();
     }
 
+    public List<Person> searchAllByFirstnameAndLastnameAndUsername(String search) {
+        return personRepository.searchAllByFirstnameAndLastnameAndUsername(search);
+    }
+
     public Person findById(Long id) {
         return personRepository.findById(id).orElse(null);
     }

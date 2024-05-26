@@ -7,6 +7,13 @@
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
     <div style="margin: 50px 100px">
+        <div style="margin-top: 50px">
+            <form th:method="GET" th:action="@{/users/search}">
+                <label for="search">Search</label><br>
+                <input type="text" id="search" name="search">
+                <input type="submit" value="Search" style="color: black">
+            </form>
+        </div>
         <h1 style="margin-bottom: 50px">Users</h1>
         <div th:each="user : ${users}">
             <a th:href="@{/users/{name} (name = ${user.username})}">

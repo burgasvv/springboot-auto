@@ -39,7 +39,7 @@
             </th:block>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${owner.cars.size() < 1}">
-                    <h2>No results</h2>
+                    <h3 style="color: grey">No results</h3>
                 </th:block>
                 <div th:each="car : ${owner.cars}" style="display: inline-flex">
                     <h3 style="height: 100px; width: 100px; margin-right: 20px">
