@@ -23,7 +23,6 @@ public class TransmissionController {
     private final GearboxService gearboxService;
     private final DriveTypeService driveTypeService;
     private final EquipmentService equipmentService;
-    private final BrandService brandService;
     private final PersonService personService;
 
     @GetMapping("/{id}")

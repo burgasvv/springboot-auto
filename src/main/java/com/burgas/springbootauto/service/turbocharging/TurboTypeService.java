@@ -22,6 +22,10 @@ public class TurboTypeService {
         return turboTypeRepository.findById(id).orElse(null);
     }
 
+    public TurboType findByName(String name) {
+        return turboTypeRepository.findByName(name);
+    }
+
     @Transactional
     public void save(TurboType turboType) {
         turboTypeRepository.save(turboType);

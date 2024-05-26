@@ -2,18 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Gearbox</title>
+    <title>Turbo Type</title>
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
     <div style="margin: 50px 100px">
-        <h1>Transmissions</h1>
+        <h1>Turbochargers</h1>
         <h2>
-            <a th:href="@{/gearboxes}" style="text-decoration: none">All Gearboxes</a>
+            <a th:href="@{/turbo-types}" style="text-decoration: none">All Turbo Types</a>
         </h2>
         <div style="margin-top: 25px">
             <h3 style="margin-right: 25px">Brands</h3>
-            <h4 th:each="brand : ${gearbox.brands}" style="display: inline-flex">
+            <h4 th:each="brand : ${turboType.brands}" style="display: inline-flex">
                 <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none; margin-right: 20px">
                     <img th:src="${brand.image}" alt="image" style="width: 50px">
                     <span th:text="${brand.title}"/>
@@ -21,19 +21,18 @@
             </h4>
         </div>
         <div style="display: inline-block">
-            <h2 th:text="${gearbox.name}">Edition</h2>
-            <img th:src="${gearbox.image}" alt="image" style="width: 250px"><br>
-            <h2 th:each="transmission : ${gearbox.transmissions}" style="display: inline-flex">
-                <a th:href="@{/transmissions/{id} (id = ${transmission.id})}" style="text-decoration: none; margin-right: 20px">
-                    <span th:text="${transmission.name}"/><br>
-                    <span th:text="${transmission.driveType.name}" style="color: grey; font-size: 14px"/>
+            <h2 th:text="${turboType.name}">Edition</h2>
+            <img th:src="${turboType.image}" alt="image" style="width: 250px"><br>
+            <h2 th:each="turbocharger : ${turboType.turbochargers}" style="display: inline-flex">
+                <a th:href="@{/turbochargers/{id} (id = ${turbocharger.id})}" style="text-decoration: none; margin-right: 20px">
+                    <span th:text="${turbocharger.name}"/><br>
                 </a>
             </h2>
         </div>
         <br>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.role.name == 'ADMIN'}">
-                <a th:href="@{/transmissions/add (gearboxId = ${gearbox.id})}" style="text-decoration: none">Add Transmission</a>
+                <a th:href="@{/turbochargers/add (turbotypeId = ${turboType.id})}" style="text-decoration: none">Add Turbocharger</a>
             </th:block>
         </th:block>
         <div style="margin-top: 100px">

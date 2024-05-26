@@ -22,6 +22,10 @@ public class TurbochargerService {
         return turbochargerRepository.findById(id).orElse(null);
     }
 
+    public Turbocharger findByName(String name) {
+        return turbochargerRepository.findByName(name);
+    }
+
     @Transactional
     public void save(Turbocharger turbocharger) {
         turbochargerRepository.save(turbocharger);

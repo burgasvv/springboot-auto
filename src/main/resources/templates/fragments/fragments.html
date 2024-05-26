@@ -10,11 +10,12 @@
         </th:block>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <div style="display: inline-flex; margin-right: 20px">
-                <label for='SelectOption'></label><br>
-                <select id='SelectOption' onchange="window.location.href=this.value">
+                <label for="SelectOption"></label><br>
+                <select id="SelectOption" onchange="window.location.href=this.value">
                     <option>Components</option>
                     <option value="/editions">Engines</option>
                     <option value="/gearboxes">Transmissions</option>
+                    <option value="/turbo-types">Turbochargers</option>
                 </select>
             </div>
         </th:block>

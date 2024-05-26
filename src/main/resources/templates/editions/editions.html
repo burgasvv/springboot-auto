@@ -7,7 +7,7 @@
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
     <div style="margin: 50px 100px">
-        <h1>Engine Editions</h1>
+        <h1>Editions</h1>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.role.name == 'ADMIN'}">
                 <form th:method="GET" th:action="@{/editions/add}" style="margin-top: 100px">
@@ -16,14 +16,17 @@
             </th:block>
         </th:block>
         <h2 th:each="edition : ${editions}" style="margin-top: 50px">
-            <img th:src="${edition.image}" alt="image" style="width: 50px; margin-right: 25px">
             <a th:href="@{/brands/{id} (id = ${edition.brand.id})}" style="text-decoration: none; margin-right: 25px">
+                <img th:src="${edition.brand.image}" alt="image" style="width: 50px">
                 <span th:text="${edition.brand.title}" style="color: grey"/>
             </a>
             <a th:href="@{/editions/{id} (id = ${edition.id})}" style="text-decoration: none">
+                <img th:src="${edition.image}" alt="image" style="width: 50px">
                 <span th:text="${edition.name}"/>
             </a>
+            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 1300px"></div>
         </h2>
+
         <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
     </div>
 </body>

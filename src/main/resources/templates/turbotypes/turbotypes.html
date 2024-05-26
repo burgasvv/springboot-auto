@@ -6,50 +6,31 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="margin: 25px 100px">
-        <h3>
-            <a th:href="@{/brands}">Brands</a> /
-            <a th:href="@{/brands/{id} (id = ${brand.id})}" th:text="${brand.title}">Brand</a>
-        </h3>
-    </div>
-    <div style="margin: 50px 100px" th:object="${brand}">
-        <th:block th:if="*{turboTypes.size() < 1}">
-            <h2 style="color: grey">Empty</h2>
-        </th:block>
-        <div th:each="type : *{turboTypes}">
-            <h1 th:text="${type.name}">Edition</h1>
-            <img th:src="${type.image}" alt="image" style="width: 250px"><br>
-            <p th:text="${type.description}"></p>
-            <div th:each="turbocharger : ${type.turbochargers}"  style="display: inline-flex">
-                <th:block th:if="${turbocharger.brand.id eq brand.id}">
-                    <div style="display: inline-block">
-                        <h2>
-                            <a th:href="@{/turbochargers/{id} (id = ${turbocharger.id}, brandId = *{id})}"
-                               style="text-decoration: none; margin-right: 50px">
-                                <span th:text="${turbocharger.name}">Engine Name</span><br>
-                            </a>
-                        </h2>
-                    </div>
-                </th:block>
-                <br>
-            </div>
-            <br>
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${user.role.name == 'ADMIN'}">
-                    <a th:href="@{/brands/{id}/add-turbocharger (id = *{id}, turbotypeId = ${type.id})}" style="text-decoration: none">Add Turbocharger</a>
-                </th:block>
-            </th:block>
-            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
-        </div>
+    <div style="margin: 50px 100px">
+        <h1>Turbo Types</h1>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.role.name == 'ADMIN'}">
-                <form th:method="GET" th:action="@{/brands/{id}/add-turbo-type (id = *{id})}" style="margin-top: 100px">
-                    <input type="submit" value="Add Gearbox" style="color: black">
+                <form th:method="GET" th:action="@{/turbo-types/add}" style="margin-top: 100px">
+                    <input type="submit" value="Add Turbo Type" style="color: black">
                 </form>
             </th:block>
         </th:block>
-        <br><br>
-        <input type="button" value="Back" onclick="history.back()" style="color: black">
+        <h2 th:each="turboType : ${turboTypes}" style="margin-top: 50px">
+            <img th:src="${turboType.image}" alt="image" style="width: 100px; margin-right: 25px">
+            <a th:href="@{/turbo-types/{id} (id = ${turboType.id})}" style="text-decoration: none">
+                <span th:text="${turboType.name}"/>
+            </a>
+            <h3 style="display: inline-flex; color: dimgrey; margin-right: 25px">Brands:</h3>
+            <h4 th:each="brand : ${turboType.brands}" style="display: inline-flex">
+                <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none; margin-right: 50px">
+                    <img th:src="${brand.image}" alt="image" style="width: 50px">
+                    <span th:text="${brand.title}" style="color: grey"/>
+                </a>
+            </h4>
+            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
+        </h2>
+        <br>
+        <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
     </div>
 </body>
 </html>

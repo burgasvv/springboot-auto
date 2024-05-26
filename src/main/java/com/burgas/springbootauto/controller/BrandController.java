@@ -195,14 +195,14 @@ public class BrandController {
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         model.addAttribute("brand", brandService.findById(id));
-        return "turbotypes/turbotypes";
+        return "brands/turbotypes";
     }
 
     @GetMapping("/{id}/add-turbo-type")
     public String addTurboTypeForm(Model model, @PathVariable("id") Long id) {
         model.addAttribute("turboType", new TurboType());
         model.addAttribute("brand", brandService.findById(id));
-        return "turbotypes/add";
+        return "brands/addBrandTurboType";
     }
 
     @PostMapping("/{id}/add-turbo-type")
@@ -213,7 +213,8 @@ public class BrandController {
         newTurboType.setDescription(turboType.getDescription());
         newTurboType.addBrand(brandService.findById(id));
         turboTypeService.save(newTurboType);
-        return "redirect:/brands/{id}/turbo-types";
+        Long turboTypeId = turboTypeService.findByName(newTurboType.getName()).getId();
+        return "redirect:/turbo-types/" + turboTypeId;
     }
 
     @GetMapping("/{id}/add-turbocharger")
@@ -221,7 +222,7 @@ public class BrandController {
         model.addAttribute("turbocharger", new Turbocharger());
         model.addAttribute("turboType", turboTypeService.findById(turbotypeId));
         model.addAttribute("brand", brandService.findById(id));
-        return "turbochargers/add";
+        return "brands/addBrandTurbocharger";
     }
 
     @PostMapping("/{id}/add-turbocharger")
@@ -235,6 +236,7 @@ public class BrandController {
         newTurbocharger.setPowerGeneration(turbocharger.getPowerGeneration());
         newTurbocharger.setDescription(turbocharger.getDescription());
         turbochargerService.save(newTurbocharger);
-        return "redirect:/brands/{id}/turbo-types";
+        Long id = turbochargerService.findByName(newTurbocharger.getName()).getId();
+        return "redirect:/turbochargers/" + id;
     }
 }

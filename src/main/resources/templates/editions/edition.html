@@ -7,10 +7,13 @@
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
     <div style="margin: 50px 100px">
-        <h1>Edition Engines</h1>
-        <h3 style="margin-top: 25px">
+        <h1>Engines</h1>
+        <h3>
+            <a th:href="@{/editions}">All Editions</a>
+        </h3>
+        <h3 style="margin-top: 50px">
             Brand:
-            <a th:href="@{/brands/{id} (id = ${edition.brand.id})}">
+            <a th:href="@{/brands/{id} (id = ${edition.brand.id})}" style="text-decoration: none">
                 <span th:text="${edition.brand.title}"/>
             </a>
         </h3>

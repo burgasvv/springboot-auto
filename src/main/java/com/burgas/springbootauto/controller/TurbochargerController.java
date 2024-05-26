@@ -1,9 +1,11 @@
 package com.burgas.springbootauto.controller;
 
+import com.burgas.springbootauto.entity.turbocharging.TurboType;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.person.PersonService;
+import com.burgas.springbootauto.service.turbocharging.TurboTypeService;
 import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,20 +18,43 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TurbochargerController {
 
-    private final BrandService brandService;
     private final TurbochargerService turbochargerService;
     private final EquipmentService equipmentService;
+    private final TurboTypeService turboTypeService;
     private final PersonService personService;
 
     @GetMapping("/{id}")
-    public String getTurbocharger(@PathVariable("id") Long id, Model model, @RequestParam("brandId") Long brandId) {
+    public String getTurbocharger(@PathVariable("id") Long id, Model model) {
         Turbocharger turbocharger = turbochargerService.findById(id);
-        turbocharger.setBrand(brandService.findById(brandId));
         model.addAttribute("turbocharger", turbocharger);
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         return "turbochargers/turbocharger";
+    }
+
+    @GetMapping("/add")
+    public String addTurbochargerForm(Model model, @RequestParam("turbotypeId") Long turbotypeId) {
+        TurboType turboType = turboTypeService.findById(turbotypeId);
+        model.addAttribute("turbocharger", new Turbocharger());
+        model.addAttribute("turboType", turboType);
+        model.addAttribute("brands", turboType.getBrands());
+        return "turbochargers/add";
+    }
+
+    @PostMapping("/add")
+    public String addTurbocharger(@ModelAttribute Turbocharger turbocharger, @ModelAttribute TurboType turboType) {
+        Turbocharger newTurbocharger = new Turbocharger();
+        newTurbocharger.setName(turbocharger.getName());
+        newTurbocharger.setBrand(turbocharger.getBrand());
+        newTurbocharger.setTurboType(turboType);
+        newTurbocharger.setImage(turbocharger.getImage());
+        newTurbocharger.setPowerIntake(turbocharger.getPowerIntake());
+        newTurbocharger.setPowerGeneration(turbocharger.getPowerGeneration());
+        newTurbocharger.setDescription(turbocharger.getDescription());
+        turbochargerService.save(newTurbocharger);
+        Long id = turbochargerService.findByName(newTurbocharger.getName()).getId();
+        return "redirect:/turbochargers/" + id;
     }
 
     @GetMapping("/{id}/edit")
