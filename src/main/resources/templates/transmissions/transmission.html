@@ -12,6 +12,9 @@
             <a th:href="@{/brands/{id} (id = ${transmission.brand.id})}" th:text="${transmission.brand.title}">Brand</a> /
             <a th:href="@{/brands/{id}/gearboxes (id = ${transmission.brand.id})}">Gearboxes</a>
         </h3>
+        <h3>
+            <a th:href="@{/gearboxes}">All Gearboxes</a>
+        </h3>
     </div>
     <div style="display: inline-flex" th:object="${transmission}">
         <div style="display: inline-block; margin: 50px 100px">

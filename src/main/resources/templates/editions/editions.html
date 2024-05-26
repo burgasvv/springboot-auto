@@ -2,54 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Editions Engines</title>
+    <title>Editions</title>
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="margin: 25px 100px">
-        <h3>
-            <a th:href="@{/brands}">Brands</a> /
-            <a th:href="@{/brands/{id} (id = ${brand.id})}" th:text="${brand.title}">Brand</a>
-        </h3>
-    </div>
-    <div style="margin: 50px 100px" th:object="${brand}">
-        <th:block th:if="*{engineEditions.size() < 1}">
-            <h2 style="color: grey">Empty</h2>
-        </th:block>
-        <div th:each="edition : *{engineEditions}">
-            <h1 th:text="${edition.name}">Edition</h1>
-            <img th:src="${edition.image}" alt="image"><br>
-            <th:block th:if="${edition.engines.size() < 1}">
-                <h3 style="color: grey">Empty</h3>
-            </th:block>
-            <div th:each="engine : ${edition.engines}"  style="display: inline-flex">
-                <div style="display: inline-block">
-                    <h2>
-                        <a th:href="@{/engines/{id} (id = ${engine.id}, brandId = *{id})}" style="text-decoration: none; margin-right: 50px">
-                            <span th:text="${engine.name}">Engine Name</span><br>
-                            <span th:text="${engine.fuel.name}" style="color: grey; font-size: 14px">Fuel</span>
-                        </a>
-                    </h2>
-                </div>
-                <br>
-            </div>
-            <br>
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${user.role.name == 'ADMIN'}">
-                    <a th:href="@{/brands/{id}/add-engine (id = *{id}, editionId = ${edition.id})}" style="text-decoration: none">Add Engine</a>
-                </th:block>
-            </th:block>
-            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
-        </div>
+    <div style="margin: 50px 100px">
+        <h1>Engine Editions</h1>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.role.name == 'ADMIN'}">
-                <form th:method="GET" th:action="@{/brands/{id}/add-edition (id = *{id})}" style="margin-top: 100px">
+                <form th:method="GET" th:action="@{/editions/add}" style="margin-top: 100px">
                     <input type="submit" value="Add Edition" style="color: black">
                 </form>
             </th:block>
         </th:block>
-        <br><br>
-        <input type="button" value="Back" onclick="history.back()" style="color: black">
+        <h2 th:each="edition : ${editions}" style="margin-top: 50px">
+            <img th:src="${edition.image}" alt="image" style="width: 50px; margin-right: 25px">
+            <a th:href="@{/brands/{id} (id = ${edition.brand.id})}" style="text-decoration: none; margin-right: 25px">
+                <span th:text="${edition.brand.title}" style="color: grey"/>
+            </a>
+            <a th:href="@{/editions/{id} (id = ${edition.id})}" style="text-decoration: none">
+                <span th:text="${edition.name}"/>
+            </a>
+        </h2>
+        <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
     </div>
 </body>
 </html>

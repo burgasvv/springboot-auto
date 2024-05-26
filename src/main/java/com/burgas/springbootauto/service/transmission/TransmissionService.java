@@ -22,6 +22,10 @@ public class TransmissionService {
         return transmissionRepository.findById(id).orElse(null);
     }
 
+    public Transmission findByName(String name) {
+        return transmissionRepository.findTransmissionByName(name);
+    }
+
     @Transactional
     public void save(Transmission transmission) {
         transmissionRepository.save(transmission);

@@ -23,6 +23,10 @@ public class GearboxService {
         return gearboxRepository.findById(id).orElse(null);
     }
 
+    public Gearbox findByName(String name) {
+        return gearboxRepository.findGearboxByName(name);
+    }
+
     public Gearbox searchGearboxByTransmissions(List<Transmission> transmissions) {
         return gearboxRepository.searchGearboxByTransmissions(transmissions);
     }

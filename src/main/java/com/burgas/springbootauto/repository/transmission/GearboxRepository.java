@@ -11,4 +11,6 @@ import java.util.List;
 public interface GearboxRepository extends JpaRepository<Gearbox, Long> {
 
     Gearbox searchGearboxByTransmissions(List<Transmission> transmissions);
+
+    Gearbox findGearboxByName(String name);
 }

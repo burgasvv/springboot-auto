@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class EnginEditionService {
+public class EngineEditionService {
 
     private final EngineEditionRepository engineEditionRepository;
 
@@ -21,6 +21,10 @@ public class EnginEditionService {
 
     public EngineEdition findById(Long id) {
         return engineEditionRepository.findById(id).orElse(null);
+    }
+
+    public EngineEdition findByName(String name) {
+        return engineEditionRepository.findEngineEditionByName(name);
     }
 
     public List<EngineEdition> searchEngineEditionsByBrandId(Long id) {

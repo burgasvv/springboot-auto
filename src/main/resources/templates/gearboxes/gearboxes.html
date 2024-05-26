@@ -1,55 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Transmissions</title>
+    <title>Gearboxes</title>
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <div style="margin: 25px 100px">
-        <h3>
-            <a th:href="@{/brands}">Brands</a> /
-            <a th:href="@{/brands/{id} (id = ${brand.id})}" th:text="${brand.title}">Brand</a>
-        </h3>
-    </div>
-    <div style="margin: 50px 100px" th:object="${brand}">
-        <th:block th:if="*{gearboxes.size() < 1}">
-            <h2 style="color: grey">Empty</h2>
-        </th:block>
-        <div th:each="gearbox : *{gearboxes}">
-            <h1 th:text="${gearbox.name}">Edition</h1>
-            <img th:src="${gearbox.image}" alt="image"><br>
-            <div th:each="transmission : ${gearbox.transmissions}"  style="display: inline-flex">
-                <th:block th:if="${transmission.brand.id eq brand.id}">
-                    <div style="display: inline-block">
-                        <h2>
-                            <a th:href="@{/transmissions/{id} (id = ${transmission.id}, brandId = *{id})}"
-                               style="text-decoration: none; margin-right: 50px">
-                                <span th:text="${transmission.name}">Engine Name</span><br>
-                                <span th:text="${transmission.driveType.name}" style="color: grey; font-size: 14px">Fuel</span>
-                            </a>
-                        </h2>
-                    </div>
-                </th:block>
-                <br>
-            </div>
-            <br>
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${user.role.name == 'ADMIN'}">
-                    <a th:href="@{/brands/{id}/add-transmission (id = *{id}, gearboxId = ${gearbox.id})}" style="text-decoration: none">Add Transmission</a>
-                </th:block>
-            </th:block>
-            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
-        </div>
+    <div style="margin: 50px 100px">
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.role.name == 'ADMIN'}">
-                <form th:method="GET" th:action="@{/brands/{id}/add-gearbox (id = *{id})}" style="margin-top: 100px">
+                <form th:method="GET" th:action="@{/gearboxes/add}" style="margin-top: 100px">
                     <input type="submit" value="Add Gearbox" style="color: black">
                 </form>
             </th:block>
         </th:block>
-        <br><br>
-        <input type="button" value="Back" onclick="history.back()" style="color: black">
+        <h1>Gearboxes</h1>
+        <h2 th:each="gearbox : ${gearboxes}" style="margin-top: 50px">
+            <img th:src="${gearbox.image}" alt="image" style="width: 100px; margin-right: 25px">
+            <a th:href="@{/gearboxes/{id} (id = ${gearbox.id})}" style="text-decoration: none">
+                <span th:text="${gearbox.name}"/>
+            </a>
+            <h3 style="display: inline-flex; color: dimgrey; margin-right: 25px">Brands:</h3>
+            <h4 th:each="brand : ${gearbox.brands}" style="display: inline-flex">
+                <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none; margin-right: 20px">
+                    <img th:src="${brand.image}" alt="image" style="width: 50px">
+                    <span th:text="${brand.title}" style="color: grey"/>
+                </a>
+            </h4>
+            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
+        </h2>
+        <br>
+        <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
     </div>
 </body>
 </html>

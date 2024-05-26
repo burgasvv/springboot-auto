@@ -7,8 +7,12 @@
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
     <div style="text-align: center; margin: 15% 100px 50px;">
-        <form th:method="POST" th:action="@{/brands/{id}/add-edition (id = ${brand.id})}" th:object="${edition}">
+        <form th:method="POST" th:action="@{/editions/add}" th:object="${edition}">
             <h2>Add Engine Edition</h2>
+            <label for="brand">Brand</label><br>
+            <select th:field="*{brand.id}" id="brand">
+                <option th:each="newBrand : ${brands}" th:value="${newBrand.id}" th:text="${newBrand.title}">Brand</option>
+            </select><br><br>
             <label for="name">Name</label><br>
             <input type="text" id="name" th:field="*{name}"><br><br>
             <label for="image">Image</label><br>

@@ -13,4 +13,6 @@ public interface EngineEditionRepository extends JpaRepository<EngineEdition, Lo
     List<EngineEdition> searchEngineEditionsByBrandId(Long id);
 
     EngineEdition searchEngineEditionByEngines(List<Engine> engines);
+
+    EngineEdition findEngineEditionByName(String editionName);
 }

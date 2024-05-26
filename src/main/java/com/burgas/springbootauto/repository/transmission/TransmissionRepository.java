@@ -16,4 +16,6 @@ public interface TransmissionRepository extends JpaRepository<Transmission, Long
             value = "delete from transmission where id = ?1"
     )
     void deleteById(@NotNull Long id);
+
+    Transmission findTransmissionByName(String name);
 }

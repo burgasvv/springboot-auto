@@ -22,6 +22,10 @@ public class EngineService {
         return engineRepository.findById(id).orElse(null);
     }
 
+    public Engine findByName(String name) {
+        return engineRepository.findEngineByName(name);
+    }
+
     public List<Engine> searchEnginesByEngineEditionId(Long id) {
         return engineRepository.searchEnginesByEngineEditionId(id);
     }

@@ -1,17 +1,14 @@
 package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.brand.Brand;
-import com.burgas.springbootauto.entity.engine.Engine;
-import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.entity.turbocharging.TurboType;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
 import com.burgas.springbootauto.service.brand.BrandService;
-import com.burgas.springbootauto.service.engine.EnginEditionService;
+import com.burgas.springbootauto.service.engine.EngineEditionService;
 import com.burgas.springbootauto.service.engine.EngineService;
-import com.burgas.springbootauto.service.engine.FuelService;
 import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.transmission.DriveTypeService;
 import com.burgas.springbootauto.service.transmission.GearboxService;
@@ -33,8 +30,7 @@ public class BrandController {
 
     private final BrandService brandService;
     private final EngineService engineService;
-    private final EnginEditionService enginEditionService;
-    private final FuelService fuelService;
+    private final EngineEditionService engineEditionService;
     private final GearboxService gearboxService;
     private final DriveTypeService driveTypeService;
     private final TransmissionService transmissionService;
@@ -115,19 +111,20 @@ public class BrandController {
     }
 
     @GetMapping("/{id}/editions")
-    public String editions(@PathVariable("id") Long id, Model model) {
+    public String brandEditions(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         model.addAttribute("brand", brandService.findById(id));
-        return "editions/editions";
+        model.addAttribute("engines", engineService.findAll());
+        return "brands/editions";
     }
 
     @GetMapping("/{id}/add-edition")
     public String addEditionForm(Model model, @PathVariable("id") Long brandId) {
         model.addAttribute("edition", new EngineEdition());
         model.addAttribute("brand", brandService.findById(brandId));
-        return "editions/add";
+        return "brands/addBrandEdition";
     }
 
     @PostMapping("/{id}/add-edition")
@@ -136,60 +133,25 @@ public class BrandController {
         edition.setName(engineEdition.getName());
         edition.setImage(engineEdition.getImage());
         edition.setBrand(brandService.findById(id));
-        enginEditionService.save(edition);
-        return "redirect:/brands/{id}/editions";
-    }
-
-    @GetMapping("/{id}/add-engine")
-    public String addEngineForm(Model model, @PathVariable("id") Long brandId, @RequestParam("editionId") Long editionId) {
-        model.addAttribute("engine", new Engine());
-        model.addAttribute("characteristics", new EngineCharacteristics());
-        model.addAttribute("brand", brandService.findById(brandId));
-        model.addAttribute("edition", enginEditionService.findById(editionId));
-        model.addAttribute("fuel", fuelService.findAll());
-        return "engines/add";
-    }
-
-    @PostMapping("/{id}/add-engine")
-    public String addEngine(@ModelAttribute Engine engine,
-                            @ModelAttribute EngineCharacteristics characteristics,
-                            @ModelAttribute EngineEdition edition) {
-
-        Engine newEngine = new Engine();
-        newEngine.setEngineEdition(edition);
-        newEngine.setName(engine.getName());
-        newEngine.setImage(engine.getImage());
-        newEngine.setDescription(engine.getDescription());
-        newEngine.setFuel(engine.getFuel());
-
-        EngineCharacteristics engineCharacteristics = new EngineCharacteristics();
-        engineCharacteristics.setVolume(characteristics.getVolume());
-        engineCharacteristics.setTorque(characteristics.getTorque());
-        engineCharacteristics.setPower(characteristics.getPower());
-        engineCharacteristics.setPiston(characteristics.getPiston());
-        engineCharacteristics.setCylinders(characteristics.getCylinders());
-        engineCharacteristics.setCompression(characteristics.getCompression());
-
-        newEngine.addEngineCharacteristics(engineCharacteristics);
-        engineService.save(newEngine);
-
-        return "redirect:/brands/{id}/editions";
+        engineEditionService.save(edition);
+        Long editionId = engineEditionService.findByName(edition.getName()).getId();
+        return "redirect:/editions/" + editionId;
     }
 
     @GetMapping("{id}/gearboxes")
-    public String gearboxes(@PathVariable("id")Long id, Model model) {
+    public String brandGearboxes(@PathVariable("id")Long id, Model model) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         model.addAttribute("brand", brandService.findById(id));
-        return "gearboxes/gearboxes";
+        return "brands/gearboxes";
     }
 
     @GetMapping("/{id}/add-gearbox")
     public String addGearboxForm(Model model, @PathVariable("id") Long brandId) {
         model.addAttribute("gearbox", new Gearbox());
         model.addAttribute("brand", brandService.findById(brandId));
-        return "gearboxes/add";
+        return "brands/addBrandGearbox";
     }
 
     @PostMapping("/{id}/add-gearbox")
@@ -200,7 +162,8 @@ public class BrandController {
         newGearbox.setImage(gearbox.getImage());
         newGearbox.addBrand(brandService.findById(id));
         gearboxService.save(newGearbox);
-        return "redirect:/brands/{id}/gearboxes";
+        Long gearboxId = gearboxService.findByName(newGearbox.getName()).getId();
+        return "redirect:/gearboxes/" + gearboxId;
     }
 
     @GetMapping("/{id}/add-transmission")
@@ -209,7 +172,7 @@ public class BrandController {
         model.addAttribute("gearbox", gearboxService.findById(gearboxId));
         model.addAttribute("brand", brandService.findById(id));
         model.addAttribute("driveTypes", driveTypeService.findAll());
-        return "transmissions/add";
+        return "brands/addBrandTransmission";
     }
 
     @PostMapping("/{id}/add-transmission")
@@ -222,7 +185,8 @@ public class BrandController {
         newTransmission.setImage(transmission.getImage());
         newTransmission.setDescription(transmission.getDescription());
         transmissionService.save(newTransmission);
-        return "redirect:/brands/{id}/gearboxes";
+        Long id = transmissionService.findByName(newTransmission.getName()).getId();
+        return "redirect:/transmissions/" + id;
     }
 
     @GetMapping("/{id}/turbo-types")
