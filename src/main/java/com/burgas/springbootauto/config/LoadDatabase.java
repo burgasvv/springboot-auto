@@ -74,7 +74,7 @@ public class LoadDatabase {
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("admin"));
             admin.setEmail("admin@admin.com");
-            admin.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/User-admin.svg/424px-User-admin.svg.png?20120117141527");
+            admin.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/User-admin.svg/1200px-User-admin.svg.png");
             admin.setRole(adm);
             admin.setDescription("Hello everyone! I'm admin on this site!");
 
@@ -85,7 +85,7 @@ public class LoadDatabase {
             user.setUsername("user");
             user.setPassword(passwordEncoder.encode("user"));
             user.setEmail("user@user.com");
-            user.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png");
+            user.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/828px-User_icon-cp.svg.png");
             user.setRole(usr);
             user.setDescription("Hello everyone! I'm user on this site!");
 
