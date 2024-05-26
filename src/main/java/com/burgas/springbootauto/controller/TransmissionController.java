@@ -2,7 +2,6 @@ package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.entity.transmission.Transmission;
-import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.transmission.DriveTypeService;

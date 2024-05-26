@@ -2,7 +2,6 @@ package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.turbocharging.TurboType;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
-import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.turbocharging.TurboTypeService;
