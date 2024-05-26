@@ -14,6 +14,12 @@ public interface EngineRepository extends JpaRepository<Engine, Long> {
 
     List<Engine> searchEnginesByEngineEditionId(Long id);
 
+//    @Query(
+//            nativeQuery = true,
+//            value = ""
+//    )
+//    List<Engine> searchEnginesByEngineBrandAndEdition(String search);
+
     Engine findEngineByName(String engineName);
 
     @Modifying

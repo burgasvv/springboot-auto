@@ -62,7 +62,9 @@ public class CarController {
         int i = classification.indexOf(",");
         String categoryName = category.substring(i).substring(1);
         String classificationName = classification.substring(0, i);
-        model.addAttribute("cars", carService.searchCarsByAllNames(brand + classificationName + categoryName));
+        model.addAttribute("cars",
+                carService.searchCarsWithNoSpaces(brand + classificationName + categoryName)
+        );
         Brand brandByTitle = brandService.findBrandByTitle(brand);
         model.addAttribute("searchBrand", Objects.requireNonNullElseGet(brandByTitle, Brand::new));
         Classification classificationByName = classificationService.findClassificationByName(classificationName);
@@ -155,7 +157,7 @@ public class CarController {
 
     @PostMapping("/{id}/handover-done")
     public String handOver(@ModelAttribute("car") Car car) {
-        Car handoverCar = carService.findById(car.getId()); //Old car
+        Car handoverCar = carService.findById(car.getId());
         List<Equipment> handoverEquipments = equipmentService.findAllByCarId(car.getId());
         Person handoverPerson = car.getPerson();
         handoverCar.setPerson(handoverPerson);

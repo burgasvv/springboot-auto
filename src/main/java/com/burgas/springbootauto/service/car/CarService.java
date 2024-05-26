@@ -34,6 +34,10 @@ public class CarService {
         return carRepository.searchCarsByTagName(tagName).stream().distinct().toList();
     }
 
+    public List<Car> searchCarsWithNoSpaces(String search) {
+        return carRepository.searchCarsWithNoSpaces(search).stream().distinct().toList();
+    }
+
     public List<Car> searchCarsByAllNames(String search) {
         return carRepository.searchCarsByAllNames(search).stream().distinct().toList();
     }
