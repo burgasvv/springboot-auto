@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class Engine {
 
     @Id
@@ -38,7 +35,7 @@ public class Engine {
     @OneToMany(mappedBy = "engine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Equipment> equipments = new ArrayList<>();
 
-    @OneToOne(mappedBy = "engine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "engine", cascade = CascadeType.ALL)
     private EngineCharacteristics engineCharacteristics;
 
     public void addEquipment(Equipment equipment) {

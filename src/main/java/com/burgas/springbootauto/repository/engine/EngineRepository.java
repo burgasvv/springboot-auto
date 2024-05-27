@@ -21,9 +21,8 @@ public interface EngineRepository extends JpaRepository<Engine, Long> {
                     join fuel f on f.id = en.fuel_id
                     join engine_edition ee on ee.id = en.edition_id
                     join brand b on b.id = ee.brand_id
-                    join car c on b.id = c.brand_id
-                    where concat(b.title,' ',en.name,' ',b.title,' ',ee.name,' ',b.title,' ',f.name,' ',b.title,' ',c.title,' ',f.name,' ',
-                          c.title,' ',b.title,' ',ee.name,' ',en.name,' ',ee.name,' ',c.title,' ',ee.name,' ',f.name,' ',ee.name,' ',c.title,' ',
+                    where concat(b.title,' ',en.name,' ',b.title,' ',ee.name,' ',b.title,' ',f.name,' ',b.title,' ',f.name,' ',
+                          b.title,' ',ee.name,' ',en.name,' ',ee.name,' ',ee.name,' ',f.name,' ',ee.name,' ',
                           en.name,' ',ee.name,' ') ilike concat('%',?1,'%')"""
     )
     List<Engine> searchEnginesByEngineBrandEditionCar(String search);
@@ -35,9 +34,8 @@ public interface EngineRepository extends JpaRepository<Engine, Long> {
                     join fuel f on f.id = en.fuel_id
                     join engine_edition ee on ee.id = en.edition_id
                     join brand b on b.id = ee.brand_id
-                    join public.car c on b.id = c.brand_id
-                    where concat(b.title,en.name,b.title,ee.name,b.title,f.name,b.title,c.title,f.name,
-                          c.title,b.title,ee.name,en.name,ee.name,c.title,ee.name,f.name,ee.name,c.title,
+                    where concat(b.title,en.name,b.title,ee.name,b.title,f.name,b.title,f.name,
+                          b.title,ee.name,en.name,ee.name,ee.name,f.name,ee.name,
                           en.name,ee.name) ilike concat('%',?1,'%')"""
     )
     List<Engine> searchEnginesByEngineBrandEditionCarNoSpaces(String search);
