@@ -43,8 +43,9 @@ public class EngineController {
     }
 
     @GetMapping("/find-engines")
-    public String findEngines(Model model, @RequestParam("searchBrand")String brand,
-                              @RequestParam("searchEdition")String edition, @RequestParam("searchEngine")String engine) {
+    public String findEngines(Model model, @RequestParam("searchBrand") String brand,
+                              @RequestParam("searchEdition") String edition,
+                              @RequestParam("searchEngine") String engine, @RequestParam("searchFuel") String fuel) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
@@ -55,12 +56,14 @@ public class EngineController {
         model.addAttribute("engines",
                 engineService.findAll().stream().filter(en -> en.getEngineEdition() != null).toList()
         );
-        model.addAttribute("engines",
-                engineService.searchEnginesByEngineBrandEditionCarNoSpaces(brand + edition + engine)
+        model.addAttribute("fuelTypes", fuelService.findAll());
+        model.addAttribute("findEngines",
+                engineService.searchEnginesByEngineBrandEditionCarNoSpaces(brand + edition + engine + fuel)
         );
         model.addAttribute("searchBrand", brand);
         model.addAttribute("searchEdition", edition);
         model.addAttribute("searchEngine", engine);
+        model.addAttribute("searchFuel", fuel);
         return "engines/findEngines";
     }
 

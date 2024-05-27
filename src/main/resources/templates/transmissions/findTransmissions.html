@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Transmissions</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="margin: 50px 100px">
+        <h1>Find Transmissions</h1>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <form th:method="GET" th:action="@{/transmissions/find-transmissions}" style="display: inline-flex">
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="brands">Brands</label>
+                    <select name="searchBrand" id="brands">
+                        <option value=""></option>
+                        <option th:each="b : ${brands}" th:value="${b.title}" th:text="${b.title}"
+                                th:selected="${searchBrand eq b.title}">Brand</option>
+                    </select>
+                </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="gearboxes">Gearboxes</label>
+                    <select name="searchGearbox" id="gearboxes">
+                        <option value=""></option>
+                        <option th:each="gear : ${gearboxesSelect}" th:value="${gear.name}" th:text="${gear.name}"
+                                th:selected="${searchGearbox eq gear.name}">Gearbox</option>
+                    </select>
+                </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="transmissions">Transmissions</label>
+                    <select name="searchTransmission" id="transmissions">
+                        <option value=""></option>
+                        <option th:each="tr : ${transmissions}" th:value="${tr.name}" th:text="${tr.name}"
+                                th:selected="${searchTransmission eq tr.name}">Transmission</option>
+                    </select>
+                </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="driveTypes">Drive Type</label>
+                    <select name="searchDriveType" id="driveTypes">
+                        <option value=""></option>
+                        <option th:each="dt : ${driveTypes}" th:value="${dt.name}" th:text="${dt.name}"
+                                th:selected="${searchDriveType eq dt.name}">Drive Type</option>
+                    </select>
+                </div>
+                <input type="submit" value="Find Engines" style="color: black">
+            </form>
+        </th:block>
+        <div style="margin-top: 100px">
+            <h2 th:each="transmission : ${findTransmissions}" style="margin-right: 50px; display: inline-flex">
+                <a th:href="@{/transmissions/{id} (id = ${transmission.id})}" style="text-decoration: none">
+                    <img th:src="${transmission.image}" alt="image" style="width: 150px; border-radius: 5%"><br>
+                    <span th:text="${transmission.name}"/>
+                    <span th:text="${transmission.driveType.name}" style="color: gray; font-size: 14px"/>
+                </a>
+                <div style="display: inline-block; margin-left: 10px">
+                    Brands:
+                    <a th:href="@{/brands/{id} (id = ${transmission.brand.id})}" style="color: gray; text-decoration: none">
+                        <span th:text="${transmission.brand.title}"/>
+                    </a><br>
+                    Edition:
+                    <a th:href="@{/gearboxes/{id} (id = ${transmission.gearbox.id})}" style="text-decoration: none">
+                        <span th:text="${transmission.gearbox.name}"/>
+                    </a>
+                </div>
+            </h2>
+        </div>
+        <div style="margin-top: 100px">
+            <input type="button" value="Back" onclick="history.back()" style="color: black">
+        </div>
+    </div>
+</body>
+</html>

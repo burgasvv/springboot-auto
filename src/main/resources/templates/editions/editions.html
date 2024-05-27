@@ -31,6 +31,13 @@
                         <option th:each="en : ${engines}" th:value="${en.name}" th:text="${en.name}">Engines</option>
                     </select>
                 </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="fuel">Fuel</label>
+                    <select name="searchFuel" id="fuel">
+                        <option value=""></option>
+                        <option th:each="fu : ${fuelTypes}" th:value="${fu.name}" th:text="${fu.name}">Fuel</option>
+                    </select>
+                </div>
                 <input type="submit" value="Find Engines" style="color: black">
             </form>
             <th:block th:if="${user.role.name == 'ADMIN'}">

@@ -34,14 +34,23 @@
                         th:selected="${searchEngine eq en.name}">Engines</option>
                     </select>
                 </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="fuel">Fuel</label>
+                    <select name="searchFuel" id="fuel">
+                        <option value=""></option>
+                        <option th:each="fu : ${fuelTypes}" th:value="${fu.name}" th:text="${fu.name}"
+                                th:selected="${searchFuel eq fu.name}">Engines</option>
+                    </select>
+                </div>
                 <input type="submit" value="Find Engines" style="color: black">
             </form>
         </th:block>
         <div style="margin-top: 100px">
-            <h2 th:each="engine : ${engines}" style="margin-right: 50px; display: inline-flex">
+            <h2 th:each="engine : ${findEngines}" style="margin-right: 50px; display: inline-flex">
                 <a th:href="@{/engines/{id} (id = ${engine.id})}" style="text-decoration: none">
                     <img th:src="${engine.image}" alt="image" style="width: 150px; border-radius: 5%"><br>
                     <span th:text="${engine.name}"/>
+                    <span th:text="${engine.fuel.name}" style="color: gray; font-size: 14px"/>
                 </a>
                 <div style="display: inline-block; margin-left: 10px">
                     Brand:

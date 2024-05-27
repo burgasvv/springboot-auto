@@ -23,7 +23,7 @@ public interface EngineRepository extends JpaRepository<Engine, Long> {
                     join brand b on b.id = ee.brand_id
                     where concat(b.title,' ',en.name,' ',b.title,' ',ee.name,' ',b.title,' ',f.name,' ',b.title,' ',f.name,' ',
                           b.title,' ',ee.name,' ',en.name,' ',ee.name,' ',ee.name,' ',f.name,' ',ee.name,' ',
-                          en.name,' ',ee.name,' ') ilike concat('%',?1,'%')"""
+                          en.name,' ',f.name,' ',en.name) ilike concat('%',?1,'%')"""
     )
     List<Engine> searchEnginesByEngineBrandEditionCar(String search);
 
@@ -36,7 +36,7 @@ public interface EngineRepository extends JpaRepository<Engine, Long> {
                     join brand b on b.id = ee.brand_id
                     where concat(b.title,en.name,b.title,ee.name,b.title,f.name,b.title,f.name,
                           b.title,ee.name,en.name,ee.name,ee.name,f.name,ee.name,
-                          en.name,ee.name) ilike concat('%',?1,'%')"""
+                          en.name,f.name,en.name) ilike concat('%',?1,'%')"""
     )
     List<Engine> searchEnginesByEngineBrandEditionCarNoSpaces(String search);
 

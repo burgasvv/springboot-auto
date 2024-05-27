@@ -26,6 +26,14 @@ public class TransmissionService {
         return transmissionRepository.findTransmissionByName(name);
     }
 
+    public List<Transmission> searchTransmissionsByNeighbourNames(String search) {
+        return transmissionRepository.searchTransmissionsByNeighbourNames(search).stream().distinct().toList();
+    }
+
+    public List<Transmission> searchTransmissionsByNeighbourNamesNoSpaces(String search) {
+        return transmissionRepository.searchTransmissionsByNeighbourNamesNoSpaces(search).stream().distinct().toList();
+    }
+
     @Transactional
     public void save(Transmission transmission) {
         transmissionRepository.save(transmission);

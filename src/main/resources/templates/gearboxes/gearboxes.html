@@ -9,6 +9,37 @@
     <div style="margin: 50px 100px">
         <h1>Gearboxes</h1>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <form th:method="GET" th:action="@{/transmissions/find-transmissions}" style="display: inline-flex">
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="brands">Brands</label>
+                    <select name="searchBrand" id="brands">
+                        <option value=""></option>
+                        <option th:each="b : ${brands}" th:value="${b.title}" th:text="${b.title}">Brand</option>
+                    </select>
+                </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="gearboxes">Gearboxes</label>
+                    <select name="searchGearbox" id="gearboxes">
+                        <option value=""></option>
+                        <option th:each="gear : ${gearboxesSelect}" th:value="${gear.name}" th:text="${gear.name}">Gearbox</option>
+                    </select>
+                </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="transmissions">Transmission</label>
+                    <select name="searchTransmission" id="transmissions">
+                        <option value=""></option>
+                        <option th:each="tr : ${transmissions}" th:value="${tr.name}" th:text="${tr.name}">Transmission</option>
+                    </select>
+                </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="drivetypes">Drive Types</label>
+                    <select name="searchDriveType" id="drivetypes">
+                        <option value=""></option>
+                        <option th:each="type : ${driveTypes}" th:value="${type.name}" th:text="${type.name}">Drive Type</option>
+                    </select>
+                </div>
+                <input type="submit" value="Find Transmissions" style="color: black">
+            </form>
             <th:block th:if="${user.role.name == 'ADMIN'}">
                 <form th:method="GET" th:action="@{/gearboxes/add}" style="margin-top: 100px">
                     <input type="submit" value="Add Gearbox" style="color: black">

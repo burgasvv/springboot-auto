@@ -3,7 +3,9 @@ package com.burgas.springbootauto.controller;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.person.PersonService;
+import com.burgas.springbootauto.service.transmission.DriveTypeService;
 import com.burgas.springbootauto.service.transmission.GearboxService;
+import com.burgas.springbootauto.service.transmission.TransmissionService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,13 +23,27 @@ public class GearboxController {
     private final GearboxService gearboxService;
     private final PersonService personService;
     private final BrandService brandService;
+    private final TransmissionService transmissionService;
+    private final DriveTypeService driveTypeService;
 
     @GetMapping
     public String gearboxes(Model model) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
+        model.addAttribute("brands",
+                brandService.findAll().stream().filter(brand -> !brand.getTransmissions().isEmpty()).toList()
+        );
         model.addAttribute("gearboxes", gearboxService.findAll());
+        model.addAttribute("gearboxesSelect",
+                gearboxService.findAll().stream().filter(gearbox -> !gearbox.getTransmissions().isEmpty()).toList()
+        );
+        model.addAttribute("transmissions",
+                transmissionService.findAll().stream().filter(transmission -> transmission.getGearbox() != null).toList()
+        );
+        model.addAttribute("driveTypes", driveTypeService.findAll()
+                .stream().filter(driveType -> !driveType.getTransmissions().isEmpty()).toList()
+        );
         return "gearboxes/gearboxes";
     }
 

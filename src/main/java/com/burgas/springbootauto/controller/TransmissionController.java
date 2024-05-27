@@ -2,11 +2,13 @@ package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.entity.transmission.Transmission;
+import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.transmission.DriveTypeService;
 import com.burgas.springbootauto.service.transmission.GearboxService;
 import com.burgas.springbootauto.service.transmission.TransmissionService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class TransmissionController {
 
     private final TransmissionService transmissionService;
+    private final BrandService brandService;
     private final GearboxService gearboxService;
     private final DriveTypeService driveTypeService;
     private final EquipmentService equipmentService;
@@ -34,17 +37,38 @@ public class TransmissionController {
         return "transmissions/transmission";
     }
 
-    @GetMapping("/{id}/edit")
-    public String editTransmissionForm(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("transmission", transmissionService.findById(id));
-        model.addAttribute("driveTypes", driveTypeService.findAll());
-        return "transmissions/edit";
-    }
-
-    @PatchMapping("/{id}/edit")
-    public String editTransmission(@ModelAttribute("transmission") Transmission transmission) {
-        transmissionService.update(transmission);
-        return "redirect:/transmissions/{id}?brandId=" + transmission.getBrand().getId();
+    @GetMapping("/find-transmissions")
+    public String findTransmissions(Model model, HttpServletRequest request) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        model.addAttribute("brands",
+                brandService.findAll().stream().filter(brand -> !brand.getTransmissions().isEmpty()).toList()
+        );
+        model.addAttribute("gearboxes", gearboxService.findAll());
+        model.addAttribute("gearboxesSelect",
+                gearboxService.findAll().stream().filter(gearbox -> !gearbox.getTransmissions().isEmpty()).toList()
+        );
+        model.addAttribute("transmissions",
+                transmissionService.findAll().stream().filter(transmission -> transmission.getGearbox() != null).toList()
+        );
+        model.addAttribute("driveTypes", driveTypeService.findAll()
+                .stream().filter(driveType -> !driveType.getTransmissions().isEmpty()).toList()
+        );
+        String searchBrand = request.getParameter("searchBrand");
+        String searchGearbox = request.getParameter("searchGearbox");
+        String searchTransmission = request.getParameter("searchTransmission");
+        String searchDriveType = request.getParameter("searchDriveType");
+        model.addAttribute("findTransmissions",
+                transmissionService.searchTransmissionsByNeighbourNamesNoSpaces(
+                        searchBrand + searchGearbox + searchTransmission + searchDriveType
+                )
+        );
+        model.addAttribute("searchBrand", searchBrand);
+        model.addAttribute("searchGearbox", searchGearbox);
+        model.addAttribute("searchTransmission", searchTransmission);
+        model.addAttribute("searchDriveType", searchDriveType);
+        return "transmissions/findTransmissions";
     }
 
     @GetMapping("/add")
@@ -69,6 +93,19 @@ public class TransmissionController {
         transmissionService.save(newTransmission);
         Long id = transmissionService.findByName(newTransmission.getName()).getId();
         return "redirect:/transmissions/" + id;
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editTransmissionForm(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("transmission", transmissionService.findById(id));
+        model.addAttribute("driveTypes", driveTypeService.findAll());
+        return "transmissions/edit";
+    }
+
+    @PatchMapping("/{id}/edit")
+    public String editTransmission(@ModelAttribute("transmission") Transmission transmission) {
+        transmissionService.update(transmission);
+        return "redirect:/transmissions/{id}?brandId=" + transmission.getBrand().getId();
     }
 
     @DeleteMapping("/{id}/delete")

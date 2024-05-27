@@ -4,6 +4,7 @@ import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.engine.EngineEditionService;
 import com.burgas.springbootauto.service.engine.EngineService;
+import com.burgas.springbootauto.service.engine.FuelService;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ public class EngineEditionController {
     private final EngineEditionService editionService;
     private final EngineService engineService;
     private final BrandService brandService;
+    private final FuelService fuelService;
     private final PersonService personService;
 
     @GetMapping
@@ -33,6 +35,7 @@ public class EngineEditionController {
         model.addAttribute("engines",
                 engineService.findAll().stream().filter(engine -> engine.getEngineEdition() != null).toList()
         );
+        model.addAttribute("fuelTypes", fuelService.findAll());
         return "editions/editions";
     }
 
