@@ -14,21 +14,24 @@
                     <label for="brands">Brands</label>
                     <select th:field="${searchBrand.title}" id="brands">
                         <option value=""></option>
-                        <option th:each="b : ${brands}" th:value="${b.title}" th:text="${b.title}">Brand</option>
+                        <option th:each="b : ${brands}" th:value="${b.title}" th:text="${b.title}"
+                        th:selected="${searchBrand.title eq b.title}">Brand</option>
                     </select>
                 </div>
                 <div style="display: inline-block; margin-right: 25px">
                     <label for="editions">Editions</label>
                     <select th:field="${searchEdition.name}" id="editions">
                         <option value=""></option>
-                        <option th:each="ed : ${editions}" th:value="${ed.name}" th:text="${ed.name}">Edition</option>
+                        <option th:each="ed : ${editions}" th:value="${ed.name}" th:text="${ed.name}"
+                        th:selected="${searchEdition.name eq ed.name}">Edition</option>
                     </select>
                 </div>
                 <div style="display: inline-block; margin-right: 25px">
                     <label for="engines">Engines</label>
                     <select th:field="${searchEngine.name}" id="engines">
                         <option value=""></option>
-                        <option th:each="en : ${engines}" th:value="${en.name}" th:text="${en.name}">Engines</option>
+                        <option th:each="en : ${engines}" th:value="${en.name}" th:text="${en.name}"
+                        th:selected="${searchEngine.name eq en.name}">Engines</option>
                     </select>
                 </div>
                 <input type="submit" value="Find Engines" style="color: black">
