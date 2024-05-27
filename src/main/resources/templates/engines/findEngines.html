@@ -38,13 +38,21 @@
             </form>
         </th:block>
         <div style="margin-top: 100px">
-            <h2 th:each="engine : ${engines}" style="margin-right: 25px; display: inline-flex">
+            <h2 th:each="engine : ${engines}" style="margin-right: 50px; display: inline-flex">
                 <a th:href="@{/engines/{id} (id = ${engine.id})}" style="text-decoration: none">
                     <img th:src="${engine.image}" alt="image" style="width: 150px; border-radius: 5%"><br>
-                    <span th:text="${engine.engineEdition.brand.title}"/>
-                    <span th:text="${engine.engineEdition.name}"/>
                     <span th:text="${engine.name}"/>
                 </a>
+                <div style="display: inline-block; margin-left: 10px">
+                    Brand:
+                    <a th:href="@{/brands/{id} (id = ${engine.engineEdition.brand.id})}" style="color: gray; text-decoration: none">
+                        <span th:text="${engine.engineEdition.brand.title}"/>
+                    </a><br>
+                    Edition:
+                    <a th:href="@{/editions/{id} (id = ${engine.engineEdition.id})}" style="text-decoration: none">
+                        <span th:text="${engine.engineEdition.name}"/>
+                    </a>
+                </div>
             </h2>
         </div>
         <div style="margin-top: 100px">
