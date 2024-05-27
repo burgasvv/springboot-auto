@@ -1,8 +1,11 @@
 package com.burgas.springbootauto.controller;
 
+import com.burgas.springbootauto.entity.brand.Brand;
+import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.engine.EngineEditionService;
+import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class EngineEditionController {
 
     private final EngineEditionService editionService;
+    private final EngineService engineService;
     private final BrandService brandService;
     private final PersonService personService;
 
@@ -24,7 +28,16 @@ public class EngineEditionController {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
+        model.addAttribute("brands",
+                brandService.findAll().stream().filter(brand -> !brand.getEngineEditions().isEmpty()).toList()
+        );
         model.addAttribute("editions", editionService.findAll());
+        model.addAttribute("engines",
+                engineService.findAll().stream().filter(engine -> engine.getEngineEdition() != null).toList()
+        );
+        model.addAttribute("searchBrand", new Brand());
+        model.addAttribute("searchEdition", new EngineEdition());
+        model.addAttribute("searchEngine", new Engine());
         return "editions/editions";
     }
 

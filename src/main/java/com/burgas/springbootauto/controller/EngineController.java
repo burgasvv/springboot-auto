@@ -1,8 +1,10 @@
 package com.burgas.springbootauto.controller;
 
+import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
+import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.engine.EngineEditionService;
 import com.burgas.springbootauto.service.engine.EngineCharacteristicsService;
@@ -16,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/engines")
@@ -24,6 +27,7 @@ public class EngineController {
 
     private final EngineService engineService;
     private final FuelService fuelService;
+    private final BrandService brandService;
     private final EquipmentService equipmentService;
     private final EngineEditionService engineEditionService;
     private final EngineCharacteristicsService engineCharacteristicsService;
@@ -38,6 +42,34 @@ public class EngineController {
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         return "engines/engine";
+    }
+
+    @GetMapping("/find-engines")
+    public String findEngines(Model model, @RequestParam("title")String brand,
+                              @RequestParam("name")String edition, @RequestParam("name")String engine) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        model.addAttribute("brands",
+                brandService.findAll().stream().filter(b -> !b.getEngineEditions().isEmpty()).toList()
+        );
+        model.addAttribute("editions", engineEditionService.findAll());
+        model.addAttribute("engines",
+                engineService.findAll().stream().filter(en -> en.getEngineEdition() != null).toList()
+        );
+        int i = edition.indexOf(",");
+        String engineName = engine.substring(i).substring(1);
+        String editionName = edition.substring(0, i);
+        model.addAttribute("engines",
+                engineService.searchEnginesByEngineBrandEditionCarNoSpaces(brand + editionName + engineName)
+        );
+        Brand brandByTitle = brandService.findBrandByTitle(brand);
+        model.addAttribute("searchBrand", Objects.requireNonNullElseGet(brandByTitle, Brand::new));
+        EngineEdition editionByName = engineEditionService.findByName(editionName);
+        model.addAttribute("searchEdition", Objects.requireNonNullElseGet(editionByName, EngineEdition::new));
+        Engine engineByName = engineService.findByName(engineName);
+        model.addAttribute("searchEngine", Objects.requireNonNullElseGet(engineByName, Engine::new));
+        return "engines/findEngines";
     }
 
     @GetMapping("/add")

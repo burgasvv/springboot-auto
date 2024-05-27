@@ -38,10 +38,10 @@
                 <h2>Engines</h2>
                 <h3 th:each="engine : ${engines}" style="display: inline-flex">
                     <a th:href="@{/engines/{id} (id = ${engine.id})}" style="text-decoration: none; margin: 25px">
-                        <img th:src="${engine.image}" alt="image" style="display: inline-flex; width: 100px; border-radius: 10%"><br>
-                        <div th:text="${engine.engineEdition.brand.title}" style="margin-left: 20px"/>
-                        <div th:text="${engine.engineEdition.name}" style="margin-left: 20px"/>
-                        <div th:text="${engine.name}" style="margin-left: 20px"/>
+                        <img th:src="${engine.image}" alt="image" style="display: inline-flex; width: 150px; border-radius: 10%"><br>
+                        <span th:text="${engine.engineEdition.brand.title}"/>
+                        <span th:text="${engine.engineEdition.name}"/>
+                        <span th:text="${engine.name}"/>
                     </a>
                 </h3>
             </th:block>
