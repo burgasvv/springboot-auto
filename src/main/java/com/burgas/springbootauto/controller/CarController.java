@@ -1,11 +1,11 @@
 package com.burgas.springbootauto.controller;
 
-import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.car.*;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.*;
 import com.burgas.springbootauto.service.person.PersonService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/cars")
@@ -47,30 +46,21 @@ public class CarController {
     public String cars(Model model) {
         model.addAttribute("cars", carService.findAll());
         getSearchLists(model);
-        model.addAttribute("searchBrand", new Brand());
-        model.addAttribute("searchClass", new Classification());
-        model.addAttribute("searchCategory", new Category());
         return "cars/cars";
     }
 
     @GetMapping("/find-cars")
-    public String findCars(@RequestParam("title") String brand,
-                           @RequestParam("name") String classification,
-                           @RequestParam("name") String category, Model model) {
-
+    public String findCars(Model model, HttpServletRequest request) {
         getSearchLists(model);
-        int i = classification.indexOf(",");
-        String categoryName = category.substring(i).substring(1);
-        String classificationName = classification.substring(0, i);
+        String searchBrand = request.getParameter("searchBrand");
+        String searchClass = request.getParameter("searchClass");
+        String searchCategory = request.getParameter("searchCategory");
         model.addAttribute("cars",
-                carService.searchCarsWithNoSpaces(brand + classificationName + categoryName)
+                carService.searchCarsWithNoSpaces(searchBrand + searchClass + searchCategory)
         );
-        Brand brandByTitle = brandService.findBrandByTitle(brand);
-        model.addAttribute("searchBrand", Objects.requireNonNullElseGet(brandByTitle, Brand::new));
-        Classification classificationByName = classificationService.findClassificationByName(classificationName);
-        model.addAttribute("searchClass", Objects.requireNonNullElseGet(classificationByName, Classification::new));
-        Category categoryByName = categoryService.findCategoryByName(categoryName);
-        model.addAttribute("searchCategory", Objects.requireNonNullElseGet(categoryByName, Category::new));
+        model.addAttribute("searchBrand", searchBrand);
+        model.addAttribute("searchClass", searchClass);
+        model.addAttribute("searchCategory", searchCategory);
         return "cars/findCars";
     }
 

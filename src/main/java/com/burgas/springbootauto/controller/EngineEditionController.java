@@ -1,7 +1,5 @@
 package com.burgas.springbootauto.controller;
 
-import com.burgas.springbootauto.entity.brand.Brand;
-import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.engine.EngineEditionService;
@@ -35,9 +33,6 @@ public class EngineEditionController {
         model.addAttribute("engines",
                 engineService.findAll().stream().filter(engine -> engine.getEngineEdition() != null).toList()
         );
-        model.addAttribute("searchBrand", new Brand());
-        model.addAttribute("searchEdition", new EngineEdition());
-        model.addAttribute("searchEngine", new Engine());
         return "editions/editions";
     }
 

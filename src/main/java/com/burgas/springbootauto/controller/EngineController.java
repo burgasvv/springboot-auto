@@ -1,6 +1,5 @@
 package com.burgas.springbootauto.controller;
 
-import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
@@ -18,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/engines")
@@ -45,8 +43,8 @@ public class EngineController {
     }
 
     @GetMapping("/find-engines")
-    public String findEngines(Model model, @RequestParam("title")String brand,
-                              @RequestParam("name")String edition, @RequestParam("name")String engine) {
+    public String findEngines(Model model, @RequestParam("searchBrand")String brand,
+                              @RequestParam("searchEdition")String edition, @RequestParam("searchEngine")String engine) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
@@ -57,18 +55,12 @@ public class EngineController {
         model.addAttribute("engines",
                 engineService.findAll().stream().filter(en -> en.getEngineEdition() != null).toList()
         );
-        int i = edition.indexOf(",");
-        String engineName = engine.substring(i).substring(1);
-        String editionName = edition.substring(0, i);
         model.addAttribute("engines",
-                engineService.searchEnginesByEngineBrandEditionCarNoSpaces(brand + editionName + engineName)
+                engineService.searchEnginesByEngineBrandEditionCarNoSpaces(brand + edition + engine)
         );
-        Brand brandByTitle = brandService.findBrandByTitle(brand);
-        model.addAttribute("searchBrand", Objects.requireNonNullElseGet(brandByTitle, Brand::new));
-        EngineEdition editionByName = engineEditionService.findByName(editionName);
-        model.addAttribute("searchEdition", Objects.requireNonNullElseGet(editionByName, EngineEdition::new));
-        Engine engineByName = engineService.findByName(engineName);
-        model.addAttribute("searchEngine", Objects.requireNonNullElseGet(engineByName, Engine::new));
+        model.addAttribute("searchBrand", brand);
+        model.addAttribute("searchEdition", edition);
+        model.addAttribute("searchEngine", engine);
         return "engines/findEngines";
     }
 
@@ -130,7 +122,7 @@ public class EngineController {
         engineService.update(engine);
         engineCharacteristicsService.deleteByEngineId(id);
         engineService.delete(id);
-        //noinspection SpringMVCViewInspection
+//        noinspection SpringMVCViewInspection
         return "redirect:/brands/" + brandId + "/editions";
     }
 }
