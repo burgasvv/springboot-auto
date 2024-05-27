@@ -10,7 +10,7 @@
         <form th:method="POST" th:action="@{/turbo-types/add}" th:object="${turboType}">
             <h2>Turbo Type</h2>
             <label for="brands">Brands</label><br>
-            <select th:field="${turboTypeBrand.id}" id="brands">
+            <select name="turboTypeBrands" id="brands" multiple>
                 <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.title}">Brand</option>
             </select><br><br>
             <label for="name">Name</label><br>

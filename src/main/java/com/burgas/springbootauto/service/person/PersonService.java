@@ -2,7 +2,6 @@ package com.burgas.springbootauto.service.person;
 
 import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.person.Person;
-import com.burgas.springbootauto.entity.person.Role;
 import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.repository.person.RoleRepository;
 import jakarta.transaction.Transactional;

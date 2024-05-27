@@ -1,15 +1,17 @@
 package com.burgas.springbootauto.controller;
 
-import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.turbocharging.TurboType;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.turbocharging.TurboTypeService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 
 @Controller
 @RequestMapping("/turbo-types")
@@ -42,17 +44,19 @@ public class TurboTypeController {
     public String addTurboType(Model model) {
         model.addAttribute("turboType", new TurboType());
         model.addAttribute("brands", brandService.findAll());
-        model.addAttribute("turboTypeBrand", new Brand());
         return "turbotypes/add";
     }
 
     @PostMapping("/add")
-    public String addTurboType(@ModelAttribute("turboType") TurboType turboType, @ModelAttribute("turboTypeBrand") Brand brand) {
+    public String addTurboType(@ModelAttribute("turboType") TurboType turboType, HttpServletRequest request) {
+        String[] turboTypeBrands = request.getParameterValues("turboTypeBrands");
         TurboType newTurboType = new TurboType();
         newTurboType.setName(turboType.getName());
         newTurboType.setImage(turboType.getImage());
         newTurboType.setDescription(turboType.getDescription());
-        newTurboType.addBrand(brandService.findById(brand.getId()));
+        Arrays.stream(turboTypeBrands).toList().forEach(s ->
+                newTurboType.addBrand(brandService.findById(Long.parseLong(s)))
+        );
         turboTypeService.save(newTurboType);
         Long id = turboTypeService.findByName(newTurboType.getName()).getId();
         return "redirect:/turbo-types/" + id;
