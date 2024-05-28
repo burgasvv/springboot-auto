@@ -33,7 +33,8 @@ public interface CarRepository extends JpaRepository<Car, Long> {
                     join tag t on t.id = ct.tag_id
                     where concat(b.title,' ',c3.name,' ',c2.name,' ',b.title,' ',c2.name,' ',c.title,' ',t.name,' ',
                         c.title,' ',c3.name,' ',b.title,' ',c.title,' ',b.title,' ',t.name,' ',c3.name,' ',c.title,' ',c2.name,' ',c3.name,' ',
-                        t.name,' ',c2.name,' ',t.name,' ',b.title,' ',b.title,' ') ilike concat('%',?1,'%')"""
+                        t.name,' ',c2.name,' ',t.name,' ',b.title,' ',b.title,' ',c.title,' ',t.name,' ',t.name,' ',t.name,' ') 
+                              ilike concat('%',?1,'%')"""
     )
     List<Car> searchCarsByAllNames(String search);
 

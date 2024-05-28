@@ -6,46 +6,102 @@
 </head>
 <body>
     <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
-    <th:block th:if="${searchBrands.size() < 1 && cars.size() < 1 && engines.size() < 1}">
-        <div style="margin-left: 100px; margin-top: 50px">
+    <th:block th:if="${brands.size() < 1 && cars.size() < 1 &&
+                        engines.size() < 1 && transmissions.size() < 1 && turbochargers.size() < 1}">
+        <div style="margin: 50px 100px">
             <h2>No results</h2>
         </div>
     </th:block>
-    <div style="margin-left: 100px; margin-top: 50px">
-        <th:block th:if="${searchBrands.size() > 0}">
-            <div style="margin-top: 50px">
-                <h2>Brands</h2>
-                <h3 th:each="brand : ${searchBrands}" style="display: inline-flex">
-                    <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
-                        <img th:src="${brand.image}" alt="image" style="display: inline-flex; width: 150px">
-                        <p th:text="${brand.title}" style="margin-left: 20px; vertical-align: bottom"/>
-                    </a>
-                </h3>
-            </div>
-        </th:block>
-        <th:block th:if="${cars.size() > 0}">
-            <h2>Cars</h2>
-            <h3 th:each="car : ${cars}" style="display: inline-flex">
-                <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none; margin: 25px">
-                    <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 100px; border-radius: 10%"><br>
-                    <div th:text="${car.brand.title}" style="margin-left: 20px"/>
-                    <div th:text="${car.title}" style="margin-left: 20px"/>
-                </a>
-            </h3>
-        </th:block>
-        <th:block th:if="${#authorization.expression('isAuthenticated')}">
-            <th:block th:if="${engines.size() > 0}">
-                <h2>Engines</h2>
-                <h3 th:each="engine : ${engines}" style="display: inline-flex">
-                    <a th:href="@{/engines/{id} (id = ${engine.id})}" style="text-decoration: none; margin: 25px">
-                        <img th:src="${engine.image}" alt="image" style="display: inline-flex; width: 150px; border-radius: 10%"><br>
-                        <span th:text="${engine.engineEdition.brand.title}"/>
-                        <span th:text="${engine.engineEdition.name}"/>
-                        <span th:text="${engine.name}"/>
-                    </a>
-                </h3>
+    <div style="margin: 50px 100px">
+        <th:block th:each="object : ${selectObjects}">
+            <th:block th:if="${object eq 'brands'}">
+
+                <th:block th:if="${brands.size() > 0}">
+                    <div style="margin-top: 50px">
+                        <h2>Brands</h2>
+                        <h3 th:each="brand : ${brands}" style="display: inline-flex; margin-right: 25px">
+                            <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
+                                <img th:src="${brand.image}" alt="image" style="display: inline-flex; width: 150px">
+                                <p th:text="${brand.title}" style="margin-left: 20px; vertical-align: bottom"/>
+                            </a>
+                        </h3>
+                    </div>
+                    <div style="border-top: 1px solid gray; margin-top: 50px"></div>
+                </th:block>
+            </th:block>
+
+            <th:block th:if="${object eq 'cars'}">
+                <th:block th:if="${cars.size() > 0}">
+                    <div style="margin-top: 50px">
+                        <h2>Cars</h2>
+                        <h3 th:each="car : ${cars}" style="display: inline-flex">
+                            <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none; margin: 25px">
+                                <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 100px; border-radius: 10%"><br>
+                                <div th:text="${car.brand.title}" style="margin-left: 20px"/>
+                                <div th:text="${car.title}" style="margin-left: 20px"/>
+                            </a>
+                        </h3>
+                    </div>
+                    <div style="border-top: 1px solid gray; margin-top: 50px"></div>
+                </th:block>
+            </th:block>
+
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+
+                <th:block th:if="${object eq 'engines'}">
+                    <th:block th:if="${engines.size() > 0}">
+                        <div style="margin-top: 50px">
+                            <h2>Engines</h2>
+                            <h3 th:each="engine : ${engines}" style="display: inline-flex">
+                                <a th:href="@{/engines/{id} (id = ${engine.id})}" style="text-decoration: none; margin: 25px">
+                                    <img th:src="${engine.image}" alt="image" style="display: inline-flex; width: 150px; border-radius: 10%"><br>
+                                    <span th:text="${engine.engineEdition.brand.title}"/>
+                                    <span th:text="${engine.engineEdition.name}"/>
+                                    <span th:text="${engine.name}"/>
+                                </a>
+                            </h3>
+                        </div>
+                        <div style="border-top: 1px solid gray; margin-top: 50px"></div>
+                    </th:block>
+                </th:block>
+
+                <th:block th:if="${object eq 'transmissions'}">
+                    <th:block th:if="${transmissions.size() > 0}">
+                        <div style="margin-top: 50px">
+                            <h2>Transmission</h2>
+                            <h3 th:each="transmission : ${transmissions}" style="display: inline-flex">
+                                <a th:href="@{/transmissions/{id} (id = ${transmission.id})}" style="text-decoration: none; margin: 25px">
+                                    <img th:src="${transmission.image}" alt="image" style="display: inline-flex; width: 150px; border-radius: 10%"><br>
+                                    <span th:text="${transmission.gearbox.name}"/>
+                                    <span th:text="${transmission.name}"/>
+                                </a>
+                            </h3>
+                        </div>
+                        <div style="border-top: 1px solid gray; margin-top: 50px"></div>
+                    </th:block>
+                </th:block>
+
+                <th:block th:if="${object eq 'turbochargers'}">
+                    <th:block th:if="${turbochargers.size() > 0}">
+                        <div style="margin-top: 50px">
+                            <h2>Turbocharger</h2>
+                            <h3 th:each="turbocharger : ${turbochargers}" style="display: inline-flex">
+                                <a th:href="@{/turbochargers/{id} (id = ${turbocharger.id})}" style="text-decoration: none; margin: 25px">
+                                    <img th:src="${turbocharger.image}" alt="image" style="display: inline-flex; width: 150px; border-radius: 10%"><br>
+                                    <span th:text="${turbocharger.turboType.name}"/>
+                                    <span th:text="${turbocharger.name}"/>
+                                </a>
+                            </h3>
+                        </div>
+                        <div style="border-top: 1px solid gray; margin-top: 50px"></div>
+                    </th:block>
+                </th:block>
+
             </th:block>
         </th:block>
+        <div>
+            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+        </div>
     </div>
 </body>
 </html>

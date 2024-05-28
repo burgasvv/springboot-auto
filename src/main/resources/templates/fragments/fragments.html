@@ -21,8 +21,16 @@
         </th:block>
         <form th:method="GET" th:action="@{/search}" style="display: inline-flex; margin-right: 20px">
             <label for="search"></label>
-            <input type="text" id="search" name="search">
-            <input type="submit" value="Search" style="margin-left: 10px; color: black">
+            <input type="text" id="search" name="search" style="margin-right: 10px; height: 15px; margin-top: 50px">
+            <label for="objects"></label>
+            <select name="selectObjects" id="objects" multiple>
+                <option value="brands" name="Brands">Brands</option>
+                <option value="cars" name="Cars">Cars</option>
+                <option value="engines" name="Engines">Engines</option>
+                <option value="transmissions" name="Transmissions">Transmissions</option>
+                <option value="turbochargers" name="Turbochargers">Turbochargers</option>
+            </select>
+            <input type="submit" value="Search" style="margin-left: 10px; color: black; height: 25px; margin-top: 45px">
         </form>
         <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
             <th:block th:case="${false}">
