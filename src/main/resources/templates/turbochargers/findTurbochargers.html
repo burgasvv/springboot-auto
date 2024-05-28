@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Turbochargers</title>
+</head>
+<body>
+    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+    <div style="margin: 50px 100px">
+        <h1>Find Turbochargers</h1>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <form th:method="GET" th:action="@{/turbochargers/find-turbochargers}" style="display: inline-flex">
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="brands">Brands</label>
+                    <select name="searchBrand" id="brands">
+                        <option value=""></option>
+                        <option th:each="b : ${brands}" th:value="${b.title}" th:text="${b.title}"
+                                th:selected="${searchBrand eq b.title}">Brand</option>
+                    </select>
+                </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="turboTypes">Turbo Types</label>
+                    <select name="searchTurboType" id="turboTypes">
+                        <option value=""></option>
+                        <option th:each="tt : ${turboTypesSelect}" th:value="${tt.name}" th:text="${tt.name}"
+                                th:selected="${searchTurboType eq tt.name}">Turbo Type</option>
+                    </select>
+                </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="turbochargers">Turbochargers</label>
+                    <select name="searchTurbocharger" id="turbochargers">
+                        <option value=""></option>
+                        <option th:each="tc : ${turbochargers}" th:value="${tc.name}" th:text="${tc.name}"
+                                th:selected="${searchTurbocharger eq tc.name}">Turbocharger</option>
+                    </select>
+                </div>
+                <input type="submit" value="Find Turbochargers" style="color: black">
+            </form>
+        </th:block>
+        <div style="margin-top: 100px">
+            <h2 th:each="turbocharger : ${findTurbochargers}" style="margin-right: 50px; display: inline-flex">
+                <a th:href="@{/turbochargers/{id} (id = ${turbocharger.id})}" style="text-decoration: none">
+                    <img th:src="${turbocharger.image}" alt="image" style="width: 150px; border-radius: 5%"><br>
+                    <span th:text="${turbocharger.name}"/>
+                </a>
+                <div style="display: inline-block; margin-left: 10px">
+                    Brands:
+                    <a th:href="@{/brands/{id} (id = ${turbocharger.brand.id})}" style="color: gray; text-decoration: none">
+                        <span th:text="${turbocharger.brand.title}"/>
+                    </a><br>
+                    Edition:
+                    <a th:href="@{/turbo-types/{id} (id = ${turbocharger.turboType.id})}" style="text-decoration: none">
+                        <span th:text="${turbocharger.turboType.name}"/>
+                    </a>
+                </div>
+            </h2>
+        </div>
+        <div style="margin-top: 100px">
+            <input type="button" value="Back" onclick="history.back()" style="color: black">
+        </div>
+    </div>
+</body>
+</html>

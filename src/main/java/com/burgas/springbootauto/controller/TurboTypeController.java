@@ -4,6 +4,7 @@ import com.burgas.springbootauto.entity.turbocharging.TurboType;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.turbocharging.TurboTypeService;
+import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +21,7 @@ public class TurboTypeController {
 
     private final TurboTypeService turboTypeService;
     private final BrandService brandService;
+    private final TurbochargerService turbochargerService;
     private final PersonService personService;
 
     @GetMapping
@@ -27,7 +29,16 @@ public class TurboTypeController {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
+        model.addAttribute("brands",
+                brandService.findAll().stream().filter(brand -> !brand.getTurbochargers().isEmpty()).toList()
+        );
         model.addAttribute("turboTypes", turboTypeService.findAll());
+        model.addAttribute("turboTypesSelect",
+                turboTypeService.findAll().stream().filter(turboType -> !turboType.getTurbochargers().isEmpty()).toList()
+        );
+        model.addAttribute("turbochargers",
+                turbochargerService.findAll().stream().filter(turbocharger -> turbocharger.getTurboType() != null).toList()
+        );
         return "turbotypes/turbotypes";
     }
 

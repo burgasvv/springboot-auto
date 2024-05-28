@@ -26,6 +26,14 @@ public class TurbochargerService {
         return turbochargerRepository.findByName(name);
     }
 
+    public List<Turbocharger>searchTurbochargersByNeighbourNames(String search) {
+        return turbochargerRepository.searchTurbochargersByNeighbourNames(search).stream().distinct().toList();
+    }
+
+    public List<Turbocharger>searchTurbochargersByNeighbourNamesNoSpaces(String search) {
+        return turbochargerRepository.searchTurbochargersByNeighbourNamesNoSpaces(search).stream().distinct().toList();
+    }
+
     @Transactional
     public void save(Turbocharger turbocharger) {
         turbochargerRepository.save(turbocharger);

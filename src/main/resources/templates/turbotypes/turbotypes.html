@@ -9,6 +9,30 @@
     <div style="margin: 50px 100px">
         <h1>Turbo Types</h1>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <form th:method="GET" th:action="@{/turbochargers/find-turbochargers}" style="display: inline-flex">
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="brands">Brands</label>
+                    <select name="searchBrand" id="brands">
+                        <option value=""></option>
+                        <option th:each="b : ${brands}" th:value="${b.title}" th:text="${b.title}">Brand</option>
+                    </select>
+                </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="turboTypes">Turbo Types</label>
+                    <select name="searchTurboType" id="turboTypes">
+                        <option value=""></option>
+                        <option th:each="turboType : ${turboTypesSelect}" th:value="${turboType.name}" th:text="${turboType.name}">Turbo Type</option>
+                    </select>
+                </div>
+                <div style="display: inline-block; margin-right: 25px">
+                    <label for="turbochargers">Turbocharger</label>
+                    <select name="searchTurbocharger" id="turbochargers">
+                        <option value=""></option>
+                        <option th:each="tc : ${turbochargers}" th:value="${tc.name}" th:text="${tc.name}">Turbocharger</option>
+                    </select>
+                </div>
+                <input type="submit" value="Find Turbochargers" style="color: black">
+            </form>
             <th:block th:if="${user.role.name == 'ADMIN'}">
                 <form th:method="GET" th:action="@{/turbo-types/add}" style="margin-top: 100px">
                     <input type="submit" value="Add Turbo Type" style="color: black">
