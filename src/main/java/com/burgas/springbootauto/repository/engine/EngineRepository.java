@@ -21,9 +21,11 @@ public interface EngineRepository extends JpaRepository<Engine, Long> {
                     join fuel f on f.id = en.fuel_id
                     join engine_edition ee on ee.id = en.edition_id
                     join brand b on b.id = ee.brand_id
-                    where concat(b.title,' ',en.name,' ',b.title,' ',ee.name,' ',b.title,' ',f.name,' ',b.title,' ',f.name,' ',
-                          b.title,' ',ee.name,' ',en.name,' ',ee.name,' ',ee.name,' ',f.name,' ',ee.name,' ',
-                          en.name,' ',f.name,' ',en.name) ilike concat('%',?1,'%')"""
+                    join equipment e on en.id = e.engine_id
+                    join car c on c.id = e.car_id
+                    where concat(b.title,' ',en.name,' ',b.title,' ',ee.name,' ',b.title,' ',f.name,' ',b.title,' ',c.title,' ',f.name,' ',
+                          c.title,' ',b.title,' ',en.name,' ',c.title,' ',en.name,' ',ee.name,' ',c.title,' ',ee.name,' ',f.name,' ',en.name,' ',
+                          c.title,' ',ee.name,' ',f.name,' ',en.name,' ') ilike concat('%',?1,'%')"""
     )
     List<Engine> searchEnginesByEngineBrandEditionCar(String search);
 

@@ -38,16 +38,6 @@ public class Engine {
     @OneToOne(mappedBy = "engine", cascade = CascadeType.ALL)
     private EngineCharacteristics engineCharacteristics;
 
-    public void addEquipment(Equipment equipment) {
-        equipments.add(equipment);
-        equipment.setEngine(this);
-    }
-
-    public void removeEquipment(Equipment equipment) {
-        equipments.remove(equipment);
-        equipment.setEngine(null);
-    }
-
     public void removeEquipments(List<Equipment> equipments) {
         this.equipments.removeAll(equipments);
         equipments.forEach(equipment -> equipment.setEngine(null));

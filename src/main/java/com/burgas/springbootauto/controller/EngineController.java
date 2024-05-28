@@ -34,7 +34,7 @@ public class EngineController {
     @GetMapping("/{id}")
     public String engine(@PathVariable("id") Long id, Model model) {
         Engine engine = engineService.findById(id);
-        engine.setEngineCharacteristics(engineCharacteristicsService.searchEngineCharacteristicsByEngineId(id));
+//        engine.setEngineCharacteristics(engineCharacteristicsService.searchEngineCharacteristicsByEngineId(id));
         model.addAttribute("engine", engine);
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())

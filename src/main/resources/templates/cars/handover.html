@@ -33,7 +33,7 @@
         <form th:method="POST" th:action="@{/cars/{id}/handover-done (id = ${car.id})}" style="margin-top: 50px">
             <label for="users" style="font-size: 18px; font-weight: bold">Users</label><br>
             <select th:field="${car.person.id}" id="users">
-                <option th:each="person : ${users}" th:value="${person.id}" th:text="|${user.firstname} ${user.lastname} ${person.username}|"
+                <option th:each="person : ${users}" th:value="${person.id}" th:text="|${person.firstname} ${person.lastname} ${person.username}|"
                         th:selected="${person.id eq car.person.id}">User</option>
             </select><br><br>
             <input type="submit" value="OK" style="color: black">
