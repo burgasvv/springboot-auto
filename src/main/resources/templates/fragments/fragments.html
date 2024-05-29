@@ -30,7 +30,7 @@
                 <option value="transmissions" name="Transmissions">Transmissions</option>
                 <option value="turbochargers" name="Turbochargers">Turbochargers</option>
             </select>
-            <input type="submit" value="Search" style="margin-left: 10px; color: black; height: 25px; margin-top: 45px">
+            <input type="submit" value="Search" style="margin-left: 10px; color: black; height: 25px; margin-top: 46px">
         </form>
         <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
             <th:block th:case="${false}">
