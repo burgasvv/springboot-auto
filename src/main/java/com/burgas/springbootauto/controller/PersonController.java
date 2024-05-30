@@ -1,6 +1,7 @@
 package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.person.Person;
+import com.burgas.springbootauto.repository.person.RoleRepository;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class PersonController {
 
     private final PersonService personService;
+    private final RoleRepository roleRepository;
 
     @GetMapping
     public String users(Model model) {
@@ -27,9 +29,14 @@ public class PersonController {
 
     @GetMapping("/{name}")
     public String user(@PathVariable String name, Model model) {
-        model.addAttribute("owner", personService.findPersonByUsername(name));
+        Person owner = personService.findPersonByUsername(name);
+        model.addAttribute("owner", owner);
         model.addAttribute("guest",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        model.addAttribute("users",
+                personService.findAll().stream()
+                        .filter(person -> !person.equals(owner) && !person.getRole().equals(roleRepository.findByName("ADMIN"))).toList()
         );
         return "users/user";
     }
@@ -54,6 +61,27 @@ public class PersonController {
             authentication.setAuthenticated(false);
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/make-admin")
+    public String makeAdmin(@RequestParam String selectUser) {
+        Person user = personService.findPersonByUsername(selectUser);
+        Person admin = personService.makeAdmin(user);
+        return "redirect:/users/" + admin.getUsername();
+    }
+
+    @PostMapping("/{name}/ban")
+    public String ban(@PathVariable String name) {
+        Person owner = personService.findPersonByUsername(name);
+        Person banned = personService.ban(owner);
+        return "redirect:/users/" + banned.getUsername();
+    }
+
+    @PostMapping("/{name}/unban")
+    public String unban(@PathVariable String name) {
+        Person owner = personService.findPersonByUsername(name);
+        Person unbanned = personService.unban(owner);
+        return "redirect:/users/" + unbanned.getUsername();
     }
 
     @DeleteMapping("/{name}/delete")

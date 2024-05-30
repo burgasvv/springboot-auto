@@ -60,4 +60,22 @@ public class PersonService {
     public void delete(Person person) {
         personRepository.deleteById(person.getId());
     }
+
+    @Transactional
+    public Person makeAdmin(Person person) {
+        person.setRole(roleRepository.findByName("ADMIN"));
+        return personRepository.save(person);
+    }
+
+    @Transactional
+    public Person ban(Person person) {
+        person.setEnabled(false);
+        return personRepository.save(person);
+    }
+
+    @Transactional
+    public Person unban(Person person) {
+        person.setEnabled(true);
+        return personRepository.save(person);
+    }
 }

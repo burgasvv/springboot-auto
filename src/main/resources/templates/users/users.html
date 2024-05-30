@@ -22,14 +22,22 @@
             </form>
         </div>
         <h1 style="margin-bottom: 50px">Users</h1>
-        <div th:each="user : ${users}">
-            <a th:href="@{/users/{name} (name = ${user.username})}">
+        <div th:each="selectUser : ${users}">
+            <a th:href="@{/users/{name} (name = ${selectUser.username})}">
                 <div style="display: inline-flex">
-                    <img th:src="${user.image}" alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
+                    <img th:src="${selectUser.image}" alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
                     <div style="display: inline-block">
-                        <h3 th:text="|${user.firstname} ${user.lastname}|">Name</h3>
-                        <span th:text="${user.username}"/>
-                        <h5 th:text="${user.role.name}" style="color: grey">Role</h5>
+                        <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>
+                        <span th:text="${selectUser.username}"/>
+                        <h5 th:text="${selectUser.role.name}" style="color: grey">Role</h5>
+                        <th:block th:if="${user.role.name eq 'ADMIN'}">
+                            <th:block th:if="${selectUser.enabled == true}">
+                                <span style="color: gray; margin-left: 500px">Active</span>
+                            </th:block>
+                            <th:block th:if="${selectUser.enabled == false}">
+                                <span style="color: red; margin-left: 500px">Inactive</span>
+                            </th:block>
+                        </th:block>
                     </div>
                 </div>
             </a>
