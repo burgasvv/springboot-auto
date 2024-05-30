@@ -73,6 +73,9 @@ public class TransmissionController {
 
     @GetMapping("/add")
     public String addTransmissionForm(Model model, @RequestParam("gearboxId") Long gearboxId) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         Gearbox gearbox = gearboxService.findById(gearboxId);
         model.addAttribute("transmission", new Transmission());
         model.addAttribute("brands", gearbox.getBrands());
@@ -97,6 +100,9 @@ public class TransmissionController {
 
     @GetMapping("/{id}/edit")
     public String editTransmissionForm(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("transmission", transmissionService.findById(id));
         model.addAttribute("driveTypes", driveTypeService.findAll());
         return "transmissions/edit";

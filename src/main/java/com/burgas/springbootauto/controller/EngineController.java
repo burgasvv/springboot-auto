@@ -33,8 +33,10 @@ public class EngineController {
 
     @GetMapping("/{id}")
     public String engine(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         Engine engine = engineService.findById(id);
-//        engine.setEngineCharacteristics(engineCharacteristicsService.searchEngineCharacteristicsByEngineId(id));
         model.addAttribute("engine", engine);
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -69,6 +71,9 @@ public class EngineController {
 
     @GetMapping("/add")
     public String addEngineForm(Model model, @RequestParam("editionId") Long editionId) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("engine", new Engine());
         model.addAttribute("characteristics", new EngineCharacteristics());
         model.addAttribute("edition", engineEditionService.findById(editionId));
@@ -105,6 +110,9 @@ public class EngineController {
 
     @GetMapping("/{id}/edit")
     public String editEngineForm(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("engine", engineService.findById(id));
         model.addAttribute("fuel", fuelService.findAll());
         return "engines/edit";
@@ -112,6 +120,9 @@ public class EngineController {
 
     @PatchMapping("/{id}/edit")
     public String editEngine(@ModelAttribute("engine") Engine engine, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("characteristics", engineCharacteristicsService.findByEngineId(engine.getId()));
         engineService.update(engine);
         return "engines/editCharacteristics";

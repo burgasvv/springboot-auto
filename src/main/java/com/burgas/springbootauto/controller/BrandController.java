@@ -58,6 +58,9 @@ public class BrandController {
 
     @GetMapping("/add")
     public String addBrandForm(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("brand", new Brand());
         return "brands/add";
     }
@@ -73,6 +76,9 @@ public class BrandController {
 
     @GetMapping("/{id}/edit")
     public String editBrandForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("brand", brandService.findById(id));
         return "brands/edit";
     }
@@ -94,6 +100,9 @@ public class BrandController {
 
     @GetMapping("/{id}/cars")
     public String brandCars(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         Brand brand = brandService.findById(id);
         model.addAttribute("brand", brand);
         model.addAttribute("brands",
@@ -104,6 +113,9 @@ public class BrandController {
 
     @GetMapping("/search-brand-cars")
     public String searchBrandCars(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         Brand brand = brandService.findById(id);
         model.addAttribute("brand", brand);
         //noinspection SpringMVCViewInspection
@@ -122,6 +134,9 @@ public class BrandController {
 
     @GetMapping("/{id}/add-edition")
     public String addEditionForm(Model model, @PathVariable("id") Long brandId) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("edition", new EngineEdition());
         model.addAttribute("brand", brandService.findById(brandId));
         return "brands/addBrandEdition";
@@ -149,6 +164,9 @@ public class BrandController {
 
     @GetMapping("/{id}/add-gearbox")
     public String addGearboxForm(Model model, @PathVariable("id") Long brandId) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("gearbox", new Gearbox());
         model.addAttribute("brand", brandService.findById(brandId));
         return "brands/addBrandGearbox";
@@ -168,6 +186,9 @@ public class BrandController {
 
     @GetMapping("/{id}/add-transmission")
     public String addTransmissionForm(Model model, @PathVariable("id") Long id, @RequestParam("gearboxId") Long gearboxId) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("transmission", new Transmission());
         model.addAttribute("gearbox", gearboxService.findById(gearboxId));
         model.addAttribute("brand", brandService.findById(id));
@@ -200,6 +221,9 @@ public class BrandController {
 
     @GetMapping("/{id}/add-turbo-type")
     public String addTurboTypeForm(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("turboType", new TurboType());
         model.addAttribute("brand", brandService.findById(id));
         return "brands/addBrandTurboType";
@@ -219,6 +243,9 @@ public class BrandController {
 
     @GetMapping("/{id}/add-turbocharger")
     public String addTurbochargerForm(Model model, @PathVariable("id") Long id, @RequestParam("turbotypeId") Long turbotypeId) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("turbocharger", new Turbocharger());
         model.addAttribute("turboType", turboTypeService.findById(turbotypeId));
         model.addAttribute("brand", brandService.findById(id));

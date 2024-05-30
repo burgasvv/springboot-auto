@@ -53,6 +53,9 @@ public class TurboTypeController {
 
     @GetMapping("/add")
     public String addTurboType(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("turboType", new TurboType());
         model.addAttribute("brands", brandService.findAll());
         return "turbotypes/add";

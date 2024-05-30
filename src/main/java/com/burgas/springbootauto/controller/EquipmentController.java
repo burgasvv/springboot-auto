@@ -31,6 +31,9 @@ public class EquipmentController {
 
     @GetMapping
     public String allEquipments(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("equipments", equipmentService.findAll());
         return "equipments/equipments";
     }
@@ -59,6 +62,9 @@ public class EquipmentController {
 
     @GetMapping("/add")
     public String addEquipment(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("equipment", new Equipment());
         return "equipments/add";
     }
@@ -74,6 +80,9 @@ public class EquipmentController {
 
     @GetMapping("/{id}/edit-equipment")
     public String editEquipment(@PathVariable("id") Long id,  Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         Equipment equipment = equipmentService.findById(id);
         model.addAttribute("equipment", equipment);
         return "equipments/edit";

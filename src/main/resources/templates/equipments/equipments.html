@@ -13,7 +13,14 @@
     </style>
 </head>
 <body>
-    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <div th:insert="~{fragments/fragments.html :: bar(${user.image})}">Bar</div>
+    </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
     <div style="margin: 50px 100px">
         <table style="width: 40%">
             <tr>

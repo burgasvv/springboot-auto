@@ -50,6 +50,9 @@ public class EngineEditionController {
 
     @GetMapping("/add")
     public String addEditionForm(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("brands", brandService.findAll());
         model.addAttribute("edition", new EngineEdition());
         return "editions/add";

@@ -2,45 +2,48 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Edit User</title>
 </head>
 <body>
     <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
         <th:block th:case="${true}">
-            <div th:insert="~{fragments/fragments.html :: bar(${user.image})}">Bar</div>
+            <div th:insert="~{fragments/fragments.html :: bar(${owner.image})}">Bar</div>
         </th:block>
         <th:block th:case="${false}">
             <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
         </th:block>
     </th:block>
     <div style="text-align: center; margin-top: 6%">
-        <form method="post" action="/registration">
-            <h1>Registration</h1>
+        <form th:method="PATCH" th:action="@{/users/{name}/edit (name = ${owner.username})}">
+            <h1>Edit User</h1>
+
+            <label for="id"></label><br>
+            <input type="hidden" id="id" th:field="${owner.id}">
 
             <label for="firstname">First Name</label><br>
-            <input type="text" id="firstname" name="firstname"><br><br>
+            <input type="text" id="firstname" th:field="${owner.firstname}"><br><br>
 
             <label for="lastname">Last Name</label><br>
-            <input type="text" id="lastname" name="lastname"><br><br>
+            <input type="text" id="lastname" th:field="${owner.lastname}"><br><br>
 
             <label for="username">User Name</label><br>
-            <input type="text" id="username" name="username"><br><br>
+            <input type="text" id="username" th:field="${owner.username}"><br><br>
 
             <label for="email">Email</label><br>
-            <input type="email" id="email" name="email"><br><br>
+            <input type="email" id="email" th:field="${owner.email}"><br><br>
 
             <label for="password">Password</label><br>
-            <input type="password" id="password" name="password"><br><br>
+            <input type="text" id="password" th:field="${owner.password}"><br><br>
 
             <label for="image">Image</label><br>
-            <input type="text" id="image" name="image"><br><br>
+            <input type="text" id="image" th:field="${owner.image}"><br><br>
 
             <label for="description">Description</label><br>
-            <textarea name="description" id="description" cols="30" rows="10"></textarea><br><br>
+            <textarea th:field="${owner.description}" id="description" cols="30" rows="10"></textarea><br><br>
 
             <input type="hidden" name="_csrf" th:value="${_csrf.token}">
 
-            <input type="submit" value="Register" style="color: black">
+            <input type="submit" value="OK" style="color: black">
             <input type="button" value="Back" style="color: black">
         </form>
     </div>

@@ -48,7 +48,7 @@ public class Person implements UserDetails {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();
 
     public void addCar(Car car) {

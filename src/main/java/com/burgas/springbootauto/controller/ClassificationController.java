@@ -1,9 +1,10 @@
 package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.car.Classification;
-import com.burgas.springbootauto.service.car.CarService;
 import com.burgas.springbootauto.service.car.ClassificationService;
+import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,22 +18,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ClassificationController {
 
     private final ClassificationService classificationService;
-    private final CarService carService;
+    private final PersonService personService;
 
     @GetMapping
     public String classes(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("classes", classificationService.findAll());
         return "classes/classes";
     }
 
     @GetMapping("/{id}")
     public String getClass(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("class", classificationService.findById(id));
         return "classes/class";
     }
 
     @GetMapping("/{id}/cars")
     public String cars(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         Classification classification = classificationService.findById(id);
         model.addAttribute("classes",
                 classificationService.findAll().stream().filter(cl -> !cl.getCars().isEmpty()).toList()

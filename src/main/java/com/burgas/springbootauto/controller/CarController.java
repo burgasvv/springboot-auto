@@ -44,6 +44,9 @@ public class CarController {
 
     @GetMapping
     public String cars(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("cars", carService.findAll());
         getSearchLists(model);
         return "cars/cars";
@@ -52,6 +55,9 @@ public class CarController {
     @GetMapping("/find-cars")
     public String findCars(Model model, HttpServletRequest request) {
         getSearchLists(model);
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         String searchBrand = request.getParameter("searchBrand");
         String searchClass = request.getParameter("searchClass");
         String searchCategory = request.getParameter("searchCategory");
@@ -85,6 +91,9 @@ public class CarController {
 
     @GetMapping("/add")
     public String addCarForm(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("car", new Car());
         model.addAttribute("brands", brandService.findAll());
         model.addAttribute("classes", classificationService.findAll());
@@ -104,6 +113,9 @@ public class CarController {
 
     @GetMapping("/{id}/edit")
     public String editCarForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("users", personService.findAll());
         model.addAttribute("car", carService.findById(id));
         model.addAttribute("brands", brandService.findAll());
@@ -177,6 +189,9 @@ public class CarController {
 
     @GetMapping("/search-by-tag")
     public String searchByTag(@RequestParam("search") String search, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("search", search);
         model.addAttribute("carsByTag", carService.searchCarsByTagName(search));
         return "cars/carsByTag";

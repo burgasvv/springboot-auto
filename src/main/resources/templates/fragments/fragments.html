@@ -1,5 +1,5 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
-    <div style="margin-left: 100px; margin-top: 10px" th:fragment="bar">
+    <div style="margin-left: 100px; margin-top: 10px" th:fragment="bar(user_image)">
         <h2 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/">Home</a></h2>
         <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/classes">Classes</a></h3>
         <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/categories">Categories</a></h3>
@@ -40,13 +40,15 @@
                 </div>
             </th:block>
             <th:block th:case="${true}">
-                <div style="text-align: right; margin-right: 100px; margin-top: -67px">
-                    <h3 style="display: inline-flex; margin-right: 20px">
+                <div style="text-align: right; margin-right: 100px; margin-top: -86px">
+                    <h3 style="display: inline-flex; margin-right: 50px">
                         <a style="text-decoration: none" th:href="@{/users}" >Users</a>
                     </h3>
                     <h2 style="display: inline-flex; margin-right: 20px">
-                        <a style="text-decoration: none"
-                           th:href="@{/users/{name} (name = ${#authentication.name})}" th:text="${#authentication.name}">User</a>
+                        <a style="text-decoration: none" th:href="@{/users/{name} (name = ${#authentication.name})}">
+                            <img th:src="${user_image}" alt="image" style="height: 40px; border-radius: 100%; margin-right: 10px">
+                            <span th:text="${#authentication.name}"/>
+                        </a>
                     </h2>
                     <form action="/logout" method="post" style="display: inline-flex; margin-right: 20px">
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">

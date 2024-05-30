@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +49,21 @@ public class PersonService {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRole(roleRepository.findByName("USER"));
         personRepository.save(person);
+    }
+
+    @Transactional
+    public void update(Person person) {
+        person.setEnabled(true);
+        Person oldPerson = personRepository.findById(person.getId()).orElse(null);
+        if (!person.getPassword().equals(Objects.requireNonNull(oldPerson).getPassword())) {
+            person.setPassword(passwordEncoder.encode(person.getPassword()));
+        }
+        person.setRole(roleRepository.findByName("USER"));
+        personRepository.save(person);
+    }
+
+    @Transactional
+    public void delete(Person person) {
+        personRepository.deleteById(person.getId());
     }
 }

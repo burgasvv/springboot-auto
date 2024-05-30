@@ -5,7 +5,14 @@
     <title>Add Transmission</title>
 </head>
 <body>
-    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <div th:insert="~{fragments/fragments.html :: bar(${user.image})}">Bar</div>
+    </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
     <div style=" margin: 10% 100px 50px; text-align: center">
         <form th:method="POST" th:action="@{/brands/{id}/add-transmission (id = ${brand.id})}">
             <h2>Transmission</h2>

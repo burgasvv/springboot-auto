@@ -3,6 +3,8 @@ package com.burgas.springbootauto.service.brand;
 import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.repository.brand.BrandRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,10 @@ import java.util.List;
 public class BrandService {
 
     private final BrandRepository brandRepository;
+
+    public Page<Brand> findAll(Pageable pageable) {
+        return brandRepository.findAll(pageable);
+    }
 
     public List<Brand> findAll() {
         return brandRepository.findAll();

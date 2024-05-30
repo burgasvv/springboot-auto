@@ -58,6 +58,9 @@ public class GearboxController {
 
     @GetMapping("/add")
     public String addGearboxForm(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("gearbox", new Gearbox());
         model.addAttribute("brands", brandService.findAll());
         return "gearboxes/add";

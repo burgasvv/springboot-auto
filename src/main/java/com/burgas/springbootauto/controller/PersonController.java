@@ -1,14 +1,13 @@
 package com.burgas.springbootauto.controller;
 
+import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
@@ -19,6 +18,9 @@ public class PersonController {
 
     @GetMapping
     public String users(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("users", personService.findAll());
         return "users/users";
     }
@@ -32,6 +34,34 @@ public class PersonController {
         return "users/user";
     }
 
+    @GetMapping("/{name}/edit")
+    public String edit(@PathVariable String name, Model model) {
+        model.addAttribute("owner", personService.findPersonByUsername(name));
+        model.addAttribute("guest",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "users/edit";
+    }
+
+    @PatchMapping("/{name}/edit")
+    public String edit(@ModelAttribute Person owner, @PathVariable String name) {
+        Person person = personService.findById(owner.getId());
+        owner.setRole(person.getRole());
+        owner.setEnabled(true);
+        personService.update(owner);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication.setAuthenticated(false);
+        return "redirect:/login";
+    }
+
+    @DeleteMapping("/{name}/delete")
+    public String delete(@PathVariable String name) {
+        personService.delete(personService.findPersonByUsername(name));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication.setAuthenticated(false);
+        return "redirect:/login";
+    }
+
     @GetMapping("/{name}/cars")
     public String cars(@PathVariable String name, Model model) {
         model.addAttribute("owner", personService.findPersonByUsername(name));
@@ -43,6 +73,9 @@ public class PersonController {
 
     @GetMapping("/search")
     public String search(@RequestParam("search") String search, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         model.addAttribute("search", search);
         model.addAttribute("users", personService.searchAllByFirstnameAndLastnameAndUsername(search));
         return "users/search";

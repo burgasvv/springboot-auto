@@ -5,7 +5,14 @@
     <title>Your Page</title>
 </head>
 <body>
-    <div th:insert="~{fragments/fragments.html :: bar}">Bar</div>
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <div th:insert="~{fragments/fragments.html :: bar(${owner.image})}">Bar</div>
+    </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
     <div style="margin: 50px 100px; display: inline-flex" th:object="${owner}">
         <div style="display: inline-block; margin-right: 500px">
             <h1><span style="font-weight: normal" th:text="*{username}"/></h1>
@@ -81,6 +88,22 @@
                 <th:block th:if="${owner.username eq guest.username}">
                     <div style="margin-top: 50px">
                         <input type="button" value="Add" onclick="location.assign('/equipments/add')" style="color: black">
+                    </div>
+                </th:block>
+            </th:block>
+
+            <div style="border-top: 1px solid gray; margin-top: 50px"></div>
+
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <h2 style="margin-top: 50px">User</h2>
+                <th:block th:if="${owner.username eq guest.username}">
+                    <div style="margin-top: 25px; display: inline-flex">
+                        <form th:method="GET" th:action="@{/users/{name}/edit (name = ${owner.username})}" style="margin-right: 20px">
+                            <input type="submit" value="Edit" style="color: black">
+                        </form>
+                        <form th:method="DELETE" th:action="@{/users/{name}/delete (name = ${owner.username})}">
+                            <input type="submit" value="Delete" style="color: black">
+                        </form>
                     </div>
                 </th:block>
             </th:block>
