@@ -1,6 +1,5 @@
 package com.burgas.springbootauto.service.person;
 
-import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.repository.person.RoleRepository;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,10 +33,6 @@ public class PersonService {
 
     public Person findPersonByUsername(String name) {
         return personRepository.findPersonByUsername(name);
-    }
-
-    public Person findPersonByEquipments(List<Equipment> equipments) {
-        return personRepository.findPersonByEquipments(equipments);
     }
 
     @Transactional

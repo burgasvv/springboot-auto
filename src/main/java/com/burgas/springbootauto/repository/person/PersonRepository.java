@@ -1,6 +1,5 @@
 package com.burgas.springbootauto.repository.person;
 
-import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.person.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,8 +11,6 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     Person findPersonByUsername(String name);
-
-    Person findPersonByEquipments(List<Equipment>equipments);
 
     @Query(
             nativeQuery = true,

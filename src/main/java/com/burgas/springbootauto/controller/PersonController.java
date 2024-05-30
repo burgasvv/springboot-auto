@@ -43,15 +43,17 @@ public class PersonController {
         return "users/edit";
     }
 
-    @PatchMapping("/{name}/edit")
-    public String edit(@ModelAttribute Person owner, @PathVariable String name) {
+    @PatchMapping("/edit")
+    public String edit(@ModelAttribute Person owner) {
         Person person = personService.findById(owner.getId());
-        owner.setRole(person.getRole());
-        owner.setEnabled(true);
         personService.update(owner);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        authentication.setAuthenticated(false);
-        return "redirect:/login";
+        if (owner.getUsername().equals(person.getUsername()) && owner.getPassword().equals(person.getPassword())) {
+            return "redirect:/users/" + owner.getUsername();
+        } else {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            authentication.setAuthenticated(false);
+            return "redirect:/login";
+        }
     }
 
     @DeleteMapping("/{name}/delete")
