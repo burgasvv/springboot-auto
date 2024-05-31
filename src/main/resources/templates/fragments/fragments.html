@@ -61,3 +61,33 @@
         </th:block>
     </div>
 </th:block>
+
+<th:block th:fragment="pagination(pages,pageSize,pageLast,link)">
+    <ul>
+        <th:block th:each="pageNumber : ${pages}">
+            <th:block th:if="${pageNumber > 1 && pageSize > 1}">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{|${link}${1}|}">First</a>
+                </li>
+            </th:block>
+            <th:block th:if="${pageNumber > 1 && pageSize > 1}">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{|${link}${pageNumber - 1}|}">Previous</a>
+                </li>
+            </th:block>
+            <li class="page-item">
+                <a class="page-link" th:href="@{|${link}${pageNumber}|}" th:text="${pageNumber}"></a>
+            </li>
+            <th:block th:if="${pageSize > 1 && pageNumber != pageLast}">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{|${link}${pageNumber + 1}|}">Next</a>
+                </li>
+            </th:block>
+            <th:block th:if="${pageSize > 1 && pageNumber != pageLast}">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{|${link}${pageLast}|}">Last</a>
+                </li>
+            </th:block>
+        </th:block>
+    </ul>
+</th:block>

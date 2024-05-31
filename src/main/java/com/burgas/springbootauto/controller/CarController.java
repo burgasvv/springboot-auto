@@ -8,6 +8,7 @@ import com.burgas.springbootauto.service.person.PersonService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/cars")
@@ -42,31 +44,46 @@ public class CarController {
         );
     }
 
+    private static void paginate(Model model, Page<Car> pageCars) {
+        int totalPages = pageCars.getTotalPages();
+        List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        model.addAttribute("pages", pageNumbers);
+        model.addAttribute("cars", pageCars.getContent());
+    }
+
     @GetMapping
     public String cars(Model model) {
+        return carsPage(1, model);
+    }
+
+    @GetMapping("/pages/{page}")
+    public String carsPage(@PathVariable int page, Model model) {
+        getSearchLists(model);
+        paginate(model, carService.findPage(page, 25));
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
-        model.addAttribute("cars", carService.findAll());
-        getSearchLists(model);
         return "cars/cars";
     }
 
     @GetMapping("/find-cars")
     public String findCars(Model model, HttpServletRequest request) {
+        return findCarsPage(1, model, request);
+    }
+
+    @GetMapping("/find-cars/pages/{page}")
+    public String findCarsPage(@PathVariable int page, Model model, HttpServletRequest request) {
         getSearchLists(model);
-        model.addAttribute("user",
-                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
-        );
         String searchBrand = request.getParameter("searchBrand");
         String searchClass = request.getParameter("searchClass");
         String searchCategory = request.getParameter("searchCategory");
-        model.addAttribute("cars",
-                carService.searchCarsWithNoSpaces(searchBrand + searchClass + searchCategory)
-        );
+        paginate(model, carService.searchCarsByKeyword(searchBrand + searchClass + searchCategory, page, 25));
         model.addAttribute("searchBrand", searchBrand);
         model.addAttribute("searchClass", searchClass);
         model.addAttribute("searchCategory", searchCategory);
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         return "cars/findCars";
     }
 

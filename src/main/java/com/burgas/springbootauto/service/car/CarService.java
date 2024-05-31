@@ -3,6 +3,10 @@ package com.burgas.springbootauto.service.car;
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.repository.car.CarRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +18,13 @@ public class CarService {
 
     private final CarRepository carRepository;
 
+    public Page<Car> findPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
+        return carRepository.findAll(pageable);
+    }
+
     public List<Car> findAll() {
-        return carRepository.findAll().stream().toList();
+        return carRepository.findAll();
     }
 
     public Car findById(Long id) {
@@ -36,6 +45,11 @@ public class CarService {
 
     public List<Car> searchCarsWithNoSpaces(String search) {
         return carRepository.searchCarsWithNoSpaces(search).stream().distinct().toList();
+    }
+
+    public Page<Car> searchCarsByKeyword(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page-1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
+        return carRepository.searchCarsWithNoSpaces(keyword, pageable);
     }
 
     public List<Car> searchCarsByAllNames(String search) {

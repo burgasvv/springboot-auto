@@ -4,7 +4,9 @@ import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.repository.brand.BrandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,11 @@ public class BrandService {
 
     public Page<Brand> findAll(Pageable pageable) {
         return brandRepository.findAll(pageable);
+    }
+
+    public Page<Brand>findPage(int page, int size) {
+        Pageable pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.ASC,"title"));
+        return brandRepository.findAll(pageRequest);
     }
 
     public List<Brand> findAll() {

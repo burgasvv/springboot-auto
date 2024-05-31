@@ -30,6 +30,11 @@
                 <h2 th:text="${brand.title}">Title</h2>
             </a>
         </div>
+
+        <div th:insert="~{fragments/fragments.html :: pagination(
+            pages=${pages},pageSize=${pages.size()},pageLast=${pages.last},link='/brands/pages/')}">Pagination
+        </div>
+
     </div>
     <div style="margin: 100px">
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">

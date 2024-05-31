@@ -17,11 +17,15 @@ import com.burgas.springbootauto.service.turbocharging.TurboTypeService;
 import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/brands")
@@ -38,30 +42,47 @@ public class BrandController {
     private final TurbochargerService turbochargerService;
     private final PersonService personService;
 
+    private static void paginate(Model model, Page<Brand> brandPage) {
+        int totalPages = brandPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().toList();
+            model.addAttribute("pages", pageNumbers);
+        }
+        model.addAttribute("brands", brandPage.getContent());
+    }
+
     @GetMapping
     public String brands(Model model) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
-        model.addAttribute("brands", brandService.findAll());
+        return page(1, model);
+    }
+
+    @GetMapping("/pages/{page}")
+    public String page(@PathVariable int page, Model model) {
+        paginate(model, brandService.findPage(page, 15));
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
         return "brands/brands";
     }
 
     @GetMapping("/{id}")
     public String brand(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("brand", brandService.findById(id));
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
-        model.addAttribute("brand", brandService.findById(id));
         return "brands/brand";
     }
 
     @GetMapping("/add")
     public String addBrandForm(Model model) {
+        model.addAttribute("brand", new Brand());
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
-        model.addAttribute("brand", new Brand());
         return "brands/add";
     }
 

@@ -55,6 +55,10 @@
                 </a>
             </h2>
         </div>
+        <br><br>
+        <div th:insert="~{fragments/fragments.html :: pagination(
+            pages=${pages},pageSize=${pages.size()},pageLast=${pages.last},link='/cars/pages/')}">Pagination
+        </div>
         <div style="margin-top: 100px">
             <input type="button" value="Back" onclick="history.back()" style="color: black">
         </div>
