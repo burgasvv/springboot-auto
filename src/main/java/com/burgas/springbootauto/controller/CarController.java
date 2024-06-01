@@ -205,13 +205,53 @@ public class CarController {
     }
 
     @GetMapping("/search-by-tag")
-    public String searchByTag(@RequestParam("search") String search, Model model) {
+    public String searchByTag(@RequestParam("tag") String tag, @RequestParam int carId, Model model) {
+        return searchByTagPage(1,carId, model, tag);
+    }
+
+    @GetMapping("/search-by-tag/pages/{page}")
+    public String searchByTagPage(@PathVariable("page") int page, @RequestParam int carId, Model model, @RequestParam("tag") String tag) {
+        getSearchLists(model);
+        model.addAttribute("carId", carId);
+        model.addAttribute("tag", tag);
+        Page<Car> cars = carService.searchCarsByTagName(tag, page, 25);
+        int totalPages = cars.getTotalPages();
+        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        model.addAttribute("carsByTag", cars.getContent());
+        model.addAttribute("pages", pages);
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
-        model.addAttribute("search", search);
-        model.addAttribute("carsByTag", carService.searchCarsByTagName(search));
         return "cars/carsByTag";
+    }
+
+    @GetMapping("/search-by-tag/search")
+    public String searchByTagAndSelectors(@RequestParam("tag") String tag, @RequestParam int carId, Model model, HttpServletRequest request) {
+        return searchByTagAndSelectorsPage(1, carId, model, tag, request);
+    }
+
+    @GetMapping("/search-by-tag/search/pages/{page}")
+    public String searchByTagAndSelectorsPage(@PathVariable("page") int page, @RequestParam int carId, Model model,
+                                              String tag, HttpServletRequest request) {
+        getSearchLists(model);
+        model.addAttribute("carId", carId);
+        model.addAttribute("tag", tag);
+        String searchBrand = request.getParameter("searchBrand");
+        String searchClass = request.getParameter("searchClass");
+        String searchCategory = request.getParameter("searchCategory");
+        Page<Car> cars = carService.searchTagCarsByClassificationAndAndCategoryNoSpaces(
+                tag, searchBrand + searchClass + searchCategory, page, 25);
+        int totalPages = cars.getTotalPages();
+        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        model.addAttribute("carsByTag", cars.getContent());
+        model.addAttribute("pages", pages);
+        model.addAttribute("searchBrand", searchBrand);
+        model.addAttribute("searchClass", searchClass);
+        model.addAttribute("searchCategory", searchCategory);
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "cars/carsByTagAndSelectors";
     }
 
     @PostMapping("/{id}/attach-tag")

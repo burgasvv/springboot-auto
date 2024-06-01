@@ -152,7 +152,7 @@
                 <br><br>
 
                 <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
-                    <a th:href="@{/cars/search-by-tag (search = ${tag.name})}" target="_blank" style="text-decoration: none">
+                    <a th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
                         <span th:text="|'#'${tag.name}|" style="margin-right: 25px"/>
                     </a>
                 </div>
@@ -179,7 +179,7 @@
                 <th:block th:case="${false}">
                     <h2 style="margin-top: 50px">Tags</h2>
                     <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
-                        <a th:href="@{/cars/search-by-tag (search = ${tag.name})}" target="_blank" style="text-decoration: none">
+                        <a th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
                             <span th:text="|'#'${tag.name}|" style="margin: 5px"/>
                         </a>
                     </div>

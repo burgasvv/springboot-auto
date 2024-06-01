@@ -37,8 +37,14 @@ public class CarService {
         return carRepository.findCarsByBrandId(brandId, pageRequest);
     }
 
-    public List<Car> searchCarsByTagName(String tagName) {
-        return carRepository.searchCarsByTagName(tagName).stream().distinct().toList();
+    public Page<Car> searchCarsByTagName(String tagName, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
+        return carRepository.searchCarsByTagName(tagName, pageRequest);
+    }
+
+    public Page<Car> searchTagCarsByClassificationAndAndCategoryNoSpaces(String tag, String search, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
+        return carRepository.searchTagCarsByClassificationAndAndCategoryNoSpaces(tag, search, pageRequest);
     }
 
     public Page<Car> searchCarsByClassificationAndAndCategoryNoSpaces(String search, int page, int size) {

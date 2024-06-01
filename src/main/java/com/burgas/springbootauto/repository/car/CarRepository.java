@@ -19,10 +19,10 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     @Query(
             nativeQuery = true,
             value = """
-                    select c.* from car c join car_tags ct on c.id = ct.car_id join tag t on t.id = ct.tag_id
+                    select distinct c.* from car c join car_tags ct on c.id = ct.car_id join tag t on t.id = ct.tag_id
                     where concat(name,' ') ilike concat('%',?1,'%')"""
     )
-    List<Car> searchCarsByTagName(String tagName);
+    Page<Car> searchCarsByTagName(String tagName, Pageable pageable);
 
     Page<Car>findCarsByBrandId(@NotNull Long brandId, Pageable pageable);
 
@@ -52,6 +52,20 @@ public interface CarRepository extends JpaRepository<Car, Long> {
                         where concat(b.title,c3.name,c2.name,b.title,c2.name) ilike concat('%',?1,'%')"""
     )
     Page<Car> searchCarsByClassificationAndAndCategoryNoSpaces(String search, Pageable pageable);
+
+    @Query(
+            nativeQuery = true,
+            value = """
+                    select distinct c.* from car c
+                        join brand b on b.id = c.brand_id
+                        join category c2 on c2.id = c.category_id
+                        join classification c3 on c3.id = c.classification_id
+                        join car_tags ct on c.id = ct.car_id
+                        join tag t on t.id = ct.tag_id
+                        where t.name = ?1 and
+                            concat(b.title,c3.name,c2.name,b.title,c2.name) ilike concat('%',?2,'%')"""
+    )
+    Page<Car> searchTagCarsByClassificationAndAndCategoryNoSpaces(String tag, String search, Pageable pageable);
 
     @Query(
             nativeQuery = true,
