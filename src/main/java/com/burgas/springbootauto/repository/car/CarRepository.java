@@ -24,6 +24,8 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     )
     List<Car> searchCarsByTagName(String tagName);
 
+    Page<Car>findCarsByBrandId(@NotNull Long brandId, Pageable pageable);
+
     @Query(
             nativeQuery = true,
             value = """
@@ -39,6 +41,17 @@ public interface CarRepository extends JpaRepository<Car, Long> {
                         c.title,' ',t.name,' ',t.name,' ',t.name,' ') ilike concat('%',?1,'%')"""
     )
     List<Car> searchCarsByAllNames(String search);
+
+    @Query(
+            nativeQuery = true,
+            value = """
+                    select distinct c.* from car c
+                        join brand b on b.id = c.brand_id
+                        join category c2 on c2.id = c.category_id
+                        join classification c3 on c3.id = c.classification_id
+                        where concat(b.title,c3.name,c2.name,b.title,c2.name) ilike concat('%',?1,'%')"""
+    )
+    Page<Car> searchCarsByClassificationAndAndCategoryNoSpaces(String search, Pageable pageable);
 
     @Query(
             nativeQuery = true,
