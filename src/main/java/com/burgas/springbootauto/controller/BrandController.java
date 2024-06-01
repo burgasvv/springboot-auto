@@ -134,11 +134,11 @@ public class BrandController {
 
     @GetMapping("/search-brand-cars")
     public String searchBrandCars(@RequestParam("id") Long id, Model model) {
+        Brand brand = brandService.findById(id);
+        model.addAttribute("brand", brand);
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
-        Brand brand = brandService.findById(id);
-        model.addAttribute("brand", brand);
         //noinspection SpringMVCViewInspection
         return "redirect:/brands/" + brand.getId() + "/cars";
     }

@@ -59,41 +59,13 @@
             </h2>
         </div>
         <br><br>
-        <ul>
+        <ul style="display: inline-flex; list-style-type: none">
             <th:block th:each="pageNumber : ${pages}">
-                <th:block th:if="${pageNumber > 1 && pages.size() > 1}">
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{/cars/find-cars/pages/{page}
-                        (page = ${1}, searchBrand = ${searchBrand},
-                        searchClass = ${searchClass}, searchCategory = ${searchCategory})}">First</a>
-                    </li>
-                </th:block>
-                <th:block th:if="${pageNumber > 1 && pages.size() > 1}">
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{/cars/find-cars/pages/{page}
-                        (page = ${pageNumber - 1}, searchBrand = ${searchBrand},
-                        searchClass = ${searchClass}, searchCategory = ${searchCategory})}">Previous</a>
-                    </li>
-                </th:block>
-                <li class="page-item">
+                <li class="page-item" style="margin-right: 10px">
                     <a class="page-link" th:href="@{/cars/find-cars/pages/{page}
                     (page = ${pageNumber}, searchBrand = ${searchBrand},
                     searchClass = ${searchClass}, searchCategory = ${searchCategory})}" th:text="${pageNumber}">1</a>
                 </li>
-                <th:block th:if="${pages.size() > 1 && pageNumber != pages.last}">
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{/cars/find-cars/pages/{page}
-                        (page = ${pageNumber + 1}, searchBrand = ${searchBrand},
-                        searchClass = ${searchClass}, searchCategory = ${searchCategory})}">Next</a>
-                    </li>
-                </th:block>
-                <th:block th:if="${pages.size() > 1 && pageNumber != pages.last}">
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{/cars/find-cars/pages/{page}
-                        (page = ${pages.last}, searchBrand = ${searchBrand},
-                        searchClass = ${searchClass}, searchCategory = ${searchCategory})}">Last</a>
-                    </li>
-                </th:block>
             </th:block>
         </ul>
         <div style="margin-top: 100px">

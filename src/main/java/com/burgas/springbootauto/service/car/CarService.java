@@ -31,20 +31,8 @@ public class CarService {
         return carRepository.findById(id).orElse(null);
     }
 
-    public List<Car> searchCarsByCategoryId(Long id) {
-        return carRepository.searchCarsByCategoryId(id);
-    }
-
-    public List<Car> searchCarByClassificationId(Long id) {
-        return carRepository.searchCarsByClassificationId(id);
-    }
-
     public List<Car> searchCarsByTagName(String tagName) {
         return carRepository.searchCarsByTagName(tagName).stream().distinct().toList();
-    }
-
-    public List<Car> searchCarsWithNoSpaces(String search) {
-        return carRepository.searchCarsWithNoSpaces(search).stream().distinct().toList();
     }
 
     public Page<Car> searchCarsByKeyword(String keyword, int page, int size) {
