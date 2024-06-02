@@ -20,12 +20,24 @@
         </h3>
     </div>
     <div style="margin-top: 50px; margin-left: 100px">
-        <form th:method="GET" th:action="@{/classes/find-class (id = ${class.id})}">
-            <label for="brands">Classes</label><br>
-            <select th:field="${class.id}" id="brands">
-                <option th:each="cl : ${classes}" th:value="${cl.id}" th:text="${cl.name}" th:selected="${class.id eq cl.id}">Class</option>
-            </select>
-            <input type="submit" value="Class Cars" style="color: black">
+        <form th:method="GET" th:action="@{/classes/{id}/find-class-cars (id = ${class.id})}">
+            <div style="display: inline-flex">
+                <div style="text-align: center; display: inline-block; margin-right: 25px">
+                    <label for="brands">Brands</label><br>
+                    <select name="searchBrand" id="brands">
+                        <option value=""></option>
+                        <option th:each="brand : ${brands}" th:value="${brand.title}" th:text="${brand.title}">Brand</option>
+                    </select>
+                </div>
+                <div style="text-align: center; display: inline-block; margin-right: 25px">
+                    <label for="categories">Categories</label><br>
+                    <select name="searchCategory" id="categories">
+                        <option value=""></option>
+                        <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}">Category</option>
+                    </select>
+                </div>
+                <input type="submit" value="Get Cars" style="color: black">
+            </div>
         </form>
     </div>
     <div style="margin: 50px 100px">
@@ -42,6 +54,15 @@
                 </a>
             </h2>
         </div>
+        <br><br>
+        <ul style="display: inline-flex; list-style-type: none">
+            <th:block th:each="pageNumber : ${pages}">
+                <li class="page-item" style="margin-right: 10px">
+                    <a class="page-link" th:href="@{/classes/{id}/cars/pages/{page}
+                    (page = ${pageNumber}, id = ${class.id})}" th:text="${pageNumber}">1</a>
+                </li>
+            </th:block>
+        </ul>
         <div style="margin-top: 100px">
             <input type="button" value="Back" onclick="history.back()" style="color: black">
         </div>

@@ -4,11 +4,15 @@ import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.person.RoleRepository;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/users")
@@ -20,11 +24,39 @@ public class PersonController {
 
     @GetMapping
     public String users(Model model) {
+        return usersPage(1, model);
+    }
+
+    @GetMapping("/pages/{page}")
+    public String usersPage(@PathVariable int page, Model model) {
+        Page<Person> users = personService.findAll(page, 10);
+        int totalPages = users.getTotalPages();
+        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        model.addAttribute("pages", pages);
+        model.addAttribute("users", users.getContent());
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
-        model.addAttribute("users", personService.findAll());
         return "users/users";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("search") String search, Model model) {
+        return searchUsersPage(1, model, search);
+    }
+
+    @GetMapping("/search/pages/{page}")
+    public String searchUsersPage(@PathVariable int page, Model model, String search) {
+        Page<Person> users = personService.searchAllByFirstnameAndLastnameAndUsername(search, page, 10);
+        int totalPages = users.getTotalPages();
+        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        model.addAttribute("pages", pages);
+        model.addAttribute("search", search);
+        model.addAttribute("users", users.getContent());
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "users/search";
     }
 
     @GetMapping("/{name}")
@@ -99,15 +131,5 @@ public class PersonController {
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         return "users/cars";
-    }
-
-    @GetMapping("/search")
-    public String search(@RequestParam("search") String search, Model model) {
-        model.addAttribute("user",
-                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
-        );
-        model.addAttribute("search", search);
-        model.addAttribute("users", personService.searchAllByFirstnameAndLastnameAndUsername(search));
-        return "users/search";
     }
 }

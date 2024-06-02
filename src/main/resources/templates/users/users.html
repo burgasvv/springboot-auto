@@ -43,7 +43,16 @@
             </a>
             <div style="border-top: 1px solid gray; margin-top: 25px; margin-bottom: 25px; margin-right: 1000px"></div>
         </div>
-        <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 250px">
+        <ul style="display: inline-flex; list-style-type: none; margin-top: 100px">
+            <th:block th:each="pageNumber : ${pages}">
+                <li class="page-item" style="margin-right: 10px">
+                    <a class="page-link" th:href="@{/users/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
+                </li>
+            </th:block>
+        </ul>
+        <div>
+            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+        </div>
     </div>
 </body>
 </html>

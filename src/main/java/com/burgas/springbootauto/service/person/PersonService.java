@@ -5,6 +5,9 @@ import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.repository.person.RoleRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +26,16 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public List<Person> searchAllByFirstnameAndLastnameAndUsername(String search) {
-        return personRepository.searchAllByFirstnameAndLastnameAndUsername(search);
+    public Page<Person> findAll(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size);
+        pageRequest.withSort(Sort.by(Sort.Direction.DESC, "username","firstname","lastname"));
+        return personRepository.findAll(pageRequest);
+    }
+
+    public Page<Person> searchAllByFirstnameAndLastnameAndUsername(String search, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size)
+                .withSort(Sort.by(Sort.Direction.DESC, "username","firstname","lastname"));
+        return personRepository.searchAllByFirstnameAndLastnameAndUsername(search, pageRequest);
     }
 
     public Person findById(Long id) {

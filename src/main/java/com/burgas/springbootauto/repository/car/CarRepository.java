@@ -26,6 +26,10 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     Page<Car>findCarsByBrandId(@NotNull Long brandId, Pageable pageable);
 
+    Page<Car>findCarsByClassificationId(@NotNull Long classId, Pageable pageable);
+
+    Page<Car>findCarsByCategoryId(@NotNull Long categoryId, Pageable pageable);
+
     @Query(
             nativeQuery = true,
             value = """
@@ -78,7 +82,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
                     where
                         concat(b.title,c3.name,c2.name,b.title,c2.name,c.title,t.name,
                         c.title,c3.name,b.title,c.title,b.title,t.name,c3.name,c.title,c2.name,c3.name,
-                        t.name,' ',c2.name,' ',t.name,' ',b.title)
+                        t.name,c2.name,t.name,b.title)
                               ilike concat('%',?1,'%')"""
     )
     @NotNull

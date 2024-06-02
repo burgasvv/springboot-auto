@@ -5,7 +5,6 @@ import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
-import com.burgas.springbootauto.service.car.CarService;
 import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.person.PersonService;
@@ -26,7 +25,6 @@ public class EquipmentController {
     private final EngineService engineService;
     private final TransmissionService transmissionService;
     private final TurbochargerService turbochargerService;
-    private final CarService carService;
     private final PersonService personService;
 
     @GetMapping
