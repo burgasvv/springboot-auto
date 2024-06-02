@@ -2,6 +2,8 @@ package com.burgas.springbootauto.repository.car;
 
 import com.burgas.springbootauto.entity.car.Equipment;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,9 +14,10 @@ import java.util.List;
 @Repository
 public interface EquipmentRepository extends JpaRepository<Equipment, Long> {
 
-    List<Equipment> findAllByCarId(@NotNull Long carId);
+    @NotNull
+    Page<Equipment>findAll(@NotNull Pageable pageable);
 
-    List<Equipment> findAllByPersonId(@NotNull Long personId);
+    List<Equipment> findAllByCarId(@NotNull Long carId);
 
     List<Equipment> findAllByEngineId(Long id);
 
@@ -28,4 +31,18 @@ public interface EquipmentRepository extends JpaRepository<Equipment, Long> {
             value = "delete from equipment where id = ?1"
     )
     void deleteById(@NotNull Long id);
+
+    @Query(
+            nativeQuery = true,
+            value = """
+                select distinct e.* from equipment e
+                join public.car c on c.id = e.car_id
+                join public.brand b on b.id = c.brand_id
+                join public.person p on p.id = c.person_id
+                where concat(b.title,' ',c.title,' ',e.name,' ',p.username,' ',p.firstname,' ',p.lastname,' ',e.name,' ',c.title,' ',
+                      b.title,' ',e.name,' ',b.title,' ',p.username,' ',p.lastname,' ',e.name,' ',p.firstname,' ',b.title,' ',p.lastname,' ',
+                      c.title,' ',p.username,' ',b.title,' ',p.firstname,' ',p.username,' ',p.lastname,' ',b.title) ilike concat('%',?1,'%')
+                """
+    )
+    Page<Equipment> searchEquipmentsByCarAndPerson(String search, Pageable pageable);
 }

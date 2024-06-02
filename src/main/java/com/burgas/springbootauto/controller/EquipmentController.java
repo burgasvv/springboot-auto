@@ -11,10 +11,14 @@ import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.transmission.TransmissionService;
 import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/equipments")
@@ -29,11 +33,39 @@ public class EquipmentController {
 
     @GetMapping
     public String allEquipments(Model model) {
+        return equipmentsPage(1, model);
+    }
+
+    @GetMapping("/pages/{page}")
+    public String equipmentsPage(@PathVariable int page, Model model) {
+        Page<Equipment> equipments = equipmentService.findAll(page, 50);
+        int totalPages = equipments.getTotalPages();
+        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        model.addAttribute("equipments", equipments.getContent());
+        model.addAttribute("pages", pages);
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
-        model.addAttribute("equipments", equipmentService.findAll());
         return "equipments/equipments";
+    }
+
+    @GetMapping("/search")
+    public String equipmentsSearch(Model model, @RequestParam String search) {
+        return equipmentsSearchPage(1, model, search);
+    }
+
+    @GetMapping("/search/pages/{page}")
+    public String equipmentsSearchPage(@PathVariable int page, Model model, @RequestParam String search) {
+        Page<Equipment> equipments = equipmentService.searchEquipmentsByCarAndPerson(search, page, 50);
+        int totalPages = equipments.getTotalPages();
+        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        model.addAttribute("equipments", equipments.getContent());
+        model.addAttribute("pages", pages);
+        model.addAttribute("search", search);
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "equipments/findEquipments";
     }
 
     @GetMapping("/{id}")

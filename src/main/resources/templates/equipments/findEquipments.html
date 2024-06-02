@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All Equipments</title>
+    <title>Find Equipments</title>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -22,11 +22,11 @@
     </th:block>
 </th:block>
     <div style="margin: 50px 100px">
-        <h1>Complectations</h1>
+        <h1>Find Complectations</h1>
         <div style="margin-top: 50px">
             <form th:method="GET" th:action="@{/equipments/search}">
                 <label for="search">Search</label><br>
-                <input type="text" id="search" name="search">
+                <input type="text" id="search" name="search" th:value="${search}">
                 <input type="submit" value="Search" style="color: black">
             </form>
         </div>
@@ -60,7 +60,8 @@
         <ul style="display: inline-flex; list-style-type: none">
             <th:block th:each="pageNumber : ${pages}">
                 <li class="page-item" style="margin-right: 10px">
-                    <a class="page-link" th:href="@{/equipments/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
+                    <a class="page-link" th:href="@{/equipments/search/pages/{page}
+                    (page = ${pageNumber}, search = ${search})}" th:text="${pageNumber}">1</a>
                 </li>
             </th:block>
         </ul>

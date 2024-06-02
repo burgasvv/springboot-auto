@@ -7,7 +7,7 @@
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
     <th:block th:case="${true}">
-        <div th:insert="~{fragments/fragments.html :: bar(${owner.image})}">Bar</div>
+        <div th:insert="~{fragments/fragments.html :: bar(${guest.image})}">Bar</div>
     </th:block>
     <th:block th:case="${false}">
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
@@ -18,7 +18,12 @@
             <h1>My Cars</h1>
         </th:block>
         <th:block th:if="${owner.username != guest.username}">
-            <h1 th:text="|${owner.username} Cars|"></h1>
+            <h2>
+                <a th:href="@{/users/{name} (name = ${owner.username})}">
+                    <span th:text="${owner.username}"/>
+                </a><br>
+                cars
+            </h2>
         </th:block>
         <th:block th:if="*{cars.size() < 1}">
             <h2>No results</h2>

@@ -4,6 +4,9 @@ import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.repository.car.EquipmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +22,11 @@ public class EquipmentService {
         return equipmentRepository.findAll();
     }
 
+    public Page<Equipment> findAll(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "name"));
+        return equipmentRepository.findAll(pageRequest);
+    }
+
     public Equipment findById(Long id) {
         return equipmentRepository.findById(id).orElse(null);
     }
@@ -27,8 +35,9 @@ public class EquipmentService {
         return equipmentRepository.findAllByCarId(carId);
     }
 
-    public List<Equipment> findAllByPersonId(@NotNull Long personId) {
-        return equipmentRepository.findAllByPersonId(personId);
+    public Page<Equipment> searchEquipmentsByCarAndPerson(String search, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "name"));
+        return equipmentRepository.searchEquipmentsByCarAndPerson(search, pageRequest);
     }
 
     public List<Equipment>findAllByEngineId(Long id) {
