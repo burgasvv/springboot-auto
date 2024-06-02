@@ -1,7 +1,9 @@
 package com.burgas.springbootauto.controller;
 
+import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.person.RoleRepository;
+import com.burgas.springbootauto.service.car.CarService;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,7 @@ public class PersonController {
 
     private final PersonService personService;
     private final RoleRepository roleRepository;
+    private final CarService carService;
 
     @GetMapping
     public String users(Model model) {
@@ -126,10 +129,43 @@ public class PersonController {
 
     @GetMapping("/{name}/cars")
     public String cars(@PathVariable String name, Model model) {
-        model.addAttribute("owner", personService.findPersonByUsername(name));
+        return userCarsPage(name, model, 1);
+    }
+
+    @GetMapping("/{name}/cars/pages/{page}")
+    public String userCarsPage(@PathVariable String name, Model model, @PathVariable int page) {
+        Person owner = personService.findPersonByUsername(name);
+        model.addAttribute("owner", owner);
+        Page<Car> cars = carService.findCarsByPersonId(owner.getId(), page, 20);
+        int totalPages = cars.getTotalPages();
+        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        model.addAttribute("pages", pages);
+        model.addAttribute("cars", cars.getContent());
         model.addAttribute("guest",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         return "users/cars";
+    }
+
+    @GetMapping("/{name}/cars/search")
+    public String userCarsSearch(@PathVariable String name, Model model, @RequestParam String search) {
+        return userCarsSearchPage(name, model, search, 1);
+    }
+
+    @GetMapping("/{name}/cars/search/pages/{page}")
+    public String userCarsSearchPage(@PathVariable String name, Model model,
+                                     @RequestParam String search, @PathVariable int page) {
+        Person owner = personService.findPersonByUsername(name);
+        model.addAttribute("owner", owner);
+        Page<Car> cars = carService.searchUserCarsByCategoryAndClassificationAndBrand(name, search, page, 20);
+        int totalPages = cars.getTotalPages();
+        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        model.addAttribute("pages", pages);
+        model.addAttribute("cars", cars.getContent());
+        model.addAttribute("search", search);
+        model.addAttribute("guest",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "users/findUserCars";
     }
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>My Cars</title>
+    <title>Find user cars</title>
 </head>
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
@@ -31,7 +31,7 @@
         <div style="margin-top: 50px">
             <form th:method="GET" th:action="@{/users/{name}/cars/search (name = ${owner.username})}">
                 <label for="search">Search</label><br>
-                <input type="text" id="search" name="search">
+                <input type="text" id="search" name="search" th:value="${search}">
                 <input type="submit" value="Search" style="color: black">
             </form>
         </div>
@@ -54,8 +54,8 @@
                 <ul style="display: inline-flex; list-style-type: none">
                     <th:block th:each="pageNumber : ${pages}">
                         <li class="page-item" style="margin-right: 10px">
-                            <a class="page-link" th:href="@{/users/{name}/cars/pages/{page}
-                        (name = ${owner.username}, page = ${pageNumber})}" th:text="${pageNumber}">1</a>
+                            <a class="page-link" th:href="@{/users/{name}/cars/search/pages/{page}
+                        (name = ${owner.username}, page = ${pageNumber}, search = ${search})}" th:text="${pageNumber}">1</a>
                         </li>
                     </th:block>
                 </ul>
