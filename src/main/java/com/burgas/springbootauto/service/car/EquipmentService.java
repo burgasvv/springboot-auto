@@ -35,9 +35,19 @@ public class EquipmentService {
         return equipmentRepository.findAllByCarId(carId);
     }
 
+    public Page<Equipment>findAllByPersonId(Long id, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "name"));
+        return equipmentRepository.findAllByPersonId(id, pageRequest);
+    }
+
     public Page<Equipment> searchEquipmentsByCarAndPerson(String search, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "name"));
         return equipmentRepository.searchEquipmentsByCarAndPerson(search, pageRequest);
+    }
+
+    public Page<Equipment> searchEquipmentsByBrandAndCar(String username, String search, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "name"));
+        return equipmentRepository.searchEquipmentsByBrandAndCar(username, search, pageRequest);
     }
 
     public List<Equipment>findAllByEngineId(Long id) {

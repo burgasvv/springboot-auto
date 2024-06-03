@@ -51,20 +51,23 @@
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <div style="border-top: 1px solid gray; margin-top: 50px"></div>
                 <div style="margin-top: 50px">
-                    <th:block th:if="${owner.username eq guest.username}">
-                        <h2>
-                            <a th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none">My Cars</a>
-                        </h2>
-                    </th:block>
-                    <th:block th:if="${owner.username != guest.username}">
-                        <h2>
-                            <a th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none">Cars</a>
-                        </h2>
+                    <th:block th:if="${owner.cars.size() > 0}">
+                        <th:block th:if="${owner.username eq guest.username}">
+                            <h2>
+                                <a th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none">My Cars</a>
+                            </h2>
+                        </th:block>
+                        <th:block th:if="${owner.username != guest.username}">
+                            <h2>
+                                <a th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none">Cars</a>
+                            </h2>
+                        </th:block>
                     </th:block>
                 </div>
             </th:block>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${owner.cars.size() < 1}">
+                    <h2>Cars</h2>
                     <h3 style="color: grey">No results</h3>
                 </th:block>
                 <div th:each="car : ${owner.cars}" style="display: inline-flex">
@@ -85,11 +88,26 @@
                 </th:block>
             </th:block>
 
-            <div style="border-top: 1px solid gray; margin-top: 50px"></div>
-
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <h2 style="margin-top: 50px">Complectations</h2>
+                <div style="border-top: 1px solid gray; margin-top: 50px"></div>
+                <div style="margin-top: 50px">
+                    <th:block th:if="${owner.equipments.size() > 0}">
+                        <th:block th:if="${owner.username eq guest.username}">
+                            <h2>
+                                <a th:href="@{/users/{name}/equipments (name = *{username})}" style="text-decoration: none">My Complectations</a>
+                            </h2>
+                        </th:block>
+                        <th:block th:if="${owner.username != guest.username}">
+                            <h2>
+                                <a th:href="@{/users/{name}/equipments (name = *{username})}" style="text-decoration: none">Complectations</a>
+                            </h2>
+                        </th:block>
+                    </th:block>
+                </div>
+            </th:block>
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${owner.equipments.size() < 1}">
+                    <h2>Complectations</h2>
                     <h3 style="color: grey">No results</h3>
                 </th:block>
                 <div th:each="complectation : ${owner.equipments}" style="display: inline-flex">

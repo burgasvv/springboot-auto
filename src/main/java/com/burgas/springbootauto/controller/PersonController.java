@@ -1,9 +1,11 @@
 package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.car.Car;
+import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.person.RoleRepository;
 import com.burgas.springbootauto.service.car.CarService;
+import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,7 @@ public class PersonController {
     private final PersonService personService;
     private final RoleRepository roleRepository;
     private final CarService carService;
+    private final EquipmentService equipmentService;
 
     @GetMapping
     public String users(Model model) {
@@ -167,5 +170,47 @@ public class PersonController {
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         return "users/findUserCars";
+    }
+
+    @GetMapping("/{name}/equipments")
+    public String equipments(@PathVariable String name, Model model) {
+        return userEquipmentsPage(name, model, 1);
+    }
+
+    @GetMapping("/{name}/equipments/pages/{page}")
+    public String userEquipmentsPage(@PathVariable String name, Model model, @PathVariable int page) {
+        Person owner = personService.findPersonByUsername(name);
+        model.addAttribute("owner", owner);
+        Page<Equipment> equipments = equipmentService.findAllByPersonId(owner.getId(), page, 25);
+        int totalPages = equipments.getTotalPages();
+        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        model.addAttribute("pages", pages);
+        model.addAttribute("equipments", equipments);
+        model.addAttribute("guest",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "users/equipments";
+    }
+
+    @GetMapping("/{name}/equipments/search")
+    public String userEquipmentsSearch(@PathVariable String name, Model model, @RequestParam String search) {
+        return userEquipmentsSearchPage(model, name, search, 1);
+    }
+
+    @GetMapping("/{name}/equipments/search/pages/{page}")
+    public String userEquipmentsSearchPage(Model model, @PathVariable String name, @RequestParam String search,
+                                           @PathVariable int page) {
+        Person owner = personService.findPersonByUsername(name);
+        model.addAttribute("owner", owner);
+        Page<Equipment> equipments = equipmentService.searchEquipmentsByBrandAndCar(owner.getUsername(), search, page, 25);
+        int totalPages = equipments.getTotalPages();
+        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        model.addAttribute("pages", pages);
+        model.addAttribute("equipments", equipments);
+        model.addAttribute("search", search);
+        model.addAttribute("guest",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "users/findUserEquipments";
     }
 }
