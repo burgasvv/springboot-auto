@@ -26,9 +26,11 @@
             <select name="selectObjects" id="objects" multiple>
                 <option value="brands" name="Brands">Brands</option>
                 <option value="cars" name="Cars">Cars</option>
-                <option value="engines" name="Engines">Engines</option>
-                <option value="transmissions" name="Transmissions">Transmissions</option>
-                <option value="turbochargers" name="Turbochargers">Turbochargers</option>
+                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                    <option value="engines" name="Engines">Engines</option>
+                    <option value="transmissions" name="Transmissions">Transmissions</option>
+                    <option value="turbochargers" name="Turbochargers">Turbochargers</option>
+                </th:block>
             </select>
             <input type="submit" value="Search" style="margin-left: 10px; color: black; height: 25px; margin-top: 46px">
         </form>
