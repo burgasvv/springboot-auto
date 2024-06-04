@@ -25,7 +25,12 @@
         <div th:each="selectUser : ${users}">
             <a th:href="@{/users/{name} (name = ${selectUser.username})}">
                 <div style="display: inline-flex">
-                    <img th:src="${selectUser.image}" alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
+                    <th:block th:if="${selectUser.image != null}">
+                        <img th:src="${selectUser.image}" alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
+                    </th:block>
+                    <th:block th:if="${selectUser.image == null}">
+                        <img src="/images/user.png" alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
+                    </th:block>
                     <div style="display: inline-block">
                         <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>
                         <span th:text="${selectUser.username}"/>

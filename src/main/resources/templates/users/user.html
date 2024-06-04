@@ -16,7 +16,12 @@
     <div style="margin: 50px 100px; display: inline-flex" th:object="${owner}">
         <div style="display: inline-block; margin-right: 500px">
             <h1><span style="font-weight: normal" th:text="*{username}"/></h1>
-            <h2><img style="border-radius: 10%; width: 300px" th:src="*{image}" alt="image"></h2>
+            <th:block th:if="*{image != null}">
+                <h2><img style="border-radius: 10%; width: 300px" th:src="*{image}" alt="image"></h2>
+            </th:block>
+            <th:block th:if="*{image == null}">
+                <h2><img style="width: 300px" src="/images/user.png" alt="image"></h2>
+            </th:block>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <h3 style="color: grey">Role: <span style="font-weight: normal" th:text="*{role.name}"/></h3>
                 <h2>First Name: <span th:text="*{firstname}" style="font-weight: normal"/></h2>

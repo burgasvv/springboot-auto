@@ -35,10 +35,10 @@ public class Person implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String image;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = false)
