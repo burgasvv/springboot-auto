@@ -51,28 +51,8 @@ public class Person implements UserDetails {
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();
 
-    public void addCar(Car car) {
-        cars.add(car);
-        car.setPerson(this);
-    }
-
-    public void removeCar(Car car) {
-        cars.remove(car);
-        car.setPerson(null);
-    }
-
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<Equipment>equipments = new ArrayList<>();
-
-    public void addEquipment(Equipment equipment) {
-        equipments.add(equipment);
-        equipment.setPerson(this);
-    }
-
-    public void removeEquipment(Equipment equipment) {
-        equipments.remove(equipment);
-        equipment.setPerson(null);
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

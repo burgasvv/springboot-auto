@@ -47,9 +47,4 @@ public class Engine {
         this.engineCharacteristics = engineCharacteristics;
         engineCharacteristics.setEngine(this);
     }
-
-    public void removeEngineCharacteristics(EngineCharacteristics engineCharacteristics) {
-        this.engineCharacteristics = null;
-        engineCharacteristics.setEngine(null);
-    }
 }
