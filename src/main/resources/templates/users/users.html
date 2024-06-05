@@ -7,7 +7,12 @@
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
     <th:block th:case="${true}">
-        <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
+        <th:block th:if="${user.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+        </th:block>
+        <th:block th:if="${user.image != null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
+        </th:block>
     </th:block>
     <th:block th:case="${false}">
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
@@ -28,9 +33,6 @@
                     <th:block th:if="${selectUser.image != null}">
                         <img th:src="@{/images/{id} (id = ${selectUser.image.id})}"
                              alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
-                    </th:block>
-                    <th:block th:if="${selectUser.image == null}">
-                        <img src="/images/user.png" alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
                     </th:block>
                     <div style="display: inline-block">
                         <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>

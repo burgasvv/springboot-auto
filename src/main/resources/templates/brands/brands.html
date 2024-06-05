@@ -15,7 +15,12 @@
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
     <th:block th:case="${true}">
-        <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
+        <th:block th:if="${user.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+        </th:block>
+        <th:block th:if="${user.image != null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
+        </th:block>
     </th:block>
     <th:block th:case="${false}">
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>

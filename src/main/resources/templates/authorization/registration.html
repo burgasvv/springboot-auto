@@ -5,14 +5,19 @@
     <title>Registration</title>
 </head>
 <body>
-    <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
-        <th:block th:case="${true}">
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <th:block th:if="${user.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+        </th:block>
+        <th:block th:if="${user.image != null}">
             <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
         </th:block>
-        <th:block th:case="${false}">
-            <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
-        </th:block>
     </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
     <div style="text-align: center; margin-top: 6%">
         <form method="post" action="/registration" enctype="multipart/form-data">
             <h1>Registration</h1>

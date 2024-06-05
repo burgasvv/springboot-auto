@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -99,6 +100,20 @@ public class PersonController {
             authentication.setAuthenticated(false);
             return "redirect:/login";
         }
+    }
+
+    @PostMapping("/{name}/change-image")
+    public String changeImage(@PathVariable String name, @RequestPart MultipartFile file) {
+        Person person = personService.findPersonByUsername(name);
+        personService.changeImage(person, file);
+        return "redirect:/users/" + person.getUsername();
+    }
+
+    @PostMapping("/{name}/add-image")
+    public String addImage(@PathVariable String name, @RequestPart MultipartFile file) {
+        Person person = personService.findPersonByUsername(name);
+        personService.addImage(person, file);
+        return "redirect:/users/" + person.getUsername();
     }
 
     @GetMapping("/make-admin")

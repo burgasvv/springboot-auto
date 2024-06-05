@@ -7,7 +7,12 @@
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
     <th:block th:case="${true}">
-        <div th:insert="~{fragments/fragments.html :: bar(${guest.image.id})}">Bar</div>
+        <th:block th:if="${guest.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+        </th:block>
+        <th:block th:if="${guest.image != null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${guest.image.id})}">Bar</div>
+        </th:block>
     </th:block>
     <th:block th:case="${false}">
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
@@ -18,9 +23,18 @@
             <h1><span style="font-weight: normal" th:text="*{username}"/></h1>
             <th:block th:if="*{image != null}">
                 <h2><img style="border-radius: 10%; width: 300px" th:src="@{|/images/*{image.id}|}" alt="image"></h2>
+                <form th:method="POST" th:action="@{/users/{name}/change-image (name = ${owner.username})}" enctype="multipart/form-data">
+                    <label for="changeImage">Change Image</label><br><br>
+                    <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
+                    <input type="submit" value="Change" style="color: black">
+                </form>
             </th:block>
             <th:block th:if="*{image == null}">
-                <h2><img style="width: 300px" src="/images/user.png" alt="image"></h2>
+                <form th:method="POST" th:action="@{/users/{name}/add-image (name = ${owner.username})}" enctype="multipart/form-data">
+                    <label for="addImage">Add Image</label><br><br>
+                    <input type="file" id="addImage" name="file" accept="image/png, image/jpeg">
+                    <input type="submit" value="Add" style="color: black">
+                </form>
             </th:block>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <h3 style="color: grey">Role: <span style="font-weight: normal" th:text="*{role.name}"/></h3>

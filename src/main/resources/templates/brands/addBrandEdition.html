@@ -5,14 +5,19 @@
     <title>Add Edition</title>
 </head>
 <body>
-    <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
-        <th:block th:case="${true}">
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <th:block th:if="${user.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+        </th:block>
+        <th:block th:if="${user.image != null}">
             <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
         </th:block>
-        <th:block th:case="${false}">
-            <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
-        </th:block>
     </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
     <div style="text-align: center; margin: 15% 100px 50px;">
         <form th:method="POST" th:action="@{/brands/{id}/add-edition (id = ${brand.id})}" th:object="${edition}">
             <h2>Add Engine Edition</h2>

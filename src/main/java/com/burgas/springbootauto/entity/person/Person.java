@@ -47,6 +47,11 @@ public class Person implements UserDetails {
         this.image.setPerson(this);
     }
 
+    public void removeImage() {
+        this.image.setPerson(null);
+        this.image = null;
+    }
+
     @Column(columnDefinition = "TEXT")
     private String description;
 

@@ -62,7 +62,7 @@ public class PersonService {
         if (multipartFile.getSize() != 0) {
             Image image = new Image();
             image.setPreview(true);
-            image.setName(multipartFile.getName());
+            image.setName(multipartFile.getOriginalFilename());
             image.setData(multipartFile.getBytes());
             person.addImage(image);
         }
@@ -101,5 +101,43 @@ public class PersonService {
     public Person unban(Person person) {
         person.setEnabled(true);
         return personRepository.save(person);
+    }
+
+    @SneakyThrows
+    @Transactional
+    public void changeImage(Person person, MultipartFile file) {
+        if (imageService.findByName(file.getOriginalFilename()) != null) {
+            return;
+        }
+        Image oldImage = person.getImage();
+        person.removeImage();
+        imageService.delete(oldImage);
+        personRepository.save(person);
+        if (file.getSize() != 0) {
+            Image image = new Image();
+            image.setPreview(true);
+            image.setName(file.getOriginalFilename());
+            image.setData(file.getBytes());
+            imageService.save(image);
+            Person updatedUser = personRepository.findPersonByUsername(person.getUsername());
+            Image newImage = imageService.findByName(file.getOriginalFilename());
+            updatedUser.addImage(newImage);
+            personRepository.save(updatedUser);
+        }
+    }
+
+    @SneakyThrows
+    @Transactional
+    public void addImage(Person person, MultipartFile file) {
+        if (file.getSize() != 0) {
+            if (file.getSize() != 0) {
+                Image image = new Image();
+                image.setPreview(true);
+                image.setName(file.getOriginalFilename());
+                image.setData(file.getBytes());
+                person.addImage(image);
+            }
+            personRepository.save(person);
+        }
     }
 }

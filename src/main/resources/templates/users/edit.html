@@ -5,14 +5,19 @@
     <title>Edit User</title>
 </head>
 <body>
-    <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
-        <th:block th:case="${true}">
-            <div th:insert="~{fragments/fragments.html :: bar(${owner.image.id})}">Bar</div>
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <th:block th:if="${guest.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
         </th:block>
-        <th:block th:case="${false}">
-            <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+        <th:block th:if="${guest.image != null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${guest.image.id})}">Bar</div>
         </th:block>
     </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
     <div style="text-align: center; margin-top: 6%">
         <form th:method="PATCH" th:action="@{/users/edit}">
             <h1>Edit User</h1>
