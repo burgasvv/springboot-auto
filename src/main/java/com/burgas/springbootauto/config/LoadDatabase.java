@@ -6,6 +6,7 @@ import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.entity.engine.Fuel;
+import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.person.Role;
 import com.burgas.springbootauto.entity.transmission.DriveType;
@@ -19,6 +20,7 @@ import com.burgas.springbootauto.repository.engine.EngineCharacteristicsReposito
 import com.burgas.springbootauto.repository.engine.EngineEditionRepository;
 import com.burgas.springbootauto.repository.engine.EngineRepository;
 import com.burgas.springbootauto.repository.engine.FuelRepository;
+import com.burgas.springbootauto.repository.image.ImageRepository;
 import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.repository.person.RoleRepository;
 import com.burgas.springbootauto.repository.transmission.DriveTypeRepository;
@@ -27,12 +29,15 @@ import com.burgas.springbootauto.repository.transmission.TransmissionRepository;
 import com.burgas.springbootauto.repository.turbocharging.TurboTypeRepository;
 import com.burgas.springbootauto.repository.turbocharging.TurbochargerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.InputStream;
+import java.net.URI;
 import java.util.List;
 
 @Slf4j
@@ -41,6 +46,12 @@ import java.util.List;
 public class LoadDatabase {
 
     private final PasswordEncoder passwordEncoder;
+
+    @SneakyThrows
+    private byte[] readBytesByUrl(String url) {
+        InputStream inputStream = new URI(url).toURL().openStream();
+        return inputStream.readAllBytes();
+    }
 
     @Bean
     public CommandLineRunner initDatabase(BrandRepository brandRepository,
@@ -58,7 +69,8 @@ public class LoadDatabase {
                                           TurbochargerRepository turbochargerRepository,
                                           TurboTypeRepository turboTypeRepository,
                                           PersonRepository personRepository,
-                                          RoleRepository roleRepository) {
+                                          RoleRepository roleRepository,
+                                          ImageRepository imageRepository) {
 
         return _ -> {
 
@@ -74,9 +86,16 @@ public class LoadDatabase {
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("admin"));
             admin.setEmail("admin@admin.com");
-            admin.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/User-admin.svg/1200px-User-admin.svg.png");
             admin.setRole(adm);
             admin.setDescription("Hello everyone! I'm admin on this site!");
+
+            Image adminImage = new Image();
+            adminImage.setPreview(true);
+            adminImage.setName("admin-image");
+            adminImage.setPerson(admin);
+            adminImage.setData(
+                    readBytesByUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/User-admin.svg/1200px-User-admin.svg.png")
+            );
 
             Person user = new Person();
             user.setEnabled(true);
@@ -85,9 +104,16 @@ public class LoadDatabase {
             user.setUsername("user");
             user.setPassword(passwordEncoder.encode("user"));
             user.setEmail("user@user.com");
-            user.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/828px-User_icon-cp.svg.png");
             user.setRole(usr);
             user.setDescription("Hello everyone! I'm user on this site!");
+
+            Image userImage = new Image();
+            userImage.setPreview(true);
+            userImage.setName("user-image");
+            userImage.setPerson(user);
+            userImage.setData(
+                    readBytesByUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/828px-User_icon-cp.svg.png")
+            );
 
             Category hatchBack = new Category();
             hatchBack.setName("Hatchback/Хэтчбек");
@@ -669,6 +695,7 @@ public class LoadDatabase {
 
             log.info("Preload: {}", roleRepository.saveAll(List.of(adm,usr)));
             log.info("Preload: {}", personRepository.saveAll(List.of(admin,user)));
+            log.info("Preload: " + imageRepository.saveAll(List.of(adminImage, userImage)));
             log.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))
             );

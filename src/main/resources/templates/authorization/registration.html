@@ -7,14 +7,14 @@
 <body>
     <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
         <th:block th:case="${true}">
-            <div th:insert="~{fragments/fragments.html :: bar(${user.image})}">Bar</div>
+            <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
         </th:block>
         <th:block th:case="${false}">
             <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
         </th:block>
     </th:block>
     <div style="text-align: center; margin-top: 6%">
-        <form method="post" action="/registration">
+        <form method="post" action="/registration" enctype="multipart/form-data">
             <h1>Registration</h1>
 
             <label for="firstname">First Name</label><br>
@@ -33,7 +33,7 @@
             <input type="password" id="password" name="password"><br><br>
 
             <label for="image">Image</label><br>
-            <input type="text" id="image" name="image"><br><br>
+            <input type="file" id="image" name="file"><br><br>
 
             <label for="description">Description</label><br>
             <textarea name="description" id="description" cols="30" rows="10"></textarea><br><br>

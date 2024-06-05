@@ -2,8 +2,9 @@ package com.burgas.springbootauto.entity.person;
 
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Equipment;
+import com.burgas.springbootauto.entity.image.Image;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +14,10 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Person implements UserDetails {
 
     @Id
@@ -35,8 +39,13 @@ public class Person implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(columnDefinition = "TEXT")
-    private String image;
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
+    private Image image;
+
+    public void addImage(Image image) {
+        this.image = image;
+        this.image.setPerson(this);
+    }
 
     @Column(columnDefinition = "TEXT")
     private String description;

@@ -7,7 +7,7 @@
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
     <th:block th:case="${true}">
-        <div th:insert="~{fragments/fragments.html :: bar(${user.image})}">Bar</div>
+        <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
     </th:block>
     <th:block th:case="${false}">
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
@@ -22,14 +22,14 @@
         </form>
     </div>
     <h1 style="margin-bottom: 50px">Find Users</h1>
-    <div th:each="user : ${users}">
-        <a th:href="@{/users/{name} (name = ${user.username})}">
+    <div th:each="person : ${users}">
+        <a th:href="@{/users/{name} (name = ${person.username})}">
             <div style="display: inline-flex">
-                <img th:src="${user.image}" alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
+                <img th:src="@{/images/{id} (id = ${person.image.id})}" alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
                 <div style="display: inline-block">
-                    <h3 th:text="|${user.firstname} ${user.lastname}|">Name</h3>
-                    <span th:text="${user.username}"/>
-                    <h5 th:text="${user.role.name}" style="color: grey">Role</h5>
+                    <h3 th:text="|${person.firstname} ${person.lastname}|">Name</h3>
+                    <span th:text="${person.username}"/>
+                    <h5 th:text="${person.role.name}" style="color: grey">Role</h5>
                 </div>
             </div>
         </a>

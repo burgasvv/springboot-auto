@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,8 +35,8 @@ public class AuthorizationController {
     }
 
     @PostMapping("/registration")
-    public String registration(Person person) {
-        personService.createUser(person);
+    public String registration(Person person,  @RequestPart MultipartFile file) {
+        personService.createUser(person, file);
         return "redirect:/login";
     }
 

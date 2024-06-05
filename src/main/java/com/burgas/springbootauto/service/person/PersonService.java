@@ -1,15 +1,19 @@
 package com.burgas.springbootauto.service.person;
 
+import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.repository.person.RoleRepository;
+import com.burgas.springbootauto.service.image.ImageService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +25,7 @@ public class PersonService {
     private final PersonRepository personRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ImageService imageService;
 
     public List<Person> findAll() {
         return personRepository.findAll();
@@ -46,13 +51,21 @@ public class PersonService {
         return personRepository.findPersonByUsername(name);
     }
 
+    @SneakyThrows
     @Transactional
-    public void createUser(Person person) {
+    public void createUser(Person person, MultipartFile multipartFile) {
         if (personRepository.findPersonByUsername(person.getUsername()) != null)
             return;
         person.setEnabled(true);
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRole(roleRepository.findByName("USER"));
+        if (multipartFile.getSize() != 0) {
+            Image image = new Image();
+            image.setPreview(true);
+            image.setName(multipartFile.getName());
+            image.setData(multipartFile.getBytes());
+            person.addImage(image);
+        }
         personRepository.save(person);
     }
 

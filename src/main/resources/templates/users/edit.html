@@ -7,7 +7,7 @@
 <body>
     <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
         <th:block th:case="${true}">
-            <div th:insert="~{fragments/fragments.html :: bar(${owner.image})}">Bar</div>
+            <div th:insert="~{fragments/fragments.html :: bar(${owner.image.id})}">Bar</div>
         </th:block>
         <th:block th:case="${false}">
             <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
