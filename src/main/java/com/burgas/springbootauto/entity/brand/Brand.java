@@ -2,6 +2,7 @@ package com.burgas.springbootauto.entity.brand;
 
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
+import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.entity.turbocharging.TurboType;
@@ -23,8 +24,10 @@ public class Brand {
     @Column(nullable = false, unique = true)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String image;
+    @SuppressWarnings("JpaDataSourceORMInspection")
+    @OneToOne
+    @JoinColumn(name = "image_id")
+    private Image image;
 
     @Column(nullable = false)
     private String website;

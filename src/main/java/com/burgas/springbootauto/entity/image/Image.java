@@ -1,5 +1,6 @@
 package com.burgas.springbootauto.entity.image;
 
+import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.person.Person;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,7 +26,9 @@ public class Image {
     @Column(nullable = false)
     private boolean isPreview;
 
-    @OneToOne
-    @JoinColumn(name = "person_id")
+    @OneToOne(mappedBy = "image", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Person person;
+
+    @OneToOne(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Brand brand;
 }

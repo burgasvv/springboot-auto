@@ -40,11 +40,21 @@
             <label for="password">Password</label><br>
             <input type="text" id="password" th:field="${owner.password}"><br><br>
 
-            <label for="image">Image</label><br>
-            <input type="text" id="image" th:field="${owner.image}"><br><br>
+            <label for="image"></label>
+            <input type="hidden" id="image" th:field="${owner.image}">
 
             <label for="description">Description</label><br>
             <textarea th:field="${owner.description}" id="description" cols="30" rows="10"></textarea><br><br>
+
+            <th:block th:if="${owner.role.name == 'ADMIN'}">
+                <label for="roles">Roles</label><br>
+                <select th:field="${owner.role.id}" id="roles">
+                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}">Role</option>
+                </select><br><br>
+            </th:block>
+            <th:block th:ii="${owner.role.name == 'USER'}">
+                <input type="hidden" th:field="${owner.role}">
+            </th:block>
 
             <input type="hidden" name="_csrf" th:value="${_csrf.token}">
 

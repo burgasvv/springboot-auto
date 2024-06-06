@@ -39,18 +39,9 @@ public class Person implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "image_id")
     private Image image;
-
-    public void addImage(Image image) {
-        this.image = image;
-        this.image.setPerson(this);
-    }
-
-    public void removeImage() {
-        this.image.setPerson(null);
-        this.image = null;
-    }
 
     @Column(columnDefinition = "TEXT")
     private String description;

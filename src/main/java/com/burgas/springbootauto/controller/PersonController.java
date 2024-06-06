@@ -82,6 +82,7 @@ public class PersonController {
 
     @GetMapping("/{name}/edit")
     public String edit(@PathVariable String name, Model model) {
+        model.addAttribute("roles", roleRepository.findAll());
         model.addAttribute("owner", personService.findPersonByUsername(name));
         model.addAttribute("guest",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -91,28 +92,16 @@ public class PersonController {
 
     @PatchMapping("/edit")
     public String edit(@ModelAttribute Person owner) {
-        Person person = personService.findById(owner.getId());
         personService.update(owner);
-        if (owner.getUsername().equals(person.getUsername()) && owner.getPassword().equals(person.getPassword())) {
-            return "redirect:/users/" + owner.getUsername();
-        } else {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            authentication.setAuthenticated(false);
-            return "redirect:/login";
-        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication.setAuthenticated(false);
+        return "redirect:/login";
     }
 
     @PostMapping("/{name}/change-image")
     public String changeImage(@PathVariable String name, @RequestPart MultipartFile file) {
         Person person = personService.findPersonByUsername(name);
         personService.changeImage(person, file);
-        return "redirect:/users/" + person.getUsername();
-    }
-
-    @PostMapping("/{name}/add-image")
-    public String addImage(@PathVariable String name, @RequestPart MultipartFile file) {
-        Person person = personService.findPersonByUsername(name);
-        personService.addImage(person, file);
         return "redirect:/users/" + person.getUsername();
     }
 

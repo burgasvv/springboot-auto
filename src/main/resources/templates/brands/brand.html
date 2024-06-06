@@ -26,7 +26,23 @@
     <div style="margin: 50px 100px 100px; display: inline-flex" th:object="${brand}">
         <div style="display: inline-block">
             <h1 th:text="*{title}">Title</h1>
-            <img th:src="*{image}" alt="image" style="width: 500px">
+            <th:block th:if="*{image != null}">
+                <h2>
+                    <img th:src="@{|/images/*{image.id}|}" alt="image" style="width: 500px">
+                </h2>
+                <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
+                    <label for="changeImage">Change Image</label><br><br>
+                    <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
+                    <input type="submit" style="color: black" value="Change">
+                </form>
+            </th:block>
+            <th:block th:if="*{image == null}">
+                <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
+                    <label for="addImage">Add Image</label><br><br>
+                    <input type="file" id="addImage" name="file" accept="image/png, image/jpeg">
+                    <input type="submit" style="color: black" value="Add">
+                </form>
+            </th:block>
             <h2 style="margin-top: 100px">
                 Website: <a th:href="*{website}" th:text="*{website}" style="font-weight: normal" target="_blank"></a>
             </h2>

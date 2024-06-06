@@ -1,14 +1,18 @@
 package com.burgas.springbootauto.service.brand;
 
 import com.burgas.springbootauto.entity.brand.Brand;
+import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.repository.brand.BrandRepository;
+import com.burgas.springbootauto.service.image.ImageService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,6 +21,7 @@ import java.util.List;
 public class BrandService {
 
     private final BrandRepository brandRepository;
+    private final ImageService imageService;
 
     public Page<Brand> findAll(Pageable pageable) {
         return brandRepository.findAll(pageable);
@@ -43,8 +48,20 @@ public class BrandService {
         return brandRepository.findBrandByTitle(title);
     }
 
+    @SneakyThrows
     @Transactional
-    public void save(Brand brand) {
+    public void save(Brand brand, MultipartFile file) {
+        if (imageService.findByName(file.getOriginalFilename()) != null) {
+            return;
+        }
+        if (file.getSize() != 0) {
+            Image image = new Image();
+            image.setName(file.getOriginalFilename());
+            image.setPreview(true);
+            image.setData(file.getBytes());
+            imageService.save(image);
+            brand.setImage(image);
+        }
         brandRepository.save(brand);
     }
 

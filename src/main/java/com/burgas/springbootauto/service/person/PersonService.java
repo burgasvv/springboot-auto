@@ -64,7 +64,8 @@ public class PersonService {
             image.setPreview(true);
             image.setName(multipartFile.getOriginalFilename());
             image.setData(multipartFile.getBytes());
-            person.addImage(image);
+            imageService.save(image);
+            person.setImage(image);
         }
         personRepository.save(person);
     }
@@ -76,7 +77,6 @@ public class PersonService {
         if (!person.getPassword().equals(Objects.requireNonNull(oldPerson).getPassword())) {
             person.setPassword(passwordEncoder.encode(person.getPassword()));
         }
-        person.setRole(roleRepository.findByName("USER"));
         personRepository.save(person);
     }
 
@@ -109,35 +109,14 @@ public class PersonService {
         if (imageService.findByName(file.getOriginalFilename()) != null) {
             return;
         }
-        Image oldImage = person.getImage();
-        person.removeImage();
-        imageService.delete(oldImage);
-        personRepository.save(person);
         if (file.getSize() != 0) {
             Image image = new Image();
             image.setPreview(true);
             image.setName(file.getOriginalFilename());
             image.setData(file.getBytes());
             imageService.save(image);
-            Person updatedUser = personRepository.findPersonByUsername(person.getUsername());
-            Image newImage = imageService.findByName(file.getOriginalFilename());
-            updatedUser.addImage(newImage);
-            personRepository.save(updatedUser);
+            person.setImage(image);
         }
-    }
-
-    @SneakyThrows
-    @Transactional
-    public void addImage(Person person, MultipartFile file) {
-        if (file.getSize() != 0) {
-            if (file.getSize() != 0) {
-                Image image = new Image();
-                image.setPreview(true);
-                image.setName(file.getOriginalFilename());
-                image.setData(file.getBytes());
-                person.addImage(image);
-            }
-            personRepository.save(person);
-        }
+        personRepository.save(person);
     }
 }

@@ -79,7 +79,14 @@ public class LoadDatabase {
             Role usr = new Role();
             usr.setName("USER");
 
+            Image adminImage = new Image();
+            adminImage.setPreview(true);
+            adminImage.setName("admin-image");
+            adminImage.setData(
+                    readBytesByUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/User-admin.svg/1200px-User-admin.svg.png")
+            );
             Person admin = new Person();
+            admin.setImage(adminImage);
             admin.setEnabled(true);
             admin.setFirstname("Admin");
             admin.setLastname("Admin");
@@ -89,15 +96,14 @@ public class LoadDatabase {
             admin.setRole(adm);
             admin.setDescription("Hello everyone! I'm admin on this site!");
 
-            Image adminImage = new Image();
-            adminImage.setPreview(true);
-            adminImage.setName("admin-image");
-            adminImage.setPerson(admin);
-            adminImage.setData(
-                    readBytesByUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/User-admin.svg/1200px-User-admin.svg.png")
+            Image userImage = new Image();
+            userImage.setPreview(true);
+            userImage.setName("user-image");
+            userImage.setData(
+                    readBytesByUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/828px-User_icon-cp.svg.png")
             );
-
             Person user = new Person();
+            user.setImage(userImage);
             user.setEnabled(true);
             user.setFirstname("User");
             user.setLastname("One");
@@ -106,14 +112,6 @@ public class LoadDatabase {
             user.setEmail("user@user.com");
             user.setRole(usr);
             user.setDescription("Hello everyone! I'm user on this site!");
-
-            Image userImage = new Image();
-            userImage.setPreview(true);
-            userImage.setName("user-image");
-            userImage.setPerson(user);
-            userImage.setData(
-                    readBytesByUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/828px-User_icon-cp.svg.png")
-            );
 
             Category hatchBack = new Category();
             hatchBack.setName("Hatchback/Хэтчбек");
@@ -395,25 +393,45 @@ public class LoadDatabase {
             Tag tag17 = new Tag();
             tag17.setName("phenomenal");
 
+            Image bmwImage = new Image();
+            bmwImage.setName("bmw-image");
+            bmwImage.setPreview(true);
+            bmwImage.setData(readBytesByUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png"));
             Brand bmw = new Brand();
             bmw.setTitle("BMW");
-            bmw.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png");
+//            bmw.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png");
+            bmw.setImage(bmwImage);
             bmw.setWebsite("https://www.bmw.ru/ru/index.html");
             bmw.setDescription("""
                     Концерн BMW Group, в который входят бренды BMW, Mini, Rolls-Royce и BMW Motorrad, является ведущим мировым
                             'производителем автомобилей и мотоциклов, а также поставщиком финансовых услуг и услуг по обеспечению
                             'мобильности премиум-класса. Штат компании насчитывает порядка 125 000 сотрудников в подразделениях по всему миру."""
             );
+
+            Image audiImage = new Image();
+            audiImage.setName("audi-image");
+            audiImage.setPreview(true);
+            audiImage.setData(readBytesByUrl(
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Audi_logo_detail.svg/1280px-Audi_logo_detail.svg.png"));
             Brand audi = new Brand();
             audi.setTitle("Audi");
-            audi.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Audi_logo_detail.svg/1280px-Audi_logo_detail.svg.png");
+//            audi.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Audi_logo_detail.svg/1280px-Audi_logo_detail.svg.png");
+            audi.setImage(audiImage);
             audi.setWebsite("https://www.audi.com/en.html");
             audi.setDescription("Audi AG is a German automotive manufacturer of luxury vehicles headquartered in Ingolstadt, Bavaria, Germany.\n" +
                     "        'A subsidiary of the Volkswagen Group, Audi produces vehicles in nine production facilities worldwide."
             );
+
+            Image mercedesImage = new Image();
+            mercedesImage.setName("mercedes-image");
+            mercedesImage.setPreview(true);
+            mercedesImage.setData(readBytesByUrl(
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/2048px-Mercedes-Logo.svg.png"
+            ));
             Brand mercedes = new Brand();
             mercedes.setTitle("Mercedes");
-            mercedes.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/2048px-Mercedes-Logo.svg.png");
+//            mercedes.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/2048px-Mercedes-Logo.svg.png");
+            mercedes.setImage(mercedesImage);
             mercedes.setWebsite("https://group.mercedes-benz.com/en/");
             mercedes.setDescription("""
                     The Mercedes-Benz Group AG (former Daimler AG) is one of the world''s most successful automotive companies.
@@ -694,8 +712,8 @@ public class LoadDatabase {
             equipM4.setAttached(true);
 
             log.info("Preload: {}", roleRepository.saveAll(List.of(adm,usr)));
+            log.info("Preload: {}", imageRepository.saveAll(List.of(adminImage, userImage,bmwImage,audiImage,mercedesImage)));
             log.info("Preload: {}", personRepository.saveAll(List.of(admin,user)));
-            log.info("Preload: " + imageRepository.saveAll(List.of(adminImage, userImage)));
             log.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))
             );

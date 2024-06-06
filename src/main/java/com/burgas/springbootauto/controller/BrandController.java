@@ -28,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -95,12 +96,12 @@ public class BrandController {
     }
 
     @PostMapping("/add")
-    public String addBrand(@ModelAttribute("brand") @Valid Brand brand, BindingResult bindingResult) {
+    public String addBrand(@ModelAttribute("brand") @Valid Brand brand, @RequestPart MultipartFile file, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "brands/add";
         }
-        brandService.save(brand);
-        return "redirect:/brands";
+        brandService.save(brand, file);
+        return "redirect:/brands/" + brandService.findBrandByTitle(brand.getTitle()).getId();
     }
 
     @GetMapping("/{id}/edit")
@@ -119,6 +120,13 @@ public class BrandController {
         }
         brandService.update(brand);
         return "redirect:/brands/{id}";
+    }
+
+    @PostMapping("/{id}/change-image")
+    public String changeImage(@PathVariable("id") Long id, @RequestPart("file") MultipartFile file) {
+        Brand brand = brandService.findById(id);
+        brandService.save(brand, file);
+        return "redirect:/brands/" + id;
     }
 
     @DeleteMapping("/{id}/delete")

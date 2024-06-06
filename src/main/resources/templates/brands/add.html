@@ -19,7 +19,7 @@
     </th:block>
 </th:block>
     <div style="text-align: center; margin-top: 10%">
-        <form th:method="POST" th:action="@{/brands/add}" th:object="${brand}">
+        <form th:method="POST" th:action="@{/brands/add}" th:object="${brand}" enctype="multipart/form-data">
             <h1>Brand</h1>
             <label for="title">Title</label><br>
             <input type="text" id="title" th:field="*{title}" >
@@ -29,7 +29,7 @@
             <br><br>
 
             <label for="image">Image</label><br>
-            <input type="text" id="image" th:field="*{image}" alt="image" ><br><br>
+            <input type="file" id="image" name="file" alt="image" accept="image/png, image/jpeg"><br><br>
 
             <label for="website">Website</label><br>
             <input type="url" id="website" th:field="*{website}" ><br><br>

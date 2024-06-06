@@ -26,16 +26,20 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 50px 100px; text-align: center" class="stories">
+    <div style="margin: 50px 100px">
+        <h1>Brands</h1>
+    </div>
+    <div style="margin: 10px 100px; text-align: center" class="stories">
         <div class="story" style="display: inline-flex; margin: 77px; text-align: center" th:each="brand : ${brands}">
             <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
                 <div style="width: 400px; height: 400px">
-                    <img th:src="${brand.image}" alt="image" style="width: 400px">
+                    <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 400px">
                 </div>
                 <h2 th:text="${brand.title}">Title</h2>
             </a>
         </div>
-        <br><br>
+    </div>
+    <div style="margin: 50px 100px">
         <ul style="display: inline-flex; list-style-type: none">
             <th:block th:each="pageNumber : ${pages}">
                 <li class="page-item" style="margin-right: 10px">
