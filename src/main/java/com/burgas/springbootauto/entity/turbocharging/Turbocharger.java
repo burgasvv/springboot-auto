@@ -39,7 +39,9 @@ public class Turbocharger {
     @JoinColumn(name = "turbotype_id")
     private TurboType turboType;
 
-    @OneToMany(mappedBy = "turbocharger", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "turbocharger",
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}
+    )
     private List<Equipment> equipments = new ArrayList<>();
 
     public void removeEquipments(List<Equipment> equipments) {

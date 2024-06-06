@@ -72,6 +72,17 @@ public class BrandService {
 
     @Transactional
     public void delete(Brand brand) {
+        brand.getCars().forEach(car -> car.setBrand(null));
+        brand.getEngineEditions()
+                .forEach(engineEdition -> engineEdition.getEngines()
+                        .forEach(engine -> engine.getEquipments().forEach(equipment -> equipment.setEngine(null))));
+        brand.getTransmissions()
+                        .forEach(transmission -> transmission.getEquipments()
+                        .forEach(equipment -> equipment.setTransmission(null)));
+        brand.getTurbochargers()
+                        .forEach(turbocharger -> turbocharger.getEquipments()
+                                .forEach(equipment -> equipment.setTurbocharger(null)));
+        brandRepository.save(brand);
         brandRepository.deleteById(brand.getId());
     }
 

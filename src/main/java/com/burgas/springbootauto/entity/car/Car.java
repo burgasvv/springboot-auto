@@ -28,7 +28,7 @@ public class Car {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "brand_id")
     private Brand brand;
 

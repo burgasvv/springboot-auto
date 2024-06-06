@@ -37,7 +37,9 @@ public class Transmission {
     @JoinColumn(name = "gearbox_id")
     private Gearbox gearbox;
 
-    @OneToMany(mappedBy = "transmission", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "transmission",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}
+    )
     private List<Equipment>equipments = new ArrayList<>();
 
     public void removeEquipments(List<Equipment> equipments) {

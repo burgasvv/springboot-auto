@@ -32,7 +32,9 @@ public class Engine {
     @JoinColumn(name = "fuel_id")
     private Fuel fuel;
 
-    @OneToMany(mappedBy = "engine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "engine", fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}
+    )
     private List<Equipment> equipments = new ArrayList<>();
 
     @OneToOne(mappedBy = "engine", cascade = CascadeType.ALL)

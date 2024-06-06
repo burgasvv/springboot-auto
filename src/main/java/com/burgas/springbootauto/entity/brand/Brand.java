@@ -14,7 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Brand {
 
     @Id
@@ -60,7 +63,7 @@ public class Brand {
     private List<Transmission>transmissions = new ArrayList<>();
 
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}
     )
     private List<Car>cars = new ArrayList<>();
 }
