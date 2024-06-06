@@ -32,9 +32,11 @@
     <div style="margin: 10px 100px; text-align: center" class="stories">
         <div class="story" style="display: inline-flex; margin: 77px; text-align: center" th:each="brand : ${brands}">
             <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
-                <div style="width: 400px; height: 400px">
-                    <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 400px">
-                </div>
+                <th:block th:if="${brand.image != null}">
+                    <div style="width: 400px; height: 400px">
+                        <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 400px">
+                    </div>
+                </th:block>
                 <h2 th:text="${brand.title}">Title</h2>
             </a>
         </div>

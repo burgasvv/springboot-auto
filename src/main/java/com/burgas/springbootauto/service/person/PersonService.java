@@ -119,4 +119,12 @@ public class PersonService {
         }
         personRepository.save(person);
     }
+
+    @Transactional
+    public void removeImage(Person person) {
+        Image image = person.getImage();
+        person.setImage(null);
+        personRepository.save(person);
+        imageService.delete(image);
+    }
 }

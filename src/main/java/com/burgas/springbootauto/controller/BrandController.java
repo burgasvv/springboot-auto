@@ -129,9 +129,16 @@ public class BrandController {
         return "redirect:/brands/" + id;
     }
 
+    @PostMapping("/{id}/remove-image")
+    public String removeImage(@PathVariable Long id) {
+        Brand brand = brandService.findById(id);
+        brandService.removeImage(brand);
+        return "redirect:/brands/" + id;
+    }
+
     @DeleteMapping("/{id}/delete")
-    public String deleteBrand(@ModelAttribute("brand") Brand brand) {
-        brandService.delete(brand.getId());
+    public String deleteBrand(@PathVariable Long id) {
+        brandService.delete(brandService.findById(id));
         return "redirect:/brands";
     }
 

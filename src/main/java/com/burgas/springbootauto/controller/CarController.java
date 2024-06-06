@@ -156,7 +156,6 @@ public class CarController {
     @DeleteMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
         Car car = carService.findById(id);
-
         car.removeEquipments(car.getEquipments());
         carService.update(car);
         carService.delete(car.getId());

@@ -30,11 +30,19 @@
                 <h2>
                     <img th:src="@{|/images/*{image.id}|}" alt="image" style="width: 500px">
                 </h2>
-                <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
-                    <label for="changeImage">Change Image</label><br><br>
-                    <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
-                    <input type="submit" style="color: black" value="Change">
-                </form>
+                <div>
+                    <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
+                        <label for="changeImage">Change Image</label>
+                        <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
+                        <input type="submit" style="color: black" value="Change">
+                    </form>
+                </div>
+                <div>
+                    <form th:method="POST" th:action="@{/brands/{id}/remove-image (id = *{id})}">
+                        <label for="removeImage">Remove Image</label>
+                        <input type="submit" id="removeImage" value="Remove" style="color: black">
+                    </form>
+                </div>
             </th:block>
             <th:block th:if="*{image == null}">
                 <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">

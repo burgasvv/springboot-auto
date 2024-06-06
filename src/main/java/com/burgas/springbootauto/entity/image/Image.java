@@ -26,9 +26,13 @@ public class Image {
     @Column(nullable = false)
     private boolean isPreview;
 
-    @OneToOne(mappedBy = "image", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "image", cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
+            fetch = FetchType.EAGER)
     private Person person;
 
-    @OneToOne(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "image", cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
+    })
     private Brand brand;
 }

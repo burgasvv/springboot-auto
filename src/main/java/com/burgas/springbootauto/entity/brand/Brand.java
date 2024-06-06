@@ -24,8 +24,7 @@ public class Brand {
     @Column(nullable = false, unique = true)
     private String title;
 
-    @SuppressWarnings("JpaDataSourceORMInspection")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "image_id")
     private Image image;
 
@@ -60,6 +59,8 @@ public class Brand {
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Transmission>transmissions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}
+    )
     private List<Car>cars = new ArrayList<>();
 }

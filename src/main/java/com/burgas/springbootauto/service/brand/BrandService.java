@@ -71,7 +71,15 @@ public class BrandService {
     }
 
     @Transactional
-    public void delete(Long id) {
-        brandRepository.deleteById(id);
+    public void delete(Brand brand) {
+        brandRepository.deleteById(brand.getId());
+    }
+
+    @Transactional
+    public void removeImage(Brand brand) {
+        Image image = brand.getImage();
+        brand.setImage(null);
+        brandRepository.save(brand);
+        imageService.delete(image);
     }
 }

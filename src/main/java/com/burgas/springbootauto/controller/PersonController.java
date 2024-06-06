@@ -105,6 +105,13 @@ public class PersonController {
         return "redirect:/users/" + person.getUsername();
     }
 
+    @PostMapping("{name}/remove-image")
+    public String removeImage(@PathVariable String name) {
+        Person person = personService.findPersonByUsername(name);
+        personService.removeImage(person);
+        return "redirect:/users/" + person.getUsername();
+    }
+
     @GetMapping("/make-admin")
     public String makeAdmin(@RequestParam String selectUser) {
         Person user = personService.findPersonByUsername(selectUser);
