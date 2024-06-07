@@ -19,7 +19,7 @@
     </th:block>
 </th:block>
     <div style="text-align: center; margin-top: 7%">
-        <form th:method="POST" th:action="@{/cars/add}" th:object="${car}">
+        <form th:method="POST" th:action="@{/cars/add}" th:object="${car}" enctype="multipart/form-data">
 
             <label for="title">Title</label><br>
             <input type="text" id="title" th:field="*{title}">
@@ -44,7 +44,7 @@
             </select><br><br>
 
             <label for="image">Image</label><br>
-            <input type="url" id="image" th:field="*{image}"><br><br>
+            <input type="file" id="image" name="file" accept="image/png, image/jpeg"><br><br>
 
             <label for="webpage">Webpage</label><br>
             <input type="url" id="webpage" th:field="*{webpage}"><br><br>

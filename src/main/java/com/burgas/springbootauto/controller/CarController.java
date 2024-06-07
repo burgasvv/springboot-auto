@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,13 +120,13 @@ public class CarController {
     }
 
     @PostMapping("/add")
-    public String addCar(@ModelAttribute("car") @Valid Car car, BindingResult bindingResult) {
+    public String addCar(@ModelAttribute("car") @Valid Car car, @RequestPart MultipartFile file, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "cars/add";
         }
         car.setPerson(personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-        carService.save(car);
-        return "redirect:/cars";
+        carService.create(car, file);
+        return "redirect:/users/" + SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     @GetMapping("/{id}/edit")
@@ -151,6 +152,20 @@ public class CarController {
         car.setTags(tagService.searchTagsByCars(car));
         carService.update(car);
         return "redirect:/cars/{id}";
+    }
+
+    @PostMapping("/{id}/add-preview-image")
+    public String addCarPreviewImage(@PathVariable Long id, @RequestPart MultipartFile file) {
+        Car car = carService.findById(id);
+        carService.changePreviewImage(car, file);
+        return "redirect:/cars/" + id;
+    }
+
+    @PostMapping("/{id}/remove-preview-image")
+    public String removeCarPreviewImage(@PathVariable Long id) {
+        Car car = carService.findById(id);
+        carService.removePreviewImage(car);
+        return "redirect:/cars/" + id;
     }
 
     @DeleteMapping("/{id}/delete")

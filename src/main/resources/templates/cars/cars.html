@@ -54,7 +54,13 @@
         <div th:each="car : ${cars}" style="display: inline-flex">
             <h2 style="height: 250px; width: 250px; margin-right: 80px">
                 <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
-                    <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%"><br>
+                    <th:block th:if="${car.images.size() > 0 && car.images != null}">
+                        <th:block th:each="image : ${car.images}">
+                            <th:block th:if="${image.preview eq true}">
+                                <img th:src="@{|/images/${image.id}|}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%"><br>
+                            </th:block>
+                        </th:block>
+                    </th:block>
                     <div th:text="${car.brand != null ? car.brand.title : 'No Brand'}" style="margin-left: 20px"/>
                     <div th:text="${car.title}" style="margin-left: 20px"/>
                 </a>

@@ -1,6 +1,7 @@
 package com.burgas.springbootauto.entity.car;
 
 import com.burgas.springbootauto.entity.brand.Brand;
+import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,8 +20,31 @@ public class Car {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String image;
+    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Image> images = new ArrayList<>();
+
+    public void addImage(Image image) {
+        this.images.add(image);
+        image.setCar(this);
+    }
+
+    public void addImages(List<Image> images) {
+        this.images.addAll(images);
+        images.forEach(this::addImage);
+    }
+
+    public void removeImage(Image image) {
+        this.images.remove(image);
+        image.setCar(null);
+    }
+
+    public void removeImages(List<Image> images) {
+        this.images.removeAll(images);
+        images.forEach(this::removeImage);
+    }
+
+    @Column(nullable = false)
+    private boolean hasPreview;
 
     @Column(nullable = false)
     private String webpage;

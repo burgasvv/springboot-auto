@@ -46,8 +46,12 @@
                         th:text="${category.name}" th:selected="${car.category.id eq category.id}"></option>
             </select><br><br>
 
-            <label for="image">Image</label><br>
-            <input type="url" id="image" th:field="*{image}"><br><br>
+            <label for="image"></label>
+            <th:block th:each="image : *{images}">
+                <th:block th:if="${image.preview eq true}">
+                    <input type="hidden" id="image" th:value="${image}">
+                </th:block>
+            </th:block>
 
             <label for="webpage">Webpage</label><br>
             <input type="url" id="webpage" th:field="*{webpage}"><br><br>

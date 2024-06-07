@@ -36,6 +36,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
@@ -50,7 +52,19 @@ public class LoadDatabase {
     @SneakyThrows
     private byte[] readBytesByUrl(String url) {
         InputStream inputStream = new URI(url).toURL().openStream();
-        return inputStream.readAllBytes();
+        byte[] bytes = inputStream.readAllBytes();
+        inputStream.close();
+        return bytes;
+    }
+
+    @SneakyThrows
+    private byte[] readBytesFromFile(String filePath) {
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(
+                new FileInputStream(filePath)
+        );
+        byte[] bytes = bufferedInputStream.readAllBytes();
+        bufferedInputStream.close();
+        return bytes;
     }
 
     @Bean
@@ -399,7 +413,6 @@ public class LoadDatabase {
             bmwImage.setData(readBytesByUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png"));
             Brand bmw = new Brand();
             bmw.setTitle("BMW");
-//            bmw.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png");
             bmw.setImage(bmwImage);
             bmw.setWebsite("https://www.bmw.ru/ru/index.html");
             bmw.setDescription("""
@@ -415,7 +428,6 @@ public class LoadDatabase {
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Audi_logo_detail.svg/1280px-Audi_logo_detail.svg.png"));
             Brand audi = new Brand();
             audi.setTitle("Audi");
-//            audi.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Audi_logo_detail.svg/1280px-Audi_logo_detail.svg.png");
             audi.setImage(audiImage);
             audi.setWebsite("https://www.audi.com/en.html");
             audi.setDescription("Audi AG is a German automotive manufacturer of luxury vehicles headquartered in Ingolstadt, Bavaria, Germany.\n" +
@@ -430,7 +442,6 @@ public class LoadDatabase {
             ));
             Brand mercedes = new Brand();
             mercedes.setTitle("Mercedes");
-//            mercedes.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/2048px-Mercedes-Logo.svg.png");
             mercedes.setImage(mercedesImage);
             mercedes.setWebsite("https://group.mercedes-benz.com/en/");
             mercedes.setDescription("""
@@ -441,15 +452,37 @@ public class LoadDatabase {
             );
 
 
-
+            Image m5PreviewImage = new Image();
+            m5PreviewImage.setName("m5-preview-image");
+            m5PreviewImage.setPreview(true);
+            m5PreviewImage.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m5PreviewImage.png"));
+            Image m5Image1 = new Image();
+            m5Image1.setName("m5-image1");
+            m5Image1.setPreview(false);
+            m5Image1.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m5Image1.png"
+            ));
+            Image m5Image2 = new Image();
+            m5Image2.setName("m5-image2");
+            m5Image2.setPreview(false);
+            m5Image2.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m5Image2.jpg"
+            ));
+            Image m5Image3 = new Image();
+            m5Image3.setName("m5-image3");
+            m5Image3.setPreview(false);
+            m5Image3.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m5Image3.jpg"));
             Car m5 = new Car();
             m5.setPerson(admin);
             m5.setTitle("M5");
-            m5.setImage("https://imgd.aeplcdn.com/1280x720/cw/ec/33136/BMW-M5-Exterior-172905.jpg?wm=0&q=80");
             m5.setWebpage("https://www.bmw.ru/ru/all-models/m-series/m5-sedan/2021/bmw-5-series-sedan-m-automobiles-overview.html");
             m5.setBrand(bmw);
             m5.setClassification(dClass);
             m5.setCategory(sedan);
+            m5.addImages(List.of(m5PreviewImage, m5Image1, m5Image2, m5Image3));
+            m5.setHasPreview(true);
             m5.setTags(
                     List.of(tag3,tag9,tag11,tag1,tag12)
             );
@@ -465,14 +498,40 @@ public class LoadDatabase {
                             'Завершает тройку BMW M550i xDrive. Этот спортивный седан BMW 5 серии обладает мощностью 530 л.с. (390 кВт)
                             'и впечатляет идеально сбалансированной комбинацией спортивности, комфорта и экономичности."""
             );
+
+            Image r8PreviewImage = new Image();
+            r8PreviewImage.setName("r8-preview-image");
+            r8PreviewImage.setPreview(true);
+            r8PreviewImage.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\r8PreviewImage.png"
+            ));
+            Image r8Image1 = new Image();
+            r8Image1.setName("r8-image1");
+            r8Image1.setPreview(false);
+            r8Image1.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\r8Image1.png"
+            ));
+            Image r8Image2 = new Image();
+            r8Image2.setName("r8-image2");
+            r8Image2.setPreview(false);
+            r8Image2.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\r8Image2.jpg"
+            ));
+            Image r8Image3 = new Image();
+            r8Image3.setName("r8-image3");
+            r8Image3.setPreview(false);
+            r8Image3.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\r8Image3.jpg"
+            ));
             Car r8 = new Car();
             r8.setPerson(admin);
             r8.setTitle("R8");
-            r8.setImage("https://imgd.aeplcdn.com/664x374/cw/ec/21724/Audi-R8-Right-Front-Three-Quarter-66713.jpg?v=201711021421&q=80");
             r8.setWebpage("https://www.audiusa.com/us/web/en/models/r8/r8-heritage/2024/overview.html");
             r8.setBrand(audi);
             r8.setClassification(sClass);
             r8.setCategory(coupe);
+            r8.addImages(List.of(r8PreviewImage, r8Image1, r8Image2, r8Image3));
+            r8.setHasPreview(true);
             r8.setTags(
                     List.of(tag1,tag10,tag5,tag12,tag4,tag14)
             );
@@ -481,14 +540,40 @@ public class LoadDatabase {
                             'all-wheel drive system. It was introduced by the German car manufacturer Audi AG in 2006.
                             'Production ended in the first quarter of 2024."""
             );
+
+            Image m4PreviewImage = new Image();
+            m4PreviewImage.setName("m4-preview-image");
+            m4PreviewImage.setPreview(true);
+            m4PreviewImage.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m4PreviewImage.png"
+            ));
+            Image m4Image1 = new Image();
+            m4Image1.setName("m4-image1");
+            m4Image1.setPreview(false);
+            m4Image1.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m4Image1.jpg"
+            ));
+            Image m4Image2 = new Image();
+            m4Image2.setName("m4-image2");
+            m4Image2.setPreview(false);
+            m4Image2.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m4Image2.jpg"
+            ));
+            Image m4Image3 = new Image();
+            m4Image3.setName("m4-image3");
+            m4Image3.setPreview(false);
+            m4Image3.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m4Image3.jpg"
+            ));
             Car m4 = new Car();
             m4.setPerson(admin);
             m4.setTitle("M4");
-            m4.setImage("https://prod.cosy.bmw.cloud/bmwweb/cosySec?COSY-EU-100-7331cqgv2Z7d%25i02uCaY3MuO2kOHUtWPfbYf0jD110tLhu1XzWVo7puMLWFmdkAj5DOP5tpsZ8XgY1nTNIowJ4HO3zkyXq%25sGM8snGhMQSk%2508Xc9Vo74giU2NF1VgxNJ0%25lJfVZ8XJaFBVKLB9MEWO5GalL7GqGAt6GCrv0s9O9DJE4GA0ogRxQNF9OALUollkIogOybLKynvLUgChSXF5GybUEqgtc89ChbNmKXNPoEqhk7BRKMLNmqn1cSJDyk7m5VKJXYCn178zBPltE5V1PaHVqfN8zVMRJw9SkPazDxK07dnMRaYWB9EQ5DxRte2LcZ8YWxfjfEgcPteWS6GERKMfjedw9hbBDS6jQ%250502Ydw6Zuj8KptQ%25wc3lLMifZu%25KXsyTHSc3uBr0UTJdKX324BDpTQLXg7AF3D%25zhrLGwg6QuiVpRBn5Y3");
             m4.setWebpage("https://www.bmw.ru/ru/index.html");
             m4.setBrand(bmw);
             m4.setClassification(dClass);
             m4.setCategory(coupe);
+            m4.addImages(List.of(m4PreviewImage, m4Image1, m4Image2, m4Image3));
+            m4.setHasPreview(true);
             m4.setTags(
                     List.of(tag1,tag4,tag5,tag9,tag12,tag13)
             );
@@ -503,14 +588,40 @@ public class LoadDatabase {
                             'мощностью 387 л.с. впечатляет особенно сбалансированным сочетанием атлетизма, экономичности и практичности
                             'в повседневной эксплуатации. *M xDrive предлагается ориентировочно с лета 2021 года."""
             );
+
+            Image g63PreviewImage = new Image();
+            g63PreviewImage.setName("g63-preview-image");
+            g63PreviewImage.setPreview(true);
+            g63PreviewImage.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\g63PreviewImage.png"
+            ));
+            Image g63Image1 = new Image();
+            g63Image1.setName("g63-image1");
+            g63Image1.setPreview(false);
+            g63Image1.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\g63Image1.jpg"
+            ));
+            Image g63Image2 = new Image();
+            g63Image2.setName("g63-image2");
+            g63Image2.setPreview(false);
+            g63Image2.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\g63Image2.jpg"
+            ));
+            Image g63Image3 = new Image();
+            g63Image3.setName("g63-image3");
+            g63Image3.setPreview(false);
+            g63Image3.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\g63Image3.jpg"
+            ));
             Car g63 = new Car();
             g63.setPerson(user);
             g63.setTitle("AMG G-63");
-            g63.setImage("https://platform.cstatic-images.com/xlarge/in/v2/stock_photos/799a84ca-4aec-4459-8984-41bea8603148/34dd2126-c630-4221-a3e2-f711ab4149c2.png");
             g63.setWebpage("https://www.mercedes-benz.com/en/vehicles/g-class/");
             g63.setBrand(mercedes);
             g63.setClassification(jClass);
             g63.setCategory(crossOver);
+            g63.addImages(List.of(g63PreviewImage, g63Image1, g63Image2, g63Image3));
+            g63.setHasPreview(true);
             g63.setTags(
                     List.of(tag2,tag5,tag11,tag12,tag8)
             );
@@ -520,14 +631,40 @@ public class LoadDatabase {
                             '358-335g/km | CO2-Klasse: G; Mercedes-Benz G 500 | Energieverbrauch kombiniert: 12,3-10,9l/100 km |CO2-Emissionen
                             'kombiniert: 281-248g/km | CO2-Klasse: G"""
             );
+
+            Image cls63PreviewImage = new Image();
+            cls63PreviewImage.setName("cls63-preview-image");
+            cls63PreviewImage.setPreview(true);
+            cls63PreviewImage.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\cls63PreviewImage.png"
+            ));
+            Image cls63Image1 = new Image();
+            cls63Image1.setName("cls63-image1");
+            cls63Image1.setPreview(false);
+            cls63Image1.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\cls63Image1.jpg"
+            ));
+            Image cls63Image2 = new Image();
+            cls63Image2.setName("cls63-image2");
+            cls63Image2.setPreview(false);
+            cls63Image2.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\cls63Image2.jpg"
+            ));
+            Image cls63Image3 = new Image();
+            cls63Image3.setName("cls63-image3");
+            cls63Image3.setPreview(false);
+            cls63Image3.setData(readBytesFromFile(
+                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\cls63Image3.jpg"
+            ));
             Car cls63 = new Car();
             cls63.setPerson(user);
             cls63.setTitle("CLS 63 AMG");
-            cls63.setImage("https://platform.cstatic-images.com/xlarge/in/v2/stock_photos/d70fc0aa-3936-44d1-809b-d09a4bfaf3c5/4e731530-0992-41b9-bf7e-2ab2e70c2ff9.png");
             cls63.setWebpage("https://panavto-mercedes.ru/new_cars/cls-class/cls-63-amg-cls-class/");
             cls63.setBrand(mercedes);
             cls63.setClassification(fClass);
             cls63.setCategory(sedan);
+            cls63.addImages(List.of(cls63PreviewImage,cls63Image1,cls63Image2,cls63Image3));
+            cls63.setHasPreview(true);
             cls63.setTags(
                     List.of(tag16,tag3,tag9,tag15,tag5,tag11)
             );

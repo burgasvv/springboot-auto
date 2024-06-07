@@ -1,8 +1,10 @@
 package com.burgas.springbootauto.service.car;
 
 import com.burgas.springbootauto.entity.car.Car;
+import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.repository.car.CarRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -79,6 +82,42 @@ public class CarService {
 
     public List<Car> searchCarsByAllNames(String search) {
         return carRepository.searchCarsByAllNames(search).stream().distinct().toList();
+    }
+
+    @SneakyThrows
+    @Transactional
+    public void create(Car car, MultipartFile multipartFile) {
+        if (multipartFile.getSize() != 0) {
+            Image image = new Image();
+            image.setName(multipartFile.getOriginalFilename());
+            image.setPreview(true);
+            image.setData(multipartFile.getBytes());
+            car.addImage(image);
+            car.setHasPreview(true);
+        }
+        carRepository.save(car);
+    }
+
+    @SneakyThrows
+    @Transactional
+    public void changePreviewImage(Car car, MultipartFile multipartFile) {
+        if (multipartFile.getSize() != 0) {
+            car.getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
+            Image image = new Image();
+            image.setName(multipartFile.getOriginalFilename());
+            image.setPreview(true);
+            image.setData(multipartFile.getBytes());
+            car.addImage(image);
+            car.setHasPreview(true);
+            carRepository.save(car);
+        }
+    }
+
+    @Transactional
+    public void removePreviewImage(Car car) {
+        car.getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
+        car.setHasPreview(false);
+        carRepository.save(car);
     }
 
     @Transactional
