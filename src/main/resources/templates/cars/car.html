@@ -88,6 +88,14 @@
                         </div>
                     </th:block>
                 </th:block>
+                <br><br>
+                <div>
+                    <form th:method="POST" th:action="@{/cars/{id}/add-images (id = ${car.id})}" enctype="multipart/form-data">
+                        <label for="addImages">Add Images</label>
+                        <input type="file" id="addImages" name="file" accept="image/png, image/jpeg" multiple>
+                        <input type="submit" value="Add" style="color: black">
+                    </form>
+                </div>
             </th:block>
             <br><br>
             <h2>

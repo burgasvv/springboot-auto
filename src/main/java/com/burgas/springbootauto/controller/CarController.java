@@ -168,6 +168,13 @@ public class CarController {
         return "redirect:/cars/" + id;
     }
 
+    @PostMapping("/{id}/add-images")
+    public String addCarImages(@PathVariable Long id, @RequestPart("file") MultipartFile[] files) {
+        Car car = carService.findById(id);
+        carService.addImages(car, files);
+        return "redirect:/cars/" + id;
+    }
+
     @DeleteMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
         Car car = carService.findById(id);

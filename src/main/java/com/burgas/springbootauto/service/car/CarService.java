@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -118,6 +119,19 @@ public class CarService {
         car.getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
         car.setHasPreview(false);
         carRepository.save(car);
+    }
+
+    @SneakyThrows
+    @Transactional
+    public void addImages(Car car, MultipartFile[] files) {
+        for (MultipartFile file : files) {
+            Image image = new Image();
+            image.setName(UUID.randomUUID().toString());
+            image.setPreview(false);
+            image.setData(file.getBytes());
+            car.addImage(image);
+            carRepository.save(car);
+        }
     }
 
     @Transactional
