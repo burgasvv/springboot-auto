@@ -52,7 +52,7 @@
             <h2 style="height: 250px; width: 250px; margin-right: 80px">
                 <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
                     <img th:src="${car.image}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%"><br>
-                    <div th:text="${car.brand.title}" style="margin-left: 20px"/>
+                    <div th:text="${car.brand != null ? car.brand.title : 'No brand'}" style="margin-left: 20px"/>
                     <div th:text="${car.title}" style="margin-left: 20px"/>
                 </a>
             </h2>

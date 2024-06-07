@@ -48,7 +48,8 @@
                     </th:block>
                     <th:block th:if="${complectation.car != null}">
                         <a class="a_class" th:href="@{/cars/{id} (id = ${complectation.car.id})}"
-                           th:text="|${complectation.car.brand.title} ${complectation.car.title}|">Car</a>
+                           th:text="|${complectation.car.brand != null ? complectation.car.brand.title : 'No brand'}
+                           ${complectation.car.title}|">Car</a>
                     </th:block>
                 </th>
                 <th>

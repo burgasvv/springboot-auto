@@ -24,10 +24,12 @@
             <a th:href="@{/editions}">All Editions</a>
         </h3>
         <h3 style="margin-top: 50px">
-            Brand:
-            <a th:href="@{/brands/{id} (id = ${edition.brand.id})}" style="text-decoration: none">
-                <span th:text="${edition.brand.title}"/>
-            </a>
+            <th:block th:if="${edition.brand != null}">
+                Brand:
+                <a th:href="@{/brands/{id} (id = ${edition.brand.id})}" style="text-decoration: none">
+                    <span th:text="${edition.brand.title}"/>
+                </a>
+            </th:block>
         </h3>
         <div style="display: inline-block">
             <h2 th:text="${edition.name}">Edition</h2>

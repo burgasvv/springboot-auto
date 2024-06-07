@@ -65,10 +65,12 @@
                     <span th:text="${transmission.driveType.name}" style="color: gray; font-size: 14px"/>
                 </a>
                 <div style="display: inline-block; margin-left: 10px">
-                    Brands:
-                    <a th:href="@{/brands/{id} (id = ${transmission.brand.id})}" style="color: gray; text-decoration: none">
-                        <span th:text="${transmission.brand.title}"/>
-                    </a><br>
+                    <th:block th:if="${transmission.brand != null}">
+                        Brands:
+                        <a th:href="@{/brands/{id} (id = ${transmission.brand.id})}" style="color: gray; text-decoration: none">
+                            <span th:text="${transmission.brand.title}"/>
+                        </a><br>
+                    </th:block>
                     Edition:
                     <a th:href="@{/gearboxes/{id} (id = ${transmission.gearbox.id})}" style="text-decoration: none">
                         <span th:text="${transmission.gearbox.name}"/>

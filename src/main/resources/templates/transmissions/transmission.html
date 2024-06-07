@@ -21,8 +21,10 @@
     <div style="margin: 25px 100px">
         <h3>
             <a th:href="@{/brands}">Brands</a> /
-            <a th:href="@{/brands/{id} (id = ${transmission.brand.id})}" th:text="${transmission.brand.title}">Brand</a> /
-            <a th:href="@{/brands/{id}/gearboxes (id = ${transmission.brand.id})}">Gearboxes</a>
+            <th:block th:if="${transmission.brand != null}">
+                <a th:href="@{/brands/{id} (id = ${transmission.brand.id})}" th:text="${transmission.brand.title}">Brand</a> /
+                <a th:href="@{/brands/{id}/gearboxes (id = ${transmission.brand.id})}">Gearboxes</a>
+            </th:block>
         </h3>
         <h3>
             <a th:href="@{/gearboxes}">All Gearboxes</a>
@@ -33,7 +35,8 @@
             <h1 th:text="*{name}">Title</h1>
             <img th:src="*{image}" alt="image" style="border-radius: 5%; width: 700px">
             <h2 style="margin-top: 50px">
-                Brand: <span th:text="*{brand.title}" style="font-weight: normal">Brand</span>
+                Brand: <span th:text="${transmission.brand != null ? transmission.brand.title : 'No brand'}"
+                             style="font-weight: normal">Brand</span>
             </h2>
             <h2>
                 Gearbox: <span th:text="*{gearbox.name}" style="font-weight: normal">Edition</span>

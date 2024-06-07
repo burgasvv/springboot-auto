@@ -21,8 +21,10 @@
     <div style="margin: 25px 100px 10px">
         <h3>
             <a th:href="@{/brands}">Brands</a> /
-            <a th:href="@{/brands/{id} (id = ${car.brand.id})}" th:text="${car.brand.title}">Brand</a> /
-            <a th:href="@{/brands/{id}/cars (id = ${car.brand.id})}">Brand Cars</a>
+            <th:block th:if="${car.brand != null}">
+                <a th:href="@{/brands/{id} (id = ${car.brand.id})}" th:text="${car.brand.title}">Brand</a> /
+                <a th:href="@{/brands/{id}/cars (id = ${car.brand.id})}">Brand Cars</a>
+            </th:block>
         </h3>
     </div>
     <div style="margin: 10px 100px">
@@ -67,8 +69,10 @@
                 <a href="/categories" style="font-weight: normal; font-size: 12px; color: gray; text-decoration: none">All categories</a>
             </h2>
             <h2>
-                Brand: <a th:href="@{/brands/{id} (id = *{brand.id})}" th:text="*{brand.title}"
-                          style="font-weight: normal; text-decoration: none">Brand</a>
+                <th:block th:if="*{brand != null}">
+                    Brand: <a th:href="@{/brands/{id} (id = *{brand.id})}" th:text="${car.brand != null ? car.brand.title : 'No Brand'}"
+                       style="font-weight: normal; text-decoration: none">Brand</a>
+                </th:block>
             </h2>
             <h2>
                 Webpage: <a th:href="*{webpage}" th:text="*{title}" target="_blank"

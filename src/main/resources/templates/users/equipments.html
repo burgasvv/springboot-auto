@@ -46,7 +46,8 @@
                     <img th:src="${equipment.image}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%"><br>
                     <div th:text="${equipment.name}" style="margin-left: 20px"/>
                     <th:block th:if="${equipment.attached == true}">
-                        <div th:text="|${equipment.car.brand.title} ${equipment.car.title}|" style="margin-left: 20px"/>
+                        <div th:text="|${equipment.car.brand != null equipment.car.brand.title : 'No brand'}
+                        ${equipment.car.title}|" style="margin-left: 20px"/>
                         <div style="color: gray; margin-left: 20px">Attached</div>
                     </th:block>
                     <th:block th:if="${equipment.attached == false}">

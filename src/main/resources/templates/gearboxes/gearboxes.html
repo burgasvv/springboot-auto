@@ -64,12 +64,14 @@
                 <span th:text="${gearbox.name}"/>
             </a>
             <h3 style="display: inline-flex; color: dimgrey; margin-right: 25px">Brands:</h3>
-            <h4 th:each="brand : ${gearbox.brands}" style="display: inline-flex">
-                <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none; margin-right: 50px">
-                    <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 50px">
-                    <span th:text="${brand.title}" style="color: grey"/>
-                </a>
-            </h4>
+            <th:block th:if="${gearbox.brands.size() > 0 && gearbox.brands != null}">
+                <h4 th:each="brand : ${gearbox.brands}" style="display: inline-flex">
+                    <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none; margin-right: 50px">
+                        <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 50px">
+                        <span th:text="${brand.title}" style="color: grey"/>
+                    </a>
+                </h4>
+            </th:block>
             <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
         </h2>
         <br>

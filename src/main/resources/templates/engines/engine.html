@@ -21,9 +21,11 @@
     <div style="margin: 25px 100px">
         <h3>
             <a th:href="@{/brands}">Brands</a> /
-            <a th:href="@{/brands/{id} (id = ${engine.engineEdition.brand.id})}"
-               th:text="${engine.engineEdition.brand.title}">Brand</a> /
-            <a th:href="@{/brands/{id}/editions (id = ${engine.engineEdition.brand.id})}">Editions</a>
+            <th:block th:if="${engine.engineEdition.brand != null}">
+                <a th:href="@{/brands/{id} (id = ${engine.engineEdition.brand.id})}"
+                   th:text="${engine.engineEdition.brand.title}">Brand</a> /
+                <a th:href="@{/brands/{id}/editions (id = ${engine.engineEdition.brand.id})}">Editions</a>
+            </th:block>
         </h3>
         <h3>
             <a th:href="@{/editions}">All Editions</a>
@@ -34,7 +36,8 @@
             <h1 th:text="*{name}">Title</h1>
             <img th:src="*{image}" alt="image" style="border-radius: 5%; width: 700px">
             <h2 style="margin-top: 50px">
-                Brand: <span th:text="*{engineEdition.brand.title}" style="font-weight: normal">Brand</span>
+                Brand: <span th:text="${engine.engineEdition.brand != null ? engine.engineEdition.brand.title : 'No brand'}"
+                             style="font-weight: normal">Brand</span>
             </h2>
             <h2>
                 Edition: <span th:text="*{engineEdition.name}" style="font-weight: normal">Edition</span>
