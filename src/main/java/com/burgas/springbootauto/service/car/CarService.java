@@ -126,7 +126,7 @@ public class CarService {
     public void addImages(Car car, MultipartFile[] files) {
         for (MultipartFile file : files) {
             Image image = new Image();
-            image.setName(UUID.randomUUID().toString());
+            image.setName(file.getOriginalFilename() + UUID.randomUUID());
             image.setPreview(false);
             image.setData(file.getBytes());
             car.addImage(image);
@@ -147,5 +147,15 @@ public class CarService {
     @Transactional
     public void delete(Long id) {
         carRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void setPreviewImage(Car car, Image image) {
+        if (!car.isHasPreview()){
+            car.setHasPreview(true);
+        }
+        car.getImages().stream().filter(Image::isPreview).forEach(im -> im.setPreview(false));
+        car.getImages().stream().filter(im -> im.equals(image)).forEach(im -> im.setPreview(true));
+        carRepository.save(car);
     }
 }

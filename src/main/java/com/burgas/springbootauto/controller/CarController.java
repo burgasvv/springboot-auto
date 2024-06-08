@@ -4,6 +4,7 @@ import com.burgas.springbootauto.entity.car.*;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.*;
+import com.burgas.springbootauto.service.image.ImageService;
 import com.burgas.springbootauto.service.person.PersonService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -30,6 +31,7 @@ public class CarController {
     private final BrandService brandService;
     private final ClassificationService classificationService;
     private final CategoryService categoryService;
+    private final ImageService imageService;
     private final TagService tagService;
     private final PersonService personService;
 
@@ -173,6 +175,45 @@ public class CarController {
         Car car = carService.findById(id);
         carService.addImages(car, files);
         return "redirect:/cars/" + id;
+    }
+
+    @GetMapping("/{id}/images")
+    public String carImages(@PathVariable Long id, Model model) {
+        model.addAttribute("car", carService.findById(id));
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "cars/images";
+    }
+
+    @PostMapping("/{id}/add-images-at-images-page")
+    public String addCarImagesAtImagesPage(@PathVariable Long id, @RequestPart("file") MultipartFile[] files) {
+        Car car = carService.findById(id);
+        carService.addImages(car, files);
+        //noinspection SpringMVCViewInspection
+        return "redirect:/cars/" + id + "/images";
+    }
+
+    @DeleteMapping("/{id}/delete-image/{imageId}")
+    public String deleteCarImage(@PathVariable Long id, @PathVariable Long imageId) {
+        imageService.deletePreview(carService.findById(id), imageService.findById(imageId));
+        //noinspection SpringMVCViewInspection
+        return "redirect:/cars/" + id + "/images";
+    }
+
+    @PostMapping("/{id}/set-preview/{imageId}")
+    public String setCarPreview(@PathVariable Long id, @PathVariable Long imageId) {
+        carService.setPreviewImage(carService.findById(id), imageService.findById(imageId));
+        //noinspection SpringMVCViewInspection
+        return "redirect:/cars/" + id + "/images";
+    }
+
+    @PostMapping("/{id}/remove-preview-from-images")
+    public String removeCarPreviewFromImages(@PathVariable Long id) {
+        Car car = carService.findById(id);
+        carService.removePreviewImage(car);
+        //noinspection SpringMVCViewInspection
+        return "redirect:/cars/" + id + "/images";
     }
 
     @DeleteMapping("/{id}/delete")

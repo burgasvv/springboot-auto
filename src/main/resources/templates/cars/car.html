@@ -56,7 +56,7 @@
             <th:block th:if="*{images.size() > 0 && images != null}">
                 <th:block th:each="image : *{images}">
                     <th:block th:if="${image.preview eq true && car.hasPreview == true}">
-                        <img th:src="@{|/images/${image.id}|}" alt="image" style="width: 600px; border-radius: 10%">
+                        <img th:src="@{|/images/${image.id}|}" alt="image" style="width: 600px; border-radius: 2%">
                     </th:block>
                 </th:block>
                 <br><br>
@@ -81,11 +81,16 @@
                 </div>
                 <br><br>
                 <h2>Images</h2>
-                <th:block th:each="image : *{images}">
-                    <th:block th:if="${image.preview eq false}">
-                        <div style="display: inline-flex">
-                            <img th:src="@{|/images/${image.id}|}" alt="image" style="width: 100px; border-radius: 10%">
-                        </div>
+                <th:block th:if="*{images.size() > 0}">
+                    <h3>
+                        <a th:href="@{/cars/{id}/images (id = ${car.id})}">Show All</a>
+                    </h3>
+                    <th:block th:each="image : *{images}">
+                        <th:block th:if="${image.preview eq false}">
+                            <div style="display: inline-flex">
+                                <img th:src="@{|/images/${image.id}|}" alt="image" style="width: 100px; border-radius: 2%">
+                            </div>
+                        </th:block>
                     </th:block>
                 </th:block>
                 <br><br>
@@ -97,8 +102,7 @@
                     </form>
                 </div>
             </th:block>
-            <br><br>
-            <h2>
+            <h2 style="margin-top: 100px">
                 Class:
                 <a th:href="@{/classes/{id} (id = *{classification.id})}" style="text-decoration: none">
                     <span th:text="*{classification.name.substring(0,7)}" style="font-weight: normal"/>
@@ -147,7 +151,7 @@
                         <h3 style="text-align: center">
                             <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
                                style="text-decoration: none">
-                                <img th:src="${complectation.image}" alt="image" style="width: 50px; border-radius: 10%"><br>
+                                <img th:src="${complectation.image}" alt="image" style="width: 100px; border-radius: 10%"><br>
                                 <span th:text="${complectation.name}"/>
                             </a>
                             <th:block th:if="${user.username eq car.person.username}">

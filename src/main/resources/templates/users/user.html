@@ -46,7 +46,7 @@
                 </form>
             </th:block>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <h3 style="color: grey">Role: <span style="font-weight: normal" th:text="*{role.name}"/></h3>
+                <h3 style="color: grey; margin-top: 100px">Role: <span style="font-weight: normal" th:text="*{role.name}"/></h3>
                 <h2>First Name: <span th:text="*{firstname}" style="font-weight: normal"/></h2>
                 <h2>Last Name: <span th:text="*{lastname}" style="font-weight: normal"/></h2>
                 <h2>Email: <span style="font-weight: normal" th:text="*{email}"/></h2>
