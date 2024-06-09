@@ -1,6 +1,7 @@
 package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.car.*;
+import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.*;
@@ -179,7 +180,15 @@ public class CarController {
 
     @GetMapping("/{id}/images")
     public String carImages(@PathVariable Long id, Model model) {
+        return carImagesPage(id, 1, model);
+    }
+
+    @GetMapping("/{id}/images/pages/{page}")
+    public String carImagesPage(@PathVariable Long id, @PathVariable int page, Model model) {
         model.addAttribute("car", carService.findById(id));
+        Page<Image> images = imageService.findImagesByCarId(id, page, 50);
+        model.addAttribute("images", images.getContent());
+        model.addAttribute("pages", IntStream.rangeClosed(1, images.getTotalPages()).boxed().toList());
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );

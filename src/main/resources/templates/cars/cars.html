@@ -69,14 +69,15 @@
                 </a>
             </h2>
         </div>
-        <br><br>
-        <ul style="display: inline-flex; list-style-type: none">
-            <th:block th:each="pageNumber : ${pages}">
-                <li class="page-item" style="margin-right: 10px">
-                    <a class="page-link" th:href="@{/cars/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
-                </li>
-            </th:block>
-        </ul>
+        <div style="margin-top: 100px">
+            <ul style="display: inline-flex; list-style-type: none">
+                <th:block th:each="pageNumber : ${pages}">
+                    <li class="page-item" style="margin-right: 10px">
+                        <a class="page-link" th:href="@{/cars/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
         <div style="margin-top: 100px">
             <input type="button" value="Back" onclick="history.back()" style="color: black">
         </div>

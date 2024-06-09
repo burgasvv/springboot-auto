@@ -32,7 +32,7 @@
         </div>
         <th:block th:if="${car.hasPreview == true}">
             <h2 style="margin-top: 50px">Preview Image</h2>
-            <div style="display: inline-flex" th:each="image : ${car.images}">
+            <div style="display: inline-flex" th:each="image : ${images}">
                 <th:block th:if="${image.preview == true}">
                     <div style="width: 250px; margin-right: 80px; margin-top: 80px; display: inline-block; text-align: center">
                         <img th:src="@{|/images/${image.id}|}" alt="image" style="display: inline-flex; width: 250px; border-radius: 2%">
@@ -51,7 +51,7 @@
         <div style="margin-top: 80px">
             <h2>Images</h2>
         </div>
-        <div style="display: inline-flex" th:each="image : ${car.images}">
+        <div style="display: inline-flex" th:each="image : ${images}">
             <th:block th:if="${image.preview == false}">
                 <div style="width: 250px; margin-right: 80px; margin-top: 80px; display: inline-block; text-align: center">
                     <img th:src="@{|/images/${image.id}|}" alt="image" style="display: inline-flex; width: 250px; border-radius: 2%">
@@ -66,6 +66,14 @@
                 </div>
             </th:block>
         </div>
+        <br><br>
+        <ul style="display: inline-flex; list-style-type: none">
+            <th:block th:each="pageNumber : ${pages}">
+                <li class="page-item" style="margin-right: 10px">
+                    <a class="page-link" th:href="@{|/cars/${car.id}/images/pages/${pageNumber}|}" th:text="${pageNumber}">1</a>
+                </li>
+            </th:block>
+        </ul>
     </div>
 </body>
 </html>

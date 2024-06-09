@@ -6,6 +6,9 @@ import com.burgas.springbootauto.repository.image.ImageRepository;
 import com.burgas.springbootauto.service.car.CarService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +24,11 @@ public class ImageService {
 
     public Image findByName(String name) {
         return imageRepository.findByName(name);
+    }
+
+    public Page<Image> findImagesByCarId(Long carId, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "id"));
+        return imageRepository.findImagesByCarId(carId, pageRequest);
     }
 
     @Transactional
