@@ -60,7 +60,7 @@
         </th:block>
         <h2 th:each="edition : ${editions}" style="margin-top: 50px">
             <a th:href="@{/brands/{id} (id = ${edition.brand.id})}" style="text-decoration: none; margin-right: 25px">
-                <img th:src="@{|/resource.images/${edition.brand.image.id}|}" alt="image" style="width: 50px">
+                <img th:src="@{|/images/${edition.brand.image.id}|}" alt="image" style="width: 50px">
                 <span th:text="${edition.brand.title}" style="color: grey"/>
             </a>
             <a th:href="@{/editions/{id} (id = ${edition.id})}" style="text-decoration: none">
