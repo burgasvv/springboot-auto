@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -27,10 +28,6 @@ public class EngineEditionService {
         return engineEditionRepository.findEngineEditionByName(name);
     }
 
-    public List<EngineEdition> searchEngineEditionsByBrandId(Long id) {
-        return engineEditionRepository.searchEngineEditionsByBrandId(id);
-    }
-
     public EngineEdition searchEngineEditionByEngines(List<Engine> engines) {
         return engineEditionRepository.searchEngineEditionByEngines(engines);
     }
@@ -47,6 +44,11 @@ public class EngineEditionService {
 
     @Transactional
     public void delete(Long id) {
+        EngineEdition engineEdition = engineEditionRepository.findById(id).orElse(null);
+        Objects.requireNonNull(engineEdition).getEngines()
+                .forEach(engine -> engine.getEquipments()
+                        .forEach(equipment -> equipment.setEngine(null)));
+        engineEditionRepository.save(engineEdition);
         engineEditionRepository.deleteById(id);
     }
 }

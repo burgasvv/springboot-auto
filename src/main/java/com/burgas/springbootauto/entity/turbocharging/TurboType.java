@@ -25,7 +25,7 @@ public class TurboType {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @ManyToMany(mappedBy = "turboTypes", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "turboTypes", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Brand>brands = new ArrayList<>();
 
     public void addBrand(Brand brand) {

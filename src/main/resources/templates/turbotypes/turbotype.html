@@ -28,7 +28,7 @@
             <th:block th:if="${turboType.brands.size() > 0 && turboType.brands != null}">
                 <h4 th:each="brand : ${turboType.brands}" style="display: inline-flex">
                     <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none; margin-right: 20px">
-                        <img th:src="${brand.image}" alt="image" style="width: 50px">
+                        <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 50px">
                         <span th:text="${brand.title}"/>
                     </a>
                 </h4>
@@ -47,6 +47,19 @@
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.role.name == 'ADMIN'}">
                 <a th:href="@{/turbochargers/add (turbotypeId = ${turboType.id})}" style="text-decoration: none">Add Turbocharger</a>
+            </th:block>
+        </th:block>
+        <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block th:if="${user.role.name eq 'ADMIN'}">
+                <div style="margin-top: 50px; display: inline-flex">
+                    <form th:method="GET" th:action="@{|/turbo-types/${turboType.id}/edit|}" style="margin-right: 20px">
+                        <input type="submit" value="Edit" style="color: black">
+                    </form>
+                    <form th:method="DELETE" th:action="@{|/turbo-types/${turboType.id}/delete|}">
+                        <input type="submit" value="Delete" style="color: black">
+                    </form>
+                </div>
             </th:block>
         </th:block>
         <div style="margin-top: 100px">

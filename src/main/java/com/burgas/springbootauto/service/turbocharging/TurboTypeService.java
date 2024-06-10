@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +39,11 @@ public class TurboTypeService {
 
     @Transactional
     public void delete(Long id) {
+        TurboType turboType = turboTypeRepository.findById(id).orElse(null);
+        Objects.requireNonNull(turboType).getBrands()
+                        .forEach(brand -> brand.setTurboTypes(null));
+        turboType.getTurbochargers().forEach(turbocharger -> turbocharger.getEquipments()
+                .forEach(equipment -> equipment.setTurbocharger(null)));
         turboTypeRepository.deleteById(id);
     }
 }

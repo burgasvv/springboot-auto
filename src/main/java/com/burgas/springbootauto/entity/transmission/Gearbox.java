@@ -29,7 +29,7 @@ public class Gearbox {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
 
-    @ManyToMany(mappedBy = "gearboxes", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "gearboxes", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Brand> brands = new ArrayList<>();
 
     public void addBrand(Brand brand) {
@@ -37,6 +37,6 @@ public class Gearbox {
         brand.getGearboxes().add(this);
     }
 
-    @OneToMany(mappedBy = "gearbox", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "gearbox", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Transmission>transmissions = new ArrayList<>();
 }

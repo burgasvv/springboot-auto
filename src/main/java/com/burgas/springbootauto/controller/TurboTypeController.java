@@ -75,4 +75,25 @@ public class TurboTypeController {
         Long id = turboTypeService.findByName(newTurboType.getName()).getId();
         return "redirect:/turbo-types/" + id;
     }
+
+    @GetMapping("/{id}/edit")
+    public String editTurboType(@PathVariable Long id, Model model) {
+        model.addAttribute("turboType", turboTypeService.findById(id));
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "turbotypes/edit";
+    }
+
+    @PatchMapping("/{id}/edit")
+    public String editTurboType(@ModelAttribute("turboType") TurboType turboType) {
+        turboTypeService.update(turboType);
+        return "redirect:/turbo-types/" + turboType.getId();
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public String deleteTurboType(@PathVariable Long id) {
+        turboTypeService.delete(id);
+        return "redirect:/turbo-types";
+    }
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Gearbox</title>
+</head>
+<body>
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <th:block th:if="${user.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+        </th:block>
+        <th:block th:if="${user.image != null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
+        </th:block>
+    </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
+
+    <div style="text-align: center; margin: 15% 100px 50px;">
+        <form th:method="PATCH" th:action="@{/gearboxes/{id}/edit (id = ${gearbox.id})}" th:object="${gearbox}">
+            <h2>Gearbox</h2>
+            <label for="name">Name</label><br>
+            <input type="text" id="name" th:field="*{name}"><br><br>
+            <label for="stairs">Stairs</label><br>
+            <input type="number" id="stairs" th:field="*{stairs}"><br><br>
+            <label for="image">Image</label><br>
+            <input type="text" id="image" th:field="*{image}"><br><br>
+            <input type="submit" value="OK" style="color: black">
+            <input type="button" value="Back" onclick="history.back()" style="color: black">
+        </form>
+    </div>
+</body>
+</html>

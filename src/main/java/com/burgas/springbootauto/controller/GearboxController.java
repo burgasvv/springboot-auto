@@ -80,4 +80,25 @@ public class GearboxController {
         Long id = gearboxService.findByName(newGearbox.getName()).getId();
         return "redirect:/gearboxes/" + id;
     }
+
+    @GetMapping("/{id}/edit")
+    public String editGearboxForm(@PathVariable Long id, Model model) {
+        model.addAttribute("gearbox", gearboxService.findById(id));
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "gearboxes/edit";
+    }
+
+    @PatchMapping("/{id}/edit")
+    public String editGearbox(@ModelAttribute Gearbox gearbox, @PathVariable Long id) {
+        gearboxService.update(gearbox);
+        return "redirect:/gearboxes/" + id;
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public String deleteGearbox(@PathVariable Long id) {
+        gearboxService.delete(id);
+        return "redirect:/gearboxes";
+    }
 }

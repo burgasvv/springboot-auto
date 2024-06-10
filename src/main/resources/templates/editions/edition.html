@@ -48,6 +48,18 @@
             </th:block>
         </th:block>
         <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block th:if="${user.role.name eq 'ADMIN'}">
+                <div style="margin-top: 50px; display: inline-flex">
+                    <form th:method="GET" th:action="@{|/editions/${edition.id}/edit|}" style="margin-right: 20px">
+                        <input type="submit" value="Edit" style="color: black">
+                    </form>
+                    <form th:method="DELETE" th:action="@{|/editions/${edition.id}/delete|}">
+                        <input type="submit" value="Delete" style="color: black">
+                    </form>
+                </div>
+            </th:block>
+        </th:block>
         <div style="margin-top: 100px">
             <input type="button" value="Back" style="color: black" onclick="history.back()">
         </div>

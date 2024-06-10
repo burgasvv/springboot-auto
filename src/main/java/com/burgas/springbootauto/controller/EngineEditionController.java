@@ -68,4 +68,25 @@ public class EngineEditionController {
         Long id = editionService.findByName(newEdition.getName()).getId();
         return "redirect:/editions/" + id;
     }
+
+    @GetMapping("/{id}/edit")
+    public String editEditionForm(@PathVariable Long id, Model model) {
+        model.addAttribute("edition", editionService.findById(id));
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "editions/edit";
+    }
+
+    @PatchMapping("/{id}/edit")
+    public String editEdition(@ModelAttribute("edition") EngineEdition edition) {
+        editionService.update(edition);
+        return "redirect:/editions/" + edition.getId();
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public String deleteEdition(@PathVariable Long id) {
+        editionService.delete(id);
+        return "redirect:/editions";
+    }
 }
