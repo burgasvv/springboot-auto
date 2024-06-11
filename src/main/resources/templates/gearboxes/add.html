@@ -22,7 +22,7 @@
         <form th:method="POST" th:action="@{/gearboxes/add}" th:object="${gearbox}">
             <h2>Gearbox</h2>
             <label for="brands">Brands</label><br>
-            <select name="selectedBrands" id="brands" multiple>
+            <select size="1" name="selectedBrands" id="brands" multiple onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
                 <option th:each="bramd : ${brands}" th:value="${bramd.id}" th:text="${bramd.title}">Brand</option>
             </select><br><br>
             <label for="name">Name</label><br>
