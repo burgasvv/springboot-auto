@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Category</title>
+</head>
+<body>
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <th:block th:if="${user.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+        </th:block>
+        <th:block th:if="${user.image != null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
+        </th:block>
+    </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
+
+    <div style="margin: 15% 100px 50px;text-align: center">
+        <form th:method="POST" th:action="@{/categories/add}">
+            <h1>New Category</h1>
+            <input type="hidden" id="id" th:field="${category.id}">
+
+            <label for="name">Name</label><br>
+            <input type="text" id="name" th:field="${category.name}"><br><br>
+
+            <label for="image">Image</label><br>
+            <input type="text" id="image" th:field="${category.image}"><br><br>
+
+            <label for="description">Description</label><br>
+            <input type="text" id="description" th:field="${category.description}"><br><br>
+
+            <input type="submit" value="Accept" style="color: black">
+            <input type="button" value="Cancel" style="color: black" onclick="history.back()">
+        </form>
+    </div>
+</body>
+</html>

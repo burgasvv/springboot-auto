@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -22,10 +23,6 @@ public class ClassificationService {
         return classificationRepository.findById(id).orElse(null);
     }
 
-    public Classification findClassificationByName(String name) {
-        return classificationRepository.findClassificationByName(name);
-    }
-
     @Transactional
     public void save(Classification classification) {
         classificationRepository.save(classification);
@@ -38,6 +35,9 @@ public class ClassificationService {
 
     @Transactional
     public void delete(Long id) {
+        Classification classification = classificationRepository.findById(id).orElse(null);
+        Objects.requireNonNull(classification).getCars().forEach(car -> car.setClassification(null));
+        classificationRepository.save(classification);
         classificationRepository.deleteById(id);
     }
 }

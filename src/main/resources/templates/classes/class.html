@@ -35,6 +35,18 @@
         <div style="margin: 50px 100px; display: inline-block">
             <h2>Description</h2>
             <p th:text="*{description}" style="text-align: justify">Description</p><br>
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <th:block th:if="${user.role.name eq 'ADMIN'}">
+                    <div style="margin-top: 100px; display: inline-flex">
+                        <form th:method="GET" th:action="@{|/classes/${class.id}/edit|}" style="margin-right: 10px">
+                            <input type="submit" value="Edit" style="color: black">
+                        </form>
+                        <form th:method="DELETE" th:action="@{|/classes/${class.id}/delete|}">
+                            <input type="submit" value="Delete" style="color: black">
+                        </form>
+                    </div>
+                </th:block>
+            </th:block>
         </div>
     </div>
 </body>

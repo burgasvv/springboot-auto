@@ -25,6 +25,13 @@
             </a>
             <div style="border-top: 1px solid gray; margin-top: 25px; margin-bottom: 25px; margin-right: 900px"></div>
         </h2>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block th:if="${user.role.name eq 'ADMIN'}">
+                <div style="margin-top: 100px">
+                    <input type="button" value="Add" style="color: black" onclick="location.assign('/categories/add')">
+                </div>
+            </th:block>
+        </th:block>
         <input type="button" value="Back" onclick="history.back()" style="color: black;margin-top: 50px">
     </div>
 </body>

@@ -13,9 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -30,6 +28,15 @@ public class CategoryController {
     private final ClassificationService classificationService;
     private final CategoryService categoryService;
     private final PersonService personService;
+
+    private void getSearchLists(Model model) {
+        model.addAttribute("brands",
+                brandService.findAll().stream().filter(category -> !category.getCars().isEmpty()).toList()
+        );
+        model.addAttribute("classes",
+                classificationService.findAll().stream().filter(classification -> !classification.getCars().isEmpty()).toList()
+        );
+    }
 
     @GetMapping
     public String categories(Model model) {
@@ -47,6 +54,42 @@ public class CategoryController {
         );
         model.addAttribute("category", categoryService.findById(id));
         return "categories/category";
+    }
+
+    @GetMapping("/add")
+    public String addCategoryForm(Model model) {
+        model.addAttribute("category", new Category());
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "categories/add";
+    }
+
+    @PostMapping("/add")
+    public String addCategory(@ModelAttribute("category") Category category) {
+        categoryService.save(category);
+        return "redirect:/categories";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editCategoryForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("category", categoryService.findById(id));
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "categories/edit";
+    }
+
+    @PatchMapping("/{id}/edit")
+    public String editCategory(@ModelAttribute Category category) {
+        categoryService.update(category);
+        return "redirect:/categories/" + category.getId();
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public String deleteCategory(@PathVariable("id") Long id) {
+        categoryService.delete(id);
+        return "redirect:/categories";
     }
 
     @GetMapping("/{id}/cars")
@@ -94,14 +137,5 @@ public class CategoryController {
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         return "categories/findCategoryCars";
-    }
-
-    private void getSearchLists(Model model) {
-        model.addAttribute("brands",
-                brandService.findAll().stream().filter(category -> !category.getCars().isEmpty()).toList()
-        );
-        model.addAttribute("classes",
-                classificationService.findAll().stream().filter(classification -> !classification.getCars().isEmpty()).toList()
-        );
     }
 }

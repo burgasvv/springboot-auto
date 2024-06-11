@@ -23,27 +23,35 @@
             <a th:href="@{/cars/{id} (id = ${car.id})}" th:text="|${car.brand != null ? car.brand.title : ''} ${car.title} page|">Car Page</a>
         </h2>
         <h1 style="margin-top: 50px"><span th:text="|${car.title} images|"/></h1>
-        <div style="margin-top: 100px">
-            <form th:method="POST" th:action="@{/cars/{id}/add-images-at-images-page (id = ${car.id})}" enctype="multipart/form-data">
-                <label for="addImages">Add Images</label>
-                <input type="file" id="addImages" name="file" accept="image/png, image/jpeg" multiple>
-                <input type="submit" value="Add" style="color: black">
-            </form>
-        </div>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block th:if="${user.username eq car.person.username}">
+                <div style="margin-top: 100px">
+                    <form th:method="POST" th:action="@{/cars/{id}/add-images-at-images-page (id = ${car.id})}" enctype="multipart/form-data">
+                        <label for="addImages">Add Images</label>
+                        <input type="file" id="addImages" name="file" accept="image/png, image/jpeg" multiple>
+                        <input type="submit" value="Add" style="color: black">
+                    </form>
+                </div>
+            </th:block>
+        </th:block>
         <th:block th:if="${car.hasPreview == true}">
             <h2 style="margin-top: 50px">Preview Image</h2>
             <div style="display: inline-flex" th:each="image : ${images}">
                 <th:block th:if="${image.preview == true}">
                     <div style="width: 250px; margin-right: 80px; margin-top: 80px; display: inline-block; text-align: center">
                         <img th:src="@{|/images/${image.id}|}" alt="image" style="display: inline-flex; width: 250px; border-radius: 2%">
-                        <div style="display: inline-flex">
-                            <form th:method="POST" th:action="@{|/cars/${car.id}/remove-preview-from-images|}" style="margin-right: 10px">
-                                <input type="submit" value="Remove Preview" style="color: black">
-                            </form>
-                            <form th:method="DELETE" th:action="@{|/cars/${car.id}/delete-image/${image.id}|}">
-                                <input type="submit" value="Delete" style="color: black">
-                            </form>
-                        </div>
+                        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                            <th:block th:if="${user.username eq car.person.username}">
+                                <div style="display: inline-flex">
+                                    <form th:method="POST" th:action="@{|/cars/${car.id}/remove-preview-from-images|}" style="margin-right: 10px">
+                                        <input type="submit" value="Remove Preview" style="color: black">
+                                    </form>
+                                    <form th:method="DELETE" th:action="@{|/cars/${car.id}/delete-image/${image.id}|}">
+                                        <input type="submit" value="Delete" style="color: black">
+                                    </form>
+                                </div>
+                            </th:block>
+                        </th:block>
                     </div>
                 </th:block>
             </div>
@@ -55,14 +63,18 @@
             <th:block th:if="${image.preview == false}">
                 <div style="width: 250px; margin-right: 80px; margin-top: 80px; display: inline-block; text-align: center">
                     <img th:src="@{|/images/${image.id}|}" alt="image" style="display: inline-flex; width: 250px; border-radius: 2%">
-                    <div style="display: inline-flex">
-                        <form th:method="POST" th:action="@{|/cars/${car.id}/set-preview/${image.id}|}" style="margin-right: 10px">
-                            <input type="submit" value="Set Preview" style="color: black">
-                        </form>
-                        <form th:method="DELETE" th:action="@{|/cars/${car.id}/delete-image/${image.id}|}">
-                            <input type="submit" value="Delete" style="color: black">
-                        </form>
-                    </div>
+                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <th:block th:if="${user.username eq car.person.username}">
+                            <div style="display: inline-flex">
+                                <form th:method="POST" th:action="@{|/cars/${car.id}/set-preview/${image.id}|}" style="margin-right: 10px">
+                                    <input type="submit" value="Set Preview" style="color: black">
+                                </form>
+                                <form th:method="DELETE" th:action="@{|/cars/${car.id}/delete-image/${image.id}|}">
+                                    <input type="submit" value="Delete" style="color: black">
+                                </form>
+                            </div>
+                        </th:block>
+                    </th:block>
                 </div>
             </th:block>
         </div>

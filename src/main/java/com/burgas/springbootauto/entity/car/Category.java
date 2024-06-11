@@ -23,6 +23,8 @@ public class Category {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}
+    )
     private List<Car>cars = new ArrayList<>();
 }
