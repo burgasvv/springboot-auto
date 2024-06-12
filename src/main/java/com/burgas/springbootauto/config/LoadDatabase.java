@@ -451,6 +451,15 @@ public class LoadDatabase {
                             'digital services for charging and payment, insurance brokerage, as well as innovative mobility services."""
             );
 
+            DriveUnit frontWheel = new DriveUnit();
+            frontWheel.setName("Front Wheel");
+
+            DriveUnit rear = new DriveUnit();
+            rear.setName("Rear");
+
+            DriveUnit fourWheel = new DriveUnit();
+            fourWheel.setName("Four Wheel");
+
 
             Image m5PreviewImage = new Image();
             m5PreviewImage.setName("m5-preview-image");
@@ -479,6 +488,7 @@ public class LoadDatabase {
             m5.setTitle("M5");
             m5.setWebpage("https://www.bmw.ru/ru/all-models/m-series/m5-sedan/2021/bmw-5-series-sedan-m-automobiles-overview.html");
             m5.setBrand(bmw);
+            m5.setDriveUnit(frontWheel);
             m5.setClassification(dClass);
             m5.setCategory(sedan);
             m5.addImages(List.of(m5PreviewImage, m5Image1, m5Image2, m5Image3));
@@ -528,6 +538,7 @@ public class LoadDatabase {
             r8.setTitle("R8");
             r8.setWebpage("https://www.audiusa.com/us/web/en/models/r8/r8-heritage/2024/overview.html");
             r8.setBrand(audi);
+            r8.setDriveUnit(fourWheel);
             r8.setClassification(sClass);
             r8.setCategory(coupe);
             r8.addImages(List.of(r8PreviewImage, r8Image1, r8Image2, r8Image3));
@@ -570,6 +581,7 @@ public class LoadDatabase {
             m4.setTitle("M4");
             m4.setWebpage("https://www.bmw.ru/ru/index.html");
             m4.setBrand(bmw);
+            m4.setDriveUnit(rear);
             m4.setClassification(dClass);
             m4.setCategory(coupe);
             m4.addImages(List.of(m4PreviewImage, m4Image1, m4Image2, m4Image3));
@@ -618,6 +630,7 @@ public class LoadDatabase {
             g63.setTitle("AMG G-63");
             g63.setWebpage("https://www.mercedes-benz.com/en/vehicles/g-class/");
             g63.setBrand(mercedes);
+            g63.setDriveUnit(fourWheel);
             g63.setClassification(jClass);
             g63.setCategory(crossOver);
             g63.addImages(List.of(g63PreviewImage, g63Image1, g63Image2, g63Image3));
@@ -661,6 +674,7 @@ public class LoadDatabase {
             cls63.setTitle("CLS 63 AMG");
             cls63.setWebpage("https://panavto-mercedes.ru/new_cars/cls-class/cls-63-amg-cls-class/");
             cls63.setBrand(mercedes);
+            cls63.setDriveUnit(fourWheel);
             cls63.setClassification(fClass);
             cls63.setCategory(sedan);
             cls63.addImages(List.of(cls63PreviewImage,cls63Image1,cls63Image2,cls63Image3));

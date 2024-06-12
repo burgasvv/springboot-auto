@@ -56,6 +56,10 @@ public class Car {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "drive_unit_id")
+    private DriveUnit driveUnit;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
