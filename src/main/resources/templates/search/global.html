@@ -33,7 +33,7 @@
                         <h2>Brands</h2>
                         <h3 th:each="brand : ${brands}" style="display: inline-flex; margin-right: 25px">
                             <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
-                                <img th:src="${brand.image}" alt="image" style="display: inline-flex; width: 150px">
+                                <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="display: inline-flex; width: 150px">
                                 <p th:text="${brand.title}" style="margin-left: 20px; vertical-align: bottom"/>
                             </a>
                         </h3>
