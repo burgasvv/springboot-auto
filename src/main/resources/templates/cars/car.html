@@ -136,6 +136,11 @@
                 </th:block>
             </h2>
             <h2>
+                <th:block th:if="*{driveUnit != null}">
+                    Drive: <span th:text="*{driveUnit.name}" style="font-weight: normal"/>
+                </th:block>
+            </h2>
+            <h2>
                 Webpage: <a th:href="*{webpage}" th:text="*{title}" target="_blank"
                             style="font-weight: normal; text-decoration: none">Webpage</a>
             </h2>
