@@ -464,25 +464,19 @@ public class LoadDatabase {
             Image m5PreviewImage = new Image();
             m5PreviewImage.setName("m5-preview-image");
             m5PreviewImage.setPreview(true);
-            m5PreviewImage.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m5PreviewImage.png"));
+            m5PreviewImage.setData(readBytesFromFile("src/main/resources/static/resource.images/m5PreviewImage.png"));
             Image m5Image1 = new Image();
             m5Image1.setName("m5-image1");
             m5Image1.setPreview(false);
-            m5Image1.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m5Image1.png"
-            ));
+            m5Image1.setData(readBytesFromFile("src/main/resources/static/resource.images/m5Image1.png"));
             Image m5Image2 = new Image();
             m5Image2.setName("m5-image2");
             m5Image2.setPreview(false);
-            m5Image2.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m5Image2.jpg"
-            ));
+            m5Image2.setData(readBytesFromFile("src/main/resources/static/resource.images/m5Image2.jpg"));
             Image m5Image3 = new Image();
             m5Image3.setName("m5-image3");
             m5Image3.setPreview(false);
-            m5Image3.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m5Image3.jpg"));
+            m5Image3.setData(readBytesFromFile("src/main/resources/static/resource.images/m5Image3.jpg"));
             Car m5 = new Car();
             m5.setPerson(admin);
             m5.setTitle("M5");
@@ -512,27 +506,19 @@ public class LoadDatabase {
             Image r8PreviewImage = new Image();
             r8PreviewImage.setName("r8-preview-image");
             r8PreviewImage.setPreview(true);
-            r8PreviewImage.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\r8PreviewImage.png"
-            ));
+            r8PreviewImage.setData(readBytesFromFile("src/main/resources/static/resource.images/r8PreviewImage.png"));
             Image r8Image1 = new Image();
             r8Image1.setName("r8-image1");
             r8Image1.setPreview(false);
-            r8Image1.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\r8Image1.png"
-            ));
+            r8Image1.setData(readBytesFromFile("src/main/resources/static/resource.images/r8Image1.png"));
             Image r8Image2 = new Image();
             r8Image2.setName("r8-image2");
             r8Image2.setPreview(false);
-            r8Image2.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\r8Image2.jpg"
-            ));
+            r8Image2.setData(readBytesFromFile("src/main/resources/static/resource.images/r8Image2.jpg"));
             Image r8Image3 = new Image();
             r8Image3.setName("r8-image3");
             r8Image3.setPreview(false);
-            r8Image3.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\r8Image3.jpg"
-            ));
+            r8Image3.setData(readBytesFromFile("src/main/resources/static/resource.images/r8Image3.jpg"));
             Car r8 = new Car();
             r8.setPerson(admin);
             r8.setTitle("R8");
@@ -555,27 +541,19 @@ public class LoadDatabase {
             Image m4PreviewImage = new Image();
             m4PreviewImage.setName("m4-preview-image");
             m4PreviewImage.setPreview(true);
-            m4PreviewImage.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m4PreviewImage.png"
-            ));
+            m4PreviewImage.setData(readBytesFromFile("src/main/resources/static/resource.images/m4PreviewImage.png"));
             Image m4Image1 = new Image();
             m4Image1.setName("m4-image1");
             m4Image1.setPreview(false);
-            m4Image1.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m4Image1.jpg"
-            ));
+            m4Image1.setData(readBytesFromFile("src/main/resources/static/resource.images/m4Image1.jpg"));
             Image m4Image2 = new Image();
             m4Image2.setName("m4-image2");
             m4Image2.setPreview(false);
-            m4Image2.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m4Image2.jpg"
-            ));
+            m4Image2.setData(readBytesFromFile("src/main/resources/static/resource.images/m4Image2.jpg"));
             Image m4Image3 = new Image();
             m4Image3.setName("m4-image3");
             m4Image3.setPreview(false);
-            m4Image3.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\m4Image3.jpg"
-            ));
+            m4Image3.setData(readBytesFromFile("src/main/resources/static/resource.images/m4Image3.jpg"));
             Car m4 = new Car();
             m4.setPerson(admin);
             m4.setTitle("M4");
@@ -604,27 +582,19 @@ public class LoadDatabase {
             Image g63PreviewImage = new Image();
             g63PreviewImage.setName("g63-preview-image");
             g63PreviewImage.setPreview(true);
-            g63PreviewImage.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\g63PreviewImage.png"
-            ));
+            g63PreviewImage.setData(readBytesFromFile("src/main/resources/static/resource.images/g63PreviewImage.png"));
             Image g63Image1 = new Image();
             g63Image1.setName("g63-image1");
             g63Image1.setPreview(false);
-            g63Image1.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\g63Image1.jpg"
-            ));
+            g63Image1.setData(readBytesFromFile("src/main/resources/static/resource.images/g63Image1.jpg"));
             Image g63Image2 = new Image();
             g63Image2.setName("g63-image2");
             g63Image2.setPreview(false);
-            g63Image2.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\g63Image2.jpg"
-            ));
+            g63Image2.setData(readBytesFromFile("src/main/resources/static/resource.images/g63Image2.jpg"));
             Image g63Image3 = new Image();
             g63Image3.setName("g63-image3");
             g63Image3.setPreview(false);
-            g63Image3.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\g63Image3.jpg"
-            ));
+            g63Image3.setData(readBytesFromFile("src/main/resources/static/resource.images/g63Image3.jpg"));
             Car g63 = new Car();
             g63.setPerson(user);
             g63.setTitle("AMG G-63");
@@ -648,27 +618,19 @@ public class LoadDatabase {
             Image cls63PreviewImage = new Image();
             cls63PreviewImage.setName("cls63-preview-image");
             cls63PreviewImage.setPreview(true);
-            cls63PreviewImage.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\cls63PreviewImage.png"
-            ));
+            cls63PreviewImage.setData(readBytesFromFile("src/main/resources/static/resource.images/cls63PreviewImage.png"));
             Image cls63Image1 = new Image();
             cls63Image1.setName("cls63-image1");
             cls63Image1.setPreview(false);
-            cls63Image1.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\cls63Image1.jpg"
-            ));
+            cls63Image1.setData(readBytesFromFile("src/main/resources/static/resource.images/cls63Image1.jpg"));
             Image cls63Image2 = new Image();
             cls63Image2.setName("cls63-image2");
             cls63Image2.setPreview(false);
-            cls63Image2.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\cls63Image2.jpg"
-            ));
+            cls63Image2.setData(readBytesFromFile("src/main/resources/static/resource.images/cls63Image2.jpg"));
             Image cls63Image3 = new Image();
             cls63Image3.setName("cls63-image3");
             cls63Image3.setPreview(false);
-            cls63Image3.setData(readBytesFromFile(
-                    "C:\\Users\\Burgas\\IdeaProjects\\springboot-auto\\src\\main\\resources\\static\\resource.images\\cls63Image3.jpg"
-            ));
+            cls63Image3.setData(readBytesFromFile("src/main/resources/static/resource.images/cls63Image3.jpg"));
             Car cls63 = new Car();
             cls63.setPerson(user);
             cls63.setTitle("CLS 63 AMG");

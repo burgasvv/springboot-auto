@@ -41,7 +41,7 @@ public class BrandService {
     }
 
     public List<Brand> searchBrandByTitle(String title) {
-        return brandRepository.searchBrandByTitleAndCar(title).stream().distinct().toList();
+        return brandRepository.searchBrandsByTitleAndCar(title);
     }
 
     public Brand findBrandByTitle(String title) {
