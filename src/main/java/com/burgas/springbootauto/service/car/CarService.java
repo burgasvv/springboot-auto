@@ -76,6 +76,17 @@ public class CarService {
         return carRepository.searchCarsByClassificationAndAndCategoryNoSpaces(search, pageable);
     }
 
+    public Page<Car> searchCategoryCarsByBrandAndClassificationNoSpaces(String category, String search, int page, int size) {
+        PageRequest pageable = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
+        return carRepository.searchCategoryCarsByBrandAndClassificationNoSpaces(category, search, pageable);
+    }
+
+    public Page<Car> searchClassificationCarsByBrandAndCategory(String classification, String search,
+                                                                int page, int size) {
+        PageRequest pageable = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
+        return carRepository.searchClassificationCarsByBrandAndCategory(classification, search, pageable);
+    }
+
     public Page<Car> searchCarsByKeyword(String keyword, int page, int size) {
         Pageable pageable = PageRequest.of(page-1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
         return carRepository.searchCarsWithNoSpaces(keyword, pageable);

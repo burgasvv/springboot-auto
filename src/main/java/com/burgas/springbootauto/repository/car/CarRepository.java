@@ -39,12 +39,16 @@ public interface CarRepository extends JpaRepository<Car, Long> {
                     join brand b on b.id = c.brand_id
                     join category c2 on c2.id = c.category_id
                     join classification c3 on c3.id = c.classification_id
+                    join public.drive_unit du on du.id = c.drive_unit_id
                     join car_tags ct on c.id = ct.car_id
                     join tag t on t.id = ct.tag_id
                     where concat(b.title,' ',c3.name,' ',c2.name,' ',b.title,' ',c2.name,' ',c.title,' ',t.name,' ',
                         c.title,' ',c3.name,' ',b.title,' ',c.title,' ',b.title,' ',t.name,' ',c3.name,' ',c.title,' ',c2.name,' ',c3.name,' ',
                         t.name,' ',c2.name,' ',t.name,' ',b.title,' ',b.title,' ',
-                        c.title,' ',t.name,' ',t.name,' ',t.name,' ') ilike concat('%',?1,'%')"""
+                        c.title,' ',t.name,' ',t.name,' ',t.name,' ',du.name,' ',c.title,' ',du.name,' ',b.title,' ',du.name,' ',
+                          c2.name,' ',du.name,' ',c3.name,' ',du.name,' ',b.title,' ',c.title,' ',du.name,' ',c2.name,' ',
+                          c3.name,' ',b.title,' ',c.title,' ',c3.name,' ',c2.name,' ',t.name,' ',b.title,' ',c.title,' ',du.name,' ',
+                          t.name,' ',c2.name,' ',c3.name,' ',b.title,' ',du.name,' ',c2.name,' ',c3.name,' ') ilike concat('%',?1,'%')"""
     )
     List<Car> searchCarsByAllNames(String search);
 
@@ -60,6 +64,34 @@ public interface CarRepository extends JpaRepository<Car, Long> {
                                   ilike concat('%',?1,'%')"""
     )
     Page<Car> searchCarsByClassificationAndAndCategoryNoSpaces(String search, Pageable pageable);
+
+    @Query(
+            nativeQuery = true,
+            value = """
+                    select distinct c.* from car c
+                        join brand b on b.id = c.brand_id
+                        join category c2 on c2.id = c.category_id
+                        join classification c3 on c3.id = c.classification_id
+                        join drive_unit du on du.id = c.drive_unit_id
+                        where c2.name = ?1 and
+                            concat(b.title,c3.name,c2.name,du.name,b.title,du.name,c2.name,c3.name,du.name,b.title,c2.name)
+                                  ilike concat('%',?2,'%')"""
+    )
+    Page<Car> searchCategoryCarsByBrandAndClassificationNoSpaces(String category, String search, @NotNull Pageable pageable);
+
+    @Query(
+            nativeQuery = true,
+            value = """
+                    select distinct c.* from car c
+                        join brand b on b.id = c.brand_id
+                        join category c2 on c2.id = c.category_id
+                        join classification c3 on c3.id = c.classification_id
+                        join drive_unit du on du.id = c.drive_unit_id
+                        where c3.name = ?1 and
+                            concat(b.title,c3.name,c2.name,du.name,b.title,du.name,c2.name,c3.name,du.name,b.title,c2.name)
+                                  ilike concat('%',?2,'%')"""
+    )
+    Page<Car> searchClassificationCarsByBrandAndCategory(String classification, String search, @NotNull Pageable pageable);
 
     @Query(
             nativeQuery = true,
