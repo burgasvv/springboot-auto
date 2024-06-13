@@ -11,6 +11,7 @@ import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.CarService;
 import com.burgas.springbootauto.service.car.CategoryService;
 import com.burgas.springbootauto.service.car.ClassificationService;
+import com.burgas.springbootauto.service.car.DriveUnitService;
 import com.burgas.springbootauto.service.engine.EngineEditionService;
 import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.person.PersonService;
@@ -50,6 +51,7 @@ public class BrandController {
     private final PersonService personService;
     private final ClassificationService classificationService;
     private final CategoryService categoryService;
+    private final DriveUnitService driveUnitService;
 
     private static void paginate(Model model, Page<Brand> brandPage) {
         int totalPages = brandPage.getTotalPages();
@@ -149,6 +151,9 @@ public class BrandController {
         model.addAttribute("categories",
                 categoryService.findAll().stream().filter(category -> !category.getCars().isEmpty()).toList()
         );
+        model.addAttribute("drives",
+                driveUnitService.findAll().stream().filter(drive -> !drive.getCars().isEmpty()).toList()
+        );
     }
 
     @GetMapping("/{id}/cars")
@@ -183,14 +188,16 @@ public class BrandController {
         Brand brand = brandService.findById(id);
         String searchClass = request.getParameter("searchClass");
         String searchCategory = request.getParameter("searchCategory");
+        String searchDrive = request.getParameter("searchDrive");
         Page<Car> cars = carService.searchCarsByClassificationAndAndCategoryNoSpaces(
-                brand.getTitle() + searchClass + searchCategory, page, 25);
+                brand.getTitle() + searchClass + searchCategory + searchDrive, page, 25);
         int totalPages = cars.getTotalPages();
         List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
         model.addAttribute("pages", pages);
         model.addAttribute("cars", cars.getContent());
         model.addAttribute("searchClass", searchClass);
         model.addAttribute("searchCategory", searchCategory);
+        model.addAttribute("searchDrive", searchDrive);
         model.addAttribute("brand", brand);
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())

@@ -47,6 +47,14 @@
                             th:selected="${searchCategory eq category.name}">Category</option>
                     </select>
                 </div>
+                <div style="text-align: center; display: inline-block; margin-right: 25px">
+                    <label for="drives">Drives</label><br>
+                    <select name="searchDrive" id="drives">
+                        <option value=""></option>
+                        <option th:each="drive : ${drives}" th:value="${drive.name}" th:text="${drive.name}"
+                            th:selected="${searchDrive eq drive.name}">Drive</option>
+                    </select>
+                </div>
                 <input type="submit" value="Get Cars" style="color: black">
             </div>
         </form>
@@ -81,7 +89,8 @@
                 <li class="page-item" style="margin-right: 10px">
                     <a class="page-link" th:href="@{/cars/search-by-tag/search/pages/{page}
                         (page = ${pageNumber}, tag = ${tag}, carId = ${carId},
-                        searchBrand = ${searchBrand}, searchClass = ${searchClass}, searchCategory = ${searchCategory})}" th:text="${pageNumber}">1</a>
+                        searchBrand = ${searchBrand}, searchClass = ${searchClass},
+                        searchCategory = ${searchCategory}, searchDrive = ${searchDrive})}" th:text="${pageNumber}">1</a>
                 </li>
             </th:block>
         </ul>

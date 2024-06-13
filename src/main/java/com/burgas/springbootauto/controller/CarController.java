@@ -32,6 +32,7 @@ public class CarController {
     private final BrandService brandService;
     private final ClassificationService classificationService;
     private final CategoryService categoryService;
+    private final DriveUnitService driveUnitService;
     private final ImageService imageService;
     private final TagService tagService;
     private final PersonService personService;
@@ -45,6 +46,9 @@ public class CarController {
         );
         model.addAttribute("categories",
                 categoryService.findAll().stream().filter(category -> !category.getCars().isEmpty()).toList()
+        );
+        model.addAttribute("drives",
+                driveUnitService.findAll().stream().filter(drive -> !drive.getCars().isEmpty()).toList()
         );
     }
 
@@ -81,10 +85,13 @@ public class CarController {
         String searchBrand = request.getParameter("searchBrand");
         String searchClass = request.getParameter("searchClass");
         String searchCategory = request.getParameter("searchCategory");
-        paginate(model, carService.searchCarsByKeyword(searchBrand + searchClass + searchCategory, page, 25));
+        String searchDrive = request.getParameter("searchDrive");
+        paginate(model, carService.searchCarsByKeyword(
+                searchBrand + searchClass + searchCategory + searchDrive, page, 25));
         model.addAttribute("searchBrand", searchBrand);
         model.addAttribute("searchClass", searchClass);
         model.addAttribute("searchCategory", searchCategory);
+        model.addAttribute("searchDrive", searchDrive);
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
@@ -310,8 +317,9 @@ public class CarController {
         String searchBrand = request.getParameter("searchBrand");
         String searchClass = request.getParameter("searchClass");
         String searchCategory = request.getParameter("searchCategory");
+        String searchDrive = request.getParameter("searchDrive");
         Page<Car> cars = carService.searchTagCarsByClassificationAndAndCategoryNoSpaces(
-                tag, searchBrand + searchClass + searchCategory, page, 25);
+                tag, searchBrand + searchClass + searchCategory + searchDrive, page, 25);
         int totalPages = cars.getTotalPages();
         List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
         model.addAttribute("carsByTag", cars.getContent());
@@ -319,6 +327,7 @@ public class CarController {
         model.addAttribute("searchBrand", searchBrand);
         model.addAttribute("searchClass", searchClass);
         model.addAttribute("searchCategory", searchCategory);
+        model.addAttribute("searchDrive", searchDrive);
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );

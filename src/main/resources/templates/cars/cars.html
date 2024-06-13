@@ -42,6 +42,13 @@
                         <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}">Category</option>
                     </select>
                 </div>
+                <div style="text-align: center; display: inline-block; margin-right: 25px">
+                    <label for="drives">Drives</label><br>
+                    <select name="searchDrive" id="drives">
+                        <option value=""></option>
+                        <option th:each="drive : ${drives}" th:value="${drive.name}" th:text="${drive.name}">Drive</option>
+                    </select>
+                </div>
                 <input type="submit" value="Get Cars" style="color: black">
             </div>
         </form>
