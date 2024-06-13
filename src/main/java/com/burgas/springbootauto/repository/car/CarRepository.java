@@ -32,6 +32,8 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     Page<Car>findCarsByCategoryId(@NotNull Long categoryId, Pageable pageable);
 
+    Page<Car>findCarsByDriveUnitId(@NotNull Long driveUnitId, Pageable pageable);
+
     @Query(
             nativeQuery = true,
             value = """
@@ -74,7 +76,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
                         join classification c3 on c3.id = c.classification_id
                         join drive_unit du on du.id = c.drive_unit_id
                         where c2.name = ?1 and
-                            concat(b.title,c3.name,c2.name,du.name,b.title,du.name,c2.name,c3.name,du.name,b.title,c2.name)
+                            concat(b.title,c3.name,du.name,b.title,du.name,c3.name,du.name,b.title)
                                   ilike concat('%',?2,'%')"""
     )
     Page<Car> searchCategoryCarsByBrandAndClassificationNoSpaces(String category, String search, @NotNull Pageable pageable);
@@ -88,10 +90,24 @@ public interface CarRepository extends JpaRepository<Car, Long> {
                         join classification c3 on c3.id = c.classification_id
                         join drive_unit du on du.id = c.drive_unit_id
                         where c3.name = ?1 and
-                            concat(b.title,c3.name,c2.name,du.name,b.title,du.name,c2.name,c3.name,du.name,b.title,c2.name)
+                            concat(b.title,c2.name,du.name,b.title,du.name,c2.name,du.name,b.title,c2.name)
                                   ilike concat('%',?2,'%')"""
     )
     Page<Car> searchClassificationCarsByBrandAndCategory(String classification, String search, @NotNull Pageable pageable);
+
+    @Query(
+            nativeQuery = true,
+            value = """
+                    select distinct c.* from car c
+                        join brand b on b.id = c.brand_id
+                        join category c2 on c2.id = c.category_id
+                        join classification c3 on c3.id = c.classification_id
+                        join drive_unit du on du.id = c.drive_unit_id
+                        where du.name = ?1 and
+                            concat(b.title,c3.name,c2.name,b.title,c2.name,c3.name,b.title,c2.name)
+                                  ilike concat('%',?2,'%')"""
+    )
+    Page<Car> searchDriveUnitCarsByBrandAndClassificationAndCategory(String driveUnit, String search, @NotNull Pageable pageable);
 
     @Query(
             nativeQuery = true,

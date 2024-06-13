@@ -137,7 +137,9 @@
             </h2>
             <h2>
                 <th:block th:if="*{driveUnit != null}">
-                    Drive: <span th:text="*{driveUnit.name}" style="font-weight: normal"/>
+                    Drive: <span th:text="*{driveUnit.name}" style="font-weight: normal"/><br>
+                    <a th:href="@{/drive-units/{id}/cars (id = ${car.driveUnit.id})}"
+                       style="font-weight: normal; font-size: 12px; color: gray; text-decoration: none">Cars</a>
                 </th:block>
             </h2>
             <h2>
