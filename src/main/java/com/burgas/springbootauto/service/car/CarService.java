@@ -8,7 +8,6 @@ import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +22,12 @@ public class CarService {
 
     private final CarRepository carRepository;
 
+    private static @NotNull PageRequest getPageRequest(int page, int size) {
+        return PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
+    }
+
     public Page<Car> findPage(int page, int size) {
-        Pageable pageable = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
+        PageRequest pageable = getPageRequest(page, size);
         return carRepository.findAll(pageable);
     }
 
@@ -37,70 +40,58 @@ public class CarService {
     }
 
     public Page<Car>findCarsByBrandId(@NotNull Long brandId, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.findCarsByBrandId(brandId, pageRequest);
+        return carRepository.findCarsByBrandId(brandId, getPageRequest(page, size));
     }
 
     public Page<Car>findCarsByClassificationId(@NotNull Long classId, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.findCarsByClassificationId(classId, pageRequest);
+        return carRepository.findCarsByClassificationId(classId, getPageRequest(page, size));
     }
 
     public Page<Car>findCarsByCategoryId(@NotNull Long categoryId, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.findCarsByCategoryId(categoryId, pageRequest);
+        return carRepository.findCarsByCategoryId(categoryId, getPageRequest(page, size));
     }
 
     public Page<Car>findCarsByPersonId(Long personId, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.findCarsByPersonId(personId, pageRequest);
+        return carRepository.findCarsByPersonId(personId, getPageRequest(page, size));
     }
 
     public Page<Car>searchUserCarsByCategoryAndClassificationAndBrand(String username, String search, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.searchUserCarsByCategoryAndClassificationAndBrand(username, search, pageRequest);
+        return carRepository.searchUserCarsByCategoryAndClassificationAndBrand(username, search, getPageRequest(page, size));
     }
 
     public Page<Car> searchCarsByTagName(String tagName, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.searchCarsByTagName(tagName, pageRequest);
+        return carRepository.searchCarsByTagName(tagName, getPageRequest(page, size));
     }
 
     public Page<Car> searchTagCarsByClassificationAndAndCategoryNoSpaces(String tag, String search, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
+        PageRequest pageRequest = getPageRequest(page, size);
         return carRepository.searchTagCarsByClassificationAndAndCategoryNoSpaces(tag, search, pageRequest);
     }
 
     public Page<Car> searchCarsByClassificationAndAndCategoryNoSpaces(String search, int page, int size) {
-        PageRequest pageable = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.searchCarsByClassificationAndAndCategoryNoSpaces(search, pageable);
+        return carRepository.searchCarsByClassificationAndAndCategoryNoSpaces(search, getPageRequest(page, size));
     }
 
     public Page<Car> searchCategoryCarsByBrandAndClassificationNoSpaces(String category, String search, int page, int size) {
-        PageRequest pageable = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.searchCategoryCarsByBrandAndClassificationNoSpaces(category, search, pageable);
+        return carRepository.searchCategoryCarsByBrandAndClassificationNoSpaces(category, search, getPageRequest(page, size));
     }
 
     public Page<Car> searchClassificationCarsByBrandAndCategory(String classification, String search,
                                                                 int page, int size) {
-        PageRequest pageable = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.searchClassificationCarsByBrandAndCategory(classification, search, pageable);
+        return carRepository.searchClassificationCarsByBrandAndCategory(classification, search, getPageRequest(page, size));
     }
 
     public Page<Car>findCarsByDriveUnitId(@NotNull Long driveUnitId, int page, int size) {
-        PageRequest pageable = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.findCarsByDriveUnitId(driveUnitId, pageable);
+        return carRepository.findCarsByDriveUnitId(driveUnitId, getPageRequest(page, size));
     }
 
     public Page<Car> searchDriveUnitCarsByBrandAndClassificationAndCategory(String driveUnit, String search,
                                                                             int page, int size) {
-        PageRequest pageable = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.searchDriveUnitCarsByBrandAndClassificationAndCategory(driveUnit, search, pageable);
+        return carRepository.searchDriveUnitCarsByBrandAndClassificationAndCategory(driveUnit, search, getPageRequest(page, size));
     }
 
     public Page<Car> searchCarsByKeyword(String keyword, int page, int size) {
-        Pageable pageable = PageRequest.of(page-1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
-        return carRepository.searchCarsWithNoSpaces(keyword, pageable);
+        return carRepository.searchCarsWithNoSpaces(keyword, getPageRequest(page, size));
     }
 
     public List<Car> searchCarsByAllNames(String search) {

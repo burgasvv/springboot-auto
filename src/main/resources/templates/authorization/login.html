@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-
-</head><div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
+    <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
+</head>
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
     <th:block th:case="${true}">

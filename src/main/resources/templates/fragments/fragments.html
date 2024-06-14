@@ -21,10 +21,10 @@
         </th:block>
         <form th:method="GET" th:action="@{/search}" style="display: inline-flex; margin-right: 20px">
             <label for="search"></label>
-            <input type="text" id="search" name="search" style="margin-right: 10px; height: 15px; margin-top: 50px">
+            <input type="text" id="search" name="search" style="margin-right: 10px; height: 28px; margin-top: 52px">
             <label for="objects"></label>
-            <div style="margin-top: 42px">
-                <select name="selectObjects" id="objects" multiple style="width: 200px">
+            <div style="margin-top: 51px">
+                <select name="selectObjects" id="objects" multiple style="width: 150px">
                     <option value="brands" name="Brands">Brands</option>
                     <option value="cars" name="Cars">Cars</option>
                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
@@ -34,7 +34,7 @@
                     </th:block>
                 </select>
             </div>
-            <input type="submit" value="Search" style="margin-left: 10px; color: black; height: 25px; margin-top: 46px">
+            <input type="submit" value="Search" style="margin-left: 10px; color: black; height: 25px; margin-top: 55px">
         </form>
         <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
             <th:block th:case="${false}">
@@ -44,8 +44,8 @@
                 </div>
             </th:block>
             <th:block th:case="${true}">
-                <div style="text-align: right; margin-right: 100px; margin-top: -86px">
-                    <h3 style="display: inline-flex; margin-right: 50px">
+                <div style="text-align: right; margin-right: 100px; margin-top: -65px">
+                    <h3 style="display: inline-flex; margin-right: 20px">
                         <a style="text-decoration: none" th:href="@{/users}" >Users</a>
                     </h3>
                     <h2 style="display: inline-flex; margin-right: 20px">
@@ -63,8 +63,8 @@
                     <form action="/logout" method="post" style="display: inline-flex; margin-right: 20px">
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                         <input type="submit" value="Logout"
-                               style="background: none; border: none; color: dimgrey; text-decoration: none;
-                               cursor: pointer; font-size: 16px; font-weight: bold">
+                               style="background: none; border: none; text-decoration: none;
+                               cursor: pointer; ">
                     </form>
                 </div>
             </th:block>
@@ -104,6 +104,7 @@
 
 <th:block xmlns:th="http://www.thymeleaf.org">
     <div th:fragment="searchSelectors">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link href="https://harvesthq.github.io/chosen/chosen.css" rel="stylesheet"/>
         <script src="https://harvesthq.github.io/chosen/docsupport/jquery-3.2.1.min.js"></script>
         <script src="https://harvesthq.github.io/chosen/chosen.jquery.js"></script>
