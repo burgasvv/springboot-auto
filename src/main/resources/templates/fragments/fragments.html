@@ -1,5 +1,5 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
-    <div style="margin-left: 100px; margin-top: 10px" th:fragment="bar(user_image)">
+    <div style="margin-left: 100px; margin-top: -30px" th:fragment="bar(user_image)">
         <h2 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/">Home</a></h2>
         <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/classes">Classes</a></h3>
         <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/categories">Categories</a></h3>
@@ -23,15 +23,17 @@
             <label for="search"></label>
             <input type="text" id="search" name="search" style="margin-right: 10px; height: 15px; margin-top: 50px">
             <label for="objects"></label>
-            <select name="selectObjects" id="objects" multiple>
-                <option value="brands" name="Brands">Brands</option>
-                <option value="cars" name="Cars">Cars</option>
-                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                    <option value="engines" name="Engines">Engines</option>
-                    <option value="transmissions" name="Transmissions">Transmissions</option>
-                    <option value="turbochargers" name="Turbochargers">Turbochargers</option>
-                </th:block>
-            </select>
+            <div style="margin-top: 42px">
+                <select name="selectObjects" id="objects" multiple style="width: 200px">
+                    <option value="brands" name="Brands">Brands</option>
+                    <option value="cars" name="Cars">Cars</option>
+                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <option value="engines" name="Engines">Engines</option>
+                        <option value="transmissions" name="Transmissions">Transmissions</option>
+                        <option value="turbochargers" name="Turbochargers">Turbochargers</option>
+                    </th:block>
+                </select>
+            </div>
             <input type="submit" value="Search" style="margin-left: 10px; color: black; height: 25px; margin-top: 46px">
         </form>
         <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
