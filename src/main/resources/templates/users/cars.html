@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>My Cars</title>
+    <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
@@ -79,5 +80,6 @@
             </div>
         </div>
     </div>
+<div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

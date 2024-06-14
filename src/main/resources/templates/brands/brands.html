@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Brands</title>
+    <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
     <style>
         .stories {
             display: inline-flex;
@@ -58,5 +59,6 @@
         </th:block>
         <input type="button" value="Back" onclick="location.assign('/')" style="color: black">
     </div>
+<div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

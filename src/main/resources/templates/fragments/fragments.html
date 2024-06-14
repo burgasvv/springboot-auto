@@ -99,3 +99,19 @@
         </th:block>
     </ul>
 </th:block>
+
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <div th:fragment="searchSelectors">
+        <link href="https://harvesthq.github.io/chosen/chosen.css" rel="stylesheet"/>
+        <script src="https://harvesthq.github.io/chosen/docsupport/jquery-3.2.1.min.js"></script>
+        <script src="https://harvesthq.github.io/chosen/chosen.jquery.js"></script>
+    </div>
+</th:block>
+
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <script th:fragment="searchScript">
+        $(function(){
+            $('select').chosen();
+        });
+    </script>
+</th:block>

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-</head>
+
+</head><div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
     <th:block th:case="${true}">
@@ -32,5 +33,6 @@
         <br>
         <a href="/registration">Registration</a>
     </div>
+    <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

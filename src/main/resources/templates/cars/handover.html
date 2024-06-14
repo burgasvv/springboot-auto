@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Car Handover</title>
+    <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
@@ -51,5 +52,6 @@
             <input type="submit" value="OK" style="color: black">
         </form>
     </div>
+<div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

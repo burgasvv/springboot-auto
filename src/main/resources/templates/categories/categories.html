@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Categories</title>
+    <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
@@ -34,5 +35,6 @@
         </th:block>
         <input type="button" value="Back" onclick="history.back()" style="color: black;margin-top: 50px">
     </div>
+<div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>
