@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Category</title>
+    <link rel="stylesheet" href="/resource/css/imageModule.css">
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
@@ -27,7 +28,12 @@
     <div style="display: inline-flex" th:object="${category}">
         <div style="margin: 50px 100px; display: inline-block">
             <h1><span th:text="*{name}"/></h1>
-            <img th:src="@{*{image}}" alt="image" style="width: 700px; border-radius: 5%">
+            <img id="myImg" th:src="@{*{image}}" alt="image" style="width: 700px; border-radius: 5%">
+            <div id="myModal" class="modal">
+                <span class="close">&times;</span>
+                <img class="modal-content" id="img01" alt="image">
+                <div id="caption"></div>
+            </div>
             <h2 style="margin-top: 50px">
                 <a th:href="@{/categories/{id}/cars (id = *{id})}" style="text-decoration: none">Category Cars</a>
             </h2>
@@ -50,6 +56,7 @@
             </th:block>
         </div>
     </div>
+<script src="/resource/js/imageResource.js"></script>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

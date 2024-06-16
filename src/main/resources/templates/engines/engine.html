@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Engine</title>
+    <link rel="stylesheet" href="/resource/css/imageModule.css">
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
@@ -35,7 +36,12 @@
     <div style="display: inline-flex" th:object="${engine}">
         <div style="display: inline-block; margin: 50px 100px">
             <h1 th:text="*{name}">Title</h1>
-            <img th:src="*{image}" alt="image" style="border-radius: 5%; width: 700px">
+            <img id="myImg" th:src="*{image}" alt="image" style="border-radius: 5%; width: 700px">
+            <div id="myModal" class="modal">
+                <span class="close">&times;</span>
+                <img class="modal-content" id="img01" alt="image">
+                <div id="caption"></div>
+            </div>
             <h2 style="margin-top: 50px">
                 Brand: <span th:text="${engine.engineEdition.brand != null ? engine.engineEdition.brand.title : 'No brand'}"
                              style="font-weight: normal">Brand</span>
@@ -86,6 +92,7 @@
             </div>
         </div>
     </div>
+<script src="/resource/js/imageResource.js"></script>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

@@ -3,15 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>All Equipments</title>
+    <link rel="stylesheet" href="/resource/css/equipmentsTable.css">
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-        }
-        .a_class {
-            text-decoration: none;
-        }
-    </style>
 </head>
 <body>
 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">

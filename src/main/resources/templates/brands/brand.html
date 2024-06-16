@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Brand Page</title>
+    <link rel="stylesheet" href="/resource/css/imageModule.css">
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
@@ -29,7 +30,12 @@
             <h1 th:text="*{title}">Title</h1>
             <th:block th:if="*{image != null}">
                 <h2>
-                    <img th:src="@{|/images/*{image.id}|}" alt="image" style="width: 500px">
+                    <img id="myImg" th:src="@{|/images/*{image.id}|}" alt="image" style="width: 500px">
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01" alt="image">
+                        <div id="caption"></div>
+                    </div>
                 </h2>
                 <div>
                     <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
@@ -83,6 +89,7 @@
             </th:block>
         </div>
     </div>
+<script src="/resource/js/imageResource.js"></script>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>
