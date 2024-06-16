@@ -66,7 +66,7 @@
                 <h4 th:if="*{engine != null}">
                     <a th:href="@{/engines/{id} (id = *{engine.id})}" style="text-decoration: none">
                         <div style="width: 300px; height: 300px">
-                            <img src="/resource.images/car-engine.jpg" alt="image" style="width: 300px; border-radius: 10%"><br>
+                            <img src="/resource/images/car-engine.jpg" alt="image" style="width: 300px; border-radius: 10%"><br>
                         </div>
                         <span th:text="${equipment.engine.engineEdition.brand != null ? equipment.engine.engineEdition.brand.title : 'No brand'}"
                               style="color: grey"/><br>
@@ -106,7 +106,7 @@
                 <h4 th:if="*{transmission != null}">
                     <a th:href="@{/transmissions/{id} (id = *{transmission.id}, brandId = *{transmission.brand.id})}" style="text-decoration: none">
                         <div style="width: 300px; height: 300px">
-                            <img src="/resource.images/transmission.jpg" alt="image" style="width: 300px; border-radius: 10%"><br>
+                            <img src="/resource/images/transmission.jpg" alt="image" style="width: 300px; border-radius: 10%"><br>
                         </div>
                         <span th:text="${equipment.transmission.brand != null ? equipment.transmission.brand.title : 'No brand'}"
                               style="color: grey"/><br>
@@ -146,7 +146,7 @@
                 <h4 th:if="*{turbocharger != null}">
                     <a th:href="@{/turbochargers/{id} (id = *{turbocharger.id}, brandId = *{turbocharger.brand.id})}" style="text-decoration: none">
                         <div style="width: 300px; height: 300px">
-                            <img src="/resource.images/turbocharger.jpg" alt="image" style="width: 300px; border-radius: 10%"><br>
+                            <img src="/resource/images/turbocharger.jpg" alt="image" style="width: 300px; border-radius: 10%"><br>
                         </div>
                         <span th:text="${equipment.turbocharger.brand != null ? equipment.turbocharger.brand.title : 'No brand'}"
                               style="color: grey"/><br>

@@ -54,7 +54,7 @@
                                 <img th:src="@{|/images/${user_image}|}" alt="image" style="height: 40px; border-radius: 100%; margin-right: 10px">
                             </th:block>
                             <th:block th:if="${user_image == null}">
-                                <img src="/resource.images/emptyUserImage.png" alt="image"
+                                <img src="/resource/images/emptyUserImage.png" alt="image"
                                      style="height: 40px; border-radius: 100%; margin-right: 10px">
                             </th:block>
                             <span th:text="${#authentication.name}"/>

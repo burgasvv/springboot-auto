@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Your Page</title>
+    <link rel="stylesheet" href="/resource/css/imageModule.css">
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
@@ -23,7 +24,12 @@
         <div style="display: inline-block; margin-right: 500px">
             <h1><span style="font-weight: normal" th:text="*{username}"/></h1>
             <th:block th:if="*{image != null}">
-                <h2><img style="border-radius: 10%; width: 300px" th:src="@{|/images/*{image.id}|}" alt="image"></h2>
+                <h2><img id="myImg" style="border-radius: 10%; width: 300px" th:src="@{|/images/*{image.id}|}" alt="image"></h2>
+                <div id="myModal" class="modal">
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="img01" alt="image">
+                    <div id="caption"></div>
+                </div>
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                     <th:block th:if="${owner.username eq guest.username}">
                         <div>
@@ -44,7 +50,7 @@
                 </th:block>
             </th:block>
             <th:block th:if="*{image == null}">
-                <h2><img style="border-radius: 10%; width: 300px" src="/resource.images/emptyUserImage.png" alt="image"></h2>
+                <h2><img style="border-radius: 10%; width: 300px" src="/resource/images/emptyUserImage.png" alt="image"></h2>
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                     <th:block th:if="${owner.username eq guest.username}">
                         <form th:method="POST" th:action="@{/users/{name}/change-image (name = ${owner.username})}" enctype="multipart/form-data">
@@ -119,7 +125,7 @@
                                     </th:block>
                                 </th:block>
                                 <th:block th:if="${car.hasPreview == false}">
-                                    <img src="/resource.images/emptyCarImage.jpg" alt="image" style="width: 100px; border-radius: 10%">
+                                    <img src="/resource/images/emptyCarImage.jpg" alt="image" style="width: 100px; border-radius: 10%">
                                 </th:block>
                             </th:block>
                             <div style="color: grey; font-size: 14px" th:text="${car.brand != null ? car.brand.title : 'No Brand'}"/>
@@ -209,6 +215,7 @@
             </th:block>
         </div>
     </div>
-<div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
+    <script src="/resource/js/imageResource.js"></script>
+    <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>
