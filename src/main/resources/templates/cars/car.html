@@ -237,7 +237,7 @@
 
                 <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
                     <a th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
-                        <span th:text="|'#'${tag.name}|" style="margin-right: 25px"/>
+                        <span class="w3-tag w3-blue" th:text="|${tag.name}|" style="margin-right: 25px"/>
                     </a>
                 </div>
 
@@ -264,7 +264,7 @@
                     <h2 style="margin-top: 50px">Tags</h2>
                     <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
                         <a th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
-                            <span th:text="|'#'${tag.name}|" style="margin: 5px"/>
+                            <span class="w3-tag w3-blue w3-round" th:text="|${tag.name}|" style="margin: 5px"/>
                         </a>
                     </div>
                     <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>

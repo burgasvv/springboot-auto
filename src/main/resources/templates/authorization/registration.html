@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="text-align: center; margin-top: 6%">
+    <div style="text-align: center; margin: 50px 100px">
         <form method="post" action="/registration" enctype="multipart/form-data">
             <h1>Registration</h1>
 
@@ -39,15 +39,15 @@
             <input type="password" id="password" name="password"><br><br>
 
             <label for="image">Image</label><br>
-            <input type="file" id="image" name="file" accept="image/png, image/jpeg"><br><br>
+            <input class="w3-input" style="width: 20%; margin-left: 40%" type="file" id="image" name="file" accept="image/png, image/jpeg"><br><br>
 
             <label for="description">Description</label><br>
             <textarea name="description" id="description" cols="30" rows="10"></textarea><br><br>
 
             <input type="hidden" name="_csrf" th:value="${_csrf.token}">
 
-            <input type="submit" value="Register" style="color: black">
-            <input type="button" value="Back" style="color: black">
+            <input type="submit" value="Accept" style="color: black" class="w3-button w3-green w3-round">
+            <input type="button" value="Back" style="color: black" class="w3-button w3-grey w3-round">
         </form>
     </div>
     <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
