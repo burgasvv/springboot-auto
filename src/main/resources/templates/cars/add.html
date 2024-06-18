@@ -23,7 +23,7 @@
         <form th:method="POST" th:action="@{/cars/add}" th:object="${car}" enctype="multipart/form-data">
 
             <label for="title">Title</label><br>
-            <input type="text" id="title" th:field="*{title}">
+            <input type="text" id="title" th:field="*{title}" required>
             <th:block th:if="${#fields.hasErrors('title')}">
                 <span th:errors="*{title}" style="color: red">Title Field Errors</span>
             </th:block>
@@ -43,6 +43,9 @@
             <select th:field="*{category.id}" id="category">
                 <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
             </select><br><br>
+
+            <label for="weight">Weight</label><br>
+            <input type="text" id="weight" th:field="*{weight}" required><br><br>
 
             <label for="image">Image</label><br>
             <input type="file" id="image" name="file" accept="image/png, image/jpeg"><br><br>

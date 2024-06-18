@@ -4,6 +4,7 @@ import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
+import com.burgas.springbootauto.calculations.EquipmentDataProcessing;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -72,5 +73,15 @@ public class Equipment {
     public void removeTurbocharger(Turbocharger turbocharger) {
         turbocharger.getEquipments().remove(this);
         this.turbocharger = null;
+    }
+
+    public double getAcceleration() {
+        EquipmentDataProcessing equipmentDataProcessing = new EquipmentDataProcessing(this);
+        return equipmentDataProcessing.acceleration();
+    }
+
+    public double getMaxSpeed() {
+        EquipmentDataProcessing equipmentDataProcessing = new EquipmentDataProcessing(this);
+        return equipmentDataProcessing.maxSpeed();
     }
 }

@@ -27,6 +27,9 @@ public class EngineCharacteristics {
     private String compression;
 
     @Column
+    private String startPower;
+
+    @Column
     private String power;
 
     @Column

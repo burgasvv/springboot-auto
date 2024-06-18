@@ -47,6 +47,9 @@
                         th:text="${category.name}" th:selected="${car.category.id eq category.id}"></option>
             </select><br><br>
 
+            <label for="weight">Weight</label><br>
+            <input type="text" id="weight" th:field="*{weight}"><br><br>
+
             <label for="image"></label>
             <th:block th:each="image : *{images}">
                 <th:block th:if="${image.preview eq true}">

@@ -68,6 +68,9 @@ public class Car {
     @JoinColumn(name = "classification_id")
     private Classification classification;
 
+    @Column(nullable = false)
+    private String weight;
+
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;

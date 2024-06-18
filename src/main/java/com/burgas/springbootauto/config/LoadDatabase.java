@@ -485,6 +485,7 @@ public class LoadDatabase {
             m5.setDriveUnit(frontWheel);
             m5.setClassification(dClass);
             m5.setCategory(sedan);
+            m5.setWeight("2200 кг");
             m5.addImages(List.of(m5PreviewImage, m5Image1, m5Image2, m5Image3));
             m5.setHasPreview(true);
             m5.setTags(
@@ -527,6 +528,7 @@ public class LoadDatabase {
             r8.setDriveUnit(fourWheel);
             r8.setClassification(sClass);
             r8.setCategory(coupe);
+            r8.setWeight("1800 кг");
             r8.addImages(List.of(r8PreviewImage, r8Image1, r8Image2, r8Image3));
             r8.setHasPreview(true);
             r8.setTags(
@@ -562,6 +564,7 @@ public class LoadDatabase {
             m4.setDriveUnit(rear);
             m4.setClassification(dClass);
             m4.setCategory(coupe);
+            m4.setWeight("2000 кг");
             m4.addImages(List.of(m4PreviewImage, m4Image1, m4Image2, m4Image3));
             m4.setHasPreview(true);
             m4.setTags(
@@ -603,6 +606,7 @@ public class LoadDatabase {
             g63.setDriveUnit(fourWheel);
             g63.setClassification(jClass);
             g63.setCategory(crossOver);
+            g63.setWeight("3200 кг");
             g63.addImages(List.of(g63PreviewImage, g63Image1, g63Image2, g63Image3));
             g63.setHasPreview(true);
             g63.setTags(
@@ -639,6 +643,7 @@ public class LoadDatabase {
             cls63.setDriveUnit(fourWheel);
             cls63.setClassification(fClass);
             cls63.setCategory(sedan);
+            cls63.setWeight("2500 кг");
             cls63.addImages(List.of(cls63PreviewImage,cls63Image1,cls63Image2,cls63Image3));
             cls63.setHasPreview(true);
             cls63.setTags(
@@ -684,7 +689,8 @@ public class LoadDatabase {
             chem51.setCompression("17.5");
             chem51.setCylinders("6");
             chem51.setEngine(em51);
-            chem51.setPower("115 л.с.");
+            chem51.setStartPower("100 л.с.");
+            chem51.setPower("480 л.с.");
             chem51.setPiston("82.8 мм");
             chem51.setTorque("222 Нм");
             chem51.setVolume("2457 см3");
@@ -693,7 +699,8 @@ public class LoadDatabase {
             chem57.setCompression("16.5");
             chem57.setCylinders("6");
             chem57.setEngine(em57);
-            chem57.setPower("204 л.с.");
+            chem57.setStartPower("120 л.с.");
+            chem57.setPower("550 л.с.");
             chem57.setPiston("90 мм");
             chem57.setTorque("430 Нм");
             chem57.setVolume("2993 см3");
@@ -771,7 +778,7 @@ public class LoadDatabase {
             gtb2260vk.setName("GTB2260vk");
             gtb2260vk.setBrand(mercedes);
             gtb2260vk.setTurboType(vtgTurbo);
-            gtb2260vk.setPowerGeneration("250 л.с.");
+            gtb2260vk.setPowerGeneration("150 л.с.");
             gtb2260vk.setPowerIntake("25 л.с.");
             gtb2260vk.setImage("https://cdn11.bigcommerce.com/s-f4487/images/stencil/original/products/1255/18962/DSD8632.1_-_DSD4010.1_-_Converted_Reconditioned_GTB2260VK_with_Billet_Compressor_2_new__22166.1627481916.jpg?c=2&imbypass=on&imbypass=on");
             gtb2260vk.setDescription("Journal Bearing GTB2260VK hybrid based on the turbochargers from 3.0TDI VAG or 3.0D " +
@@ -780,8 +787,8 @@ public class LoadDatabase {
             vagis20.setName("VAG IS20");
             vagis20.setBrand(audi);
             vagis20.setTurboType(compressor);
-            vagis20.setPowerGeneration("420 л.с.");
-            vagis20.setPowerIntake("40 л.с.");
+            vagis20.setPowerGeneration("180 л.с.");
+            vagis20.setPowerIntake("30 л.с.");
             vagis20.setImage("https://urbanracers.shop/upload/iblock/b79/shhcy152c2k4439p4oz88ads6yntdf6f/1tervdfj2esz4mp2h1b1dgtd4h6hc0ls.jpg");
             vagis20.setDescription("The VAG IS20 turbo is a popular upgrade for the IS12 turbo due to its improved performance and efficiency. " +
                     "With a larger compressor and turbine inlet, the IS20 can push more air into the engine and deliver more power than the IS12. " +
@@ -792,8 +799,8 @@ public class LoadDatabase {
             sk3rr.setName("SK3RR");
             sk3rr.setBrand(bmw);
             sk3rr.setTurboType(comboTurbo);
-            sk3rr.setPowerGeneration("600 л.с.");
-            sk3rr.setPowerIntake("80 л.с.");
+            sk3rr.setPowerGeneration("220 л.с.");
+            sk3rr.setPowerIntake("40 л.с.");
             sk3rr.setImage("https://pkfst.ru/800/600/https/www.automachi.com/wp-content/uploads/2017/06/tt-blowertbodyintake-lg.gif");
             sk3rr.setDescription("SK3RR увеличивает максимальную отдачу, снижает турболаг и обостряет реакцию двигателя " +
                     "на нажатие педали газа. Это объясняется тем, что высокий уровень давления развивается ранее на впуске, " +
