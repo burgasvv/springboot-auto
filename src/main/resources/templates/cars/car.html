@@ -191,10 +191,14 @@
                             </th:block>
                         </h3>
                         <div style="margin-top: 25px">
-                            <span style="font-weight: bold">Acceleration: </span>
-                            <span th:text="|${complectation.getAcceleration()} sec (0-100 km/h)|"/><br>
-                            <span style="font-weight: bold">Maximum Speed: </span>
-                            <span th:text="|${complectation.getMaxSpeed()} km/h|"/>
+                            <th:block th:if="${complectation.getAcceleration() != null}">
+                                <span style="font-weight: bold">Acceleration: </span>
+                                <span th:text="|${complectation.getAcceleration()} sec (0-100 km/h)|"/><br>
+                            </th:block>
+                            <th:block th:if="${complectation.getMaxSpeed() != null}">
+                                <span style="font-weight: bold">Maximum Speed: </span>
+                                <span th:text="|${complectation.getMaxSpeed()} km/h|"/>
+                            </th:block>
                         </div>
                     </div>
                 </div>

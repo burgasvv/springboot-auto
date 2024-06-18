@@ -11,8 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.DoubleStream;
 
 @Getter
 @Setter
@@ -80,12 +80,21 @@ public class EquipmentDataProcessing {
     }
 
     public String acceleration() {
-        // t = {m(Delta V)^2}/{2P}
         Map<String, Double> data = dataProcessing();
-        double hp = (data.get("engineStartPower") + data.get("enginePower") +
-                data.get("turbochargerPowerGeneration") - data.get("turbochargerPowerInTake")) / 2;
+        Double engineStartPower = data.get("engineStartPower");
+        Double enginePower = data.get("enginePower");
+        Double turbochargerPowerGeneration = data.get("turbochargerPowerGeneration");
+        Double turbochargerPowerInTake = data.get("turbochargerPowerInTake");
+        Double carWeight = data.get("carWeight");
+        DoubleStream doubleStream = DoubleStream.builder()
+                .add(engineStartPower).add(enginePower).add(turbochargerPowerGeneration).add(turbochargerPowerInTake)
+                .add(carWeight).build();
+        for (Double i : doubleStream.toArray()) {
+            if (i == 0.0) return null;
+        }
+        double hp = (engineStartPower + enginePower + turbochargerPowerGeneration - turbochargerPowerInTake) / 2;
         hp = (hp * 735 * 0.8) / 1000;
-        double t = (data.get("carWeight") * Math.pow(28, 2)) / (2 * hp * 1000);
+        double t = (carWeight * Math.pow(28, 2)) / (2 * hp * 1000);
         NumberFormat instance = NumberFormat.getInstance();
         instance.setMinimumFractionDigits(2);
         return instance.format(t);
@@ -93,9 +102,16 @@ public class EquipmentDataProcessing {
 
     public Integer maxSpeed() {
         Map<String, Double> data = dataProcessing();
-        double maxSpeed =
-                data.get("engineRpm") * 24 * data.get("transmissionFinalRatio") * data.get("transmissionRatio") * 60 /
-                5280.0 / 100.0 * 1.609;
+        Double engineRpm = data.get("engineRpm");
+        Double transmissionFinalRatio = data.get("transmissionFinalRatio");
+        Double transmissionRatio = data.get("transmissionRatio");
+        DoubleStream doubleStream = DoubleStream.builder()
+                .add(engineRpm).add(transmissionFinalRatio)
+                .add(transmissionRatio).build();
+        for (Double i : doubleStream.toArray()) {
+            if (i == 0.0) return null;
+        }
+        double maxSpeed = engineRpm * 24 * transmissionFinalRatio * transmissionRatio * 60 / 5280.0 / 100.0 * 1.609;
         return (int) maxSpeed;
     }
 }
