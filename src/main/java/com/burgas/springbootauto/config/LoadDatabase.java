@@ -784,8 +784,8 @@ public class LoadDatabase {
             gtb2260vk.setName("GTB2260vk");
             gtb2260vk.setBrand(mercedes);
             gtb2260vk.setTurboType(vtgTurbo);
-            gtb2260vk.setPowerGeneration("100 л.с.");
-            gtb2260vk.setPowerIntake("20 л.с.");
+            gtb2260vk.setPowerGeneration("100");
+            gtb2260vk.setPowerIntake("20");
             gtb2260vk.setImage("https://cdn11.bigcommerce.com/s-f4487/images/stencil/original/products/1255/18962/DSD8632.1_-_DSD4010.1_-_Converted_Reconditioned_GTB2260VK_with_Billet_Compressor_2_new__22166.1627481916.jpg?c=2&imbypass=on&imbypass=on");
             gtb2260vk.setDescription("Journal Bearing GTB2260VK hybrid based on the turbochargers from 3.0TDI VAG or 3.0D " +
                     "BMW M57/N57 engines is the ultimate upgrade for the 1.9 & 2.0 TDI for someone looking for a fast daily driver.");
@@ -793,8 +793,8 @@ public class LoadDatabase {
             vagis20.setName("VAG IS20");
             vagis20.setBrand(audi);
             vagis20.setTurboType(compressor);
-            vagis20.setPowerGeneration("130 л.с.");
-            vagis20.setPowerIntake("30 л.с.");
+            vagis20.setPowerGeneration("130");
+            vagis20.setPowerIntake("30");
             vagis20.setImage("https://urbanracers.shop/upload/iblock/b79/shhcy152c2k4439p4oz88ads6yntdf6f/1tervdfj2esz4mp2h1b1dgtd4h6hc0ls.jpg");
             vagis20.setDescription("The VAG IS20 turbo is a popular upgrade for the IS12 turbo due to its improved performance and efficiency. " +
                     "With a larger compressor and turbine inlet, the IS20 can push more air into the engine and deliver more power than the IS12. " +
@@ -805,8 +805,8 @@ public class LoadDatabase {
             sk3rr.setName("SK3RR");
             sk3rr.setBrand(bmw);
             sk3rr.setTurboType(comboTurbo);
-            sk3rr.setPowerGeneration("150 л.с.");
-            sk3rr.setPowerIntake("30 л.с.");
+            sk3rr.setPowerGeneration("150");
+            sk3rr.setPowerIntake("30");
             sk3rr.setImage("https://pkfst.ru/800/600/https/www.automachi.com/wp-content/uploads/2017/06/tt-blowertbodyintake-lg.gif");
             sk3rr.setDescription("SK3RR увеличивает максимальную отдачу, снижает турболаг и обостряет реакцию двигателя " +
                     "на нажатие педали газа. Это объясняется тем, что высокий уровень давления развивается ранее на впуске, " +
