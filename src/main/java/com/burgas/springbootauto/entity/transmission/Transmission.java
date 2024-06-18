@@ -25,6 +25,12 @@ public class Transmission {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
+    @Column(nullable = false)
+    private String finalRatio;
+
+    @Column(nullable = false)
+    private String ratio;
+
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;

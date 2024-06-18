@@ -60,22 +60,28 @@
             <div>
                 <h3 style="margin-top: 100px">Characteristics</h3>
                 <h4>
-                    Volume: <span th:text="*{engineCharacteristics.volume}" style="font-weight: normal">Volume</span>
+                    Volume: <span th:text="|*{engineCharacteristics.volume} см3|" style="font-weight: normal">Volume</span>
                 </h4>
                 <h4>
                     Cylinders: <span th:text="*{engineCharacteristics.cylinders}" style="font-weight: normal">Cylinders</span>
                 </h4>
                 <h4>
-                    Power: <span th:text="*{engineCharacteristics.power}" style="font-weight: normal">Power</span>
+                    Start Power: <span th:text="|*{engineCharacteristics.startPower} л.с.|" style="font-weight: normal">Start Power</span>
                 </h4>
                 <h4>
-                    Piston: <span th:text="*{engineCharacteristics.piston}" style="font-weight: normal">Piston</span>
+                    Power: <span th:text="|*{engineCharacteristics.power} л.с.|" style="font-weight: normal">Power</span>
+                </h4>
+                <h4>
+                    RPM: <span th:text="|*{engineCharacteristics.rpm} об/мин|" style="font-weight: normal">RPM</span>
+                </h4>
+                <h4>
+                    Piston: <span th:text="|*{engineCharacteristics.piston} мм|" style="font-weight: normal">Piston</span>
                 </h4>
                 <h4>
                     Compression: <span th:text="*{engineCharacteristics.compression}" style="font-weight: normal">Compression</span>
                 </h4>
                 <h4>
-                    Torque: <span th:text="*{engineCharacteristics.torque}" style="font-weight: normal">Torque</span>
+                    Torque: <span th:text="|*{engineCharacteristics.torque} Нм|" style="font-weight: normal">Torque</span>
                 </h4>
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                     <th:block th:if="${user.role.name == 'ADMIN'}">

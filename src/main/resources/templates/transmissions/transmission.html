@@ -56,6 +56,14 @@
         <div style="display: inline-block; margin: 50px 100px">
             <h3 style="margin-top: 50px">Description</h3>
             <p th:text="*{description}" style="text-align: justify">Description</p>
+            <div style="margin-top: 50px">
+                <h2>
+                    Final ratio: <span th:text="*{finalRatio}"/>
+                </h2>
+                <h2>
+                    Ratio: <span th:text="*{ratio}"/>
+                </h2>
+            </div>
             <th:block th:if="${#authorization.expression('isAuthenticated')}">
                 <th:block th:if="${user.role.name == 'ADMIN'}">
                     <div style="margin-top: 50px; display: inline-flex">

@@ -38,6 +38,12 @@
             <label for="image">Image</label><br>
             <input type="text" id="image" th:field="${transmission.image}"><br><br>
 
+            <label for="final ratio">Final Ratio</label><br>
+            <input type="text" id="final ratio" th:field="${transmission.finalRatio}"><br><br>
+
+            <label for="ratio">Final Ratio</label><br>
+            <input type="text" id="ratio" th:field="${transmission.ratio}"><br><br>
+
             <label for="fuel">Drive type</label><br>
             <select th:field="${transmission.driveType.id}" id="fuel">
                 <option th:each="driveType : ${driveTypes}" th:value="${driveType.id}" th:text="${driveType.name}">Drive Type</option>

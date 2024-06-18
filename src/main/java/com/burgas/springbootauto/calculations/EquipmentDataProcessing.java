@@ -4,6 +4,7 @@ import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
+import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,7 @@ public class EquipmentDataProcessing {
     private Map<String, Double> dataProcessing() {
         Car car = equipment.getCar();
         EngineCharacteristics characteristics = equipment.getEngine().getEngineCharacteristics();
+        Transmission transmission = equipment.getTransmission();
         Gearbox gearbox = equipment.getTransmission().getGearbox();
         Turbocharger turbocharger = equipment.getTurbocharger();
         Map<String, Double> data = new HashMap<>(
@@ -71,6 +73,9 @@ public class EquipmentDataProcessing {
                 )
         );
         data.put("engineStartPower", getDouble(characteristics.getStartPower()));
+        data.put("engineRpm", getDouble(characteristics.getRpm()));
+        data.put("transmissionFinalRatio", getDouble(transmission.getFinalRatio()));
+        data.put("transmissionRatio", getDouble(transmission.getRatio()));
         return data;
     }
 
@@ -86,8 +91,11 @@ public class EquipmentDataProcessing {
         return instance.format(t);
     }
 
-    public Double maxSpeed() {
+    public Integer maxSpeed() {
         Map<String, Double> data = dataProcessing();
-        return data.get("maxSpeed");
+        double maxSpeed =
+                data.get("engineRpm") * 24 * data.get("transmissionFinalRatio") * data.get("transmissionRatio") * 60 /
+                5280.0 / 100.0 * 1.609;
+        return (int) maxSpeed;
     }
 }

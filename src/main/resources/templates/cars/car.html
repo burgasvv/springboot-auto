@@ -190,7 +190,12 @@
                                 </div>
                             </th:block>
                         </h3>
-                        <span th:text="|Acceleration: ${complectation.getAcceleration()} sec|"/>
+                        <div style="margin-top: 25px">
+                            <span style="font-weight: bold">Acceleration: </span>
+                            <span th:text="|${complectation.getAcceleration()} sec (0-100 km/h)|"/><br>
+                            <span style="font-weight: bold">Maximum Speed: </span>
+                            <span th:text="|${complectation.getMaxSpeed()} km/h|"/>
+                        </div>
                     </div>
                 </div>
                 <div th:if="*{equipments.size() < 5}" style="margin-top: 50px">

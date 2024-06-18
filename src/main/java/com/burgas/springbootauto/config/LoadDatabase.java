@@ -686,24 +686,26 @@ public class LoadDatabase {
                             "Существует три поколения этих силовых агрегатов обычно именуемых как M57, M57N и M57N2."
             );
             EngineCharacteristics chem51 = new EngineCharacteristics();
-            chem51.setCompression("17.5");
-            chem51.setCylinders("6");
             chem51.setEngine(em51);
-            chem51.setStartPower("100 л.с.");
-            chem51.setPower("450 л.с.");
-            chem51.setPiston("82.8 мм");
-            chem51.setTorque("222 Нм");
-            chem51.setVolume("2457 см3");
+            chem51.setStartPower("100");
+            chem51.setPower("400");
+            chem51.setRpm("6500");
+            chem51.setVolume("2457");
+            chem51.setCylinders("6");
+            chem51.setCompression("17.5");
+            chem51.setPiston("82.8");
+            chem51.setTorque("222");
 
             EngineCharacteristics chem57 = new EngineCharacteristics();
-            chem57.setCompression("16.5");
-            chem57.setCylinders("6");
             chem57.setEngine(em57);
-            chem57.setStartPower("120 л.с.");
-            chem57.setPower("580 л.с.");
-            chem57.setPiston("90 мм");
-            chem57.setTorque("430 Нм");
-            chem57.setVolume("2993 см3");
+            chem57.setStartPower("120");
+            chem57.setPower("500");
+            chem57.setRpm("7000");
+            chem57.setVolume("2993");
+            chem57.setCylinders("6");
+            chem57.setCompression("16.5");
+            chem57.setPiston("90");
+            chem57.setTorque("430");
 
             Gearbox st4 = new Gearbox();
             st4.setName("4-х ступенчатая");
@@ -738,6 +740,8 @@ public class LoadDatabase {
             al950.setBrand(audi);
             al950.setGearbox(st6);
             al950.setDriveType(autoType);
+            al950.setFinalRatio("4");
+            al950.setRatio("2");
             al950.setImage("https://otoba.ru/transmissii/vag/img/al950/transmissiya-vag-al950-v-salone.jpg");
             al950.setDescription("""
                     6-ступенчатая автоматическая коробка VW AL950 производилась концерном с 2002 по 2012 год \
@@ -749,6 +753,8 @@ public class LoadDatabase {
             al750.setBrand(audi);
             al750.setGearbox(st6);
             al750.setDriveType(autoType);
+            al750.setFinalRatio("4");
+            al750.setRatio("2");
             al750.setImage("https://otoba.ru/transmissii/vag/img/al750/transmissiya-vag-al750-v-salone.jpg");
             al750.setDescription("""
                     6-ступенчатая автоматическая коробка VW AL750 производилась компанией с 2002 по 2010 год \
@@ -778,8 +784,8 @@ public class LoadDatabase {
             gtb2260vk.setName("GTB2260vk");
             gtb2260vk.setBrand(mercedes);
             gtb2260vk.setTurboType(vtgTurbo);
-            gtb2260vk.setPowerGeneration("150 л.с.");
-            gtb2260vk.setPowerIntake("25 л.с.");
+            gtb2260vk.setPowerGeneration("100 л.с.");
+            gtb2260vk.setPowerIntake("20 л.с.");
             gtb2260vk.setImage("https://cdn11.bigcommerce.com/s-f4487/images/stencil/original/products/1255/18962/DSD8632.1_-_DSD4010.1_-_Converted_Reconditioned_GTB2260VK_with_Billet_Compressor_2_new__22166.1627481916.jpg?c=2&imbypass=on&imbypass=on");
             gtb2260vk.setDescription("Journal Bearing GTB2260VK hybrid based on the turbochargers from 3.0TDI VAG or 3.0D " +
                     "BMW M57/N57 engines is the ultimate upgrade for the 1.9 & 2.0 TDI for someone looking for a fast daily driver.");
@@ -787,7 +793,7 @@ public class LoadDatabase {
             vagis20.setName("VAG IS20");
             vagis20.setBrand(audi);
             vagis20.setTurboType(compressor);
-            vagis20.setPowerGeneration("180 л.с.");
+            vagis20.setPowerGeneration("130 л.с.");
             vagis20.setPowerIntake("30 л.с.");
             vagis20.setImage("https://urbanracers.shop/upload/iblock/b79/shhcy152c2k4439p4oz88ads6yntdf6f/1tervdfj2esz4mp2h1b1dgtd4h6hc0ls.jpg");
             vagis20.setDescription("The VAG IS20 turbo is a popular upgrade for the IS12 turbo due to its improved performance and efficiency. " +
@@ -799,8 +805,8 @@ public class LoadDatabase {
             sk3rr.setName("SK3RR");
             sk3rr.setBrand(bmw);
             sk3rr.setTurboType(comboTurbo);
-            sk3rr.setPowerGeneration("220 л.с.");
-            sk3rr.setPowerIntake("40 л.с.");
+            sk3rr.setPowerGeneration("150 л.с.");
+            sk3rr.setPowerIntake("30 л.с.");
             sk3rr.setImage("https://pkfst.ru/800/600/https/www.automachi.com/wp-content/uploads/2017/06/tt-blowertbodyintake-lg.gif");
             sk3rr.setDescription("SK3RR увеличивает максимальную отдачу, снижает турболаг и обостряет реакцию двигателя " +
                     "на нажатие педали газа. Это объясняется тем, что высокий уровень давления развивается ранее на впуске, " +

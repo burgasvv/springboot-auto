@@ -33,6 +33,9 @@ public class EngineCharacteristics {
     private String power;
 
     @Column
+    private String  rpm;
+
+    @Column
     private String torque;
 
     @SuppressWarnings("JpaDataSourceORMInspection")

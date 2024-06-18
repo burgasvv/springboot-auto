@@ -80,8 +80,8 @@ public class Equipment {
         return equipmentDataProcessing.acceleration();
     }
 
-    public double getMaxSpeed() {
+    public String getMaxSpeed() {
         EquipmentDataProcessing equipmentDataProcessing = new EquipmentDataProcessing(this);
-        return equipmentDataProcessing.maxSpeed();
+        return String.valueOf(equipmentDataProcessing.maxSpeed());
     }
 }
