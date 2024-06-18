@@ -74,7 +74,7 @@ public class EquipmentDataProcessing {
         return data;
     }
 
-    public Double acceleration() {
+    public String acceleration() {
         // t = {m(Delta V)^2}/{2P}
         Map<String, Double> data = dataProcessing();
         double hp = (data.get("engineStartPower") + data.get("enginePower") +
@@ -83,7 +83,7 @@ public class EquipmentDataProcessing {
         double t = (data.get("carWeight") * Math.pow(28, 2)) / (2 * hp * 1000);
         NumberFormat instance = NumberFormat.getInstance();
         instance.setMinimumFractionDigits(2);
-        return getDouble(instance.format(t));
+        return instance.format(t);
     }
 
     public Double maxSpeed() {

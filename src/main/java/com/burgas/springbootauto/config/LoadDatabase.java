@@ -690,7 +690,7 @@ public class LoadDatabase {
             chem51.setCylinders("6");
             chem51.setEngine(em51);
             chem51.setStartPower("100 л.с.");
-            chem51.setPower("480 л.с.");
+            chem51.setPower("450 л.с.");
             chem51.setPiston("82.8 мм");
             chem51.setTorque("222 Нм");
             chem51.setVolume("2457 см3");
@@ -700,7 +700,7 @@ public class LoadDatabase {
             chem57.setCylinders("6");
             chem57.setEngine(em57);
             chem57.setStartPower("120 л.с.");
-            chem57.setPower("550 л.с.");
+            chem57.setPower("580 л.с.");
             chem57.setPiston("90 мм");
             chem57.setTorque("430 Нм");
             chem57.setVolume("2993 см3");

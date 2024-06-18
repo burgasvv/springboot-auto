@@ -75,7 +75,7 @@ public class Equipment {
         this.turbocharger = null;
     }
 
-    public double getAcceleration() {
+    public String getAcceleration() {
         EquipmentDataProcessing equipmentDataProcessing = new EquipmentDataProcessing(this);
         return equipmentDataProcessing.acceleration();
     }
