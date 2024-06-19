@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Article</title>
+    <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
+</head>
+<body>
+    <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+        <th:block th:case="${true}">
+            <th:block th:if="${user.image == null}">
+                <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+            </th:block>
+            <th:block th:if="${user.image != null}">
+                <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
+            </th:block>
+        </th:block>
+        <th:block th:case="${false}">
+            <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+        </th:block>
+    </th:block>
+
+    <div style="margin: 50px 100px">
+        <h1 th:text="${article.title}">Title</h1>
+        <h3 th:text="|Release date: ${article.date}|" style="color: gray">Date</h3>
+        <img th:src="${article.image}" alt="image" style="border-radius: 5%">
+        <p th:text="${article.content}" style="font-size: 18px; margin-right: 400px; margin-top: 50px">Content</p>
+        <div style="margin-top: 100px">
+            <input type="button" value="Back" onclick="history.back()">
+        </div>
+    </div>
+
+    <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
+</body>
+</html>
