@@ -58,7 +58,9 @@
             <th:block th:if="*{images.size() > 0 && images != null}">
                 <th:block th:each="image : *{images}">
                     <th:block th:if="${image.preview eq true && car.hasPreview == true}">
-                        <img id="myImg" th:src="@{|/images/${image.id}|}" alt="image" style="width: 600px; border-radius: 2%">
+                        <div id="divImg">
+                            <img id="myImg" th:src="@{|/images/${image.id}|}" alt="image" style="width: 600px; border-radius: 2%">
+                        </div>
                         <div id="myModal" class="modal">
                             <span class="close">&times;</span>
                             <img class="modal-content" id="img01" alt="image">
@@ -70,9 +72,10 @@
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                     <th:block th:if="${user.username eq car.person.username}">
                         <div th:if="*{hasPreview == true}">
-                            <form th:method="POST" th:action="@{/cars/{id}/add-preview-image (id = ${car.id})}" enctype="multipart/form-data">
+                            <form id="changeImageForm" enctype="multipart/form-data">
                                 <label for="changeImage">Change Preview</label>
                                 <input type="file" id="changeImage" name="file">
+                                <input id="preview-image-csrf-token" type="hidden" name="_csrf" th:value="${_csrf.token}">
                                 <input type="submit" value="Change" style="color: black">
                             </form>
                             <br><br>
@@ -228,7 +231,8 @@
                 <h2 style="margin-top: 50px">Tags</h2>
                 <th:block th:if="${user.username eq car.person.username}">
                     <div style="display: inline-flex; margin-top: 25px">
-                        <form th:method="POST" th:action="@{/cars/{id}/attach-tag (id = *{id})}">
+                        <div id="postResultDiv"></div>
+                        <form th:method="POST" th:action="@{/cars/{id}/attach-tag (id = ${car.id})}">
                             <label for="tags">Ready Tags</label><br><br>
                             <select th:field="${attachTag.id}" id="tags" size="1"
                                     onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
@@ -282,7 +286,8 @@
             </th:block>
         </div>
     </div>
-<script src="/resource/js/imageResource.js"></script>
-<div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
+    <script src="/resource/js/changePreviewImage.js"></script>
+    <script src="/resource/js/imageResource.js"></script>
+    <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

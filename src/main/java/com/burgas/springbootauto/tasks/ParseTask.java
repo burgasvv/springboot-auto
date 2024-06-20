@@ -23,7 +23,7 @@ public class ParseTask {
     @Scheduled(fixedRate = 120000)
     public void parseNews() {
 
-        for (int page = 2; page <= 4; page++) {
+        for (int page = 2; page <= 3; page++) {
             Document newsList = Jsoup.connect("https://news.drom.ru/page" + page).get();
             Elements articles = newsList.getElementsByClass(
                     "b-media-query b-random-group b-random-group_margin_r-b-size-s-s b-media-cont b-visited"
