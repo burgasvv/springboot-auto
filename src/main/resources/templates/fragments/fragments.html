@@ -34,7 +34,7 @@
                     </th:block>
                 </select>
             </div>
-            <input type="submit" value="Search" style="margin-left: 10px; color: black; height: 25px; margin-top: 55px">
+            <input class="w3-button" type="submit" value="Search" style="margin-left: 10px; color: black; height: 25px; margin-top: 55px">
         </form>
         <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
             <th:block th:case="${false}">
