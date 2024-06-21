@@ -13,7 +13,7 @@
             <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
         </th:block>
         <th:block th:if="${guest.image != null}">
-            <div th:insert="~{fragments/fragments.html :: bar(${guest.image.id})}">Bar</div>
+            <div id="divBarUserImage" th:insert="~{fragments/fragments.html :: bar(${guest.image.id})}">Bar</div>
         </th:block>
     </th:block>
     <th:block th:case="${false}">
@@ -24,7 +24,9 @@
         <div style="display: inline-block; margin-right: 500px">
             <h1><span style="font-weight: normal" th:text="*{username}"/></h1>
             <th:block th:if="*{image != null}">
-                <h2><img id="myImg" style="border-radius: 10%; width: 300px" th:src="@{|/images/*{image.id}|}" alt="image"></h2>
+                <div id="divImg">
+                    <h2><img id="myImg" style="border-radius: 10%; width: 300px" th:src="@{|/images/*{image.id}|}" alt="image"></h2>
+                </div>
                 <div id="myModal" class="modal">
                     <span class="close">&times;</span>
                     <img class="modal-content" id="img01" alt="image">
@@ -33,9 +35,10 @@
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                     <th:block th:if="${owner.username eq guest.username}">
                         <div>
-                            <form th:method="POST" th:action="@{/users/{name}/change-image (name = ${owner.username})}" enctype="multipart/form-data">
+                            <form id="changeImageForm" enctype="multipart/form-data">
                                 <label for="changeImage">Change Image</label>
                                 <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
+                                <input id="preview-image-csrf-token" type="hidden" name="_csrf" th:value="${_csrf.token}">
                                 <input type="submit" value="Change" style="color: black">
                             </form>
                         </div>
@@ -215,6 +218,7 @@
             </th:block>
         </div>
     </div>
+    <script src="/resource/js/changeUserPreviewImage.js"></script>
     <script src="/resource/js/imageResource.js"></script>
     <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

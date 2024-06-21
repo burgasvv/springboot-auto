@@ -179,13 +179,6 @@ public class CarController {
         return "redirect:/cars/" + id;
     }
 
-    @PostMapping("/{id}/add-preview-image-ajax")
-    public ResponseEntity<String> addCarPreviewImageAjax(@PathVariable Long id, @RequestPart MultipartFile file) {
-        Car car = carService.findById(id);
-        carService.changePreviewImage(car, file);
-        return ResponseEntity.ok("Success");
-    }
-
     @PostMapping("/{id}/remove-preview-image")
     public String removeCarPreviewImage(@PathVariable Long id) {
         Car car = carService.findById(id);

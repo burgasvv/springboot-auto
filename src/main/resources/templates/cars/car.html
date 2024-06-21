@@ -79,13 +79,16 @@
                                 <input type="submit" value="Change" style="color: black">
                             </form>
                             <br><br>
-                            <form th:method="POST" th:action="@{/cars/{id}/remove-preview-image (id = ${car.id})}">
+                            <form id="removeImageForm">
+                                <input id="remove-preview-image-csrf-token" type="hidden" name="_csrf" th:value="${_csrf.token}">
                                 <label for="removeImage">Remove Preview</label>
                                 <input type="submit" value="Remove" style="color: black" id="removeImage">
                             </form>
                         </div>
                         <div th:if="*{hasPreview == false}">
-                            <img src="/resource/images/emptyCarImage.jpg" alt="image" style="width: 600px; border-radius: 2%">
+                            <div id="divEmptyImage">
+                                <img src="/resource/images/emptyCarImage.jpg" alt="image" style="width: 600px; border-radius: 2%">
+                            </div>
                             <form th:method="POST" th:action="@{/cars/{id}/add-preview-image (id = ${car.id})}" enctype="multipart/form-data">
                                 <label for="addImage">Add Preview</label>
                                 <input type="file" id="addImage" name="file">
@@ -102,11 +105,12 @@
                     </h3>
                     <th:block th:each="image : *{images}">
                         <th:block th:if="${image.preview eq false}">
-                            <div style="display: inline-flex">
+                            <div id="divAlbumImg" style="display: inline-flex">
                                 <img th:src="@{|/images/${image.id}|}" alt="image" style="width: 100px; border-radius: 2%">
                             </div>
                         </th:block>
                     </th:block>
+
                 </th:block>
                 <br><br>
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
@@ -286,7 +290,8 @@
             </th:block>
         </div>
     </div>
-    <script src="/resource/js/changePreviewImage.js"></script>
+    <script src="/resource/js/changeCarPreviewImage.js"></script>
+    <script src="/resource/js/removeCarPreviewImage.js"></script>
     <script src="/resource/js/imageResource.js"></script>
     <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
