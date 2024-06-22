@@ -253,6 +253,7 @@
                                     onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
                                 <option th:each="tag : ${allTags}" th:value="${tag.id}" th:text="${tag.name}"></option>
                             </select><br><br>
+                            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                             <input type="submit" value="Attach Tag" style="color: black">
                         </form>
                         <form id="addAndAttachTagForm" style="margin-left: 20px">
