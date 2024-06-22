@@ -16,7 +16,7 @@ public class TagService {
     private final TagRepository tagRepository;
 
     public List<Tag> findAll() {
-        return tagRepository.findAll().stream().toList();
+        return tagRepository.findAll();
     }
 
     public List<Tag> searchTagsByCars(Car car) {
@@ -29,11 +29,17 @@ public class TagService {
 
     @Transactional
     public void save(Tag tag) {
+        if (tagRepository.findByName(tag.getName()) != null) {
+            return;
+        }
         tagRepository.save(tag);
     }
 
     @Transactional
     public void update(Tag tag) {
+        if (tagRepository.findByName(tag.getName()) != null) {
+            return;
+        }
         tagRepository.save(tag);
     }
 

@@ -247,28 +247,29 @@
                 <h2 style="margin-top: 50px">Tags</h2>
                 <th:block th:if="${user.username eq car.person.username}">
                     <div style="display: inline-flex; margin-top: 25px">
-                        <div id="postResultDiv"></div>
-                        <form th:method="POST" th:action="@{/cars/{id}/attach-tag (id = ${car.id})}">
+                        <form id="attachTagForm">
                             <label for="tags">Ready Tags</label><br><br>
-                            <select th:field="${attachTag.id}" id="tags" size="1"
+                            <select th:field="${attachTag.id}" id="tags" size="1" multiple
                                     onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
                                 <option th:each="tag : ${allTags}" th:value="${tag.id}" th:text="${tag.name}"></option>
                             </select><br><br>
                             <input type="submit" value="Attach Tag" style="color: black">
                         </form>
-                        <form th:method="PUT" th:action="@{/cars/{id}/add-tag (id = *{id})}" style="margin-left: 20px">
+                        <form id="addAndAttachTagForm" style="margin-left: 20px">
                             <label for="tag">New Tag</label><br><br>
-                            <input type="text" id="tag" th:field="${newTag.name}"><br><br>
+                            <input  type="text" id="tag" th:field="${newTag.name}"><br><br>
                             <input type="submit" value="Add and Attach" style="color: black">
+                            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                         </form>
                     </div>
                 </th:block>
                 <br><br>
-
-                <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
-                    <a th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
-                        <span class="w3-tag w3-blue w3-round" th:text="|${tag.name}|" style="margin-right: 25px"/>
-                    </a>
+                <div id="divTagsMain">
+                    <div id="divTags" th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
+                        <a th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
+                            <span class="w3-tag w3-blue w3-round" th:text="|${tag.name}|" style="margin-right: 25px"/>
+                        </a>
+                    </div>
                 </div>
 
                 <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
@@ -308,6 +309,8 @@
         <script src="/resource/js/addCarPreviewImage.js"></script>
         <script src="/resource/js/removeCarPreviewImage.js"></script>
         <script src="/resource/js/addCarAlbumImages.js"></script>
+        <script src="/resource/js/attachCarTag.js"></script>
+        <script src="/resource/js/addAndAttachCarTag.js"></script>
     </div>
     <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

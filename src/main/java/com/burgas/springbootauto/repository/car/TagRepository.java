@@ -11,4 +11,6 @@ import java.util.List;
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
     List<Tag> searchTagsByCars(List<Car> cars);
+
+    Tag findByName(String name);
 }

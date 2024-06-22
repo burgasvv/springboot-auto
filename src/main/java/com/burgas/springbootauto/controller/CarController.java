@@ -18,10 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
@@ -116,7 +114,7 @@ public class CarController {
         }
         model.addAttribute("user", user);
         model.addAttribute("car",car);
-        model.addAttribute("allTags", tagService.findAll());
+        model.addAttribute("allTags", new HashSet<>(tagService.findAll()));
         model.addAttribute("attachTag", new Tag());
         model.addAttribute("newTag", new Tag());
         model.addAttribute("userEquipments", equipments);
@@ -349,7 +347,7 @@ public class CarController {
         return "redirect:/cars/{id}";
     }
 
-    @PutMapping("/{id}/add-tag")
+    @PostMapping("/{id}/add-tag")
     public String addTag(@ModelAttribute("newTag") Tag tag, @PathVariable("id") Long id) {
         Car car = carService.findById(id);
         Tag newTag = new Tag();
