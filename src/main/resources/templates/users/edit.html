@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="text-align: center; margin-top: 6%">
+    <div style="text-align: center; margin-top: 6%; margin-bottom: 50px">
         <form th:method="PATCH" th:action="@{/users/edit}">
             <h1>Edit User</h1>
 
@@ -60,7 +60,7 @@
             <input type="hidden" name="_csrf" th:value="${_csrf.token}">
 
             <input type="submit" value="OK" style="color: black">
-            <input type="button" value="Back" style="color: black">
+            <input type="button" value="Back" style="color: black" onclick="history.back()">
         </form>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>

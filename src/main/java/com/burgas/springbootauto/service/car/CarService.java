@@ -103,7 +103,7 @@ public class CarService {
     public void create(Car car, MultipartFile multipartFile) {
         if (multipartFile.getSize() != 0) {
             Image image = new Image();
-            image.setName(multipartFile.getOriginalFilename());
+            image.setName(multipartFile.getOriginalFilename() + UUID.randomUUID());
             image.setPreview(true);
             image.setData(multipartFile.getBytes());
             car.addImage(image);
@@ -118,7 +118,7 @@ public class CarService {
         if (multipartFile.getSize() != 0) {
             car.getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
             Image image = new Image();
-            image.setName(multipartFile.getOriginalFilename());
+            image.setName(multipartFile.getOriginalFilename() + UUID.randomUUID());
             image.setPreview(true);
             image.setData(multipartFile.getBytes());
             car.addImage(image);

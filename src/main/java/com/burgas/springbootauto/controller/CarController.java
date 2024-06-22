@@ -7,15 +7,10 @@ import com.burgas.springbootauto.service.brand.BrandService;
 import com.burgas.springbootauto.service.car.*;
 import com.burgas.springbootauto.service.image.ImageService;
 import com.burgas.springbootauto.service.person.PersonService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +18,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 @Controller
@@ -63,6 +57,11 @@ public class CarController {
     private static void paginate(Model model, Page<Car> pageCars) {
         int totalPages = pageCars.getTotalPages();
         List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        Map<String, Image>imageMap = new HashMap<>();
+        pageCars.getContent().forEach(car ->
+            imageMap.put(car.getTitle(), car.getImages().stream().filter(Image::isPreview).findFirst().orElse(null))
+        );
+        model.addAttribute("imageMap", imageMap);
         model.addAttribute("pages", pageNumbers);
         model.addAttribute("cars", pageCars.getContent());
     }

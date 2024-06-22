@@ -101,6 +101,14 @@ public class PersonController {
     @PostMapping("/{name}/change-image")
     public String changeImage(@PathVariable String name, @RequestPart MultipartFile file) {
         Person person = personService.findPersonByUsername(name);
+        personService.removeImage(person);
+        personService.changeImage(person, file);
+        return "redirect:/users/" + person.getUsername();
+    }
+
+    @PostMapping("/{name}/add-image")
+    public String addImage(@PathVariable String name, @RequestPart MultipartFile file) {
+        Person person = personService.findPersonByUsername(name);
         personService.changeImage(person, file);
         return "redirect:/users/" + person.getUsername();
     }

@@ -7,63 +7,70 @@
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
-<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
-    <th:block th:case="${true}">
-        <th:block th:if="${guest.image eq null}">
-            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+    <div id="divBarUserBlock">
+        <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+            <th:block th:case="${true}">
+                <th:block th:if="${guest.image eq null}">
+                    <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+                </th:block>
+                <th:block th:if="${guest.image != null}">
+                    <div id="divBarUserImage" th:insert="~{fragments/fragments.html :: bar(${guest.image.id})}">Bar</div>
+                </th:block>
+            </th:block>
+            <th:block th:case="${false}">
+                <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+            </th:block>
         </th:block>
-        <th:block th:if="${guest.image != null}">
-            <div id="divBarUserImage" th:insert="~{fragments/fragments.html :: bar(${guest.image.id})}">Bar</div>
-        </th:block>
-    </th:block>
-    <th:block th:case="${false}">
-        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
-    </th:block>
-</th:block>
+    </div>
     <div style="margin: 50px 100px; display: inline-flex" th:object="${owner}">
-        <div style="display: inline-block; margin-right: 500px">
+        <div style="display: inline-block; margin-right: 300px">
             <h1><span style="font-weight: normal" th:text="*{username}"/></h1>
-            <th:block th:if="*{image != null}">
-                <div id="divImg">
-                    <h2><img id="myImg" style="border-radius: 10%; width: 300px" th:src="@{|/images/*{image.id}|}" alt="image"></h2>
-                </div>
-                <div id="myModal" class="modal">
-                    <span class="close">&times;</span>
-                    <img class="modal-content" id="img01" alt="image">
-                    <div id="caption"></div>
-                </div>
-                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                    <th:block th:if="${owner.username eq guest.username}">
-                        <div>
-                            <form id="changeImageForm" enctype="multipart/form-data">
-                                <label for="changeImage">Change Image</label>
-                                <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
-                                <input id="preview-image-csrf-token" type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                <input type="submit" value="Change" style="color: black">
-                            </form>
-                        </div>
-                        <br>
-                        <div>
-                            <form th:method="POST" th:action="@{/users/{name}/remove-image (name = ${owner.username})}">
-                                <label for="removeImage">Remove Image</label>
-                                <input type="submit" value="Remove" id="removeImage" style="color: black">
-                            </form>
-                        </div>
+            <div id="divChangeImageBlock">
+                <th:block th:if="*{image != null}">
+                    <div id="divImg">
+                        <h2><img id="myImg" style="border-radius: 10%; width: 300px" th:src="@{|/images/*{image.id}|}" alt="image"></h2>
+                    </div>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01" alt="image">
+                        <div id="caption"></div>
+                    </div>
+                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <th:block th:if="${owner.username eq guest.username}">
+                            <div>
+                                <form id="changeImageForm" enctype="multipart/form-data">
+                                    <label for="changeImage">Change Image</label>
+                                    <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
+                                    <input id="preview-image-csrf-token" type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                    <input type="submit" value="Change" style="color: black">
+                                </form>
+                            </div>
+                            <br>
+                            <div>
+                                <form th:method="POST" th:action="@{/users/{name}/remove-image (name = ${owner.username})}">
+                                    <label for="removeImage">Remove Image</label>
+                                    <input type="submit" value="Remove" id="removeImage" style="color: black">
+                                </form>
+                            </div>
+                        </th:block>
                     </th:block>
                 </th:block>
-            </th:block>
-            <th:block th:if="*{image == null}">
-                <h2><img style="border-radius: 10%; width: 300px" src="/resource/images/emptyUserImage.png" alt="image"></h2>
-                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                    <th:block th:if="${owner.username eq guest.username}">
-                        <form th:method="POST" th:action="@{/users/{name}/change-image (name = ${owner.username})}" enctype="multipart/form-data">
-                            <label for="addImage">Add Image</label>
-                            <input type="file" id="addImage" name="file" accept="image/png, image/jpeg">
-                            <input type="submit" value="Add" style="color: black">
-                        </form>
+            </div>
+            <div id="divAddImageBlock">
+                <th:block th:if="*{image == null}">
+                    <h2><img style="border-radius: 10%; width: 300px" src="/resource/images/emptyUserImage.png" alt="image"></h2>
+                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <th:block th:if="${owner.username eq guest.username}">
+                            <form id="addImageForm" enctype="multipart/form-data">
+                                <label for="addImage">Add Image</label>
+                                <input type="file" id="addImage" name="file" accept="image/png, image/jpeg">
+                                <input id="preview-image-csrf-token-for-adding" type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                <input type="submit" value="Add" style="color: black">
+                            </form>
+                        </th:block>
                     </th:block>
                 </th:block>
-            </th:block>
+            </div>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <h3 style="color: grey; margin-top: 100px">Role: <span style="font-weight: normal" th:text="*{role.name}"/></h3>
                 <h2>First Name: <span th:text="*{firstname}" style="font-weight: normal"/></h2>
@@ -96,7 +103,7 @@
             <p th:text="*{description}" style="text-align: justify">Description</p>
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <div style="border-top: 1px solid gray; margin-top: 50px"></div>
+                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>
                 <div style="margin-top: 50px">
                     <th:block th:if="${owner.cars.size() > 0}">
                         <th:block th:if="${owner.username eq guest.username}">
@@ -146,7 +153,7 @@
             </th:block>
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <div style="border-top: 1px solid gray; margin-top: 50px"></div>
+                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>
                 <div style="margin-top: 50px">
                     <th:block th:if="${owner.equipments.size() > 0}">
                         <th:block th:if="${owner.username eq guest.username}">
@@ -189,7 +196,7 @@
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${owner.username eq guest.username}">
-                    <div style="border-top: 1px solid gray; margin-top: 50px"></div>
+                    <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>
                     <th:block th:if="${owner.role.name eq 'USER'}">
                         <h2 style="margin-top: 50px">User</h2>
                     </th:block>
