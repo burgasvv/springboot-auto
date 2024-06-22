@@ -3,25 +3,22 @@ package com.burgas.springbootauto.calculations;
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
-import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.text.NumberFormat;
 import java.util.*;
-import java.util.stream.DoubleStream;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class EquipmentDataProcessing {
 
-    private final Equipment equipment;
+    private Equipment equipment;
 
-    private Double getDouble(String string) {
+    public Double getDouble(String string) {
         if (string != null) {
             StringBuilder stringBuilder = new StringBuilder(string);
             boolean isNumber = false;
@@ -53,46 +50,42 @@ public class EquipmentDataProcessing {
     }
 
     private Map<String, Double> dataProcessing() {
-        Car car = equipment.getCar();
-        EngineCharacteristics characteristics = equipment.getEngine().getEngineCharacteristics();
-        Transmission transmission = equipment.getTransmission();
-        Gearbox gearbox = equipment.getTransmission().getGearbox();
-        Turbocharger turbocharger = equipment.getTurbocharger();
-        Map<String, Double> data = new HashMap<>(
-                Map.of(
-                        "carWeight", getDouble(car.getWeight()),
-                        "engineCylinders", getDouble(characteristics.getCylinders()),
-                        "enginePower", getDouble(characteristics.getPower()),
-                        "engineCompression", getDouble(characteristics.getCompression()),
-                        "engineVolume", getDouble(characteristics.getVolume()),
-                        "engineTorque", getDouble(characteristics.getTorque()),
-                        "enginePiston", getDouble(characteristics.getPiston()),
-                        "transmissionStairs", getDouble(String.valueOf(gearbox.getStairs())),
-                        "turbochargerPowerInTake", getDouble(turbocharger.getPowerIntake()),
-                        "turbochargerPowerGeneration", getDouble(turbocharger.getPowerGeneration())
-                )
-        );
-        data.put("engineStartPower", getDouble(characteristics.getStartPower()));
-        data.put("engineRpm", getDouble(characteristics.getRpm()));
-        data.put("transmissionFinalRatio", getDouble(transmission.getFinalRatio()));
-        data.put("transmissionRatio", getDouble(transmission.getRatio()));
+        Map<String, Double> data = new HashMap<>();
+        if (equipment.getCar() != null) {
+            Car car = equipment.getCar();
+            data.put("carWeight", getDouble(car.getWeight()));
+        }
+        if (equipment.getEngine() != null) {
+            EngineCharacteristics characteristics = equipment.getEngine().getEngineCharacteristics();
+            data.put("engineCylinders", getDouble(characteristics.getCylinders()));
+            data.put("enginePower", getDouble(characteristics.getPower()));
+            data.put("engineVolume", getDouble(characteristics.getVolume()));
+            data.put("engineTorque", getDouble(characteristics.getTorque()));
+            data.put("engineRpm", getDouble(characteristics.getRpm()));
+        }
+        if (equipment.getTransmission() != null) {
+            Transmission transmission = equipment.getTransmission();
+            data.put("transmissionFinalRatio", getDouble(transmission.getFinalRatio()));
+            data.put("transmissionRatio", getDouble(transmission.getRatio()));
+        }
+        if (equipment.getTurbocharger() != null) {
+            Turbocharger turbocharger = equipment.getTurbocharger();
+            data.put("turbochargerRpm", getDouble(turbocharger.getRpm()));
+            data.put("turbochargerPower", getDouble(turbocharger.getPower()));
+            data.put("turbochargerTorque", getDouble(turbocharger.getTorque()));
+        }
         return data;
     }
 
     public String acceleration() {
         Map<String, Double> data = dataProcessing();
-        Double engineStartPower = data.get("engineStartPower");
         Double enginePower = data.get("enginePower");
-        Double turbochargerPowerGeneration = data.get("turbochargerPowerGeneration");
-        Double turbochargerPowerInTake = data.get("turbochargerPowerInTake");
+        Double turbochargerPower = data.get("turbochargerPower");
         Double carWeight = data.get("carWeight");
-        DoubleStream doubleStream = DoubleStream.builder()
-                .add(engineStartPower).add(enginePower).add(turbochargerPowerGeneration).add(turbochargerPowerInTake)
-                .add(carWeight).build();
-        for (Double i : doubleStream.toArray()) {
-            if (i == 0.0) return null;
+        if (enginePower == null || turbochargerPower == null || carWeight == null) {
+            return null;
         }
-        double hp = (engineStartPower + enginePower + turbochargerPowerGeneration - turbochargerPowerInTake) / 2;
+        double hp = (enginePower + turbochargerPower) / 2;
         hp = (hp * 735 * 0.8) / 1000;
         double t = (carWeight * Math.pow(28, 2)) / (2 * hp * 1000);
         NumberFormat instance = NumberFormat.getInstance();
@@ -103,15 +96,13 @@ public class EquipmentDataProcessing {
     public Integer maxSpeed() {
         Map<String, Double> data = dataProcessing();
         Double engineRpm = data.get("engineRpm");
+        Double turbochargerRpm = data.get("turbochargerRpm");
         Double transmissionFinalRatio = data.get("transmissionFinalRatio");
         Double transmissionRatio = data.get("transmissionRatio");
-        DoubleStream doubleStream = DoubleStream.builder()
-                .add(engineRpm).add(transmissionFinalRatio)
-                .add(transmissionRatio).build();
-        for (Double i : doubleStream.toArray()) {
-            if (i == 0.0) return null;
+        if (engineRpm == null || turbochargerRpm == null || transmissionFinalRatio == null || transmissionRatio == null) {
+            return null;
         }
-        double maxSpeed = engineRpm * 24 * transmissionFinalRatio * transmissionRatio * 60 / 5280.0 / 100.0 * 1.609;
+        double maxSpeed = (engineRpm + turbochargerRpm) * 24 * transmissionFinalRatio * transmissionRatio * 60 / 5280.0 / 100.0 * 1.609;
         return (int) maxSpeed;
     }
 }

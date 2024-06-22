@@ -81,8 +81,8 @@ public class TurbochargerController {
         newTurbocharger.setBrand(turbocharger.getBrand());
         newTurbocharger.setTurboType(turboType);
         newTurbocharger.setImage(turbocharger.getImage());
-        newTurbocharger.setPowerIntake(turbocharger.getPowerIntake());
-        newTurbocharger.setPowerGeneration(turbocharger.getPowerGeneration());
+        newTurbocharger.setRpm(turbocharger.getRpm());
+        newTurbocharger.setTorque(turbocharger.getTorque());
         newTurbocharger.setDescription(turbocharger.getDescription());
         turbochargerService.save(newTurbocharger);
         Long id = turbochargerService.findByName(newTurbocharger.getName()).getId();

@@ -28,8 +28,8 @@ public interface TransmissionRepository extends JpaRepository<Transmission, Long
                     join brand b on b.id = tr.brand_id
                     join gearbox g on g.id = tr.gearbox_id
                     join drive_type dt on dt.id = tr.drivetype_id
-                    join public.equipment e on tr.id = e.transmission_id
-                    join public.car c on c.id = e.car_id
+                    join equipment e on tr.id = e.transmission_id
+                    join car c on c.id = e.car_id
                     where concat(b.title,' ',c.title,' ',tr.name,' ',c.title,' ',b.title,' ',c.title,' ',g.name,' ',b.title,' ',c.title,' ',
                     dt.name,' ',c.title,' ',b.title,' ',g.name,' ',tr.name,' ',dt.name,' ',c.title,' ',g.name,' ',dt.name,' ',
                     tr.name,' ',c.title,' ',g.name,' ',dt.name,' ',tr.name,' ') ilike concat('%',?1,'%')"""

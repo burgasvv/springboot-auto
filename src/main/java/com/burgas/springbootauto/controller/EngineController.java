@@ -94,12 +94,10 @@ public class EngineController {
         newEngine.setFuel(engine.getFuel());
 
         EngineCharacteristics engineCharacteristics = new EngineCharacteristics();
+        engineCharacteristics.setRpm(characteristics.getRpm());
         engineCharacteristics.setVolume(characteristics.getVolume());
         engineCharacteristics.setTorque(characteristics.getTorque());
-        engineCharacteristics.setPower(characteristics.getPower());
-        engineCharacteristics.setPiston(characteristics.getPiston());
         engineCharacteristics.setCylinders(characteristics.getCylinders());
-        engineCharacteristics.setCompression(characteristics.getCompression());
 
         newEngine.addEngineCharacteristics(engineCharacteristics);
         engineService.save(newEngine);

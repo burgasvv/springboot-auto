@@ -665,47 +665,39 @@ public class LoadDatabase {
             Fuel diesel = new Fuel();
             diesel.setName("Diesel");
 
-            Engine em51 = new Engine();
-            em51.setName("M51");
-            em51.setImage("https://otoba.ru/dvigatel/bmw/img/m51/dvigatel-bmw-m51-pod-kapotom.jpg");
-            em51.setFuel(diesel);
-            em51.setEngineEdition(eeR6);
-            em51.setDescription(
-                    "2.5-литровый дизельный двигатель БМВ М51 собирали на заводе в Австрии с 1991 по 2001 год " +
-                            "и ставили на такие популярные модели, как 3-Series в кузове E36 и 5-Series в кузовах E34 и E39. " +
-                            "Данный силовой агрегат модернизировали в 1996 году и он получил себе новый индекс M51TU."
+            Engine en62 = new Engine();
+            en62.setName("N62");
+            en62.setImage("https://otoba.ru/dvigatel/bmw/img/n62/dvigatel-bmw-n62-pod-kapotom.jpg");
+            en62.setFuel(petrol);
+            en62.setEngineEdition(eeR6);
+            en62.setDescription(
+                    "Серия 8-цилиндровых двигателей БМВ N62 от 3.6 до 4.8 литра собиралась с 2001 по 2010 годы " +
+                            "и устанавливалась на такие модели компании, как 5-Series в кузове E60 и 7-Series в кузове E65. " +
+                            "Выпускались и продвинутые версии данного силового агрегата от Alpina мощностью до 530 л.с."
             );
-            Engine em57 = new Engine();
-            em57.setName("M57");
-            em57.setImage("https://otoba.ru/dvigatel/bmw/img/m57/dvs-bmw-m57-pod-kapotom.jpg");
-            em57.setFuel(diesel);
-            em57.setEngineEdition(eeR6);
-            em57.setDescription(
-                    "6-цилиндровые дизельные двигатели БМВ М57 на 2.5 и 3.0 литра собирали с 1998 по 2012 " +
-                            "год и устанавливали практически на все более или менее крупные модели концерна своего времени. " +
-                            "Существует три поколения этих силовых агрегатов обычно именуемых как M57, M57N и M57N2."
+            Engine en63 = new Engine();
+            en63.setName("N63");
+            en63.setImage("https://otoba.ru/dvigatel/bmw/img/n63/dvigatel-bmw-n63-pod-kapotom.jpg");
+            en63.setFuel(petrol);
+            en63.setEngineEdition(eeR6);
+            en63.setDescription(
+                    "Серия 8-цилиндровых двигателей БМВ N63 объемом 4.0 и 4.4 литров производится с 2008 года и " +
+                            "устанавливается практически на все современные крупные модели немецкого автоконцерна. " +
+                            "Существует ряд спортивных версий данного мотора под индексом S63 и мощностью до 600 л.с."
             );
             EngineCharacteristics chem51 = new EngineCharacteristics();
-            chem51.setEngine(em51);
-            chem51.setStartPower("100");
-            chem51.setPower("400");
+            chem51.setEngine(en62);
             chem51.setRpm("6500");
-            chem51.setVolume("2457");
-            chem51.setCylinders("6");
-            chem51.setCompression("17.5");
-            chem51.setPiston("82.8");
-            chem51.setTorque("222");
+            chem51.setVolume("3600");
+            chem51.setCylinders("8");
+            chem51.setTorque("600");
 
             EngineCharacteristics chem57 = new EngineCharacteristics();
-            chem57.setEngine(em57);
-            chem57.setStartPower("120");
-            chem57.setPower("500");
+            chem57.setEngine(en63);
             chem57.setRpm("7000");
-            chem57.setVolume("2993");
-            chem57.setCylinders("6");
-            chem57.setCompression("16.5");
-            chem57.setPiston("90");
-            chem57.setTorque("430");
+            chem57.setVolume("4000");
+            chem57.setCylinders("8");
+            chem57.setTorque("650");
 
             Gearbox st4 = new Gearbox();
             st4.setName("4-х ступенчатая");
@@ -784,8 +776,8 @@ public class LoadDatabase {
             gtb2260vk.setName("GTB2260vk");
             gtb2260vk.setBrand(mercedes);
             gtb2260vk.setTurboType(vtgTurbo);
-            gtb2260vk.setPowerGeneration("100");
-            gtb2260vk.setPowerIntake("20");
+            gtb2260vk.setRpm("1000");
+            gtb2260vk.setTorque("200");
             gtb2260vk.setImage("https://cdn11.bigcommerce.com/s-f4487/images/stencil/original/products/1255/18962/DSD8632.1_-_DSD4010.1_-_Converted_Reconditioned_GTB2260VK_with_Billet_Compressor_2_new__22166.1627481916.jpg?c=2&imbypass=on&imbypass=on");
             gtb2260vk.setDescription("Journal Bearing GTB2260VK hybrid based on the turbochargers from 3.0TDI VAG or 3.0D " +
                     "BMW M57/N57 engines is the ultimate upgrade for the 1.9 & 2.0 TDI for someone looking for a fast daily driver.");
@@ -793,8 +785,8 @@ public class LoadDatabase {
             vagis20.setName("VAG IS20");
             vagis20.setBrand(audi);
             vagis20.setTurboType(compressor);
-            vagis20.setPowerGeneration("130");
-            vagis20.setPowerIntake("30");
+            vagis20.setRpm("1300");
+            vagis20.setTorque("230");
             vagis20.setImage("https://urbanracers.shop/upload/iblock/b79/shhcy152c2k4439p4oz88ads6yntdf6f/1tervdfj2esz4mp2h1b1dgtd4h6hc0ls.jpg");
             vagis20.setDescription("The VAG IS20 turbo is a popular upgrade for the IS12 turbo due to its improved performance and efficiency. " +
                     "With a larger compressor and turbine inlet, the IS20 can push more air into the engine and deliver more power than the IS12. " +
@@ -805,8 +797,8 @@ public class LoadDatabase {
             sk3rr.setName("SK3RR");
             sk3rr.setBrand(bmw);
             sk3rr.setTurboType(comboTurbo);
-            sk3rr.setPowerGeneration("150");
-            sk3rr.setPowerIntake("30");
+            sk3rr.setRpm("1500");
+            sk3rr.setTorque("250");
             sk3rr.setImage("https://pkfst.ru/800/600/https/www.automachi.com/wp-content/uploads/2017/06/tt-blowertbodyintake-lg.gif");
             sk3rr.setDescription("SK3RR увеличивает максимальную отдачу, снижает турболаг и обостряет реакцию двигателя " +
                     "на нажатие педали газа. Это объясняется тем, что высокий уровень давления развивается ранее на впуске, " +
@@ -823,7 +815,7 @@ public class LoadDatabase {
             equipM5.setImage("https://yt3.googleusercontent.com/hH4Xd006S0TDIblxoWjQQyykaKJDt_Zwn5YmAbQMUsKnxpI3Vm3-H7xLzuQjPwYvBds1u-U89A=s900-c-k-c0x00ffffff-no-rj");
             equipM5.setPerson(admin);
             equipM5.setCar(m5);
-            equipM5.setEngine(em57);
+            equipM5.setEngine(en63);
             equipM5.setTransmission(al950);
             equipM5.setTurbocharger(gtb2260vk);
             equipM5.setAttached(true);
@@ -832,7 +824,7 @@ public class LoadDatabase {
             equipM4.setImage("https://yt3.googleusercontent.com/ytc/AIdro_kCMYAHys71pMwA60E-2waY13Uii8C5yLmvas117_g7vw=s900-c-k-c0x00ffffff-no-rj");
             equipM4.setPerson(admin);
             equipM4.setCar(m4);
-            equipM4.setEngine(em51);
+            equipM4.setEngine(en62);
             equipM4.setTransmission(al750);
             equipM4.setTurbocharger(vagis20);
             equipM4.setAttached(true);
@@ -868,7 +860,7 @@ public class LoadDatabase {
                     List.of(petrol, diesel)
             ));
             log.info("Preload: {}", engineRepository.saveAll(
-                    List.of(em51, em57)
+                    List.of(en62, en63)
             ));
             log.info("Preload: {}", engineCharacteristicsRepository.saveAll(
                     List.of(chem51, chem57)

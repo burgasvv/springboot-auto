@@ -26,10 +26,6 @@ public class EngineService {
         return engineRepository.findEngineByName(name);
     }
 
-    public List<Engine> searchEnginesByEngineEditionId(Long id) {
-        return engineRepository.searchEnginesByEngineEditionId(id);
-    }
-
     public List<Engine> searchEnginesByEngineBrandEditionCar(String search) {
         return engineRepository.searchEnginesByEngineBrandEditionCar(search).stream().distinct().toList();
     }

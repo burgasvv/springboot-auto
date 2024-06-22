@@ -10,8 +10,6 @@ import java.util.List;
 @Repository
 public interface EngineEditionRepository extends JpaRepository<EngineEdition, Long> {
 
-    List<EngineEdition> searchEngineEditionsByBrandId(Long id);
-
     EngineEdition searchEngineEditionByEngines(List<Engine> engines);
 
     EngineEdition findEngineEditionByName(String editionName);

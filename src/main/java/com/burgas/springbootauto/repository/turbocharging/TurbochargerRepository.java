@@ -30,8 +30,8 @@ public interface TurbochargerRepository extends JpaRepository<Turbocharger, Long
             nativeQuery = true,
             value = """
                     select tu.* from turbocharger tu
-                    join public.brand b on b.id = tu.brand_id
-                    join public.turbo_type tt on tt.id = tu.turbotype_id
+                    join brand b on b.id = tu.brand_id
+                    join turbo_type tt on tt.id = tu.turbotype_id
                     where concat(b.title,tt.name,tu.name,b.title,tu.name,tt.name,b.title)
                     ilike concat('%',?1,'%')"""
     )

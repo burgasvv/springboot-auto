@@ -77,11 +77,17 @@ public class Equipment {
 
     public String getAcceleration() {
         EquipmentDataProcessing equipmentDataProcessing = new EquipmentDataProcessing(this);
+        if (equipmentDataProcessing.acceleration() == null) {
+            return null;
+        }
         return equipmentDataProcessing.acceleration();
     }
 
     public String getMaxSpeed() {
         EquipmentDataProcessing equipmentDataProcessing = new EquipmentDataProcessing(this);
+        if (equipmentDataProcessing.maxSpeed() == null) {
+            return null;
+        }
         return String.valueOf(equipmentDataProcessing.maxSpeed());
     }
 }

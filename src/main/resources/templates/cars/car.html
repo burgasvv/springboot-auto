@@ -219,6 +219,10 @@
                                             <span style="font-weight: bold">Maximum Speed: </span>
                                             <span th:text="|${complectation.getMaxSpeed()} km/h|"/>
                                         </th:block>
+                                        <th:block th:if="${complectation.getMaxSpeed() eq null
+                                                        || complectation.getAcceleration() eq null}">
+                                            <span style="color: gray">Fill out the package to see the parameters.</span>
+                                        </th:block>
                                     </div>
                                 </div>
                             </div>

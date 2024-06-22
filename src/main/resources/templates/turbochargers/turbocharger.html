@@ -54,8 +54,8 @@
         <div style="display: inline-block; margin: 50px 100px">
             <h3 style="margin-top: 50px">Description</h3>
             <p th:text="*{description}" style="text-align: justify">Description</p>
-            <h3>Power Intake: <span style="font-weight: normal" th:text="|*{powerIntake} л.с.|"/></h3>
-            <h3>Power Generation: <span style="font-weight: normal" th:text="|*{powerGeneration} л.с.|"/></h3>
+            <h3>Rpm: <span style="font-weight: normal" th:text="|*{rpm} об/м|"/></h3>
+            <h3>Torque: <span style="font-weight: normal" th:text="|*{torque} Нм|"/></h3>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${user.role.name == 'ADMIN'}">
                     <div style="margin-top: 50px; display: inline-flex">

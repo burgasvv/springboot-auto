@@ -22,10 +22,6 @@ public class EngineCharacteristicsService {
         return engineCharacteristicsRepository.findById(id).orElse(null);
     }
 
-    public EngineCharacteristics searchEngineCharacteristicsByEngineId(Long id) {
-        return engineCharacteristicsRepository.searchEngineCharacteristicsByEngineId(id);
-    }
-
     public EngineCharacteristics findByEngineId(Long id) {
         return engineCharacteristicsRepository.searchEngineCharacteristicsByEngineId(id);
     }
