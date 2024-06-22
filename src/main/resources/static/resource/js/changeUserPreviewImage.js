@@ -44,9 +44,10 @@ $(document).ready(function (){
                 alert("Your image added successfully");
                 console.log(result);
                 $("#divAddImageBlock").remove();
-                $("#divChangeImageBlock").load(location.href + ' #divChangeImageBlock', function () {
+                $("#divChangeImageBlockMain").load(location.href + ' #divChangeImageBlockMain', function () {
                     $.getScript("/resource/js/imageResource.js");
                     $.getScript("/resource/js/changeUserPreviewImage.js");
+                    $.getScript("/resource/js/deleteUserPreviewImage.js");
                 });
                 $("#divBarUserBlock").load(location.href + ' #divBarUserBlock', function () {
                     $.getScript("/resource/js/selectChosen.js");

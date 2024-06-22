@@ -25,36 +25,38 @@
     <div style="margin: 50px 100px; display: inline-flex" th:object="${owner}">
         <div style="display: inline-block; margin-right: 300px">
             <h1><span style="font-weight: normal" th:text="*{username}"/></h1>
-            <div id="divChangeImageBlock">
-                <th:block th:if="*{image != null}">
-                    <div id="divImg">
-                        <h2><img id="myImg" style="border-radius: 10%; width: 300px" th:src="@{|/images/*{image.id}|}" alt="image"></h2>
-                    </div>
-                    <div id="myModal" class="modal">
-                        <span class="close">&times;</span>
-                        <img class="modal-content" id="img01" alt="image">
-                        <div id="caption"></div>
-                    </div>
-                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                        <th:block th:if="${owner.username eq guest.username}">
-                            <div>
-                                <form id="changeImageForm" enctype="multipart/form-data">
-                                    <label for="changeImage">Change Image</label>
-                                    <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
-                                    <input id="preview-image-csrf-token" type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                    <input type="submit" value="Change" style="color: black">
-                                </form>
-                            </div>
-                            <br>
-                            <div>
-                                <form th:method="POST" th:action="@{/users/{name}/remove-image (name = ${owner.username})}">
-                                    <label for="removeImage">Remove Image</label>
-                                    <input type="submit" value="Remove" id="removeImage" style="color: black">
-                                </form>
-                            </div>
+            <div id="divChangeImageBlockMain">
+                <div id="divChangeImageBlock">
+                    <th:block th:if="*{image != null}">
+                        <div id="divImg">
+                            <h2><img id="myImg" style="border-radius: 10%; width: 300px" th:src="@{|/images/*{image.id}|}" alt="image"></h2>
+                        </div>
+                        <div id="myModal" class="modal">
+                            <span class="close">&times;</span>
+                            <img class="modal-content" id="img01" alt="image">
+                            <div id="caption"></div>
+                        </div>
+                        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                            <th:block th:if="${owner.username eq guest.username}">
+                                <div style="margin-top: 100px">
+                                    <form id="changeImageForm" enctype="multipart/form-data">
+                                        <label for="changeImage">Change Image</label>
+                                        <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
+                                        <input id="preview-image-csrf-token" type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                        <input type="submit" value="Change" style="color: black">
+                                    </form>
+                                </div>
+                                <br>
+                                <div>
+                                    <form id="deleteImageForm" th:method="POST" th:action="@{/users/{name}/remove-image (name = ${owner.username})}">
+                                        <label for="removeImage">Remove Image</label>
+                                        <input type="submit" value="Remove" id="removeImage" style="color: black">
+                                    </form>
+                                </div>
+                            </th:block>
                         </th:block>
                     </th:block>
-                </th:block>
+                </div>
             </div>
             <div id="divAddImageBlock">
                 <th:block th:if="*{image == null}">
@@ -226,6 +228,7 @@
         </div>
     </div>
     <script src="/resource/js/changeUserPreviewImage.js"></script>
+    <script src="/resource/js/deleteUserPreviewImage.js"></script>
     <script src="/resource/js/imageResource.js"></script>
     <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
