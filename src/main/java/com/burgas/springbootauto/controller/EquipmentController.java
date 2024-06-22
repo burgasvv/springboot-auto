@@ -164,7 +164,7 @@ public class EquipmentController {
         return "redirect:/equipments/{id}";
     }
 
-    @DeleteMapping("/{id}/remove-engine")
+    @PostMapping("/{id}/remove-engine")
     public String removeEngine(@PathVariable("id") Long id) {
         Equipment equipment = equipmentService.findById(id);
         equipment.removeEngine(equipment.getEngine());
@@ -180,7 +180,7 @@ public class EquipmentController {
         return "redirect:/equipments/{id}";
     }
 
-    @DeleteMapping("/{id}/remove-transmission")
+    @PostMapping("/{id}/remove-transmission")
     public String removeTransmission(@PathVariable("id") Long id) {
         Equipment equipment = equipmentService.findById(id);
         equipment.removeTransmission(equipment.getTransmission());
@@ -196,7 +196,7 @@ public class EquipmentController {
         return "redirect:/equipments/{id}";
     }
 
-    @DeleteMapping("/{id}/remove-turbocharger")
+    @PostMapping("/{id}/remove-turbocharger")
     public String removeTurbocharger(@PathVariable("id") Long id) {
         Equipment equipment = equipmentService.findById(id);
         equipment.removeTurbocharger(equipment.getTurbocharger());

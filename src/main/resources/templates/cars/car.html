@@ -205,17 +205,15 @@
                                                 <form id="removeEquipmentFromCarForm">
                                                     <input type="hidden" name="complId" th:value="${complectation.id}">
                                                     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                    <input type="submit" value="Remove" style="color: black">
+                                                    <input class="w3-button w3-red w3-round" type="submit" value="Remove" style="color: black">
                                                 </form>
                                             </div>
                                         </th:block>
                                     </h3>
                                     <div style="margin-top: 25px">
-                                        <th:block th:if="${complectation.getAcceleration() != null}">
+                                        <th:block th:if="${complectation.getAcceleration() != null && complectation.getMaxSpeed() != null}">
                                             <span style="font-weight: bold">Acceleration: </span>
                                             <span th:text="|${complectation.getAcceleration()} sec (0-100 km/h)|"/><br>
-                                        </th:block>
-                                        <th:block th:if="${complectation.getMaxSpeed() != null}">
                                             <span style="font-weight: bold">Maximum Speed: </span>
                                             <span th:text="|${complectation.getMaxSpeed()} km/h|"/>
                                         </th:block>

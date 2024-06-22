@@ -22,24 +22,37 @@
     <div style="text-align: center; margin-top: 10%">
         <h1>Handover</h1>
         <h2>Equipments</h2>
-        <div style="display: inline-flex; border: 1px grey dashed; margin-right: 10px; margin-top: 10px"
+        <div class="w3-card-4 w3-hover-shadow" style="display: inline-flex; margin-right: 10px; margin-top: 10px; border-radius: 5%"
              th:each="complectation : ${car.equipments}">
-            <div style="display: inline-block; margin-right: 10px; margin-left: 10px">
+            <div style="display: inline-block; margin: 10px">
                 <h3 style="text-align: center">
                     <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
                        style="text-decoration: none">
-                        <img th:src="${complectation.image}" alt="image" style="width: 50px; border-radius: 10%"><br>
+                        <img th:src="${complectation.image}" alt="image" style="width: 100px; border-radius: 10%"><br>
                         <span th:text="${complectation.name}"/>
                     </a>
                     <th:block th:if="${user.username eq car.person.username}">
                         <div style="margin-top: 25px">
                             <form th:method="POST"
                                   th:action="@{/cars/{id}/remove-equipment-from-car-in-form (id = *{id}, complId = ${complectation.id})}">
-                                <input type="submit" value="Remove" style="color: black">
+                                <span style="color: gray; font-size: 18px">Remove from car before handover?</span><br>
+                                <input class="w3-button w3-red w3-round" type="submit" value="Remove" style="color: black">
                             </form>
                         </div>
                     </th:block>
                 </h3>
+                <div style="margin-top: 25px">
+                    <th:block th:if="${complectation.getAcceleration() != null && complectation.getMaxSpeed() != null}">
+                        <span style="font-weight: bold">Acceleration: </span>
+                        <span th:text="|${complectation.getAcceleration()} sec (0-100 km/h)|"/><br>
+                        <span style="font-weight: bold">Maximum Speed: </span>
+                        <span th:text="|${complectation.getMaxSpeed()} km/h|"/>
+                    </th:block>
+                    <th:block th:if="${complectation.getMaxSpeed() eq null
+                                                        || complectation.getAcceleration() eq null}">
+                        <span style="color: gray">Fill out the package to see the parameters.</span>
+                    </th:block>
+                </div>
             </div>
         </div>
 
@@ -50,6 +63,7 @@
                         th:selected="${person.id eq car.person.id}">User</option>
             </select><br><br>
             <input type="submit" value="OK" style="color: black">
+            <input type="button" value="Back" style="color: black" onclick="history.back()">
         </form>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
