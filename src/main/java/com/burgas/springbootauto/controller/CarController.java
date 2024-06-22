@@ -366,8 +366,8 @@ public class CarController {
         return "redirect:/cars/{id}";
     }
 
-    @DeleteMapping("/{id}/remove-equipment-from-car")
-    public String removeEquipment(@SuppressWarnings("unused") @PathVariable("id") Long id, @RequestParam("complId") Long complId) {
+    @PostMapping("/{id}/remove-equipment-from-car")
+    public String removeEquipment(@PathVariable("id") Long id, @RequestParam Long complId) {
         Car car = carService.findById(id);
         car.removeEquipment(equipmentService.findById(complId));
         carService.save(car);
@@ -375,7 +375,7 @@ public class CarController {
     }
 
     @PostMapping("/{id}/remove-equipment-from-car-in-form")
-    public String removeEquipmentInForm(@SuppressWarnings("unused") @PathVariable("id") Long id, @RequestParam("complId") Long complId) {
+    public String removeEquipmentInForm(@PathVariable("id") Long id, @RequestParam("complId") Long complId) {
         Car car = carService.findById(id);
         car.removeEquipment(equipmentService.findById(complId));
         carService.save(car);

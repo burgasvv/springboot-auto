@@ -183,63 +183,74 @@
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <h2 style="margin-top: 50px">Complectations</h2>
-                <div style="color: grey" th:if="*{equipments.size() != 0}">
-                    <span th:text="|*{equipments.size()}/5|"/>
-                </div>
-                <div style="color: grey" th:if="${car.equipments.size() == 0 && user.equipments.size() == 0}">
-                    <span>Create a complectation on your user page to install it on your vehicle.</span>
-                </div>
-
-                <div style="display: inline-flex; margin-top: 20px" th:each="complectation : *{equipments}">
-                    <div class="w3-card-4 w3-hover-shadow" style="border-radius: 5%">
-                        <div style="display: inline-block; margin: 10px">
-                            <h3 style="text-align: center">
-                                <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
-                                   style="text-decoration: none">
-                                    <img th:src="${complectation.image}" alt="image" style="width: 100px; border-radius: 10%"><br>
-                                    <span th:text="${complectation.name}"/>
-                                </a>
-                                <th:block th:if="${user.username eq car.person.username}">
+                <div id="allEquipmentsContentMain">
+                    <div id="allEquipmentsContent">
+                        <div style="color: grey" th:if="*{equipments.size() != 0}">
+                            <span th:text="|*{equipments.size()}/5|"/>
+                        </div>
+                        <div style="color: grey" th:if="${car.equipments.size() == 0 && user.equipments.size() == 0}">
+                            <span>Create a complectation on your user page to install it on your vehicle.</span>
+                        </div>
+                        <div id="divEquipmentOnCar" style="display: inline-flex; margin-top: 20px" th:each="complectation : *{equipments}">
+                            <div class="w3-card-4 w3-hover-shadow" style="border-radius: 5%">
+                                <div style="display: inline-block; margin: 10px">
+                                    <h3 style="text-align: center">
+                                        <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
+                                           style="text-decoration: none">
+                                            <img th:src="${complectation.image}" alt="image" style="width: 100px; border-radius: 10%"><br>
+                                            <span th:text="${complectation.name}"/>
+                                        </a>
+                                        <th:block th:if="${user.username eq car.person.username}">
+                                            <div style="margin-top: 25px">
+                                                <form id="removeEquipmentFromCarForm">
+                                                    <input type="hidden" name="complId" th:value="${complectation.id}">
+                                                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                                    <input type="submit" value="Remove" style="color: black">
+                                                </form>
+                                            </div>
+                                        </th:block>
+                                    </h3>
                                     <div style="margin-top: 25px">
-                                        <form th:method="DELETE"
-                                              th:action="@{/cars/{id}/remove-equipment-from-car (id = *{id}, complId = ${complectation.id})}">
-                                            <input type="submit" value="Remove" style="color: black">
-                                        </form>
+                                        <th:block th:if="${complectation.getAcceleration() != null}">
+                                            <span style="font-weight: bold">Acceleration: </span>
+                                            <span th:text="|${complectation.getAcceleration()} sec (0-100 km/h)|"/><br>
+                                        </th:block>
+                                        <th:block th:if="${complectation.getMaxSpeed() != null}">
+                                            <span style="font-weight: bold">Maximum Speed: </span>
+                                            <span th:text="|${complectation.getMaxSpeed()} km/h|"/>
+                                        </th:block>
                                     </div>
-                                </th:block>
-                            </h3>
-                            <div style="margin-top: 25px">
-                                <th:block th:if="${complectation.getAcceleration() != null}">
-                                    <span style="font-weight: bold">Acceleration: </span>
-                                    <span th:text="|${complectation.getAcceleration()} sec (0-100 km/h)|"/><br>
-                                </th:block>
-                                <th:block th:if="${complectation.getMaxSpeed() != null}">
-                                    <span style="font-weight: bold">Maximum Speed: </span>
-                                    <span th:text="|${complectation.getMaxSpeed()} km/h|"/>
-                                </th:block>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="divAttachEquipmentOnCarMain">
+                            <div id="divAttachEquipmentOnCar">
+                                <div th:if="*{equipments.size() < 5}" style="margin-top: 50px">
+                                    <th:block th:if="${user.username eq car.person.username}">
+                                        <h4 style="color: grey" th:if="*{equipments.size() == 0}">Empty</h4>
+                                        <th:block th:if="${userEquipments.size() > 0}">
+                                            <div style="width: 200px">
+                                                <form id="attachEquipmentOnCarForm">
+                                                    <label for="equipments">Your Complectations</label><br><br>
+                                                    <select th:field="${addingEquipment.id}" id="equipments" style="width: 100px">
+                                                        <option th:each="userEquipment : ${userEquipments}"
+                                                                th:value="${userEquipment.id}" th:text="${userEquipment.name}"></option>
+                                                    </select>
+                                                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                                    <input type="submit" value="Attach" style="color: black">
+                                                </form>
+                                            </div>
+                                        </th:block>
+                                        <th:block th:if="${userEquipments.size() == 0}">
+                                            <h4 style="color: grey">All your complectations attached.
+                                                Create new complectations in your profile page.</h4>
+                                        </th:block>
+                                    </th:block>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div th:if="*{equipments.size() < 5}" style="margin-top: 50px">
-                    <th:block th:if="${user.username eq car.person.username}">
-                        <h4 style="color: grey" th:if="*{equipments.size() == 0}">Empty</h4>
-                        <th:block th:if="${userEquipments.size() > 0}">
-                            <div style="width: 200px">
-                                <form th:method="POST" th:action="@{/cars/{id}/attach-equipment (id = *{id})}">
-                                    <label for="equipments">Your Complectations</label><br><br>
-                                    <select th:field="${addingEquipment.id}" id="equipments">
-                                        <option th:each="userEquipment : ${userEquipments}"
-                                                th:value="${userEquipment.id}" th:text="${userEquipment.name}"></option>
-                                    </select>
-                                    <input type="submit" value="Attach" style="color: black">
-                                </form>
-                            </div>
-                        </th:block>
-                        <th:block th:if="${userEquipments.size() == 0}">
-                            <h4 style="color: grey">All your complectations attached. Create new complectations in your profile page.</h4>
-                        </th:block>
-                    </th:block>
                 </div>
 
                 <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
@@ -258,7 +269,7 @@
                         </form>
                         <form id="addAndAttachTagForm" style="margin-left: 20px">
                             <label for="tag">New Tag</label><br><br>
-                            <input  type="text" id="tag" th:field="${newTag.name}"><br><br>
+                            <input type="text" id="tag" th:field="${newTag.name}"><br><br>
                             <input type="submit" value="Add and Attach" style="color: black">
                             <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                         </form>
@@ -312,6 +323,8 @@
         <script src="/resource/js/addCarAlbumImages.js"></script>
         <script src="/resource/js/attachCarTag.js"></script>
         <script src="/resource/js/addAndAttachCarTag.js"></script>
+        <script src="/resource/js/removeEquipmentFromCar.js"></script>
+        <script src="/resource/js/attachEquipmentOnCar.js"></script>
     </div>
     <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
