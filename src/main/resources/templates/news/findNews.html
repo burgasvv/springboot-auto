@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search News</title>
+    <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
+</head>
+<body>
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <th:block th:if="${user.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+        </th:block>
+        <th:block th:if="${user.image != null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
+        </th:block>
+    </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
+
+<div style="margin: 50px 100px">
+    <th:block th:if="${news.isEmpty() eq false}">
+        <h1>News</h1>
+        <div>
+            <form th:method="GET" th:action="@{/news/search}">
+                <label for="search"></label>
+                <input type="text" id="search" name="search" th:value="${search}">
+<!--                <input type="hidden" name="_csrf" th:value="${_csrf.token}">-->
+                <input type="submit" value="Search" style="color: black">
+            </form>
+        </div>
+        <div style="display: inline-flex" th:each="article : ${news}">
+            <div style="width: 250px; height: 250px; margin-right: 80px; margin-top: 80px; display: inline-block">
+                <a th:href="@{/news/{id} (id = ${article.id})}" style="text-decoration: none">
+                    <img th:src="${article.image}" alt="image" style="width: 250px; border-radius: 5%">
+                    <span th:text="${article.title}" style="font-size: 16px; font-weight: bold"/><br>
+                    <span th:text="|Release date: ${article.date}|" style="font-size: 12px; color: gray"/>
+                </a>
+            </div>
+        </div>
+    </th:block>
+    <div style="margin-top: 100px">
+        <ul class="w3-bar w3-round" style="display: inline-flex; list-style-type: none">
+            <th:block th:each="pageNumber : ${pages}">
+                <a class="w3-bar-item w3-button" th:href="@{/news/search/pages/{page}
+                    (page = ${pageNumber}, search = ${search})}" th:text="${pageNumber}">1</a>
+            </th:block>
+        </ul>
+    </div>
+</div>
+
+<div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
+</body>
+</html>

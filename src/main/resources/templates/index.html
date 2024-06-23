@@ -23,6 +23,14 @@
     <div style="margin: 50px 100px">
         <th:block th:if="${news.isEmpty() eq false}">
             <h1>News</h1>
+            <div>
+                <form th:method="GET" th:action="@{/news/search}">
+                    <label for="search"></label>
+                    <input type="text" id="search" name="search" placeholder="Enter keywords here">
+<!--                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">-->
+                    <input type="submit" value="Search" style="color: black">
+                </form>
+            </div>
             <div style="display: inline-flex" th:each="article : ${news}">
                 <div style="width: 250px; height: 250px; margin-right: 80px; margin-top: 80px; display: inline-block">
                     <a th:href="@{/news/{id} (id = ${article.id})}" style="text-decoration: none">

@@ -24,6 +24,10 @@ public class NewsService {
         return newsRepository.findAll(PageRequest.of(page - 1, size));
     }
 
+    public Page<News>searchNewsByKeyword(String keyword, int page, int size) {
+        return newsRepository.searchNewsByKeyword(keyword, PageRequest.of(page - 1, size));
+    }
+
     public News findById(Long id) {
         return newsRepository.findById(id).orElse(null);
     }
