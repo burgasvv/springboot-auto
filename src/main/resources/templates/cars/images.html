@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 50px 100px">
+    <div style="margin: 50px 100px 200px;">
         <h2>
             <a th:href="@{/cars/{id} (id = ${car.id})}" th:text="|${car.brand != null ? car.brand.title : ''} ${car.title} page|">Car Page</a>
         </h2>
@@ -80,13 +80,18 @@
             </th:block>
         </div>
         <br><br>
-        <ul style="display: inline-flex; list-style-type: none">
-            <th:block th:each="pageNumber : ${pages}">
-                <li class="page-item" style="margin-right: 10px">
-                    <a class="page-link" th:href="@{|/cars/${car.id}/images/pages/${pageNumber}|}" th:text="${pageNumber}">1</a>
-                </li>
-            </th:block>
-        </ul>
+        <div style="margin-top: 100px">
+            <ul style="display: inline-flex; list-style-type: none">
+                <th:block th:each="pageNumber : ${pages}">
+                    <li class="page-item" style="margin-right: 10px">
+                        <a class="page-link" th:href="@{|/cars/${car.id}/images/pages/${pageNumber}|}" th:text="${pageNumber}">1</a>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+        <div style="margin-top: 100px">
+            <input type="button" value="Back" style="color: black" onclick="history.back()">
+        </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

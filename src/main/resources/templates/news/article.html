@@ -25,6 +25,7 @@
         <h3 th:text="|Release date: ${article.date}|" style="color: gray">Date</h3>
         <img th:src="${article.image}" alt="image" style="border-radius: 5%">
         <p th:text="${article.content}" style="font-size: 18px; margin-right: 400px; margin-top: 50px">Content</p>
+        <h3>Original: <a th:href="${article.url}" th:text="${article.url}" target="_blank"></a></h3>
         <div style="margin-top: 100px">
             <input type="button" value="Back" onclick="history.back()">
         </div>
