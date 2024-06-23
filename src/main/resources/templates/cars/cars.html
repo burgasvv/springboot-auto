@@ -60,7 +60,7 @@
             <h2>No results</h2>
         </th:block>
         <th:block th:each="car : ${cars}">
-            <div style="display: inline-flex; height: 300px; width: 300px; margin: 15px" class="w3-card-4 w3-hover-shadow">
+            <div style="display: inline-flex; height: 300px; width: 300px; margin: 15px">
                 <h2 style="margin: 10px; text-align: center">
                     <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
                         <th:block th:if="${imageMap.size() > 0 && imageMap != null}">
