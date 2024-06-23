@@ -1,5 +1,5 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
-    <div style="margin-left: 100px; margin-top: -30px" th:fragment="bar(user_image)">
+    <div style="margin-left: 100px; margin-top: -40px" th:fragment="bar(user_image)">
         <h2 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/">Home</a></h2>
         <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/classes">Classes</a></h3>
         <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/categories">Categories</a></h3>
@@ -21,9 +21,9 @@
         </th:block>
         <form th:method="GET" th:action="@{/search}" style="display: inline-flex; margin-right: 20px">
             <label for="search"></label>
-            <input type="text" id="search" name="search" style="margin-right: 10px; height: 28px; margin-top: 52px">
+            <input type="text" id="search" name="search" style="margin-right: 10px; height: 28px; margin-top: 65px">
             <label for="objects"></label>
-            <div style="margin-top: 51px">
+            <div style="margin-top: 64px">
                 <select name="selectObjects" id="objects" multiple style="width: 150px">
                     <option value="brands" name="Brands">Brands</option>
                     <option value="cars" name="Cars">Cars</option>
@@ -34,7 +34,7 @@
                     </th:block>
                 </select>
             </div>
-            <input class="w3-button" type="submit" value="Search" style="margin-left: 10px; color: black; height: 25px; margin-top: 55px">
+            <input type="submit" value="Search" style="margin-left: 10px; color: black; height: 35px; margin-top: 58px">
         </form>
         <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
             <th:block th:case="${false}">
