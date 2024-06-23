@@ -69,7 +69,7 @@ public class EngineController {
         return "engines/findEngines";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/secure/add")
     public String addEngineForm(Model model, @RequestParam("editionId") Long editionId) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -81,7 +81,7 @@ public class EngineController {
         return "engines/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/secure/add")
     public String addEngine(@ModelAttribute Engine engine,
                             @ModelAttribute EngineCharacteristics characteristics,
                             @ModelAttribute EngineEdition edition) {

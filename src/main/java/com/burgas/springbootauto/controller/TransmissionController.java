@@ -71,7 +71,7 @@ public class TransmissionController {
         return "transmissions/findTransmissions";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/secure/add")
     public String addTransmissionForm(Model model, @RequestParam("gearboxId") Long gearboxId) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -84,7 +84,7 @@ public class TransmissionController {
         return "transmissions/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/secure/add")
     public String addTransmission(@ModelAttribute Transmission transmission, @ModelAttribute Gearbox gearbox) {
         Transmission newTransmission = new Transmission();
         newTransmission.setName(transmission.getName());

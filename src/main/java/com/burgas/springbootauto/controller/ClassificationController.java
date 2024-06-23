@@ -61,7 +61,7 @@ public class ClassificationController {
         return "classes/class";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/secure/add")
     public String addClassForm(Model model) {
         model.addAttribute("class", new Classification());
         model.addAttribute("user",
@@ -70,7 +70,7 @@ public class ClassificationController {
         return "classes/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/secure/add")
     public String addClass(@ModelAttribute("class") Classification classification) {
         classificationService.save(classification);
         return "redirect:/classes";

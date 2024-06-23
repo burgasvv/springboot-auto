@@ -90,7 +90,7 @@ public class EquipmentController {
         return "equipments/equipment";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/secure/add")
     public String addEquipment(Model model) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -99,7 +99,7 @@ public class EquipmentController {
         return "equipments/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/secure/add")
     public String addEquipment(@ModelAttribute("equipment") Equipment equipment) {
         Person user = personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         equipment.setAttached(false);

@@ -62,7 +62,7 @@ public class TurbochargerController {
         return "turbochargers/findTurbochargers";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/secure/add")
     public String addTurbochargerForm(Model model, @RequestParam("turbotypeId") Long turbotypeId) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -74,7 +74,7 @@ public class TurbochargerController {
         return "turbochargers/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/secure/add")
     public String addTurbocharger(@ModelAttribute Turbocharger turbocharger, @ModelAttribute TurboType turboType) {
         Turbocharger newTurbocharger = new Turbocharger();
         newTurbocharger.setName(turbocharger.getName());

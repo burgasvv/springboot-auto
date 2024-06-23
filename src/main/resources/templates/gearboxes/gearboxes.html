@@ -54,7 +54,7 @@
                 <input type="submit" value="Find Transmissions" style="color: black">
             </form>
             <th:block th:if="${user.role.name == 'ADMIN'}">
-                <form th:method="GET" th:action="@{/gearboxes/add}" style="margin-top: 100px">
+                <form th:method="GET" th:action="@{/gearboxes/secure/add}" style="margin-top: 100px">
                     <input type="submit" value="Add Gearbox" style="color: black">
                 </form>
             </th:block>

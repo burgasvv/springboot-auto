@@ -54,7 +54,7 @@
                 <input type="submit" value="Find Engines" style="color: black">
             </form>
             <th:block th:if="${user.role.name == 'ADMIN'}">
-                <form th:method="GET" th:action="@{/editions/add}" style="margin-top: 100px">
+                <form th:method="GET" th:action="@{/editions/secure/add}" style="margin-top: 100px">
                     <input type="submit" value="Add Edition" style="color: black">
                 </form>
             </th:block>

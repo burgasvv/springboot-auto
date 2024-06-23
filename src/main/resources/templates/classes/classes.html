@@ -32,7 +32,7 @@
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.role.name eq 'ADMIN'}">
                 <div style="margin-top: 100px">
-                    <input type="button" value="Add" style="color: black" onclick="location.assign('/classes/add')">
+                    <input type="button" value="Add" style="color: black" onclick="location.assign('/classes/secure/add')">
                 </div>
             </th:block>
         </th:block>

@@ -88,7 +88,7 @@ public class BrandController {
         return "brands/brand";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/secure/add")
     public String addBrandForm(Model model) {
         model.addAttribute("brand", new Brand());
         model.addAttribute("user",
@@ -97,7 +97,7 @@ public class BrandController {
         return "brands/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/secure/add")
     public String addBrand(@ModelAttribute("brand") @Valid Brand brand, @RequestPart MultipartFile file, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "brands/add";

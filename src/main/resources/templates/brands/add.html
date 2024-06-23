@@ -20,7 +20,7 @@
     </th:block>
 </th:block>
     <div style="text-align: center; margin-top: 10%">
-        <form th:method="POST" th:action="@{/brands/add}" th:object="${brand}" enctype="multipart/form-data">
+        <form th:method="POST" th:action="@{/brands/secure/add}" th:object="${brand}" enctype="multipart/form-data">
             <h1>Brand</h1>
             <label for="title">Title</label><br>
             <input type="text" id="title" th:field="*{title}" >

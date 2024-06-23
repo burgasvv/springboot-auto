@@ -51,7 +51,7 @@ public class TurboTypeController {
         return "turbotypes/turbotype";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/secure/add")
     public String addTurboType(Model model) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -61,7 +61,7 @@ public class TurboTypeController {
         return "turbotypes/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/secure/add")
     public String addTurboType(@ModelAttribute("turboType") TurboType turboType, HttpServletRequest request) {
         String[] turboTypeBrands = request.getParameterValues("turboTypeBrands");
         TurboType newTurboType = new TurboType();
@@ -76,7 +76,7 @@ public class TurboTypeController {
         return "redirect:/turbo-types/" + id;
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("//{id}/edit")
     public String editTurboType(@PathVariable Long id, Model model) {
         model.addAttribute("turboType", turboTypeService.findById(id));
         model.addAttribute("user",

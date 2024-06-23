@@ -45,7 +45,7 @@
         <br>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.role.name == 'ADMIN'}">
-                <a th:href="@{/engines/add (editionId = ${edition.id})}" style="text-decoration: none">Add Engine</a>
+                <a th:href="@{/engines/secure/add (editionId = ${edition.id})}" style="text-decoration: none">Add Engine</a>
             </th:block>
         </th:block>
         <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>

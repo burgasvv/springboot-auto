@@ -20,7 +20,7 @@
     </th:block>
 </th:block>
     <div style="text-align: center; margin: 15% 100px 50px;">
-        <form th:method="POST" th:action="@{/gearboxes/add}" th:object="${gearbox}">
+        <form th:method="POST" th:action="@{/gearboxes/secure/add}" th:object="${gearbox}">
             <h2>Gearbox</h2>
             <label for="brands">Brands</label><br>
             <select size="1" name="selectedBrands" id="brands" multiple onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">

@@ -48,7 +48,7 @@
         <br>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.role.name == 'ADMIN'}">
-                <a th:href="@{/transmissions/add (gearboxId = ${gearbox.id})}" style="text-decoration: none">Add Transmission</a>
+                <a th:href="@{/transmissions/secure/add (gearboxId = ${gearbox.id})}" style="text-decoration: none">Add Transmission</a>
             </th:block>
         </th:block>
         <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>

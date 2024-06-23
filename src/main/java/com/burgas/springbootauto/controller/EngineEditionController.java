@@ -48,7 +48,7 @@ public class EngineEditionController {
         return "editions/edition";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/secure/add")
     public String addEditionForm(Model model) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -58,7 +58,7 @@ public class EngineEditionController {
         return "editions/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/secure/add")
     public String addEdition(@ModelAttribute("edition") EngineEdition edition) {
         EngineEdition newEdition = new EngineEdition();
         newEdition.setBrand(edition.getBrand());

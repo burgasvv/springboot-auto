@@ -47,7 +47,7 @@
         <br>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.role.name == 'ADMIN'}">
-                <a th:href="@{/turbochargers/add (turbotypeId = ${turboType.id})}" style="text-decoration: none">Add Turbocharger</a>
+                <a th:href="@{/turbochargers/secure/add (turbotypeId = ${turboType.id})}" style="text-decoration: none">Add Turbocharger</a>
             </th:block>
         </th:block>
         <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>

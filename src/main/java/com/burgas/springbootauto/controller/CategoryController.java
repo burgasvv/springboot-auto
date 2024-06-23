@@ -61,7 +61,7 @@ public class CategoryController {
         return "categories/category";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/secure/add")
     public String addCategoryForm(Model model) {
         model.addAttribute("category", new Category());
         model.addAttribute("user",
@@ -70,7 +70,7 @@ public class CategoryController {
         return "categories/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/secure/add")
     public String addCategory(@ModelAttribute("category") Category category) {
         categoryService.save(category);
         return "redirect:/categories";

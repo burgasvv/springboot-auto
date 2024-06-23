@@ -20,7 +20,7 @@
     </th:block>
 </th:block>
     <div style=" margin: 10% 100px 50px; text-align: center">
-        <form th:method="POST" th:action="@{/turbochargers/add}">
+        <form th:method="POST" th:action="@{/turbochargers/secure/add}">
             <h2>Turbocharger</h2>
             <label for="brand"></label><br>
             <select th:field="${turbocharger.brand.id}" id="brand">

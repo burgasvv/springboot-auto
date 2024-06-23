@@ -90,7 +90,7 @@ public class PersonController {
         return "users/edit";
     }
 
-    @PatchMapping("/edit")
+    @PatchMapping("/secure/edit")
     public String edit(@ModelAttribute Person owner) {
         personService.update(owner);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -120,7 +120,7 @@ public class PersonController {
         return "redirect:/users/" + person.getUsername();
     }
 
-    @GetMapping("/make-admin")
+    @GetMapping("/secure/make-admin")
     public String makeAdmin(@RequestParam String selectUser) {
         Person user = personService.findPersonByUsername(selectUser);
         Person admin = personService.makeAdmin(user);

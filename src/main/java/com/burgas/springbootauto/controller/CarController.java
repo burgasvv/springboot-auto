@@ -121,7 +121,7 @@ public class CarController {
         return "cars/car";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/secure/add")
     public String addCarForm(Model model) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -133,7 +133,7 @@ public class CarController {
         return "cars/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/secure/add")
     public String addCar(@ModelAttribute("car") @Valid Car car, @RequestPart MultipartFile file, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "cars/add";

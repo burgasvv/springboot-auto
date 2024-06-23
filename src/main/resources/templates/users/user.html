@@ -149,7 +149,7 @@
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${owner.username eq guest.username}">
                     <div style="margin-top: 50px">
-                        <input type="button" value="Add" onclick="location.assign('/cars/add')" style="color: black">
+                        <input type="button" value="Add" onclick="location.assign('/cars/secure/add')" style="color: black">
                     </div>
                 </th:block>
             </th:block>
@@ -191,7 +191,7 @@
                 </div>
                 <th:block th:if="${owner.username eq guest.username}">
                     <div style="margin-top: 50px">
-                        <input type="button" value="Add" onclick="location.assign('/equipments/add')" style="color: black">
+                        <input type="button" value="Add" onclick="location.assign('/equipments/secure/add')" style="color: black">
                     </div>
                 </th:block>
             </th:block>
@@ -205,7 +205,7 @@
                     <th:block th:if="${owner.role.name eq 'ADMIN'}">
                         <h2 style="margin-top: 50px">Admin</h2>
                         <th:block th:if="${users.size() > 0}">
-                            <form th:method="GET" th:action="@{/users/make-admin}">
+                            <form th:method="GET" th:action="@{/users/secure/make-admin}">
                                 <label for="make">Make Admin</label><br>
                                 <select name="selectUser" id="make">
                                     <option th:each="select : ${users}" th:value="${select.username}"

@@ -61,7 +61,7 @@
         <div style="margin-top: 250px">
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${owner.username eq guest.username}">
-                    <input type="button" value="Add" onclick="location.assign('/equipments/add')" style="color: black">
+                    <input type="button" value="Add" onclick="location.assign('/equipments/secure/add')" style="color: black">
                 </th:block>
             </th:block>
             <div style="margin-top: 50px">

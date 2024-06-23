@@ -56,7 +56,7 @@ public class GearboxController {
         return "gearboxes/gearbox";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/secure/add")
     public String addGearboxForm(Model model) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -66,7 +66,7 @@ public class GearboxController {
         return "gearboxes/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/secure/add")
     public String addGearbox(@ModelAttribute Gearbox gearbox, HttpServletRequest servletRequest) {
         String[] selectedBrands = servletRequest.getParameterValues("selectedBrands");
         Gearbox newGearbox = new Gearbox();

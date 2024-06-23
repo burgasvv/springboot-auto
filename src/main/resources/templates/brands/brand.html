@@ -70,9 +70,11 @@
 
             <h2 style="margin-top: 100px">
                 <a style="text-decoration: none" th:href="@{/brands/{id}/cars (id = *{id})}">Cars</a><br>
-                <a style="text-decoration: none" th:href="@{/brands/{id}/editions (id = *{id})}">Engines</a><br>
-                <a style="text-decoration: none" th:href="@{/brands/{id}/gearboxes (id = *{id})}">Transmissions</a><br>
-                <a style="text-decoration: none" th:href="@{/brands/{id}/turbo-types (id = *{id})}">Turbochargers</a><br>
+                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                    <a style="text-decoration: none" th:href="@{/brands/{id}/editions (id = *{id})}">Engines</a><br>
+                    <a style="text-decoration: none" th:href="@{/brands/{id}/gearboxes (id = *{id})}">Transmissions</a><br>
+                    <a style="text-decoration: none" th:href="@{/brands/{id}/turbo-types (id = *{id})}">Turbochargers</a><br>
+                </th:block>
             </h2>
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">

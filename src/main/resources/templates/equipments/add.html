@@ -20,7 +20,7 @@
     </th:block>
 </th:block>
     <div style="text-align: center; margin-top: 15%">
-        <form th:method="POST" th:action="@{/equipments/add (id = ${equipment.id})}">
+        <form th:method="POST" th:action="@{/equipments/secure/add (id = ${equipment.id})}">
             <h1>Equipment</h1>
             <label for="name">Name</label><br>
             <input type="text" id="name" th:field="${equipment.name}"><br><br>
