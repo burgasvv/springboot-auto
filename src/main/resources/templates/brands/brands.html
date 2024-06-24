@@ -27,37 +27,39 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 50px 100px">
-        <h1>Brands</h1>
-    </div>
-    <div style="margin: 10px 100px; text-align: center" class="stories">
-        <div class="story" style="display: inline-flex; margin: 77px; text-align: center" th:each="brand : ${brands}">
-            <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
-                <th:block th:if="${brand.image != null}">
-                    <div style="width: 400px; height: 400px">
-                        <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 400px">
-                    </div>
-                </th:block>
-                <h2 th:text="${brand.title}">Title</h2>
-            </a>
+    <div class="w3-animate-opacity">
+        <div style="margin: 50px 100px">
+            <h1>Brands</h1>
         </div>
-    </div>
-    <div style="margin: 50px 100px">
-        <ul style="display: inline-flex; list-style-type: none">
-            <th:block th:each="pageNumber : ${pages}">
-                <li class="page-item" style="margin-right: 10px">
-                    <a class="page-link" th:href="@{/brands/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
-                </li>
+        <div style="margin: 10px 100px; text-align: center" class="stories">
+            <div class="story" style="display: inline-flex; margin: 77px; text-align: center" th:each="brand : ${brands}">
+                <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
+                    <th:block th:if="${brand.image != null}">
+                        <div style="width: 400px; height: 400px">
+                            <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 400px">
+                        </div>
+                    </th:block>
+                    <h2 th:text="${brand.title}">Title</h2>
+                </a>
+            </div>
+        </div>
+        <div style="margin: 50px 100px">
+            <ul style="display: inline-flex; list-style-type: none">
+                <th:block th:each="pageNumber : ${pages}">
+                    <li class="page-item" style="margin-right: 10px">
+                        <a class="page-link" th:href="@{/brands/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+        <div style="margin: 100px">
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <th:block th:if="${user.role.name == 'ADMIN'}">
+                    <input type="button" value="Add Brand" onclick="location.assign('/brands/secure/add')" style="color: black">
+                </th:block>
             </th:block>
-        </ul>
-    </div>
-    <div style="margin: 100px">
-        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-            <th:block th:if="${user.role.name == 'ADMIN'}">
-                <input type="button" value="Add Brand" onclick="location.assign('/brands/secure/add')" style="color: black">
-            </th:block>
-        </th:block>
-        <input type="button" value="Back" onclick="location.assign('/')" style="color: black">
+            <input type="button" value="Back" onclick="location.assign('/')" style="color: black">
+        </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

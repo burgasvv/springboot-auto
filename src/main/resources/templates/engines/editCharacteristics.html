@@ -40,6 +40,7 @@
             <label for="cylinders">Cylinders</label><br>
             <input type="text" id="cylinders" th:field="*{cylinders}"><br><br>
 
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
             <input type="submit" value="OK" style="color: black">
             <input type="button" value="Back" onclick="history.back()" style="color: black">
         </form>

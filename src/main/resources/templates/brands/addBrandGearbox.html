@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="text-align: center; margin: 15% 100px 50px;">
+    <div style="text-align: center; margin: 15% 100px 50px" class="w3-animate-opacity">
         <form th:method="POST" th:action="@{/brands/{id}/add-gearbox (id = ${brand.id})}" th:object="${gearbox}">
             <h2>Gearbox</h2>
             <label for="name">Name</label><br>
@@ -28,6 +28,7 @@
             <input type="number" id="stairs" th:field="*{stairs}"><br><br>
             <label for="image">Image</label><br>
             <input type="text" id="image" th:field="*{image}"><br><br>
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
             <input type="submit" value="OK" style="color: black">
             <input type="button" value="Back" onclick="history.back()" style="color: black">
         </form>

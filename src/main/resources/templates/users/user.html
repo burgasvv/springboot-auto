@@ -105,18 +105,19 @@
             <p th:text="*{description}" style="text-align: justify">Description</p>
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>
+<!--                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>-->
                 <div style="margin-top: 50px">
                     <th:block th:if="${owner.cars.size() > 0}">
                         <th:block th:if="${owner.username eq guest.username}">
                             <h3>
-                                <a class="w3-button w3-round w3-2021-cerulean"
-                                   th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none">My Cars</a>
+                                <a class="w3-card w3-button w3-round w3-deep-orange"
+                                   th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none; width: 800px">My Cars</a>
                             </h3>
                         </th:block>
                         <th:block th:if="${owner.username != guest.username}">
                             <h2>
-                                <a th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none">Cars</a>
+                                <a class="w3-card w3-button w3-round w3-deep-orange"
+                                   th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none">Cars</a>
                             </h2>
                         </th:block>
                     </th:block>
@@ -127,7 +128,7 @@
                     <h2>Cars</h2>
                     <h3 style="color: grey">No results</h3>
                 </th:block>
-                <div th:each="car : ${owner.cars}" style="display: inline-flex">
+                <div th:each="car : ${owner.cars}" style="display: inline-flex; margin-top: 50px">
                     <h3 style="height: 100px; width: 100px; margin-right: 20px">
                         <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
                             <th:block th:if="${car.images.size() > 0 && car.images != null}">
@@ -156,18 +157,20 @@
             </th:block>
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>
+<!--                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>-->
                 <div style="margin-top: 50px">
                     <th:block th:if="${owner.equipments.size() > 0}">
                         <th:block th:if="${owner.username eq guest.username}">
                             <h3>
-                                <a class="w3-button w3-round w3-2021-cerulean"
-                                   th:href="@{/users/{name}/equipments (name = *{username})}" style="text-decoration: none">My Complectations</a>
+                                <a class="w3-button w3-round w3-light-blue"
+                                   th:href="@{/users/{name}/equipments (name = *{username})}"
+                                   style="text-decoration: none; width: 800px">My Complectations</a>
                             </h3>
                         </th:block>
                         <th:block th:if="${owner.username != guest.username}">
                             <h2>
-                                <a th:href="@{/users/{name}/equipments (name = *{username})}" style="text-decoration: none">Complectations</a>
+                                <a class="w3-button w3-round w3-light-blue"
+                                   th:href="@{/users/{name}/equipments (name = *{username})}" style="text-decoration: none">Complectations</a>
                             </h2>
                         </th:block>
                     </th:block>
@@ -178,7 +181,7 @@
                     <h2>Complectations</h2>
                     <h3 style="color: grey">No results</h3>
                 </th:block>
-                <div th:each="complectation : ${owner.equipments}" style="display: inline-flex">
+                <div th:each="complectation : ${owner.equipments}" style="display: inline-flex; margin-top: 50px">
                     <h3 style="margin-right: 20px; text-align: center">
                         <a th:href="@{/equipments/{id} (id = ${complectation.id})}" style="text-decoration: none">
                             <img th:src="${complectation.image}" alt="image" style="display: inline-flex; width: 50px; border-radius: 10%"><br>
@@ -200,9 +203,9 @@
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${owner.username eq guest.username}">
-                    <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>
+<!--                    <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>-->
                     <th:block th:if="${owner.role.name eq 'USER'}">
-                        <h2 style="margin-top: 50px">User</h2>
+                        <h2 class="w3-round-large w3-hover-light-grey" style="margin-top: 50px">User</h2>
                     </th:block>
                     <th:block th:if="${owner.role.name eq 'ADMIN'}">
                         <h2 style="margin-top: 50px">Admin</h2>

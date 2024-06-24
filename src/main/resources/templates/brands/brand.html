@@ -20,75 +20,77 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 25px 100px">
-        <h3>
-            <a th:href="@{/brands}">Brands</a>
-        </h3>
-    </div>
-    <div style="margin: 50px 100px 100px; display: inline-flex" th:object="${brand}">
-        <div style="display: inline-block">
-            <h1 th:text="*{title}">Title</h1>
-            <th:block th:if="*{image != null}">
-                <h2>
-                    <img id="myImg" th:src="@{|/images/*{image.id}|}" alt="image" style="width: 500px">
-                    <div id="myModal" class="modal">
-                        <span class="close">&times;</span>
-                        <img class="modal-content" id="img01" alt="image">
-                        <div id="caption"></div>
-                    </div>
-                </h2>
-                <div style="display: inline-flex; margin-right: -100px; margin-top: 100px">
-                    <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
-                        <label for="changeImage">Change Image</label>
-                        <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
-                        <input type="submit" style="color: black" value="Change">
-                    </form>
-                </div>
-                <br><br>
-                <div>
-                    <form th:method="POST" th:action="@{/brands/{id}/remove-image (id = *{id})}">
-                        <label for="removeImage">Remove Image</label>
-                        <input type="submit" id="removeImage" value="Remove" style="color: black">
-                    </form>
-                </div>
-            </th:block>
-            <th:block th:if="*{image == null}">
-                <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
-                    <label for="addImage">Add Image</label><br><br>
-                    <input type="file" id="addImage" name="file" accept="image/png, image/jpeg">
-                    <input type="submit" style="color: black" value="Add">
-                </form>
-            </th:block>
-            <h2 style="margin-top: 100px">
-                Website: <a th:href="*{website}" th:text="*{website}" style="font-weight: normal" target="_blank"></a>
-            </h2>
-            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+    <div class="w3-animate-opacity">
+        <div style="margin: 25px 100px">
+            <h3>
+                <a th:href="@{/brands}">Brands</a>
+            </h3>
         </div>
-        <div style="display: inline-block; margin-left: 300px; margin-top: 100px">
-            <h3>Description</h3>
-            <p th:text="*{description}" style="text-align: justify;"></p>
-
-            <h2 style="margin-top: 100px">
-                <a style="text-decoration: none" th:href="@{/brands/{id}/cars (id = *{id})}">Cars</a><br>
-                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                    <a style="text-decoration: none" th:href="@{/brands/{id}/editions (id = *{id})}">Engines</a><br>
-                    <a style="text-decoration: none" th:href="@{/brands/{id}/gearboxes (id = *{id})}">Transmissions</a><br>
-                    <a style="text-decoration: none" th:href="@{/brands/{id}/turbo-types (id = *{id})}">Turbochargers</a><br>
-                </th:block>
-            </h2>
-
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${user.role.name == 'ADMIN'}">
-                    <div style="display: inline-flex; margin-top: 100px">
-                        <form th:method="GET" th:action="@{/brands/{id}/edit (id = *{id})}">
-                            <input type="submit" value="Edit" style="color: black">
+        <div style="margin: 50px 100px 100px; display: inline-flex" th:object="${brand}">
+            <div style="display: inline-block">
+                <h1 th:text="*{title}">Title</h1>
+                <th:block th:if="*{image != null}">
+                    <h2>
+                        <img id="myImg" th:src="@{|/images/*{image.id}|}" alt="image" style="width: 500px">
+                        <div id="myModal" class="modal">
+                            <span class="close">&times;</span>
+                            <img class="modal-content" id="img01" alt="image">
+                            <div id="caption"></div>
+                        </div>
+                    </h2>
+                    <div style="display: inline-flex; margin-right: -100px; margin-top: 100px">
+                        <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
+                            <label for="changeImage">Change Image</label>
+                            <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
+                            <input type="submit" style="color: black" value="Change">
                         </form>
-                        <form th:method="DELETE" th:action="@{/brands/{id}/delete (id = *{id})}">
-                            <input type="submit" value="Delete" style="color: black; margin-left: 10px">
+                    </div>
+                    <br><br>
+                    <div>
+                        <form th:method="POST" th:action="@{/brands/{id}/remove-image (id = *{id})}">
+                            <label for="removeImage">Remove Image</label>
+                            <input type="submit" id="removeImage" value="Remove" style="color: black">
                         </form>
                     </div>
                 </th:block>
-            </th:block>
+                <th:block th:if="*{image == null}">
+                    <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
+                        <label for="addImage">Add Image</label><br><br>
+                        <input type="file" id="addImage" name="file" accept="image/png, image/jpeg">
+                        <input type="submit" style="color: black" value="Add">
+                    </form>
+                </th:block>
+                <h2 style="margin-top: 100px">
+                    Website: <a th:href="*{website}" th:text="*{website}" style="font-weight: normal" target="_blank"></a>
+                </h2>
+                <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+            </div>
+            <div style="display: inline-block; margin-left: 300px; margin-top: 100px">
+                <h3>Description</h3>
+                <p th:text="*{description}" style="text-align: justify;"></p>
+
+                <h2 style="margin-top: 100px">
+                    <a style="text-decoration: none" th:href="@{/brands/{id}/cars (id = *{id})}">Cars</a><br>
+                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a style="text-decoration: none" th:href="@{/brands/{id}/editions (id = *{id})}">Engines</a><br>
+                        <a style="text-decoration: none" th:href="@{/brands/{id}/gearboxes (id = *{id})}">Transmissions</a><br>
+                        <a style="text-decoration: none" th:href="@{/brands/{id}/turbo-types (id = *{id})}">Turbochargers</a><br>
+                    </th:block>
+                </h2>
+
+                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                    <th:block th:if="${user.role.name == 'ADMIN'}">
+                        <div style="display: inline-flex; margin-top: 100px">
+                            <form th:method="GET" th:action="@{/brands/{id}/edit (id = *{id})}">
+                                <input type="submit" value="Edit" style="color: black">
+                            </form>
+                            <form th:method="DELETE" th:action="@{/brands/{id}/delete (id = *{id})}">
+                                <input type="submit" value="Delete" style="color: black; margin-left: 10px">
+                            </form>
+                        </div>
+                    </th:block>
+                </th:block>
+            </div>
         </div>
     </div>
 <script src="/resource/js/imageResource.js"></script>

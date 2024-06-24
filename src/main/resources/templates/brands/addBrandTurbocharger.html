@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style=" margin: 10% 100px 50px; text-align: center">
+    <div style=" margin: 10% 100px 50px; text-align: center" class="w3-animate-opacity">
         <form th:method="POST" th:action="@{/brands/{id}/add-turbocharger (id = ${brand.id})}">
             <h2>Transmission</h2>
             <label for="brand"></label><br>
@@ -47,6 +47,7 @@
             <label for="description">Description</label><br>
             <textarea th:field="${turbocharger.description}" id="description" cols="30" rows="10">Description</textarea>><br><br>
 
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
             <input type="submit" value="OK" style="color: black">
             <input type="button" value="Back" onclick="history.back()" style="color: black">
         </form>

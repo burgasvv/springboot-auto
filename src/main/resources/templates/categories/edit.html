@@ -34,6 +34,7 @@
             <label for="description">Description</label><br>
             <input type="text" id="description" th:field="${category.description}"><br><br>
 
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
             <input type="submit" value="Accept" style="color: black">
             <input type="button" value="Cancel" style="color: black" onclick="history.back()">
         </form>
