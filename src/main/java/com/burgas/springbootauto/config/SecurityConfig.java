@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -97,10 +98,19 @@ public class SecurityConfig {
                         .hasAuthority("ADMIN")
                         .anyRequest().authenticated());
         http
-                .formLogin(login -> login.loginPage("/login").defaultSuccessUrl("/").permitAll())
+                .formLogin(
+                        login -> login.loginPage("/login")
+                                .successHandler(authenticationSuccessHandler())
+                                .permitAll()
+                )
                 .logout(logout -> logout.logoutSuccessUrl("/login").permitAll());
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
     }
 
     @Bean

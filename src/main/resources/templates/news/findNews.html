@@ -21,16 +21,18 @@
 </th:block>
 
 <div style="margin: 50px 100px">
+    <h1>News</h1>
+    <div>
+        <form th:method="GET" th:action="@{/news/search}">
+            <label for="search"></label>
+            <input type="text" id="search" name="search" th:value="${search}">
+            <input type="submit" value="Search" style="color: black">
+        </form>
+    </div>
+    <th:block th:if="${news.isEmpty() eq true}">
+        <h2>No results</h2>
+    </th:block>
     <th:block th:if="${news.isEmpty() eq false}">
-        <h1>News</h1>
-        <div>
-            <form th:method="GET" th:action="@{/news/search}">
-                <label for="search"></label>
-                <input type="text" id="search" name="search" th:value="${search}">
-<!--                <input type="hidden" name="_csrf" th:value="${_csrf.token}">-->
-                <input type="submit" value="Search" style="color: black">
-            </form>
-        </div>
         <div style="display: inline-flex" th:each="article : ${news}">
             <div style="width: 250px; height: 250px; margin-right: 80px; margin-top: 80px; display: inline-block">
                 <a th:href="@{/news/{id} (id = ${article.id})}" style="text-decoration: none">
