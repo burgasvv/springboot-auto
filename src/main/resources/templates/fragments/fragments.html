@@ -1,13 +1,16 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
-    <div class="w3-monospace" style="margin-top: -35px; background-color: #d0d5e0;
+    <div class="w3-animate-top"
+         style="margin-top: -35px; background-color: #d0d5e0; border-radius: 5%; margin-left: 25px; margin-right: 25px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height: 120px" th:fragment="bar(user_image)">
-        <h2 style="margin-left: 100px; display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/">Home</a></h2>
-        <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/classes">Classes</a></h3>
-        <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/categories">Categories</a></h3>
-        <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/brands">Brands</a></h3>
-        <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/cars">Cars</a></h3>
+        <h2 style="margin-left: 100px; display: inline-flex; margin-right: 20px">
+            <a class="w3-hover-opacity" style="text-decoration: none" href="/">Home</a></h2>
+        <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/classes">Classes</a></h3>
+        <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/categories">Categories</a></h3>
+        <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/brands">Brands</a></h3>
+        <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/cars">Cars</a></h3>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-            <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/equipments">Complectations</a></h3>
+            <h3 style="display: inline-flex; margin-right: 20px">
+                <a class="w3-hover-opacity" style="text-decoration: none" href="/equipments">Complectations</a></h3>
         </th:block>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <div style="display: inline-flex; margin-right: 20px">
@@ -22,7 +25,8 @@
         </th:block>
         <form th:method="GET" th:action="@{/search}" style="display: inline-flex; margin-right: 20px">
             <label for="search"></label>
-            <input type="text" id="search" name="search" style="margin-right: 10px; height: 28px; margin-top: 68px">
+            <input class="w3-input" type="text" id="search" name="search"
+                   style="margin-right: 10px; height: 28px; margin-top: 68px; width: 150px">
             <label for="objects"></label>
             <div style="margin-top: 67px">
                 <select name="selectObjects" id="objects" multiple style="width: 150px">
@@ -41,32 +45,31 @@
         <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
             <th:block th:case="${false}">
                 <div style="text-align: right; margin-right: 100px; margin-top: -62px">
-                    <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/login">Login</a></h3>
-                    <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/registration">Registration</a></h3>
+                    <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/login">Login</a></h3>
+                    <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/registration">Registration</a></h3>
                 </div>
             </th:block>
             <th:block th:case="${true}">
-                <div style="text-align: right; margin-right: 100px; margin-top: -65px">
+                <div style="text-align: right; margin-right: 100px; margin-top: -65px; margin-left: 100px">
                     <h3 style="display: inline-flex; margin-right: 20px">
-                        <a style="text-decoration: none" th:href="@{/users}" >Users</a>
+                        <a class="w3-hover-opacity" style="text-decoration: none" th:href="@{/users}" >Users</a>
                     </h3>
                     <h2 style="display: inline-flex; margin-right: 20px">
                         <a style="text-decoration: none" th:href="@{/users/{name} (name = ${#authentication.name})}">
                             <th:block th:if="${user_image != null}">
-                                <img th:src="@{|/images/${user_image}|}" alt="image" style="height: 40px; border-radius: 100%; margin-right: 10px">
+                                <img class="w3-hover-opacity w3-circle" th:src="@{|/images/${user_image}|}" alt="image" style="height: 40px">
                             </th:block>
                             <th:block th:if="${user_image == null}">
-                                <img src="/resource/images/emptyUserImage.png" alt="image"
-                                     style="height: 40px; border-radius: 100%; margin-right: 10px">
+                                <img class="w3-hover-opacity w3-circle" src="/resource/images/emptyUserImage.png" alt="image"
+                                     style="height: 40px">
                             </th:block>
-                            <span th:text="${#authentication.name}"/>
                         </a>
                     </h2>
-                    <form action="/logout" method="post" style="display: inline-flex; margin-right: 20px">
+                    <form action="/logout" method="post" style="display: inline-flex; margin-left: -10px">
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                        <input type="submit" value="Logout"
+                        <input class="w3-hover-opacity" type="submit" value="Logout"
                                style="background: none; border: none; text-decoration: none;
-                               cursor: pointer; ">
+                               cursor: pointer; font-size: 20px">
                     </form>
                 </div>
             </th:block>

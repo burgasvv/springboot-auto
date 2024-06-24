@@ -46,7 +46,7 @@
     <div style="margin-top: 100px">
         <ul class="w3-bar w3-round" style="display: inline-flex; list-style-type: none">
             <th:block th:each="pageNumber : ${pages}">
-                <a class="w3-bar-item w3-button w3-green" th:href="@{/news/search/pages/{page}
+                <a class="w3-bar-item w3-button w3-teal" th:href="@{/news/search/pages/{page}
                     (page = ${pageNumber}, search = ${search})}" th:text="${pageNumber}">1</a>
             </th:block>
         </ul>

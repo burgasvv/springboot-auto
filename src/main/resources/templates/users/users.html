@@ -19,42 +19,43 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 50px 100px">
-        <div style="margin-top: 50px">
+    <div style="margin: 50px 100px" class="w3-animate-opacity">
+        <h1>Users</h1>
+        <div>
             <form th:method="GET" th:action="@{/users/search}">
                 <label for="search">Search</label><br>
                 <input type="text" id="search" name="search">
                 <input type="submit" value="Search" style="color: black">
             </form>
         </div>
-        <h1 style="margin-bottom: 50px">Users</h1>
-        <div th:each="selectUser : ${users}">
+        <div th:each="selectUser : ${users}" style="margin-top: 50px">
             <a th:href="@{/users/{name} (name = ${selectUser.username})}">
-                <div style="display: inline-flex">
-                    <th:block th:if="${selectUser.image != null}">
-                        <img th:src="@{/images/{id} (id = ${selectUser.image.id})}"
-                             alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
-                    </th:block>
-                    <th:block th:if="${selectUser.image == null}">
-                        <img src="/resource/images/emptyUserImage.png"
-                             alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
-                    </th:block>
-                    <div style="display: inline-block">
-                        <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>
-                        <span th:text="${selectUser.username}"/>
-                        <h5 th:text="${selectUser.role.name}" style="color: grey">Role</h5>
-                        <th:block th:if="${user.role.name eq 'ADMIN'}">
-                            <th:block th:if="${selectUser.enabled == true}">
-                                <span style="color: gray; margin-left: 500px">Active</span>
-                            </th:block>
-                            <th:block th:if="${selectUser.enabled == false}">
-                                <span style="color: red; margin-left: 500px">Inactive</span>
-                            </th:block>
+                <div style="display: inline-flex" class="w3-card w3-round-large">
+                    <div style="margin: 20px">
+                        <th:block th:if="${selectUser.image != null}">
+                            <img th:src="@{/images/{id} (id = ${selectUser.image.id})}"
+                                 alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
                         </th:block>
+                        <th:block th:if="${selectUser.image == null}">
+                            <img src="/resource/images/emptyUserImage.png"
+                                 alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
+                        </th:block>
+                        <div style="display: inline-block">
+                            <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>
+                            <span th:text="${selectUser.username}"/>
+                            <h5 th:text="${selectUser.role.name}" style="color: grey">Role</h5>
+                            <th:block th:if="${user.role.name eq 'ADMIN'}">
+                                <th:block th:if="${selectUser.enabled == true}">
+                                    <span style="color: gray; margin-left: 500px">Active</span>
+                                </th:block>
+                                <th:block th:if="${selectUser.enabled == false}">
+                                    <span style="color: red; margin-left: 500px">Inactive</span>
+                                </th:block>
+                            </th:block>
+                        </div>
                     </div>
                 </div>
             </a>
-            <div style="border-top: 1px solid gray; margin-top: 25px; margin-bottom: 25px; margin-right: 1000px"></div>
         </div>
         <ul style="display: inline-flex; list-style-type: none; margin-top: 100px">
             <th:block th:each="pageNumber : ${pages}">
