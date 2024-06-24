@@ -109,9 +109,10 @@
                 <div style="margin-top: 50px">
                     <th:block th:if="${owner.cars.size() > 0}">
                         <th:block th:if="${owner.username eq guest.username}">
-                            <h2>
-                                <a th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none">My Cars</a>
-                            </h2>
+                            <h3>
+                                <a class="w3-button w3-round w3-2021-cerulean"
+                                   th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none">My Cars</a>
+                            </h3>
                         </th:block>
                         <th:block th:if="${owner.username != guest.username}">
                             <h2>
@@ -159,9 +160,10 @@
                 <div style="margin-top: 50px">
                     <th:block th:if="${owner.equipments.size() > 0}">
                         <th:block th:if="${owner.username eq guest.username}">
-                            <h2>
-                                <a th:href="@{/users/{name}/equipments (name = *{username})}" style="text-decoration: none">My Complectations</a>
-                            </h2>
+                            <h3>
+                                <a class="w3-button w3-round w3-2021-cerulean"
+                                   th:href="@{/users/{name}/equipments (name = *{username})}" style="text-decoration: none">My Complectations</a>
+                            </h3>
                         </th:block>
                         <th:block th:if="${owner.username != guest.username}">
                             <h2>
