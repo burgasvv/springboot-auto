@@ -1,6 +1,7 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
-    <div style="margin-left: 100px; margin-top: -40px" th:fragment="bar(user_image)">
-        <h2 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/">Home</a></h2>
+    <div class="w3-monospace" style="margin-top: -35px; background-color: #d0d5e0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height: 120px" th:fragment="bar(user_image)">
+        <h2 style="margin-left: 100px; display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/">Home</a></h2>
         <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/classes">Classes</a></h3>
         <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/categories">Categories</a></h3>
         <h3 style="display: inline-flex; margin-right: 20px"><a style="text-decoration: none" href="/brands">Brands</a></h3>
@@ -21,9 +22,9 @@
         </th:block>
         <form th:method="GET" th:action="@{/search}" style="display: inline-flex; margin-right: 20px">
             <label for="search"></label>
-            <input type="text" id="search" name="search" style="margin-right: 10px; height: 28px; margin-top: 65px">
+            <input type="text" id="search" name="search" style="margin-right: 10px; height: 28px; margin-top: 68px">
             <label for="objects"></label>
-            <div style="margin-top: 64px">
+            <div style="margin-top: 67px">
                 <select name="selectObjects" id="objects" multiple style="width: 150px">
                     <option value="brands" name="Brands">Brands</option>
                     <option value="cars" name="Cars">Cars</option>
@@ -34,7 +35,8 @@
                     </th:block>
                 </select>
             </div>
-            <input type="submit" value="Search" style="margin-left: 10px; color: black; height: 35px; margin-top: 58px">
+            <input class="w3-button w3-blue w3-round"
+                   type="submit" value="Search" style="margin-left: 10px; color: black; height: 38px; margin-top: 58px">
         </form>
         <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
             <th:block th:case="${false}">

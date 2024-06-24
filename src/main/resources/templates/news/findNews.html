@@ -23,10 +23,10 @@
 <div style="margin: 50px 100px">
     <h1>News</h1>
     <div>
-        <form th:method="GET" th:action="@{/news/search}">
+        <form th:method="GET" th:action="@{/news/search}" style="display: inline-flex">
             <label for="search"></label>
-            <input type="text" id="search" name="search" th:value="${search}">
-            <input type="submit" value="Search" style="color: black">
+            <input class="w3-input" style="width: 250px" type="text" id="search" name="search" th:value="${search}">
+            <input class="w3-btn w3-blue w3-round" type="submit" value="Search" style="color: black; margin-left: 10px">
         </form>
     </div>
     <th:block th:if="${news.isEmpty() eq true}">
@@ -46,7 +46,7 @@
     <div style="margin-top: 100px">
         <ul class="w3-bar w3-round" style="display: inline-flex; list-style-type: none">
             <th:block th:each="pageNumber : ${pages}">
-                <a class="w3-bar-item w3-button" th:href="@{/news/search/pages/{page}
+                <a class="w3-bar-item w3-button w3-green" th:href="@{/news/search/pages/{page}
                     (page = ${pageNumber}, search = ${search})}" th:text="${pageNumber}">1</a>
             </th:block>
         </ul>
