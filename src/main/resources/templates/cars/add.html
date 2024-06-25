@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="text-align: center; margin-top: 7%">
+    <div style="text-align: center; margin-top: 7%" class="w3-animate-opacity">
         <form th:method="POST" th:action="@{/cars/secure/add}" th:object="${car}" enctype="multipart/form-data">
 
             <label for="title">Title</label><br>

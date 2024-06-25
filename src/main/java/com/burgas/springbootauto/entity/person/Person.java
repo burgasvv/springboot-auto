@@ -16,6 +16,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Person implements UserDetails {
@@ -38,6 +39,9 @@ public class Person implements UserDetails {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
+    private RestoreToken token;
 
     @OneToOne
     @JoinColumn(name = "image_id")

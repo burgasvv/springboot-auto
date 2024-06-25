@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 50px 100px 200px;">
+    <div style="margin: 50px 100px 200px" class="w3-animate-opacity">
         <h2>
             <a th:href="@{/cars/{id} (id = ${car.id})}" th:text="|${car.brand != null ? car.brand.title : ''} ${car.title} page|">Car Page</a>
         </h2>
@@ -61,7 +61,7 @@
             <h2>Images</h2>
         </div>
         <div style="display: inline-flex" th:each="image : ${images}">
-            <th:block th:if="${image.preview == false}">
+            <th:block th:if="${image.preview == false}" >
                 <div style="width: 250px; margin-right: 80px; margin-top: 80px; display: inline-block; text-align: center">
                     <img th:src="@{|/images/${image.id}|}" alt="image" style="display: inline-flex; width: 250px; border-radius: 2%">
                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">

@@ -1,5 +1,6 @@
 package com.burgas.springbootauto.config;
 
+import com.burgas.springbootauto.handler.CustomAuthenticationSuccessHandler;
 import com.burgas.springbootauto.service.person.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ public class SecurityConfig {
                 requests -> requests
                         .requestMatchers("/resource/**").permitAll()
                         .requestMatchers("/","/registration","/search","news/**","/images/**",
+                                "/forgotPassword","/forgotPassword/{status}","/restorePassword","/restorePassword/{token}",
                                 "/brands","/brands/pages/{page}","/brands/{id}","/brands/{id}/cars",
                                 "/brands/{id}/cars/pages/{page}","/brands/{id}/search-brand-cars",
                                 "/brands/{id}/search-brand-cars/pages/{page}",

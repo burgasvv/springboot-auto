@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.config;
+package com.burgas.springbootauto.handler;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

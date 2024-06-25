@@ -1,13 +1,16 @@
 package com.burgas.springbootauto.entity.person;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Role implements GrantedAuthority {
 

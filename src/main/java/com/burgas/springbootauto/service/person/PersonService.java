@@ -51,6 +51,10 @@ public class PersonService {
         return personRepository.findPersonByUsername(name);
     }
 
+    public Person findPersonByEmail(String email) {
+        return personRepository.findPersonByEmail(email);
+    }
+
     @SneakyThrows
     @Transactional
     public void createUser(Person person, MultipartFile multipartFile) {
@@ -67,6 +71,12 @@ public class PersonService {
             imageService.save(image);
             person.setImage(image);
         }
+        personRepository.save(person);
+    }
+
+    @Transactional
+    public void restorePassword(Person person, String password) {
+        person.setPassword(passwordEncoder.encode(password));
         personRepository.save(person);
     }
 

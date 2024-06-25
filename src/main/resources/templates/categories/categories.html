@@ -20,11 +20,11 @@
     </th:block>
 </th:block>
     <div style="margin: 50px 100px">
+        <h1>Categories</h1><br><br>
         <h2 th:each="category : ${categories}">
             <a th:href="@{/categories/{id} (id = ${category.id})}" style="text-decoration: none">
-                <span th:text="${category.name}"/>
-            </a>
-            <div style="border-top: 1px solid gray; margin-top: 25px; margin-bottom: 25px; margin-right: 900px"></div>
+                <span class="w3-button w3-2021-mint w3-round-large" style="width: 1000px" th:text="${category.name}"/>
+            </a><br><br>
         </h2>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.role.name eq 'ADMIN'}">

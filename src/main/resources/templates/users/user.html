@@ -78,24 +78,30 @@
                 <h2>First Name: <span th:text="*{firstname}" style="font-weight: normal"/></h2>
                 <h2>Last Name: <span th:text="*{lastname}" style="font-weight: normal"/></h2>
                 <h2>Email: <span style="font-weight: normal" th:text="*{email}"/></h2>
-                <th:block th:if="${guest.role.name eq 'ADMIN'}">
-                    <th:block th:if="${owner.enabled == true}">
-                        <span style="color: gray">Active</span><br><br>
-                        <th:block th:if="${owner.role.name != 'ADMIN'}">
-                            <form th:method="POST" th:action="@{/users/{name}/ban (name = ${owner.username})}">
-                                <input type="submit" value="Ban" style="color: black">
-                            </form>
+                <div id="divBanAndUnbanMain">
+                    <div id="divBanAndUnban">
+                        <th:block th:if="${guest.role.name eq 'ADMIN'}">
+                            <th:block th:if="${owner.enabled == true}">
+                                <span style="color: gray">Active</span><br><br>
+                                <th:block th:if="${owner.role.name != 'ADMIN'}">
+                                    <form id="banUserForm">
+                                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                        <input type="submit" value="Ban" style="color: black">
+                                    </form>
+                                </th:block>
+                            </th:block>
+                            <th:block th:if="${owner.enabled == false}">
+                                <span style="color: red">Inactive</span><br><br>
+                                <th:block th:if="${owner.role.name != 'ADMIN'}">
+                                    <form id="unbanUserForm">
+                                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                        <input type="submit" value="Unban" style="color: black">
+                                    </form>
+                                </th:block>
+                            </th:block>
                         </th:block>
-                    </th:block>
-                    <th:block th:if="${owner.enabled == false}">
-                        <span style="color: red">Inactive</span><br><br>
-                        <th:block th:if="${owner.role.name != 'ADMIN'}">
-                            <form th:method="POST" th:action="@{/users/{name}/unban (name = ${owner.username})}">
-                                <input type="submit" value="Unban" style="color: black">
-                            </form>
-                        </th:block>
-                    </th:block>
-                </th:block>
+                    </div>
+                </div>
             </th:block>
             <br>
             <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
@@ -105,7 +111,6 @@
             <p th:text="*{description}" style="text-align: justify">Description</p>
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-<!--                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>-->
                 <div style="margin-top: 50px">
                     <th:block th:if="${owner.cars.size() > 0}">
                         <th:block th:if="${owner.username eq guest.username}">
@@ -157,7 +162,6 @@
             </th:block>
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-<!--                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>-->
                 <div style="margin-top: 50px">
                     <th:block th:if="${owner.equipments.size() > 0}">
                         <th:block th:if="${owner.username eq guest.username}">
@@ -203,22 +207,26 @@
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${owner.username eq guest.username}">
-<!--                    <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: -500px"></div>-->
                     <th:block th:if="${owner.role.name eq 'USER'}">
                         <h2 class="w3-round-large w3-hover-light-grey" style="margin-top: 50px">User</h2>
                     </th:block>
                     <th:block th:if="${owner.role.name eq 'ADMIN'}">
                         <h2 style="margin-top: 50px">Admin</h2>
-                        <th:block th:if="${users.size() > 0}">
-                            <form th:method="GET" th:action="@{/users/secure/make-admin}">
-                                <label for="make">Make Admin</label><br>
-                                <select name="selectUser" id="make">
-                                    <option th:each="select : ${users}" th:value="${select.username}"
-                                            th:text="|${select.firstname} ${select.lastname} ${select.username}|">User</option>
-                                </select>
-                                <input type="submit" value="Make" style="color: black">
-                            </form>
-                        </th:block>
+                        <div id="divMakeAdminMain">
+                            <div id="divMakeAdmin">
+                                <th:block th:if="${users.size() > 0}">
+                                    <form id="makeAdminForm">
+                                        <label for="make">Make Admin</label><br>
+                                        <select name="selectUser" id="make">
+                                            <option th:each="select : ${users}" th:value="${select.username}"
+                                                    th:text="|${select.firstname} ${select.lastname} ${select.username}|">User</option>
+                                        </select>
+                                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                        <input type="submit" value="Make" style="color: black">
+                                    </form>
+                                </th:block>
+                            </div>
+                        </div>
                     </th:block>
                     <div style="margin-top: 25px; display: inline-flex">
                         <form th:method="GET" th:action="@{/users/{name}/edit (name = ${owner.username})}" style="margin-right: 10px">
@@ -234,6 +242,8 @@
     </div>
     <script src="/resource/js/changeUserPreviewImage.js"></script>
     <script src="/resource/js/deleteUserPreviewImage.js"></script>
+    <script src="/resource/js/makeAdmin.js"></script>
+    <script src="/resource/js/bunAndUnbanUser.js"></script>
     <script src="/resource/js/imageResource.js"></script>
     <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

@@ -120,7 +120,7 @@ public class PersonController {
         return "redirect:/users/" + person.getUsername();
     }
 
-    @GetMapping("/secure/make-admin")
+    @PostMapping("/secure/make-admin")
     public String makeAdmin(@RequestParam String selectUser) {
         Person user = personService.findPersonByUsername(selectUser);
         Person admin = personService.makeAdmin(user);
