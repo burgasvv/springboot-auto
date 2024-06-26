@@ -69,13 +69,16 @@ public class LoadDatabase {
     }
 
     @Bean
-    public CommandLineRunner initDatabase(BrandRepository brandRepository, CarRepository carRepository, CategoryRepository categoryRepository,
+    public CommandLineRunner initDatabase(BrandRepository brandRepository, CarRepository carRepository,
+                                          CategoryRepository categoryRepository,
                                           ClassificationRepository classificationRepository, TagRepository tagRepository,
-                                          FuelRepository fuelRepository, EngineRepository engineRepository, EquipmentRepository equipmentRepository,
+                                          FuelRepository fuelRepository, EngineRepository engineRepository,
+                                          EquipmentRepository equipmentRepository,
                                           EngineEditionRepository engineEditionRepository,
                                           EngineCharacteristicsRepository engineCharacteristicsRepository,
                                           GearboxRepository gearboxRepository, DriveTypeRepository driveTypeRepository,
-                                          TransmissionRepository transmissionRepository, TurbochargerRepository turbochargerRepository,
+                                          TransmissionRepository transmissionRepository,
+                                          TurbochargerRepository turbochargerRepository,
                                           TurboTypeRepository turboTypeRepository, PersonRepository personRepository,
                                           RoleRepository roleRepository, ImageRepository imageRepository) {
 

@@ -38,20 +38,24 @@
                             <div id="caption"></div>
                         </div>
                     </h2>
-                    <div style="display: inline-flex; margin-right: -100px; margin-top: 100px">
-                        <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
-                            <label for="changeImage">Change Image</label>
-                            <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
-                            <input type="submit" style="color: black" value="Change">
-                        </form>
-                    </div>
-                    <br><br>
-                    <div>
-                        <form th:method="POST" th:action="@{/brands/{id}/remove-image (id = *{id})}">
-                            <label for="removeImage">Remove Image</label>
-                            <input type="submit" id="removeImage" value="Remove" style="color: black">
-                        </form>
-                    </div>
+                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <th:block th:if="${user.role.name eq 'ADMIN'}">
+                            <div style="display: inline-flex; margin-right: -100px; margin-top: 100px">
+                                <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
+                                    <label for="changeImage">Change Image</label>
+                                    <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
+                                    <input type="submit" style="color: black" value="Change">
+                                </form>
+                            </div>
+                            <br><br>
+                            <div>
+                                <form th:method="POST" th:action="@{/brands/{id}/remove-image (id = *{id})}">
+                                    <label for="removeImage">Remove Image</label>
+                                    <input type="submit" id="removeImage" value="Remove" style="color: black">
+                                </form>
+                            </div>
+                        </th:block>
+                    </th:block>
                 </th:block>
                 <th:block th:if="*{image == null}">
                     <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
