@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style=" margin: 10% 100px 50px; text-align: center">
+    <div style=" margin: 10% 100px 50px; text-align: center" class="w3-animate-opacity">
         <form th:method="PATCH" th:action="@{/transmissions/{id}/edit (id = ${transmission.id})}">
             <h2>Transmission</h2>
             <label for="brand">Brand</label><br>

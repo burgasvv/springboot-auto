@@ -122,7 +122,7 @@
                         <th:block th:if="${owner.username != guest.username}">
                             <h2>
                                 <a class="w3-card w3-button w3-round w3-deep-orange"
-                                   th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none">Cars</a>
+                                   th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none; width: 800px">Cars</a>
                             </h2>
                         </th:block>
                     </th:block>
@@ -174,7 +174,8 @@
                         <th:block th:if="${owner.username != guest.username}">
                             <h2>
                                 <a class="w3-button w3-round w3-light-blue"
-                                   th:href="@{/users/{name}/equipments (name = *{username})}" style="text-decoration: none">Complectations</a>
+                                   th:href="@{/users/{name}/equipments (name = *{username})}"
+                                   style="text-decoration: none; width: 800px">Complectations</a>
                             </h2>
                         </th:block>
                     </th:block>

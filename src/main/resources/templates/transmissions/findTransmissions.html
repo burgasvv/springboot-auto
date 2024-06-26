@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 50px 100px">
+    <div style="margin: 50px 100px" class="w3-animate-opacity">
         <h1>Find Transmissions</h1>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <form th:method="GET" th:action="@{/transmissions/find-transmissions}" style="display: inline-flex">

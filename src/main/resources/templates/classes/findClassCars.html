@@ -19,6 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
+<div class="w3-animate-opacity">
     <div style="margin: 25px 100px">
         <h3>
             <a th:href="@{/templates/classes}">Classes</a> /
@@ -33,7 +34,7 @@
                     <select name="searchBrand" id="brands">
                         <option value=""></option>
                         <option th:each="brand : ${brands}" th:value="${brand.title}" th:text="${brand.title}"
-                            th:selected="${searchBrand eq brand.title}">Brand</option>
+                                th:selected="${searchBrand eq brand.title}">Brand</option>
                     </select>
                 </div>
                 <div style="text-align: center; display: inline-block; margin-right: 25px">
@@ -41,7 +42,7 @@
                     <select name="searchCategory" id="categories">
                         <option value=""></option>
                         <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}"
-                            th:selected="${searchCategory eq category.name}">Category</option>
+                                th:selected="${searchCategory eq category.name}">Category</option>
                     </select>
                 </div>
                 <div style="text-align: center; display: inline-block; margin-right: 25px">
@@ -94,6 +95,7 @@
             <input type="button" value="Back" onclick="history.back()" style="color: black">
         </div>
     </div>
+</div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

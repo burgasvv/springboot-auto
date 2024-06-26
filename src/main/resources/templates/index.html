@@ -33,7 +33,7 @@
             <h2>No results</h2>
         </th:block>
         <th:block th:if="${news.isEmpty() eq false}">
-            <div style="display: inline-flex" th:each="article : ${news}">
+            <div class="w3-hover-opacity" style="display: inline-flex" th:each="article : ${news}">
                 <div style="width: 250px; height: 250px; margin-right: 80px; margin-top: 80px; display: inline-block">
                     <a th:href="@{/news/{id} (id = ${article.id})}" style="text-decoration: none">
                         <img th:src="${article.image}" alt="image" style="width: 250px; border-radius: 5%">

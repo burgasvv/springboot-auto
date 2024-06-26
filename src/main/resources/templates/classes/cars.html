@@ -19,6 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
+<div class="w3-animate-opacity">
     <div style="margin: 25px 100px">
         <h3>
             <a th:href="@{/classes}">Classes</a> /
@@ -89,6 +90,7 @@
             <input type="button" value="Back" onclick="history.back()" style="color: black">
         </div>
     </div>
+</div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

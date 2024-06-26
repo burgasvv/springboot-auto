@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-
+<div class="w3-animate-opacity">
     <div style="margin: 15% 100px 50px; text-align: center">
         <form th:method="POST" th:action="@{/classes/secure/add}">
             <h1>New Classification</h1>
@@ -37,6 +37,7 @@
             <input type="button" value="Cancel" style="color: black" onclick="history.back()">
         </form>
     </div>
+</div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

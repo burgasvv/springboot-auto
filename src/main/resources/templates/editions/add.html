@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="text-align: center; margin: 15% 100px 50px;">
+    <div style="text-align: center; margin: 15% 100px 50px" class="w3-animate-opacity">
         <form th:method="POST" th:action="@{/editions/secure/add}" th:object="${edition}">
             <h2>Add Engine Edition</h2>
             <label for="brand">Brand</label><br>

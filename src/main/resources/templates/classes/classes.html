@@ -19,26 +19,28 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 50px 100px">
-        <h1>Classifications</h1>
-        <div th:each="class : ${classes}" style="display: inline-flex">
-            <h2 style="margin-right: 80px; width: 250px; height: 250px">
-                <a th:href="@{/classes/{id} (id = ${class.id})}" style="text-decoration: none">
-                    <img th:src="@{${class.image}}" alt="image" style="width: 250px; border-radius: 5%"><br><br>
-                    <span th:text="${class.name.substring(0,7)}"/>
-                </a>
-            </h2>
-        </div>
-        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-            <th:block th:if="${user.role.name eq 'ADMIN'}">
-                <div style="margin-top: 100px">
-                    <input type="button" value="Add" style="color: black" onclick="location.assign('/classes/secure/add')">
-                </div>
+    <div class="w3-animate-opacity">
+        <div style="margin: 50px 100px">
+            <h1>Classifications</h1>
+            <div th:each="class : ${classes}" style="display: inline-flex">
+                <h2 style="margin-right: 80px; width: 250px; height: 250px">
+                    <a th:href="@{/classes/{id} (id = ${class.id})}" style="text-decoration: none">
+                        <img th:src="@{${class.image}}" alt="image" style="width: 250px; border-radius: 5%"><br><br>
+                        <span th:text="${class.name.substring(0,7)}"/>
+                    </a>
+                </h2>
+            </div>
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <th:block th:if="${user.role.name eq 'ADMIN'}">
+                    <div style="margin-top: 100px">
+                        <input type="button" value="Add" style="color: black" onclick="location.assign('/classes/secure/add')">
+                    </div>
+                </th:block>
             </th:block>
-        </th:block>
-    </div>
-    <div style="margin: 50px 100px">
-        <input type="button" value="Back" onclick="history.back()" style="color: black">
+        </div>
+        <div style="margin: 50px 100px">
+            <input type="button" value="Back" onclick="history.back()" style="color: black">
+        </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

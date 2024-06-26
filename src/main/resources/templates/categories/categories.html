@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 50px 100px">
+    <div style="margin: 50px 100px" class="w3-animate-opacity">
         <h1>Categories</h1><br><br>
         <h2 th:each="category : ${categories}">
             <a th:href="@{/categories/{id} (id = ${category.id})}" style="text-decoration: none">

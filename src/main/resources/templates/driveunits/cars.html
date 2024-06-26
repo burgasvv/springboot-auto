@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-
+<div class="w3-animate-opacity">
     <div style="margin: 50px 100px">
         <form th:method="GET" th:action="@{/drive-units/{id}/cars/find-cars (id = ${driveUnit.id})}">
             <div style="display: inline-flex">
@@ -85,6 +85,7 @@
             <input type="button" value="Back" onclick="history.back()" style="color: black">
         </div>
     </div>
+</div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

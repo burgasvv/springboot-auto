@@ -51,7 +51,7 @@
                             <option th:each="drive : ${drives}" th:value="${drive.name}" th:text="${drive.name}">Drive</option>
                         </select>
                     </div>
-                    <input type="submit" value="Get Cars" style="color: black">
+                    <input class="w3-btn w3-blue w3-round" type="submit" value="Search" style="color: black">
                 </div>
             </form>
         </div>
@@ -60,32 +60,33 @@
             <th:block th:if="${cars.size() < 1}">
                 <h2>No results</h2>
             </th:block>
-            <th:block th:each="car : ${cars}">
-                <div style="display: inline-flex; height: 300px; width: 300px; margin: 15px">
-                    <h2 style="margin: 10px; text-align: center">
-                        <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
-                            <th:block th:if="${imageMap.size() > 0 && imageMap != null}">
-                                <th:block th:each="image : ${imageMap}">
-                                    <th:block th:if="${image.key.equals(car.title) eq true && car.hasPreview == true}">
-                                        <img th:src="@{|/images/${image.value.id}|}" alt="image"
-                                             style="display: inline-flex; width: 250px; border-radius: 10%"><br>
-                                    </th:block>
-                                </th:block>
-                                <th:block th:if="${car.hasPreview == false}">
-                                    <img src="/resource/images/emptyCarImage.jpg" alt="image" style="width: 250px; border-radius: 10%">
+            <div th:each="car : ${cars}" style="display: inline-flex; float: left; height: 300px; width: 300px; margin: 15px"
+                 class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
+                <h2 style="margin: 10px; text-align: center">
+                    <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
+                        <th:block th:if="${imageMap.size() > 0 && imageMap != null}">
+                            <th:block th:each="image : ${imageMap}">
+                                <th:block th:if="${image.key.equals(car.title) eq true && car.hasPreview == true}">
+                                    <img th:src="@{|/images/${image.value.id}|}" alt="image"
+                                         style="display: inline-flex; width: 250px; border-radius: 10%"><br>
                                 </th:block>
                             </th:block>
-                            <div th:text="${car.brand != null ? car.brand.title : 'No Brand'}" style="margin-left: 20px"/>
-                            <div th:text="${car.title}" style="margin-left: 20px"/>
-                        </a>
-                    </h2>
-                </div>
-            </th:block>
-            <div style="margin-top: 100px">
+                            <th:block th:if="${car.hasPreview == false}">
+                                <img src="/resource/images/emptyCarImage.jpg" alt="image" style="width: 250px; border-radius: 10%">
+                            </th:block>
+                        </th:block>
+                        <div th:text="${car.brand != null ? car.brand.title : 'No Brand'}" style="margin-left: 20px"/>
+                        <div th:text="${car.title}" style="margin-left: 20px"/>
+                    </a>
+                </h2>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <div style="margin-top: 100px; display: inline-block" class="w3-bar w3-round">
                 <ul style="display: inline-flex; list-style-type: none">
                     <th:block th:each="pageNumber : ${pages}">
-                        <li class="page-item" style="margin-right: 10px">
-                            <a class="page-link" th:href="@{/cars/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
+                        <li class="page-item" style="margin-right: 10px" >
+                            <a class="w3-bar-item w3-button w3-teal"
+                               th:href="@{/cars/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
                         </li>
                     </th:block>
                 </ul>

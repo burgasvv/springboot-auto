@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="text-align: center; margin: 10% 50px 100px">
+    <div style="text-align: center; margin: 10% 50px 100px" class="w3-animate-opacity">
         <form th:method="PATCH" th:action="@{/engine-characteristics/{id}/edit (id = *{id})}" th:object="${characteristics}">
             <h2>Characteristics</h2>
 

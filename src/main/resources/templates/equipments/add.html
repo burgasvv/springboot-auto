@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="text-align: center; margin-top: 15%">
+    <div style="text-align: center; margin-top: 15%" class="w3-animate-opacity">
         <form th:method="POST" th:action="@{/equipments/secure/add (id = ${equipment.id})}">
             <h1>Equipment</h1>
             <label for="name">Name</label><br>

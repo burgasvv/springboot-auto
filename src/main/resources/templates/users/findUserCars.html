@@ -19,7 +19,7 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 50px 100px" th:object="${owner}">
+    <div style="margin: 50px 100px" th:object="${owner}" class="w3-animate-opacity">
         <th:block th:if="${owner.username eq guest.username}">
             <h1>My Cars</h1>
         </th:block>

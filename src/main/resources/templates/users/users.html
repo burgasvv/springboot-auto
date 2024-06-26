@@ -22,16 +22,16 @@
     <div style="margin: 50px 100px" class="w3-animate-opacity">
         <h1>Users</h1>
         <div>
-            <form th:method="GET" th:action="@{/users/search}">
-                <label for="search">Search</label><br>
-                <input type="text" id="search" name="search">
-                <input type="submit" value="Search" style="color: black">
+            <form th:method="GET" th:action="@{/users/search}" style="display: inline-flex">
+                <label for="search"></label><br>
+                <input class="w3-input" style="width: 250px" type="text" id="search" name="search" placeholder="Input keywords here">
+                <input class="w3-btn w3-blue w3-round" type="submit" value="Search" style="color: black; margin-left: 10px">
             </form>
         </div>
         <div th:each="selectUser : ${users}" style="margin-top: 50px">
             <a th:href="@{/users/{name} (name = ${selectUser.username})}">
-                <div style="display: inline-flex" class="w3-card w3-round-large">
-                    <div style="margin: 20px">
+                <div style="display: inline-flex; width: 700px; height: 250px" class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
+                    <div style="margin: 10px">
                         <th:block th:if="${selectUser.image != null}">
                             <img th:src="@{/images/{id} (id = ${selectUser.image.id})}"
                                  alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
@@ -57,10 +57,10 @@
                 </div>
             </a>
         </div>
-        <ul style="display: inline-flex; list-style-type: none; margin-top: 100px">
+        <ul style="display: inline-flex; list-style-type: none; margin-top: 100px" class="w3-bar w3-round">
             <th:block th:each="pageNumber : ${pages}">
                 <li class="page-item" style="margin-right: 10px">
-                    <a class="page-link" th:href="@{/users/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
+                    <a class="w3-bar-item w3-button w3-teal" th:href="@{/users/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
                 </li>
             </th:block>
         </ul>

@@ -20,38 +20,38 @@
     </th:block>
 </th:block>
 
-<div style="margin: 50px 100px">
-    <h1>News</h1>
-    <div>
-        <form th:method="GET" th:action="@{/news/search}" style="display: inline-flex">
-            <label for="search"></label>
-            <input class="w3-input" style="width: 250px" type="text" id="search" name="search" th:value="${search}">
-            <input class="w3-btn w3-blue w3-round" type="submit" value="Search" style="color: black; margin-left: 10px">
-        </form>
-    </div>
-    <th:block th:if="${news.isEmpty() eq true}">
-        <h2>No results</h2>
-    </th:block>
-    <th:block th:if="${news.isEmpty() eq false}">
-        <div style="display: inline-flex" th:each="article : ${news}">
-            <div style="width: 250px; height: 250px; margin-right: 80px; margin-top: 80px; display: inline-block">
-                <a th:href="@{/news/{id} (id = ${article.id})}" style="text-decoration: none">
-                    <img th:src="${article.image}" alt="image" style="width: 250px; border-radius: 5%">
-                    <span th:text="${article.title}" style="font-size: 16px; font-weight: bold"/><br>
-                    <span th:text="|Release date: ${article.date}|" style="font-size: 12px; color: gray"/>
-                </a>
-            </div>
+    <div style="margin: 50px 100px" class="w3-animate-opacity">
+        <h1>News</h1>
+        <div>
+            <form th:method="GET" th:action="@{/news/search}" style="display: inline-flex">
+                <label for="search"></label>
+                <input class="w3-input" style="width: 250px" type="text" id="search" name="search" th:value="${search}">
+                <input class="w3-btn w3-blue w3-round" type="submit" value="Search" style="color: black; margin-left: 10px">
+            </form>
         </div>
-    </th:block>
-    <div style="margin-top: 100px">
-        <ul class="w3-bar w3-round" style="display: inline-flex; list-style-type: none">
-            <th:block th:each="pageNumber : ${pages}">
-                <a class="w3-bar-item w3-button w3-teal" th:href="@{/news/search/pages/{page}
-                    (page = ${pageNumber}, search = ${search})}" th:text="${pageNumber}">1</a>
-            </th:block>
-        </ul>
+        <th:block th:if="${news.isEmpty() eq true}">
+            <h2>No results</h2>
+        </th:block>
+        <th:block th:if="${news.isEmpty() eq false}">
+            <div style="display: inline-flex" th:each="article : ${news}">
+                <div class="w3-hover-opacity" style="width: 250px; height: 250px; margin-right: 80px; margin-top: 80px; display: inline-block">
+                    <a th:href="@{/news/{id} (id = ${article.id})}" style="text-decoration: none">
+                        <img th:src="${article.image}" alt="image" style="width: 250px; border-radius: 5%">
+                        <span th:text="${article.title}" style="font-size: 16px; font-weight: bold"/><br>
+                        <span th:text="|Release date: ${article.date}|" style="font-size: 12px; color: gray"/>
+                    </a>
+                </div>
+            </div>
+        </th:block>
+        <div style="margin-top: 100px">
+            <ul class="w3-bar w3-round" style="display: inline-flex; list-style-type: none">
+                <th:block th:each="pageNumber : ${pages}">
+                    <a class="w3-bar-item w3-button w3-teal" th:href="@{/news/search/pages/{page}
+                        (page = ${pageNumber}, search = ${search})}" th:text="${pageNumber}">1</a>
+                </th:block>
+            </ul>
+        </div>
     </div>
-</div>
 
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

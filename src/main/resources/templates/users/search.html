@@ -19,42 +19,54 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-<div style="margin: 50px 100px">
-    <div style="margin-top: 50px">
-        <form th:method="GET" th:action="@{/users/search}">
-            <label for="search">Search</label><br>
-            <input type="text" id="search" th:name="search" th:value="${search}">
-            <input type="submit" value="Search" style="color: black">
+    <div style="margin: 50px 100px" class="w3-animate-opacity">
+        <h1>Find Users</h1>
+        <form th:method="GET" th:action="@{/users/search}" style="display: inline-flex">
+            <label for="search"></label><br>
+            <input class="w3-input" style="width: 250px" type="text" id="search" th:name="search" th:value="${search}">
+            <input class="w3-btn w3-blue w3-round" type="submit" value="Search" style="color: black; margin-left: 10px">
         </form>
-    </div>
-    <h1 style="margin-bottom: 50px">Find Users</h1>
-    <div th:each="person : ${users}">
-        <a th:href="@{/users/{name} (name = ${person.username})}">
-            <div style="display: inline-flex">
-                <th:block th:if="${person.image != null}">
-                    <img th:src="@{/images/{id} (id = ${person.image.id})}"
-                         alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
-                </th:block>
-                <div style="display: inline-block">
-                    <h3 th:text="|${person.firstname} ${person.lastname}|">Name</h3>
-                    <span th:text="${person.username}"/>
-                    <h5 th:text="${person.role.name}" style="color: grey">Role</h5>
+        <div th:each="selectUser : ${users}" style="margin-top: 50px">
+            <a th:href="@{/users/{name} (name = ${selectUser.username})}">
+                <div style="display: inline-flex; width: 700px; height: 250px" class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
+                    <div style="margin: 10px">
+                        <th:block th:if="${selectUser.image != null}">
+                            <img th:src="@{/images/{id} (id = ${selectUser.image.id})}"
+                                 alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
+                        </th:block>
+                        <th:block th:if="${selectUser.image == null}">
+                            <img src="/resource/images/emptyUserImage.png"
+                                 alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
+                        </th:block>
+                        <div style="display: inline-block">
+                            <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>
+                            <span th:text="${selectUser.username}"/>
+                            <h5 th:text="${selectUser.role.name}" style="color: grey">Role</h5>
+                            <th:block th:if="${user.role.name eq 'ADMIN'}">
+                                <th:block th:if="${selectUser.enabled == true}">
+                                    <span style="color: gray; margin-left: 500px">Active</span>
+                                </th:block>
+                                <th:block th:if="${selectUser.enabled == false}">
+                                    <span style="color: red; margin-left: 500px">Inactive</span>
+                                </th:block>
+                            </th:block>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <div style="border-top: 1px solid gray; margin-top: 25px; margin-bottom: 25px; margin-right: 1000px"></div>
+            </a>
+        </div>
+        <ul style="display: inline-flex; list-style-type: none; margin-top: 100px">
+            <th:block th:each="pageNumber : ${pages}">
+                <li class="page-item" style="margin-right: 10px">
+                    <a class="page-link"
+                       th:href="@{/users/search/pages/{page}(page = ${pageNumber}, search = ${search})}" th:text="${pageNumber}">1</a>
+                </li>
+            </th:block>
+        </ul>
+        <div>
+            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+        </div>
     </div>
-    <ul style="display: inline-flex; list-style-type: none; margin-top: 100px">
-        <th:block th:each="pageNumber : ${pages}">
-            <li class="page-item" style="margin-right: 10px">
-                <a class="page-link" th:href="@{/users/search/pages/{page}(page = ${pageNumber}, search = ${search})}" th:text="${pageNumber}">1</a>
-            </li>
-        </th:block>
-    </ul>
-    <div>
-        <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
-    </div>
-</div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

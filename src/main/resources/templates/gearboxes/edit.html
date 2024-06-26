@@ -20,7 +20,7 @@
     </th:block>
 </th:block>
 
-    <div style="text-align: center; margin: 15% 100px 50px;">
+    <div style="text-align: center; margin: 15% 100px 50px" class="w3-animate-opacity">
         <form th:method="PATCH" th:action="@{/gearboxes/{id}/edit (id = ${gearbox.id})}" th:object="${gearbox}">
             <h2>Gearbox</h2>
             <label for="name">Name</label><br>
