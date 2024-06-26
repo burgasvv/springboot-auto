@@ -21,15 +21,12 @@
 </th:block>
     <div class="w3-animate-opacity">
         <div style="margin: 50px 100px">
-            <h1>Classifications</h1>
-            <div th:each="class : ${classes}" style="display: inline-flex">
-                <h2 style="margin-right: 80px; width: 250px; height: 250px">
-                    <a th:href="@{/classes/{id} (id = ${class.id})}" style="text-decoration: none">
-                        <img th:src="@{${class.image}}" alt="image" style="width: 250px; border-radius: 5%"><br><br>
-                        <span th:text="${class.name.substring(0,7)}"/>
-                    </a>
-                </h2>
-            </div>
+            <h1>Classifications</h1><br><br>
+            <h2 th:each="class : ${classes}">
+                <a th:href="@{/classes/{id} (id = ${class.id})}" style="text-decoration: none">
+                    <span class="w3-button w3-win8-blue w3-round-large" style="width: 1000px" th:text="${class.name.substring(0,7)}"/>
+                </a><br><br>
+            </h2>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${user.role.name eq 'ADMIN'}">
                     <div style="margin-top: 100px">
