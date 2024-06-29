@@ -19,7 +19,7 @@ public class CustomJavaMailSender {
     public void sendSimpleMail(Person person) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(person.getEmail());
-        message.setFrom("admin@admin.com");
+        message.setFrom("admin");
         message.setSubject("Forgot Password? Create the new one!");
         message.setText("Follow this link " + getRestoreTokenLink(person) + " to create a new password");
         mailSender.send(message);
