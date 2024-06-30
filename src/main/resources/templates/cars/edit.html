@@ -47,6 +47,12 @@
                         th:text="${category.name}" th:selected="${car.category.id eq category.id}"></option>
             </select><br><br>
 
+            <label for="drive">Drive Type</label><br>
+            <select th:field="*{driveUnit.id}" id="drive">
+                <option th:each="drive : ${drives}" th:value="${drive.id}"
+                        th:text="${drive.name}" th:selected="${car.driveUnit.id eq drive.id}">Drive</option>
+            </select><br><br>
+
             <label for="weight">Weight</label><br>
             <input type="text" id="weight" th:field="*{weight}"><br><br>
 

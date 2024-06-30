@@ -99,10 +99,13 @@ public class EquipmentDataProcessing {
         Double turbochargerRpm = data.get("turbochargerRpm");
         Double transmissionFinalRatio = data.get("transmissionFinalRatio");
         Double transmissionRatio = data.get("transmissionRatio");
-        if (engineRpm == null || turbochargerRpm == null || transmissionFinalRatio == null || transmissionRatio == null) {
+        Double carWeight = data.get("carWeight");
+        if (engineRpm == null || turbochargerRpm == null || transmissionFinalRatio == null ||
+                transmissionRatio == null || carWeight == null) {
             return null;
         }
-        double maxSpeed = (engineRpm + turbochargerRpm) * 24 * transmissionFinalRatio * transmissionRatio * 60 / 5280.0 / 100.0 * 1.609;
+        double maxSpeed = (engineRpm + turbochargerRpm) * 24 * transmissionFinalRatio * transmissionRatio *
+                60 / (3080.0 + carWeight) / 100.0 * 1.609;
         return (int) maxSpeed;
     }
 }

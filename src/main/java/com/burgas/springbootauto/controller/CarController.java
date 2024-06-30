@@ -130,6 +130,7 @@ public class CarController {
         model.addAttribute("brands", brandService.findAll());
         model.addAttribute("classes", classificationService.findAll());
         model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("drives", driveUnitService.findAll());
         return "cars/add";
     }
 
@@ -153,6 +154,7 @@ public class CarController {
         model.addAttribute("brands", brandService.findAll());
         model.addAttribute("classes", classificationService.findAll());
         model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("drives", driveUnitService.findAll());
         return "cars/edit";
     }
 

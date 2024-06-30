@@ -101,6 +101,7 @@ public class CarService {
     @SneakyThrows
     @Transactional
     public void create(Car car, MultipartFile multipartFile) {
+        car.setHasPreview(false);
         if (multipartFile.getSize() != 0) {
             Image image = new Image();
             image.setName(multipartFile.getOriginalFilename() + UUID.randomUUID());

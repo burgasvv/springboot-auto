@@ -80,7 +80,8 @@ public class LoadDatabase {
                                           TransmissionRepository transmissionRepository,
                                           TurbochargerRepository turbochargerRepository,
                                           TurboTypeRepository turboTypeRepository, PersonRepository personRepository,
-                                          RoleRepository roleRepository, ImageRepository imageRepository) {
+                                          RoleRepository roleRepository, ImageRepository imageRepository,
+                                          DriveUnitRepository driveUnitRepository) {
 
         return _ -> {
 
@@ -197,7 +198,7 @@ public class LoadDatabase {
             m5.setDriveUnit(frontWheel);
             m5.setClassification(dClass);
             m5.setCategory(sedan);
-            m5.setWeight("2200 кг");
+            m5.setWeight("2200");
             m5.setHasPreview(true);
             m5.setTags(List.of(tag3,tag9,tag11,tag1,tag12));
             m5.setDescription(InitDatabaseUtil.M5_DESCRIPTION);
@@ -219,7 +220,7 @@ public class LoadDatabase {
             r8.setDriveUnit(fourWheel);
             r8.setClassification(sClass);
             r8.setCategory(coupe);
-            r8.setWeight("1800 кг");
+            r8.setWeight("1800");
             r8.setHasPreview(true);
             r8.setTags(List.of(tag1,tag10,tag5,tag12,tag4,tag14));
             r8.setDescription(InitDatabaseUtil.R8_DESCRIPTION);
@@ -241,7 +242,7 @@ public class LoadDatabase {
             m4.setDriveUnit(rear);
             m4.setClassification(dClass);
             m4.setCategory(coupe);
-            m4.setWeight("2000 кг");
+            m4.setWeight("2000");
             m4.setHasPreview(true);
             m4.setTags(List.of(tag1,tag4,tag5,tag9,tag12,tag13));
             m4.setDescription(InitDatabaseUtil.M4_DESCRIPTION);
@@ -263,7 +264,7 @@ public class LoadDatabase {
             g63.setDriveUnit(fourWheel);
             g63.setClassification(jClass);
             g63.setCategory(crossOver);
-            g63.setWeight("3200 кг");
+            g63.setWeight("3200");
             g63.setHasPreview(true);
             g63.setTags(List.of(tag2,tag5,tag11,tag12,tag8));
             g63.setDescription(InitDatabaseUtil.G63_DESCRIPTION);
@@ -285,7 +286,7 @@ public class LoadDatabase {
             cls63.setDriveUnit(fourWheel);
             cls63.setClassification(fClass);
             cls63.setCategory(sedan);
-            cls63.setWeight("2500 кг");
+            cls63.setWeight("2500");
             cls63.addImages(List.of(cls63PreviewImage,cls63Image1,cls63Image2,cls63Image3));
             cls63.setHasPreview(true);
             cls63.setTags(List.of(tag16,tag3,tag9,tag15,tag5,tag11));
@@ -453,6 +454,7 @@ public class LoadDatabase {
             log.info("Preload: {}", gearboxRepository.saveAll(List.of(st4, st5, st6, st7, st8)));
             log.info("Preload: {}", turboTypeRepository.saveAll(List.of(vtgTurbo, compressor, comboTurbo)));
             log.info("Preload: {}", brandRepository.saveAll(List.of(bmw, audi, mercedes)));
+            log.info("Preload: {}", driveUnitRepository.saveAll(List.of(frontWheel,rear,fourWheel)));
             log.info("Preload: {}", carRepository.saveAll(List.of(m5, m4, r8, g63, cls63)));
             log.info("Preload: {}", engineEditionRepository.saveAll(List.of(eeR6)));
             log.info("Preload: {}", fuelRepository.saveAll(List.of(petrol, diesel)));

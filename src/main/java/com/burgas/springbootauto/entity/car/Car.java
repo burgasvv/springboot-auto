@@ -50,7 +50,7 @@ public class Car {
     @Column(nullable = false)
     private boolean hasPreview;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT")
     private String webpage;
 
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -60,7 +60,7 @@ public class Car {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne
     @JoinColumn(name = "drive_unit_id")
     private DriveUnit driveUnit;
 
