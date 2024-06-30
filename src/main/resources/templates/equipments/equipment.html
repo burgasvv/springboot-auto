@@ -23,18 +23,20 @@
         <div style="display: inline-flex">
             <img th:src="${equipment.image}" alt="image" style="width: 50px; height: 50px; border-radius: 10%; margin-right: 20px">
             <h1 th:text="${equipment.name}">Equipment</h1>
-            <div style="margin-left: 20px">
-                <th:block th:if="${equipment.attached == false}">
-                    <h4 style="color: grey">Not attached</h4>
-                </th:block>
-                <th:block th:if="${equipment.attached == true}">
-                    <h2 style="color: grey">
-                        <span>Attached: </span>
-                        <a th:href="@{/cars/{id} (id = ${equipment.car.id})}" style="text-decoration: none">
-                            <span th:text="${equipment.car.title}"/>
-                        </a>
-                    </h2>
-                </th:block>
+            <div id="divAttachedMain">
+                <div id="divAttached" style="margin-left: 20px">
+                    <th:block th:if="${equipment.attached == false}">
+                        <h4 style="color: grey">Not attached</h4>
+                    </th:block>
+                    <th:block th:if="${equipment.attached == true}">
+                        <h2 style="color: grey">
+                            <span>Attached: </span>
+                            <a th:href="@{/cars/{id} (id = ${equipment.car.id})}" style="text-decoration: none">
+                                <span th:text="${equipment.car.title}"/>
+                            </a>
+                        </h2>
+                    </th:block>
+                </div>
             </div>
         </div>
         <br>
@@ -204,8 +206,33 @@
                 </div>
             </div>
         </div>
+        <div id="divAttachToCar">
+            <th:block th:if="${equipment.attached eq false}">
+                <div style="margin-top: 100px">
+                    <form id="attachToCarForm">
+                        <label for="attach">Attach to Car</label><br>
+                        <select name="carId" id="attach" style="width: 150px">
+                            <option th:each="car : ${ownerCars}" th:value="${car.id}" th:text="|${car.brand.title} ${car.title}|">Car</option>
+                        </select>
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                        <input type="submit" value="Attach" style="color: black">
+                    </form>
+                </div>
+            </th:block>
+        </div>
+        <div id="divDetachFromCar">
+            <th:block th:if="${equipment.attached eq true}">
+                <div style="margin-top: 100px">
+                    <form id="detachFromCarForm">
+                        <input type="hidden" name="carId" th:value="${equipment.car.id}">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                        <input type="submit" value="Detach" style="color: black">
+                    </form>
+                </div>
+            </th:block>
+        </div>
         <br>
-        <div style="display: inline-flex">
+        <div style="display: inline-flex; margin-top: 100px">
             <div>
                 <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
             </div>
@@ -219,6 +246,8 @@
     <script src="/resource/js/removeTurbochargerFromEquipment.js"></script>
     <script src="/resource/js/addTurbochargerOnEquipment.js"></script>
     <script src="/resource/js/shareEquipmentWithUser.js"></script>
+    <script src="/resource/js/attachEquipment.js"></script>
+    <script src="/resource/js/detachEquipment.js"></script>
 </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

@@ -5,6 +5,7 @@ import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
+import com.burgas.springbootauto.service.car.CarService;
 import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.person.PersonService;
@@ -26,6 +27,7 @@ import java.util.stream.IntStream;
 public class EquipmentController {
 
     private final EquipmentService equipmentService;
+    private final CarService carService;
     private final EngineService engineService;
     private final TransmissionService transmissionService;
     private final TurbochargerService turbochargerService;
@@ -76,6 +78,9 @@ public class EquipmentController {
         Equipment equipment = equipmentService.findById(id);
         Person owner = equipment.getPerson();
         model.addAttribute("owner", owner);
+        model.addAttribute("ownerCars",
+                owner.getCars().stream().filter(car -> car.getEquipments().size() < 5).toList()
+        );
         model.addAttribute("equipment", equipment);
         model.addAttribute("engines", engineService.findAll());
         model.addAttribute("addEngine", new Engine());
@@ -154,6 +159,18 @@ public class EquipmentController {
         newEquipment.setImage(equipment.getImage());
         equipmentService.save(newEquipment);
         return "redirect:/equipments/{id}";
+    }
+
+    @PostMapping("/{id}/attach-to-car")
+    public String attachToCar(@PathVariable("id") Long id, @RequestParam Long carId) {
+        equipmentService.attachToCar(equipmentService.findById(id), carService.findById(carId));
+        return "redirect:/cars/" + carId;
+    }
+
+    @PostMapping("/{id}/detach-from-car")
+    public String detachFromCar(@PathVariable("id") Long id, @RequestParam Long carId) {
+        equipmentService.detachFromCar(equipmentService.findById(id), carService.findById(carId));
+        return "redirect:/cars/" + carId;
     }
 
     @PostMapping("/{id}/add-engine")

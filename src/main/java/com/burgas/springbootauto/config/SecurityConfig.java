@@ -65,7 +65,7 @@ public class SecurityConfig {
                                 "/equipments/{id}/delete-equipment","/equipments/{id}/add-engine","/equipments/{id}/remove-engine",
                                 "/equipments/{id}/add-transmission","/equipments/{id}/remove-transmission",
                                 "/equipments/{id}/add-turbocharger","/equipments/{id}/remove-turbocharger",
-                                "/equipments/{id}/share-equipment",
+                                "/equipments/{id}/share-equipment","/equipments/{id}/attach-to-car","/equipments/{id}/detach-from-car",
 
                                 "/users","/users/pages/{page}","/users/search","/users/search/pages/{page}",
                                 "/users/{name}","/users/{name}/edit","/users/secure/edit","/users/{name}/change-image",

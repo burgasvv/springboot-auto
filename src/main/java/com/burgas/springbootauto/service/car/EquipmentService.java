@@ -1,5 +1,6 @@
 package com.burgas.springbootauto.service.car;
 
+import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.repository.car.EquipmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -80,5 +81,19 @@ public class EquipmentService {
     @Transactional
     public void delete(Long id) {
         equipmentRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void attachToCar(Equipment equipment, Car car) {
+        equipment.setCar(car);
+        equipment.setAttached(true);
+        equipmentRepository.save(equipment);
+    }
+
+    @Transactional
+    public void detachFromCar(Equipment equipment, Car car) {
+        equipment.setCar(null);
+        equipment.setAttached(false);
+        equipmentRepository.save(equipment);
     }
 }

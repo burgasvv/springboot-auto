@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Your Page</title>
+    <title th:text="${owner.username}"></title>
     <link rel="stylesheet" href="/resource/css/imageModule.css">
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
