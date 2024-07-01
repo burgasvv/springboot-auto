@@ -43,11 +43,12 @@
                 </a>
             </div>
         </div>
-        <div style="margin: 50px 100px">
+        <div style="margin: 50px 100px; display: inline-flex" class="w3-bar w3-round">
             <ul style="display: inline-flex; list-style-type: none">
                 <th:block th:each="pageNumber : ${pages}">
-                    <li class="page-item" style="margin-right: 10px">
-                        <a class="page-link" th:href="@{/brands/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
+                    <li class="page-item" style="margin-right: 10px" >
+                        <a class="w3-bar-item w3-button w3-teal"
+                           th:href="@{/brands/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
                     </li>
                 </th:block>
             </ul>

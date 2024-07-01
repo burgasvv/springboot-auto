@@ -20,8 +20,7 @@ public class Image {
 
     @Column(nullable = false, unique = true)
     private String name;
-
-    @Lob
+    
     @Column(nullable = false)
     private byte[] data;
 
