@@ -198,7 +198,7 @@
                                 <span>Create a complectation on your user page to install it on your vehicle.</span>
                             </div>
                             <div id="divEquipmentOnCar" style="display: inline-flex; margin-top: 20px" th:each="complectation : *{equipments}">
-                                <div class="w3-card-4 w3-hover-shadow" style="border-radius: 5%">
+                                <div class="w3-card w3-hover-shadow w3-hover-opacity" style="border-radius: 5%">
                                     <div style="display: inline-block; margin: 10px">
                                         <h3 style="text-align: center">
                                             <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
