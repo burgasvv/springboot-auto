@@ -26,12 +26,12 @@
                 <h1>Активация аккаунта</h1>
             </div>
             <th:block th:if="${activation eq 'off'}">
-                <h2>Мы отправили сообщение на введенный вами электронный адрес для активации аккаунта</h2>
+                <h2 style="color: grey">Мы отправили сообщение на введенный вами электронный адрес для активации аккаунта</h2>
                 <br>
             </th:block>
             <th:block th:if="${activation eq 'on'}">
                 <form action="/login" method="post" class="w3-container">
-                    <h2>Аккаунт успешно активирован</h2><br>
+                    <h2 style="color: grey">Аккаунт успешно активирован</h2><br>
                     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                     <input type="submit" value="Войти" class="w3-button w3-round w3-teal"><br><br>
                 </form>
