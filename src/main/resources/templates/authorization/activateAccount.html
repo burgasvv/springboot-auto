@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Activate Account</title>
+    <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
+</head>
+<body>
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <th:block th:if="${user.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+        </th:block>
+        <th:block th:if="${user.image != null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
+        </th:block>
+    </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
+
+    <div class="w3-animate-opacity" style="text-align: center; margin: 10% 50px 100px">
+        <div class="w3-card w3-round-large" style="width: 500px; margin-left: 650px">
+            <div class="w3-container w3-teal">
+                <h1>Активация аккаунта</h1>
+            </div>
+            <th:block th:if="${activation eq 'off'}">
+                <h2>Мы отправили сообщение на введенный вами электронный адрес для активации аккаунта</h2>
+                <br>
+            </th:block>
+            <th:block th:if="${activation eq 'on'}">
+                <form action="/login" method="post" class="w3-container">
+                    <h2>Аккаунт успешно активирован</h2><br>
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input type="submit" value="Войти" class="w3-button w3-round w3-teal"><br><br>
+                </form>
+            </th:block>
+        </div>
+    </div>
+    <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
+</body>
+</html>

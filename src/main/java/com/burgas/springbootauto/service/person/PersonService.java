@@ -58,11 +58,11 @@ public class PersonService {
 
     @SneakyThrows
     @Transactional
-    public void createUser(Person person, MultipartFile multipartFile) {
+    public Person createUser(Person person, MultipartFile multipartFile) {
         if (personRepository.findPersonByUsername(person.getUsername()) != null)
-            return;
+            return null;
         person.setStatus(Status.OFFLINE);
-        person.setEnabled(true);
+        person.setEnabled(false);
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRole(roleRepository.findByName("USER"));
         if (multipartFile.getSize() != 0) {
@@ -73,7 +73,7 @@ public class PersonService {
             imageService.save(image);
             person.setImage(image);
         }
-        personRepository.save(person);
+        return personRepository.save(person);
     }
 
     @Transactional
@@ -150,5 +150,11 @@ public class PersonService {
         person.setImage(null);
         personRepository.save(person);
         imageService.delete(image);
+    }
+
+    @Transactional
+    public void activateAccount(Person person) {
+        person.setEnabled(true);
+        personRepository.save(person);
     }
 }

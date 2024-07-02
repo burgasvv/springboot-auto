@@ -50,7 +50,7 @@ public class AuthorizationController {
         );
         Person person = personService.findPersonByEmail(email);
         if (person != null) {
-            mailSender.sendSimpleMail(person);
+            mailSender.sendMailToRestorePassword(person);
             return "redirect:/forgotPassword/success";
         }
         return "redirect:/forgotPassword/fail";
@@ -81,9 +81,25 @@ public class AuthorizationController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute Person person, @RequestPart MultipartFile file) {
-        personService.createUser(person, file);
-        return "redirect:/login";
+    public String registration(@ModelAttribute Person person, @RequestPart MultipartFile file, Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        Person user = personService.createUser(person, file);
+        mailSender.sendMailToActivateAccount(user);
+        model.addAttribute("activation", "off");
+        return "authorization/activateAccount";
+    }
+
+    @GetMapping("/activateAccount/{token}")
+    public String activateAccount(@PathVariable String token, Model model) {
+        Person person = restoreTokenService.findByToken(token).getPerson();
+        personService.activateAccount(person);
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        model.addAttribute("activation", "on");
+        return "authorization/activateAccount";
     }
 
     @PostMapping("/logout-status")

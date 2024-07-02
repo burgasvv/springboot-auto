@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                 requests -> requests
                         .requestMatchers("/resource/**").permitAll()
-                        .requestMatchers("/","/registration","/search","news/**","/images/**",
+                        .requestMatchers("/","/registration","/search","news/**","/images/**","/activateAccount/{token}",
                                 "/forgotPassword","/forgotPassword/{status}","/restorePassword","/restorePassword/{token}",
                                 "/brands","/brands/pages/{page}","/brands/{id}","/brands/{id}/cars",
                                 "/brands/{id}/cars/pages/{page}","/brands/{id}/search-brand-cars",
