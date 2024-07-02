@@ -46,6 +46,12 @@
             </div>
         </div>
         <br>
+        <div>
+            <h3>
+                Owner: <a style="color: grey; text-decoration: none"
+                          th:href="@{/users/{name} (name = ${owner.username})}" th:text="${owner.username}"></a>
+            </h3>
+        </div>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.username eq owner.username}">
                 <div style="margin-top: 50px; display: inline-flex">

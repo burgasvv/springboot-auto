@@ -86,12 +86,17 @@ public class AuthorizationController {
         return "redirect:/login";
     }
 
-    @PostMapping("/logout")
-    public String logout() {
+    @PostMapping("/logout-status")
+    public String logoutStatus() {
         Person user = personService.findPersonByUsername(
                 SecurityContextHolder.getContext().getAuthentication().getName()
         );
         personService.disconnectUser(user);
+        return "forward:/logout";
+    }
+
+    @PostMapping("/logout")
+    public String logout() {
         return "redirect:/login";
     }
 }
