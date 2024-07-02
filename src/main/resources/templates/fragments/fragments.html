@@ -44,12 +44,14 @@
                 </select>
             </div>
             <input class="w3-button w3-blue w3-round"
-                   type="submit" value="Search" style="margin-left: 10px; color: black; height: 38px; margin-top: 58px">
+                   type="submit" value="Поиск" style="margin-left: 10px; color: black; height: 38px; margin-top: 58px">
         </form>
         <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
             <th:block th:case="${false}">
                 <div style="text-align: right; margin-right: 100px; margin-top: -62px">
-                    <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/login">Войти</a></h3>
+                    <h3 style="display: inline-flex; margin-right: 20px">
+                        <a class="w3-hover-opacity" style="text-decoration: none" href="/login">Войти</a>
+                    </h3>
                     <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/registration">Регистрация</a></h3>
                 </div>
             </th:block>

@@ -22,23 +22,23 @@
     <div class="w3-animate-opacity" style="text-align: center; margin: 10% 50px 100px">
         <div class="w3-card w3-round-large" style="width: 500px; margin-left: 650px">
             <div class="w3-container w3-teal">
-                <h1>Login</h1>
+                <h1>Вход</h1>
             </div>
             <br>
             <form method="post" action="/login" class="w3-container">
-                <label for="username">User Name</label><br>
+                <label for="username">Логин</label><br>
                 <input class="w3-input w3-border w3-light-grey w3-round-large"
-                       type="text" id="username" name="username" placeholder="Input User Name"><br>
+                       type="text" id="username" name="username" placeholder="Введите логин"><br>
 
-                <label for="password">Password</label><br>
+                <label for="password">Пароль</label><br>
                 <input class="w3-input w3-border w3-light-grey w3-round-large"
-                       type="password" id="password" name="password" placeholder="Input password"><br>
+                       type="password" id="password" name="password" placeholder="Введите пароль"><br>
                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                <input type="submit" value="Log in" style="color: black" class="w3-button w3-teal w3-round">
+                <input type="submit" value="Войти" style="color: black" class="w3-button w3-teal w3-round">
             </form>
             <br>
-            <a href="/registration">Registration</a><br>
-            <a th:href="@{/forgotPassword/{status} (status = get)}">Forgot Password?</a>
+            <a href="/registration">Регистрация</a><br>
+            <a th:href="@{/forgotPassword/{status} (status = get)}">Забыли пароль?</a>
             <br><br>
         </div>
     </div>

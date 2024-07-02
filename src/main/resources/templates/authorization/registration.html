@@ -22,59 +22,59 @@
     <div class="w3-animate-opacity" style="text-align: center; margin: 100px 100px 50px 500px; width: 900px">
         <th:block th:if="${#authorization.expression('isAuthenticated')}">
             <div>
-                <h1 style="color: grey">Please, log out of your account to proceed to the registration form...</h1>
+                <h1 style="color: grey">Пожалуйста, выйдите из своего аккаунта, чтобы зарегистрироваться...</h1>
                 <form method="post" action="/logout">
                     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                    <input type="submit" class="w3-btn w3-red w3-round" value="Logout">
+                    <input type="submit" class="w3-btn w3-red w3-round" value="Выйти">
                 </form>
             </div>
         </th:block>
         <th:block th:if="${#authorization.expression('!isAuthenticated')}">
             <div class="w3-card w3-round-large">
                 <div class="w3-container w3-teal">
-                    <h1>Registration</h1>
+                    <h1>Регистрация</h1>
                 </div>
                 <br>
                 <form method="post" action="/registration" enctype="multipart/form-data">
 
                     <div style="display: inline-flex;">
                         <div style="display: inline-block; width: 350px">
-                            <label for="username">User Name</label><br>
+                            <label for="username">Логин</label><br>
                             <input class="w3-input w3-border w3-light-grey w3-round-large"
-                                   type="text" id="username" name="username" placeholder="Input user name"><br><br>
+                                   type="text" id="username" name="username" placeholder="Введите логин"><br><br>
 
-                            <label for="email">Email</label><br>
+                            <label for="email">Эл. почта</label><br>
                             <input class="w3-input w3-border w3-light-grey w3-round-large"
-                                   type="email" id="email" name="email" placeholder="Input email"><br><br>
+                                   type="email" id="email" name="email" placeholder="Введите электронную почту"><br><br>
 
-                            <label for="password">Password</label><br>
+                            <label for="password">Пароль</label><br>
                             <input class="w3-input w3-border w3-light-grey w3-round-large"
-                                   type="password" id="password" name="password" placeholder="Input password"><br><br>
+                                   type="password" id="password" name="password" placeholder="Введите пароль"><br><br>
                         </div>
 
                         <div style="display: inline-block; margin-left: 100px">
-                            <label for="firstname">First Name</label><br>
+                            <label for="firstname">Фамилия</label><br>
                             <input class="w3-input w3-border w3-light-grey w3-round-large"
-                                   type="text" id="firstname" name="firstname" placeholder="Input first name"><br><br>
+                                   type="text" id="firstname" name="firstname" placeholder="Введите фамилию"><br><br>
 
-                            <label for="lastname">Last Name</label><br>
+                            <label for="lastname">Имя</label><br>
                             <input class="w3-input w3-border w3-light-grey w3-round-large"
-                                   type="text" id="lastname" name="lastname" placeholder="Input last name"><br><br>
+                                   type="text" id="lastname" name="lastname" placeholder="Введите имя"><br><br>
 
-                            <label for="image">Image</label><br>
+                            <label for="image">Изображение</label><br>
                             <input class="w3-input w3-border w3-light-grey w3-round-large"
-                                   type="file" id="image" name="file" accept="image/png, image/jpeg" placeholder="Upload your image"><br><br>
+                                   type="file" id="image" name="file" accept="image/png, image/jpeg" placeholder="Загрузите изображение"><br><br>
                         </div>
                     </div>
 
                     <div>
-                        <label for="description">Description</label><br>
+                        <label for="description">Описание</label><br>
                         <textarea class="w3-round" style="width: 500px; height: 100px"
-                                  name="description" id="description" cols="50" rows="3" placeholder="Input your description"></textarea><br><br>
+                                  name="description" id="description" cols="50" rows="3" placeholder="Введите описание"></textarea><br><br>
 
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                        <input type="submit" value="Accept" style="color: black" class="w3-button w3-teal w3-round">
-                        <input type="button" value="Back" style="color: black" class="w3-button w3-grey w3-round" onclick="history.back()">
+                        <input type="submit" value="Принять" style="color: black" class="w3-button w3-teal w3-round">
+                        <input type="button" value="Назад" style="color: black" class="w3-button w3-grey w3-round" onclick="history.back()">
                     </div>
                 </form>
                 <br>
