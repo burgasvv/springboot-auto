@@ -105,7 +105,10 @@ public class SecurityConfig {
                                 .successHandler(authenticationSuccessHandler())
                                 .permitAll()
                 )
-                .logout(logout -> logout.logoutSuccessUrl("/login").permitAll());
+                .logout(
+                        logout -> logout.logoutUrl("/logout")
+                                .logoutSuccessUrl("/login")
+                                .permitAll());
 
         return http.build();
     }
