@@ -203,7 +203,14 @@
                                         <h3 style="text-align: center">
                                             <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
                                                style="text-decoration: none">
-                                                <img th:src="${complectation.image}" alt="image" style="width: 100px; border-radius: 10%"><br>
+                                                <th:block th:if="${complectation.image != ''}">
+                                                    <img th:src="${complectation.image}" alt="image"
+                                                         style="display: inline-flex; width: 100px; border-radius: 10%"><br>
+                                                </th:block>
+                                                <th:block th:if="${complectation.image eq ''}">
+                                                    <img src="/resource/images/complectImage.png" alt="image"
+                                                         style="display: inline-flex; width: 100px; border-radius: 10%"><br>
+                                                </th:block>
                                                 <span th:text="${complectation.name}"/>
                                             </a>
                                             <th:block th:if="${user.username eq car.person.username}">

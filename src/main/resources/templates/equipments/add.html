@@ -19,19 +19,30 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="text-align: center; margin-top: 15%" class="w3-animate-opacity">
-        <form th:method="POST" th:action="@{/equipments/secure/add (id = ${equipment.id})}">
-            <h1>Equipment</h1>
-            <label for="name">Name</label><br>
-            <input type="text" id="name" th:field="${equipment.name}"><br><br>
 
-            <label for="image">Image</label><br>
-            <input type="text" id="image" th:field="${equipment.image}"><br><br>
+<div class="w3-animate-opacity" style="text-align: center; margin: 10% 50px 100px">
+    <div class="w3-card w3-round-large" style="width: 500px; margin-left: 650px">
+        <div class="w3-container w3-win8-blue">
+            <h1>Добавить комплектацию</h1>
+        </div>
+        <br>
+        <form th:method="POST" th:action="@{/equipments/secure/add (id = ${equipment.id})}" class="w3-container">
+            <label for="name">Наименование</label><br>
+            <input class="w3-input w3-border w3-light-grey w3-round-large"
+                   type="text" id="name" th:field="${equipment.name}" placeholder="Введите наименование"><br>
 
-            <input type="submit" value="OK" style="color: black">
-            <input type="button" value="Back" onclick="history.back()" style="color: black">
+            <label for="image">Изображение </label><br>
+            <input class="w3-input w3-border w3-light-grey w3-round-large"
+                   type="password" id="image" th:field="${equipment.image}" placeholder="Укажите ссылку на изображение"><br>
+
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"><br>
+
+            <input type="submit" value="Принять" style="color: black" class="w3-button w3-win8-blue w3-round">
+            <input type="button" value="Назад" onclick="history.back()" style="color: black" class="w3-button w3-light-grey w3-round">
         </form>
+        <br>
     </div>
+</div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

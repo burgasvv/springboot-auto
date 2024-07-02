@@ -21,7 +21,13 @@
 </th:block>
     <div style="margin: 50px 100px" class="w3-animate-opacity">
         <div style="display: inline-flex">
-            <img th:src="${equipment.image}" alt="image" style="width: 50px; height: 50px; border-radius: 10%; margin-right: 20px">
+            <th:block th:if="${equipment.image != ''}">
+                <img th:src="${equipment.image}" alt="image" style="width: 50px; height: 50px; border-radius: 10%; margin-right: 20px">
+            </th:block>
+            <th:block th:if="${equipment.image eq ''}">
+                <img src="/resource/images/complectImage.png" alt="image"
+                     style="width: 50px; height: 50px; border-radius: 10%; margin-right: 20px">
+            </th:block>
             <h1 th:text="${equipment.name}">Equipment</h1>
             <div id="divAttachedMain">
                 <div id="divAttached" style="margin-left: 20px">

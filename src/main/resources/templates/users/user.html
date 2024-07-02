@@ -204,12 +204,21 @@
                 <div th:each="complectation : ${owner.equipments}" style="display: inline-flex; margin-top: 50px">
                     <h3 style="margin-right: 20px; text-align: center">
                         <a th:href="@{/equipments/{id} (id = ${complectation.id})}" style="text-decoration: none">
-                            <img th:src="${complectation.image}" alt="image" style="display: inline-flex; width: 50px; border-radius: 10%"><br>
+                            <th:block th:if="${complectation.image != ''}">
+                                <img th:src="${complectation.image}" alt="image" style="display: inline-flex; width: 50px; border-radius: 10%"><br>
+                            </th:block>
+                            <th:block th:if="${complectation.image eq ''}">
+                                <img src="/resource/images/complectImage.png" alt="image"
+                                     style="display: inline-flex; width: 50px; border-radius: 10%"><br>
+                            </th:block>
                             <div th:text="${complectation.name}"/>
                             <th:block th:if="${complectation.attached == true}">
                                 <span style="font-size: 12px; color: grey">Attached</span><br>
                                 <span th:text="|${complectation.car.brand != null ? complectation.car.brand.title : 'No brand'}
                                 ${complectation.car.title}|" style="font-size: 12px"/>
+                            </th:block>
+                            <th:block th:if="${complectation.attached eq false}">
+                                <span style="font-size: 12px; color: grey">Not Attached</span><br>
                             </th:block>
                         </a>
                     </h3>
