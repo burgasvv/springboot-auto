@@ -25,6 +25,9 @@ public class Person implements UserDetails {
     @GeneratedValue
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     @Column(nullable = false)
     private String firstname;
 

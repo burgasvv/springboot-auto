@@ -9,6 +9,7 @@ import com.burgas.springbootauto.entity.engine.Fuel;
 import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.person.Role;
+import com.burgas.springbootauto.entity.person.Status;
 import com.burgas.springbootauto.entity.transmission.DriveType;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.entity.transmission.Transmission;
@@ -91,13 +92,13 @@ public class LoadDatabase {
             Image adminImage = Image.builder().isPreview(true).name("admin-image")
                     .data(readBytesByUrl(InitDatabaseUtil.ADMIN_ACCOUNT_IMAGE)).build();
             Person admin = Person.builder()
-                    .image(adminImage).enabled(true).firstname("Admin").lastname("Admin").username("admin")
+                    .image(adminImage).enabled(true).status(Status.OFFLINE).firstname("Admin").lastname("Admin").username("admin")
                     .password(passwordEncoder.encode("admin")).email("admin@admin.com").role(adm)
                     .description(InitDatabaseUtil.ADMIN_ACCOUNT_DESCRIPTION).build();
 
             Image userImage = Image.builder().isPreview(true).name("user-image")
                     .data(readBytesByUrl(InitDatabaseUtil.USER_ACCOUNT_IMAGE)).build();
-            Person user = Person.builder().image(userImage).enabled(true).firstname("User").lastname("One").username("user")
+            Person user = Person.builder().image(userImage).enabled(true).status(Status.OFFLINE).firstname("User").lastname("One").username("user")
                     .password(passwordEncoder.encode("user")).email("user@user.com").role(usr)
                     .description(InitDatabaseUtil.USER_ACCOUNT_DESCRIPTION).build();
 

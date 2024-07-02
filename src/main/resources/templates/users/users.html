@@ -30,7 +30,7 @@
         </div>
         <div th:each="selectUser : ${users}" style="margin-top: 50px">
             <a th:href="@{/users/{name} (name = ${selectUser.username})}">
-                <div style="display: inline-flex; width: 700px; height: 250px" class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
+                <div style="display: inline-flex; width: 700px; height: 300px" class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
                     <div style="margin: 10px">
                         <th:block th:if="${selectUser.image != null}">
                             <img th:src="@{/images/{id} (id = ${selectUser.image.id})}"
@@ -41,7 +41,16 @@
                                  alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
                         </th:block>
                         <div style="display: inline-block">
-                            <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>
+                            <div style="display: inline-flex">
+                                <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>
+                                <th:block th:if="${selectUser.status.name() eq 'ONLINE'}">
+                                    <h3 style="color: green; margin-left: 25px">Online</h3>
+                                </th:block>
+                                <th:block th:if="${selectUser.status.name() eq 'OFFLINE'}">
+                                    <h3 style="color: black; margin-left: 25px">Offline</h3>
+                                </th:block>
+                            </div>
+                            <br>
                             <span th:text="${selectUser.username}"/>
                             <h5 th:text="${selectUser.role.name}" style="color: grey">Role</h5>
                             <th:block th:if="${user.role.name eq 'ADMIN'}">

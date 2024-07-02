@@ -27,6 +27,13 @@ public class AuthorizationController {
         return "authorization/login";
     }
 
+    @PostMapping("/login-status")
+    public String loginStatus(@RequestParam("username") String username) {
+        Person person = personService.findPersonByUsername(username);
+        personService.connectUser(person);
+        return "redirect:/users/" + person.getUsername();
+    }
+
     @GetMapping("/forgotPassword/{status}")
     public String forgotPassword(@PathVariable String status, Model model) {
         model.addAttribute("status", status);
@@ -81,6 +88,10 @@ public class AuthorizationController {
 
     @PostMapping("/logout")
     public String logout() {
+        Person user = personService.findPersonByUsername(
+                SecurityContextHolder.getContext().getAuthentication().getName()
+        );
+        personService.disconnectUser(user);
         return "redirect:/login";
     }
 }

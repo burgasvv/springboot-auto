@@ -2,6 +2,7 @@ package com.burgas.springbootauto.service.person;
 
 import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
+import com.burgas.springbootauto.entity.person.Status;
 import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.repository.person.RoleRepository;
 import com.burgas.springbootauto.service.image.ImageService;
@@ -60,6 +61,7 @@ public class PersonService {
     public void createUser(Person person, MultipartFile multipartFile) {
         if (personRepository.findPersonByUsername(person.getUsername()) != null)
             return;
+        person.setStatus(Status.OFFLINE);
         person.setEnabled(true);
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRole(roleRepository.findByName("USER"));
@@ -71,6 +73,18 @@ public class PersonService {
             imageService.save(image);
             person.setImage(image);
         }
+        personRepository.save(person);
+    }
+
+    @Transactional
+    public void connectUser(Person person) {
+        person.setStatus(Status.ONLINE);
+        personRepository.save(person);
+    }
+
+    @Transactional
+    public void disconnectUser(Person person) {
+        person.setStatus(Status.OFFLINE);
         personRepository.save(person);
     }
 
