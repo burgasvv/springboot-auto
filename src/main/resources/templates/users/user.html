@@ -134,15 +134,13 @@
                    onclick="history.back()" style="color: black; margin-top: 100px">
         </div>
         <div style="display: inline-block">
-            <div class="w3-card w3-round-large" style="text-align: center">
-                <div class="w3-win8-blue w3-round-large" style="height: 35px; width: 950px">
-                    <h3>Описание</h3>
-                </div>
+            <div class="w3-card w3-round-large" style="text-align: center; margin-right: 100px">
+                <h3 class="w3-win8-blue w3-round-large" style="width: 950px">Описание</h3>
                 <p th:text="*{description}" style="text-align: justify; margin: 25px">Описание</p>
                 <br>
             </div>
 
-            <div class="w3-card w3-round-large" style="margin-top: 50px">
+            <div class="w3-card w3-round-large" style="margin-top: 50px; margin-right: 100px">
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                     <div>
                         <th:block th:if="${owner.cars.size() > 0}">
@@ -163,7 +161,6 @@
                         </th:block>
                     </div>
                 </th:block>
-
                 <div class="w3-container">
                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                         <th:block th:if="${owner.cars.size() < 1}">
@@ -205,7 +202,7 @@
                 <br>
             </div>
 
-            <div class="w3-card w3-round-large">
+            <div class="w3-card w3-round-large" style="margin-right: 100px">
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                     <div style="margin-top: 50px">
                         <th:block th:if="${owner.equipments.size() > 0}">
@@ -227,51 +224,49 @@
                     </div>
                 </th:block>
 
-                <div class="w3-container" style="margin: 20px">
-                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                        <th:block th:if="${owner.equipments.size() < 1}">
-                            <h2 class="w3-tag w3-win8-blue w3-round-large" style="width: 950px">Комплектации</h2>
-                            <h3 style="color: grey">Нет результатов</h3>
-                        </th:block>
-                        <div th:each="complectation : ${owner.equipments}"
-                             style="display: inline-flex; margin-right: 20px"
-                             class="w3-card w3-round w3-hover-shadow w3-hover-opacity">
-                            <h3 style="margin: 20px; text-align: center">
-                                <a th:href="@{/equipments/{id} (id = ${complectation.id})}" style="text-decoration: none">
-                                    <th:block th:if="${complectation.image != ''}">
-                                        <img th:src="${complectation.image}" alt="image"
-                                             style="display: inline-flex; width: 50px; border-radius: 10%"><br>
-                                    </th:block>
-                                    <th:block th:if="${complectation.image eq ''}">
-                                        <img src="/resource/images/complectImage.png" alt="image"
-                                             style="display: inline-flex; width: 50px; border-radius: 10%"><br>
-                                    </th:block>
-                                    <div th:text="${complectation.name}"/>
-                                    <th:block th:if="${complectation.attached == true}">
-                                        <span style="font-size: 12px; color: green">Установлен</span><br>
-                                        <span th:text="|${complectation.car.brand != null ? complectation.car.brand.title : 'No brand'}
-                                ${complectation.car.title}|" style="font-size: 12px"/>
-                                    </th:block>
-                                    <th:block th:if="${complectation.attached eq false}">
-                                        <span style="font-size: 12px; color: red">Не установлен</span><br>
-                                    </th:block>
-                                </a>
-                            </h3>
-                        </div>
-                        <th:block th:if="${owner.username eq guest.username}">
-                            <div style="margin-top: 20px">
-                                <input class="w3-btn w3-win8-teal w3-round" type="button" value="Добавить"
-                                       onclick="location.assign('/equipments/secure/add')" style="color: black">
-                            </div>
-                        </th:block>
+                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                    <th:block th:if="${owner.equipments.size() < 1}">
+                        <h2 class="w3-tag w3-win8-blue w3-round-large" style="width: 950px">Комплектации</h2>
+                        <h3 style="color: grey">Нет результатов</h3>
                     </th:block>
-                </div>
+                    <div th:each="complectation : ${owner.equipments}"
+                         style="display: inline-flex; margin-right: 20px"
+                         class="w3-card w3-round w3-hover-shadow w3-hover-opacity">
+                        <h3 style="margin: 20px; text-align: center">
+                            <a th:href="@{/equipments/{id} (id = ${complectation.id})}" style="text-decoration: none">
+                                <th:block th:if="${complectation.image != ''}">
+                                    <img th:src="${complectation.image}" alt="image"
+                                         style="display: inline-flex; width: 50px; border-radius: 10%"><br>
+                                </th:block>
+                                <th:block th:if="${complectation.image eq ''}">
+                                    <img src="/resource/images/complectImage.png" alt="image"
+                                         style="display: inline-flex; width: 50px; border-radius: 10%"><br>
+                                </th:block>
+                                <div th:text="${complectation.name}"/>
+                                <th:block th:if="${complectation.attached == true}">
+                                    <span style="font-size: 12px; color: green">Установлен</span><br>
+                                    <span th:text="|${complectation.car.brand != null ? complectation.car.brand.title : 'No brand'}
+                                ${complectation.car.title}|" style="font-size: 12px"/>
+                                </th:block>
+                                <th:block th:if="${complectation.attached eq false}">
+                                    <span style="font-size: 12px; color: red">Не установлен</span><br>
+                                </th:block>
+                            </a>
+                        </h3>
+                    </div>
+                    <th:block th:if="${owner.username eq guest.username}">
+                        <div style="margin-top: 20px">
+                            <input class="w3-btn w3-win8-teal w3-round" type="button" value="Добавить"
+                                   onclick="location.assign('/equipments/secure/add')" style="color: black">
+                        </div>
+                    </th:block>
+                </th:block>
                 <br>
             </div>
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${owner.username eq guest.username}">
-                    <div class="w3-card w3-round-large" style="margin-top: 50px">
+                    <div class="w3-card w3-round-large" style="margin-top: 50px; margin-right: 100px">
                         <th:block th:if="${owner.role.name eq 'USER'}">
                             <h2 class="w3-tag w3-round w3-win8-blue" style="width: 950px">Пользователь</h2>
                         </th:block>
