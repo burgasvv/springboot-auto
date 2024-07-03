@@ -23,103 +23,122 @@
         </th:block>
     </div>
     <div style="margin: 50px 100px; display: inline-flex" th:object="${owner}" class="w3-animate-opacity">
-        <div style="display: inline-block; margin-right: 300px">
-            <h1><span style="font-weight: normal" th:text="*{username}"/></h1>
-            <th:block th:if="*{status.name() eq 'ONLINE'}">
-                <h2 style="font-weight: normal; font-size: 18px; color: green">Online</h2>
-            </th:block>
-            <th:block th:if="*{status.name() eq 'OFFLINE'}">
-                <h2 style="font-weight: normal; font-size: 18px; color: grey">Offline</h2>
-            </th:block>
-            <div id="divChangeImageBlockMain">
-                <div id="divChangeImageBlock">
-                    <th:block th:if="*{image != null}">
-                        <div id="divImg">
-                            <h2><img id="myImg" style="border-radius: 10%; width: 300px; margin: 25px"
-                                     th:src="@{|/images/*{image.id}|}" alt="image"></h2>
-                        </div>
-                        <div id="myModal" class="modal">
-                            <span class="close">&times;</span>
-                            <img class="modal-content" id="img01" alt="image">
-                            <div id="caption"></div>
-                        </div>
-                        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                            <th:block th:if="${owner.username eq guest.username}">
-                                <div style="margin-top: 100px">
-                                    <form id="changeImageForm" enctype="multipart/form-data">
-                                        <label for="changeImage">Change Image</label>
-                                        <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
-                                        <input id="preview-image-csrf-token" type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                        <input type="submit" value="Change" style="color: black">
-                                    </form>
-                                </div>
-                                <br>
-                                <div>
-                                    <form id="deleteImageForm" th:method="POST"
-                                          th:action="@{/users/{name}/remove-image (name = ${owner.username})}">
-                                        <label for="removeImage">Remove Image</label>
-                                        <input type="submit" value="Remove" id="removeImage" style="color: black">
-                                    </form>
-                                </div>
-                            </th:block>
-                        </th:block>
+        <div style="display: inline-block; margin-right: 100px">
+            <div class="w3-card w3-round-large">
+                <h1 class="w3-tag w3-round w3-blue" style="width: 650px" th:text="*{username}"></h1>
+                <div class="w3-container">
+                    <th:block th:if="*{status.name() eq 'ONLINE'}">
+                        <h2 style="font-weight: normal; font-size: 18px; color: green">Online</h2>
                     </th:block>
-                </div>
-            </div>
-            <div id="divAddImageBlock">
-                <th:block th:if="*{image == null}">
-                    <h2><img style="border-radius: 10%; width: 300px" src="/resource/images/emptyUserImage.png" alt="image"></h2>
-                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                        <th:block th:if="${owner.username eq guest.username}">
-                            <form id="addImageForm" enctype="multipart/form-data">
-                                <label for="addImage">Add Image</label>
-                                <input type="file" id="addImage" name="file" accept="image/png, image/jpeg">
-                                <input id="preview-image-csrf-token-for-adding" type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                <input type="submit" value="Add" style="color: black">
-                            </form>
-                        </th:block>
+                    <th:block th:if="*{status.name() eq 'OFFLINE'}">
+                        <h2 style="font-weight: normal; font-size: 18px; color: grey">Offline</h2>
                     </th:block>
-                </th:block>
-            </div>
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <h3 style="color: grey; margin-top: 100px">Role: <span style="font-weight: normal" th:text="*{role.name}"/></h3>
-                <h2>First Name: <span th:text="*{firstname}" style="font-weight: normal"/></h2>
-                <h2>Last Name: <span th:text="*{lastname}" style="font-weight: normal"/></h2>
-                <h2>Email: <span style="font-weight: normal" th:text="*{email}"/></h2>
-                <div id="divBanAndUnbanMain">
-                    <div id="divBanAndUnban">
-                        <th:block th:if="${guest.role.name eq 'ADMIN'}">
-                            <th:block th:if="${owner.enabled == true}">
-                                <span style="color: gray">Active</span><br><br>
-                                <th:block th:if="${owner.role.name != 'ADMIN'}">
-                                    <form id="banUserForm">
-                                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                        <input type="submit" value="Ban" style="color: black">
-                                    </form>
+                    <div id="divChangeImageBlockMain">
+                        <div id="divChangeImageBlock">
+                            <th:block th:if="*{image != null}">
+                                <div id="divImg" style="text-align: center">
+                                    <h2><img id="myImg" style="border-radius: 10%; width: 300px; margin: 25px"
+                                             th:src="@{|/images/*{image.id}|}" alt="image"></h2>
+                                </div>
+                                <div id="myModal" class="modal">
+                                    <span class="close">&times;</span>
+                                    <img class="modal-content" id="img01" alt="image">
+                                    <div id="caption"></div>
+                                </div>
+                                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                                    <th:block th:if="${owner.username eq guest.username}">
+                                        <div style="display: inline-flex">
+                                            <div style="margin-right: 20px">
+                                                <form id="changeImageForm" enctype="multipart/form-data">
+                                                    <div style="display: inline-flex">
+                                                        <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg"
+                                                               class="w3-input w3-border w3-light-grey w3-round-large">
+                                                        <input id="preview-image-csrf-token" type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                                        <input class="w3-button w3-round w3-blue"
+                                                               type="submit" value="Изменить" style="color: black; margin-left: 20px; width: 130px">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div>
+                                                <form id="deleteImageForm" th:method="POST"
+                                                      th:action="@{/users/{name}/remove-image (name = ${owner.username})}">
+                                                    <input class="w3-button w3-round w3-red" type="submit"
+                                                           value="Убрать" id="removeImage" style="color: black; height: 47px">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </th:block>
                                 </th:block>
                             </th:block>
-                            <th:block th:if="${owner.enabled == false}">
-                                <span style="color: red">Inactive</span><br><br>
-                                <th:block th:if="${owner.role.name != 'ADMIN'}">
-                                    <form id="unbanUserForm">
-                                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                        <input type="submit" value="Unban" style="color: black">
+                        </div>
+                    </div>
+                    <div id="divAddImageBlock">
+                        <th:block th:if="*{image == null}">
+                            <h2 style="text-align: center"><img style="border-radius: 10%; width: 300px"
+                                                                src="/resource/images/emptyUserImage.png" alt="image"></h2>
+                            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                                <th:block th:if="${owner.username eq guest.username}">
+                                    <form id="addImageForm" enctype="multipart/form-data">
+                                        <div style="display: inline-flex">
+                                            <input class="w3-input w3-border w3-light-grey w3-round-large"
+                                                   type="file" id="addImage" name="file" accept="image/png, image/jpeg"
+                                                   style="width: 350px; margin-right: 20px">
+                                            <input id="preview-image-csrf-token-for-adding" type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                            <input type="submit" value="Добавить" style="color: black" class="w3-button w3-round w3-teal">
+                                        </div>
                                     </form>
                                 </th:block>
                             </th:block>
                         </th:block>
                     </div>
                 </div>
+                <br>
+            </div>
+
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <div class="w3-card w3-round-large" style="margin-top: 50px">
+                    <div class="w3-container">
+                        <h3 style="color: grey">Role: <span style="font-weight: normal" th:text="*{role.name}"/></h3>
+                        <h2>First Name: <span th:text="*{firstname}" style="font-weight: normal"/></h2>
+                        <h2>Last Name: <span th:text="*{lastname}" style="font-weight: normal"/></h2>
+                        <h2>Email: <span style="font-weight: normal" th:text="*{email}"/></h2>
+                        <div id="divBanAndUnbanMain">
+                            <div id="divBanAndUnban">
+                                <th:block th:if="${guest.role.name eq 'ADMIN'}">
+                                    <th:block th:if="${owner.enabled == true}">
+                                        <h3 style="color: green">Активен</h3><br><br>
+                                        <th:block th:if="${owner.role.name != 'ADMIN'}">
+                                            <form id="banUserForm">
+                                                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                                <input type="submit" value="Забанить" style="color: black">
+                                            </form>
+                                        </th:block>
+                                    </th:block>
+                                    <th:block th:if="${owner.enabled == false}">
+                                        <h3 style="color: red">Неактивен</h3><br><br>
+                                        <th:block th:if="${owner.role.name != 'ADMIN'}">
+                                            <form id="unbanUserForm">
+                                                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                                <input type="submit" value="Разбанить" style="color: black">
+                                            </form>
+                                        </th:block>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </th:block>
             <br>
-            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+            <input class="w3-button w3-round w3-light-grey" type="button" value="Назад"
+                   onclick="history.back()" style="color: black; margin-top: 100px">
         </div>
         <div style="display: inline-block">
             <div class="w3-card w3-round-large" style="text-align: center">
                 <div class="w3-win8-blue w3-round-large" style="height: 35px; width: 950px">
-                    <h3>Description</h3>
+                    <h3>Описание</h3>
                 </div>
-                <p th:text="*{description}" style="text-align: justify; margin: 25px">Description</p>
+                <p th:text="*{description}" style="text-align: justify; margin: 25px">Описание</p>
                 <br>
             </div>
 
@@ -130,13 +149,15 @@
                             <th:block th:if="${owner.username eq guest.username}">
                                 <h3>
                                     <a class="w3-card w3-button w3-round w3-win8-blue"
-                                       th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none; width: 950px">My Cars</a>
+                                       th:href="@{/users/{name}/cars (name = *{username})}"
+                                       style="text-decoration: none; width: 950px">Мои автомобили</a>
                                 </h3>
                             </th:block>
                             <th:block th:if="${owner.username != guest.username}">
                                 <h2>
                                     <a class="w3-card w3-button w3-round w3-win8-blue"
-                                       th:href="@{/users/{name}/cars (name = *{username})}" style="text-decoration: none; width: 950px">Cars</a>
+                                       th:href="@{/users/{name}/cars (name = *{username})}"
+                                       style="text-decoration: none; width: 950px">Автомобили</a>
                                 </h2>
                             </th:block>
                         </th:block>
@@ -146,8 +167,8 @@
                 <div class="w3-container">
                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                         <th:block th:if="${owner.cars.size() < 1}">
-                            <h2 class="w3-tag w3-win8-blue" style="width: 950px">Cars</h2>
-                            <h3 style="color: grey">No results</h3>
+                            <h2 class="w3-tag w3-win8-blue" style="width: 950px">Автомобили</h2>
+                            <h3 style="color: grey">Нет результатов</h3>
                         </th:block>
                         <div th:each="car : ${owner.cars}" style="display: inline-flex; float: left;
                 height: 200px; width: 200px; margin: 15px; box-sizing: border-box"
@@ -175,7 +196,7 @@
                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                         <th:block th:if="${owner.username eq guest.username}">
                             <div style="margin-top: 50px; margin-left: 20px">
-                                <input class="w3-btn w3-win8-teal w3-round" type="button" value="Add"
+                                <input class="w3-btn w3-win8-teal w3-round" type="button" value="Добавить"
                                        onclick="location.assign('/cars/secure/add')" style="color: black">
                             </div>
                         </th:block>
@@ -192,14 +213,14 @@
                                 <h3>
                                     <a class="w3-button w3-round w3-win8-blue"
                                        th:href="@{/users/{name}/equipments (name = *{username})}"
-                                       style="text-decoration: none; width: 950px">My Complectations</a>
+                                       style="text-decoration: none; width: 950px">Мои комплектации</a>
                                 </h3>
                             </th:block>
                             <th:block th:if="${owner.username != guest.username}">
                                 <h2>
                                     <a class="w3-button w3-round w3-win8-blue"
                                        th:href="@{/users/{name}/equipments (name = *{username})}"
-                                       style="text-decoration: none; width: 950px">Complectations</a>
+                                       style="text-decoration: none; width: 950px">Комплектации</a>
                                 </h2>
                             </th:block>
                         </th:block>
@@ -209,8 +230,8 @@
                 <div class="w3-container" style="margin: 20px">
                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                         <th:block th:if="${owner.equipments.size() < 1}">
-                            <h2 class="w3-tag w3-win8-blue w3-round-large" style="width: 950px">Complectations</h2>
-                            <h3 style="color: grey">No results</h3>
+                            <h2 class="w3-tag w3-win8-blue w3-round-large" style="width: 950px">Комплектации</h2>
+                            <h3 style="color: grey">Нет результатов</h3>
                         </th:block>
                         <div th:each="complectation : ${owner.equipments}"
                              style="display: inline-flex; margin-right: 20px"
@@ -227,19 +248,19 @@
                                     </th:block>
                                     <div th:text="${complectation.name}"/>
                                     <th:block th:if="${complectation.attached == true}">
-                                        <span style="font-size: 12px; color: grey">Attached</span><br>
+                                        <span style="font-size: 12px; color: green">Установлен</span><br>
                                         <span th:text="|${complectation.car.brand != null ? complectation.car.brand.title : 'No brand'}
                                 ${complectation.car.title}|" style="font-size: 12px"/>
                                     </th:block>
                                     <th:block th:if="${complectation.attached eq false}">
-                                        <span style="font-size: 12px; color: grey">Not Attached</span><br>
+                                        <span style="font-size: 12px; color: red">Не установлен</span><br>
                                     </th:block>
                                 </a>
                             </h3>
                         </div>
                         <th:block th:if="${owner.username eq guest.username}">
                             <div style="margin-top: 20px">
-                                <input class="w3-btn w3-win8-teal w3-round" type="button" value="Add"
+                                <input class="w3-btn w3-win8-teal w3-round" type="button" value="Добавить"
                                        onclick="location.assign('/equipments/secure/add')" style="color: black">
                             </div>
                         </th:block>
@@ -250,34 +271,39 @@
 
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${owner.username eq guest.username}">
-                    <th:block th:if="${owner.role.name eq 'USER'}">
-                        <h2 class="w3-round-large w3-hover-light-grey" style="margin-top: 50px">User</h2>
-                    </th:block>
-                    <th:block th:if="${owner.role.name eq 'ADMIN'}">
-                        <h2 style="margin-top: 50px">Admin</h2>
-                        <div id="divMakeAdminMain">
-                            <div id="divMakeAdmin">
-                                <th:block th:if="${users.size() > 0}">
-                                    <form id="makeAdminForm">
-                                        <label for="make">Make Admin</label><br>
-                                        <select name="selectUser" id="make">
-                                            <option th:each="select : ${users}" th:value="${select.username}"
-                                                    th:text="|${select.firstname} ${select.lastname} ${select.username}|">User</option>
-                                        </select>
-                                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                        <input type="submit" value="Make" style="color: black">
-                                    </form>
-                                </th:block>
+                    <div class="w3-card w3-round-large" style="margin-top: 50px">
+                        <th:block th:if="${owner.role.name eq 'USER'}">
+                            <h2 class="w3-tag w3-round w3-win8-blue" style="width: 950px">Пользователь</h2>
+                        </th:block>
+                        <th:block th:if="${owner.role.name eq 'ADMIN'}">
+                            <h2 class="w3-tag w3-round w3-win8-blue" style="width: 950px">Администратор</h2>
+                            <div id="divMakeAdminMain">
+                                <div id="divMakeAdmin">
+                                    <th:block th:if="${users.size() > 0}">
+                                        <form id="makeAdminForm" style="margin: 20px">
+                                            <label for="make">Сделать амином</label><br>
+                                            <select name="selectUser" id="make">
+                                                <option th:each="select : ${users}" th:value="${select.username}"
+                                                        th:text="|${select.firstname} ${select.lastname} ${select.username}|">User</option>
+                                            </select>
+                                            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                            <input class="w3-button w3-round w3-teal" type="submit" value="Принять" style="color: black">
+                                        </form>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </th:block>
+                        <div class="w3-container">
+                            <div style="display: inline-flex">
+                                <form th:method="GET" th:action="@{/users/{name}/edit (name = ${owner.username})}" style="margin-right: 10px">
+                                    <input class="w3-button w3-round w3-blue" type="submit" value="Изменить" style="color: black">
+                                </form>
+                                <form th:method="DELETE" th:action="@{/users/{name}/delete (name = ${owner.username})}">
+                                    <input class="w3-button w3-round w3-red" type="submit" value="Удалить" style="color: black">
+                                </form>
                             </div>
                         </div>
-                    </th:block>
-                    <div style="margin-top: 25px; display: inline-flex">
-                        <form th:method="GET" th:action="@{/users/{name}/edit (name = ${owner.username})}" style="margin-right: 10px">
-                            <input type="submit" value="Edit" style="color: black">
-                        </form>
-                        <form th:method="DELETE" th:action="@{/users/{name}/delete (name = ${owner.username})}">
-                            <input type="submit" value="Delete" style="color: black">
-                        </form>
+                        <br>
                     </div>
                 </th:block>
             </th:block>
