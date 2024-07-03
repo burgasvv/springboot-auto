@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Classes</title>
+    <title>Классы</title>
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
@@ -21,12 +21,20 @@
 </th:block>
     <div class="w3-animate-opacity">
         <div style="margin: 50px 100px">
-            <h1>Classifications</h1><br><br>
-            <h2 th:each="class : ${classes}">
-                <a th:href="@{/classes/{id} (id = ${class.id})}" style="text-decoration: none">
-                    <span class="w3-button w3-win8-blue w3-round-large" style="width: 1000px" th:text="${class.name.substring(0,7)}"/>
-                </a><br><br>
-            </h2>
+            <h1>Классы</h1><br><br>
+            <div style="margin: 10px 100px; text-align: center" class="w3-row">
+                <div class="w3-col m2 w3-center w3-card w3-round-large w3-container" style="margin: 20px" th:each="class : ${classes}">
+                    <a th:href="@{/classes/{id} (id = ${class.id})}" style="text-decoration: none"
+                       class="w3-hover-opacity w3-hover-shadow">
+                        <th:block th:if="${class.image != ''}">
+                            <div style="width: 150px; height: 150px">
+                                <img th:src="${class.image}" alt="image" style="width: 150px">
+                            </div>
+                        </th:block>
+                        <h2 th:text="${class.name}">Class</h2>
+                    </a>
+                </div>
+            </div>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${user.role.name eq 'ADMIN'}">
                     <div style="margin-top: 100px">
@@ -36,7 +44,7 @@
             </th:block>
         </div>
         <div style="margin: 50px 100px">
-            <input type="button" value="Back" onclick="history.back()" style="color: black">
+            <input class="w3-button w3-round w3-hover-shadow w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">
         </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>

@@ -102,48 +102,48 @@ public class LoadDatabase {
                     .password(passwordEncoder.encode("user")).email("user@user.com").role(usr)
                     .description(InitDatabaseUtil.USER_ACCOUNT_DESCRIPTION).build();
 
-            Category hatchBack = Category.builder().name("Hatchback/Хэтчбек").image(InitDatabaseUtil.HATCHBACK_CATEGORY_IMAGE)
+            Category hatchBack = Category.builder().name("Хэтчбек").image(InitDatabaseUtil.HATCHBACK_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.HATCHBACK_CATEGORY_DESCRIPTION).build();
-            Category coupe = Category.builder().name("Coupe/Купе").image(InitDatabaseUtil.COUPE_CATEGORY_IMAGE)
+            Category coupe = Category.builder().name("Купе").image(InitDatabaseUtil.COUPE_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.COUPE_CATEGORY_DESCRIPTION).build();
-            Category sedan = Category.builder().name("Sedan/Седан").image(InitDatabaseUtil.SEDAN_CATEGORY_IMAGE)
+            Category sedan = Category.builder().name("Седан").image(InitDatabaseUtil.SEDAN_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.SEDAN_CATEGORY_DESCRIPTION).build();
-            Category liftBack = Category.builder().name("Liftback/Лифтбек").image(InitDatabaseUtil.LIFTBACK_CATEGORY_IMAGE)
+            Category liftBack = Category.builder().name("Лифтбек").image(InitDatabaseUtil.LIFTBACK_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.LIFTBACK_CATEGORY_DESCRIPTION).build();
-            Category fastBack = Category.builder().name("Fastback/Фастбек").image(InitDatabaseUtil.FASTBACK_CATEGORY_IMAGE)
+            Category fastBack = Category.builder().name("Фастбек").image(InitDatabaseUtil.FASTBACK_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.DASTBACK_CATEGORY_DESCRIPTION).build();
-            Category wagon = Category.builder().name("Wagon/Универсал").image(InitDatabaseUtil.WAGON_CATEGORY_IMAGE)
+            Category wagon = Category.builder().name("Универсал").image(InitDatabaseUtil.WAGON_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.WAGON_CATEGORY_DESCRIPTION).build();
-            Category cabriolet = Category.builder().name("Cabriolet/Convertible/Roadster/Spider/Кабриолет/Родстер/Спайдер")
+            Category cabriolet = Category.builder().name("Кабриолет")
                     .image(InitDatabaseUtil.CABRIOLET_CATEGORY_IMAGE).description(InitDatabaseUtil.CABRIOLET_CATEGORY_DESCRIPTION).build();
-            Category pickUp = Category.builder().name("Pickup/Пикап").image(InitDatabaseUtil.PICKUP_CATEGORY_IMAGE)
+            Category pickUp = Category.builder().name("Пикап").image(InitDatabaseUtil.PICKUP_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.PICKUP_CATEGORY_DESCRIPTION).build();
-            Category crossOver = Category.builder().name("Crossover/Кроссовер").image(InitDatabaseUtil.CROSSOVER_CATEGORY_IMAGE)
+            Category crossOver = Category.builder().name("Кроссовер").image(InitDatabaseUtil.CROSSOVER_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.CROSSOVER_CATEGORY_DESCRIPTION).build();
-            Category suv = Category.builder().name("SUV/Внедорожник/Джип").image(InitDatabaseUtil.SUV_CATEGORY_IMAGE)
+            Category suv = Category.builder().name("Внедорожник/Джип").image(InitDatabaseUtil.SUV_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.SUV_CATEGORY_DESCRIPTION).build();
-            Category minivan = Category.builder().name("Minivan/Минивэн/Микроавтобус").image(InitDatabaseUtil.MINIVAN_CATEGORY_IMAGE)
+            Category minivan = Category.builder().name("/Минивэн/Микроавтобус").image(InitDatabaseUtil.MINIVAN_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.MINIVAN_CATEGORY_DESCRIPTION).build();
-            Category limousin = Category.builder().name("Limousin/Лимузин").image(InitDatabaseUtil.LIMOUSIN_CATEGORY_IMAGE)
+            Category limousin = Category.builder().name("Лимузин").image(InitDatabaseUtil.LIMOUSIN_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.LIMOUSIN_CATEGORY_DESCRIPTION).build();
 
-            Classification aClass = Classification.builder().name("A class/Mini/Мини").image(InitDatabaseUtil.A_CLASS_IMAGE)
+            Classification aClass = Classification.builder().name("A class").image(InitDatabaseUtil.A_CLASS_IMAGE)
                     .description(InitDatabaseUtil.A_CLASS_DESCRIPTION).build();
-            Classification bClass = Classification.builder().name("B class/Small/Небольшой").image(InitDatabaseUtil.B_CLASS_IMAGE)
+            Classification bClass = Classification.builder().name("B class").image(InitDatabaseUtil.B_CLASS_IMAGE)
                     .description(InitDatabaseUtil.B_CLASS_DESCRIPTION).build();
-            Classification cClass = Classification.builder().name("C class/Low/Middle/Низкий/Средний")
+            Classification cClass = Classification.builder().name("C class")
                     .image(InitDatabaseUtil.C_CLASS_IMAGE).description(InitDatabaseUtil.C_CLASS_DESCRIPTION).build();
-            Classification dClass = Classification.builder().name("D class/Middle/Средний")
+            Classification dClass = Classification.builder().name("D class")
                     .image(InitDatabaseUtil.D_CLASS_IMAGE).description(InitDatabaseUtil.D_CLASS_DESCRIPTION).build();
-            Classification eClass = Classification.builder().name("E class/Business/Бизнес")
+            Classification eClass = Classification.builder().name("E class")
                     .image(InitDatabaseUtil.E_CLASS_IMAGE).description(InitDatabaseUtil.E_CLASS_DESCRIPTION).build();
-            Classification fClass = Classification.builder().name("F class/Luxury/Люкс").image(InitDatabaseUtil.F_CLASS_IMAGE)
+            Classification fClass = Classification.builder().name("F class").image(InitDatabaseUtil.F_CLASS_IMAGE)
                     .description(InitDatabaseUtil.F_CLASS_DESCRIPTION).build();
-            Classification sClass = Classification.builder().name("S class/Sport/Спорт").image(InitDatabaseUtil.S_CLASS_IMAGE)
+            Classification sClass = Classification.builder().name("S class").image(InitDatabaseUtil.S_CLASS_IMAGE)
                     .description(InitDatabaseUtil.S_CLASS_DESCRIPTION).build();
-            Classification mClass = Classification.builder().name("M class/Minivans/Минивэны").image(InitDatabaseUtil.M_CLASS_IMAGE)
+            Classification mClass = Classification.builder().name("M class").image(InitDatabaseUtil.M_CLASS_IMAGE)
                     .description(InitDatabaseUtil.M_CLASS_DESCRIPTION).build();
-            Classification jClass = Classification.builder().name("J class/Crossovers/SUV/Джипы/Внедорожники")
+            Classification jClass = Classification.builder().name("J class")
                     .image(InitDatabaseUtil.J_CLASS_IMAGE).description(InitDatabaseUtil.J_CLASS_DESCRIPTION).build();
 
             Tag tag1 = Tag.builder().name("спорт").build();

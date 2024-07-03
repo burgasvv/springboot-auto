@@ -21,16 +21,16 @@
     </th:block>
 
     <div style="margin: 50px 100px" class="w3-animate-opacity">
-        <h1>News</h1>
+        <h1>Новости</h1>
         <div>
             <form th:method="GET" th:action="@{/news/search}" style="display: inline-flex">
                 <label for="search"></label>
-                <input class="w3-input" style="width: 250px" type="text" id="search" name="search" placeholder="Input keywords here">
-                <input class="w3-btn w3-blue w3-round" type="submit" value="Search" style="color: black; margin-left: 10px">
+                <input class="w3-input" style="width: 250px" type="text" id="search" name="search" placeholder="Поиск...">
+                <input class="w3-btn w3-blue w3-round" type="submit" value="Поиск" style="color: black; margin-left: 10px">
             </form>
         </div>
         <th:block th:if="${news.isEmpty() eq true}">
-            <h2>No results</h2>
+            <h2>Нет результатов</h2>
         </th:block>
         <th:block th:if="${news.isEmpty() eq false}">
             <div class="w3-hover-opacity" style="display: inline-flex" th:each="article : ${news}">
@@ -38,7 +38,7 @@
                     <a th:href="@{/news/{id} (id = ${article.id})}" style="text-decoration: none">
                         <img th:src="${article.image}" alt="image" style="width: 250px; border-radius: 5%">
                         <span th:text="${article.title}" style="font-size: 16px; font-weight: bold"/><br>
-                        <span th:text="|Release date: ${article.date}|" style="font-size: 12px; color: gray"/>
+                        <span th:text="|Дата выхлда: ${article.date}|" style="font-size: 12px; color: gray"/>
                     </a>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Brands</title>
+    <title>Бренды</title>
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
     <style>
         .stories {
@@ -29,7 +29,7 @@
 </th:block>
     <div class="w3-animate-opacity">
         <div style="margin: 50px 100px">
-            <h1>Brands</h1>
+            <h1>Бренды</h1>
         </div>
         <div style="margin: 10px 100px; text-align: center" class="stories">
             <div class="story" style="display: inline-flex; margin: 77px; text-align: center" th:each="brand : ${brands}">
