@@ -21,28 +21,30 @@
     </th:block>
 </th:block>
     <div class="w3-animate-opacity">
-        <div style="margin: 25px 100px 10px">
-            <h3>
-                <a th:href="@{/brands}">Brands</a> /
-                <th:block th:if="${car.brand != null}">
-                    <a th:href="@{/brands/{id} (id = ${car.brand.id})}" th:text="${car.brand.title}">Brand</a> /
-                    <a th:href="@{/brands/{id}/cars (id = ${car.brand.id})}">Brand Cars</a>
-                </th:block>
-            </h3>
-        </div>
-        <div style="margin: 10px 100px">
-            <h3>
-                <a th:href="@{/classes}">Classes</a> /
-                <a th:href="@{/classes/{id} (id = ${car.classification.id})}" th:text="${car.classification.name.substring(0,7)}">Class</a> /
-                <a th:href="@{/classes/{id}/cars (id = ${car.classification.id})}">Classification Cars</a>
-            </h3>
-        </div>
-        <div style="margin: 10px 100px">
-            <h3>
-                <a th:href="@{/categories}">Categories</a> / {
-                <a th:href="@{/categories/{id} (id = ${car.category.id})}" th:text="${car.category.name}"></a>} /
-                <a th:href="@{/categories/{id}/cars (id = ${car.category.id})}">Category Cars</a>
-            </h3>
+        <div class="w3-tag w3-light-grey w3-round-large" style="margin: 20px 20px">
+            <div style="margin: 25px 100px 10px">
+                <h3>
+                    <a th:href="@{/brands}">Бренды</a> /
+                    <th:block th:if="${car.brand != null}">
+                        <a th:href="@{/brands/{id} (id = ${car.brand.id})}" th:text="${car.brand.title}">Бренд</a> /
+                        <a th:href="@{/brands/{id}/cars (id = ${car.brand.id})}">Брендовые Автомобили</a>
+                    </th:block>
+                </h3>
+            </div>
+            <div style="margin: 10px 100px">
+                <h3>
+                    <a th:href="@{/classes}">Классы</a> /
+                    <a th:href="@{/classes/{id} (id = ${car.classification.id})}" th:text="${car.classification.name}">Класс</a> /
+                    <a th:href="@{/classes/{id}/cars (id = ${car.classification.id})}">Автомобили</a>
+                </h3>
+            </div>
+            <div style="margin: 10px 100px">
+                <h3>
+                    <a th:href="@{/categories}">Категории</a> /
+                    <a th:href="@{/categories/{id} (id = ${car.category.id})}" th:text="${car.category.name}"></a> /
+                    <a th:href="@{/categories/{id}/cars (id = ${car.category.id})}">Автомобили</a>
+                </h3>
+            </div>
         </div>
         <div style="margin-left: 100px; margin-top: 50px; margin-bottom: 50px; display: inline-flex" th:object="${car}">
 
@@ -50,10 +52,10 @@
                 <h1 th:text="*{title}">Title</h1>
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                     <h3 style="color: grey">
-                        Owner: <a style="font-weight: normal; text-decoration: none"
+                        Владелец: <a style="font-weight: normal; text-decoration: none"
                                   th:href="@{/users/{name} (name = *{person.username})}" th:text="*{person.username}"></a><br>
                         <a style="font-weight: normal; font-size: 14px; text-decoration: none"
-                           th:href="@{/users/{name}/cars (name = *{person.username})}">All cars of this user</a>
+                           th:href="@{/users/{name}/cars (name = *{person.username})}">Все автомобили данного пользователя</a>
                     </h3>
                 </th:block>
                 <th:block th:if="*{images != null}">
@@ -83,13 +85,13 @@
                                             <label for="changeImage">Change Preview</label>
                                             <input type="file" id="changeImage" name="file">
                                             <input id="preview-image-csrf-token" type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                            <input type="submit" value="Change" style="color: black">
+                                            <input type="submit" value="Изменить" style="color: black">
                                         </form>
                                         <br><br>
                                         <form id="removeImageForm">
                                             <input id="remove-preview-image-csrf-token" type="hidden" name="_csrf" th:value="${_csrf.token}">
                                             <label for="removeImage">Remove Preview</label>
-                                            <input type="submit" value="Remove" style="color: black" id="removeImage">
+                                            <input type="submit" value="Убрать" style="color: black" id="removeImage">
                                         </form>
                                     </th:block>
                                 </div>
@@ -103,17 +105,17 @@
                                         <label for="addImage">Add Preview</label>
                                         <input type="file" id="addImage" name="file">
                                         <input id="preview-image-csrf-token-for-adding" type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                        <input type="submit" value="Add" style="color: black">
+                                        <input type="submit" value="Добавить" style="color: black">
                                     </form>
                                 </th:block>
                             </div>
                         </th:block>
                     </th:block>
                     <br><br>
-                    <h2>Images</h2>
+                    <h2>Альбом</h2>
                     <div id="divAlbumImages">
                         <th:block th:if="*{images.size() > 0}">
-                            <h3><a th:href="@{/cars/{id}/images (id = ${car.id})}">Show All</a></h3>
+                            <h3><a th:href="@{/cars/{id}/images (id = ${car.id})}">Показать все</a></h3>
                             <th:block th:each="image : *{images}">
                                 <div id="divAlbumImg" style="display: inline-flex">
                                     <img th:src="@{|/images/${image.id}|}" alt="image" style="width: 100px; border-radius: 2%">
@@ -124,12 +126,12 @@
                         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                             <th:block th:if="${user.username eq car.person.username}">
                                 <div>
-                                    <form id="addAlbumImagesForm"  enctype="multipart/form-data">
-                                        <label for="addImages">Add Images</label>
+                                    <form id="addAlbumImagesForm" enctype="multipart/form-data">
+                                        <label for="addImages">Добавить изображения</label>
                                         <input type="file" id="addImages" name="file" accept="image/png, image/jpeg" multiple>
                                         <input id="album-images-csrf-token" type="hidden"
                                                th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                                        <input type="submit" value="Add" style="color: black">
+                                        <input type="submit" value="Добавить" style="color: black">
                                     </form>
                                 </div>
                             </th:block>
@@ -138,67 +140,66 @@
                 </th:block>
                 <h2 style="margin-top: 100px">
                     <th:block th:if="${car.classification != null}">
-                        Class:
+                        Класс:
                         <a th:href="@{/classes/{id} (id = *{classification.id})}" style="text-decoration: none">
-                            <span th:text="*{classification.name.substring(0,7)}" style="font-weight: normal"/>
+                            <span th:text="*{classification.name}" style="font-weight: normal"/>
                         </a><br>
-                        <a href="/classes" style="font-weight: normal; text-decoration: none; font-size: 12px; color: gray">All classes</a>
+                        <a href="/classes" style="font-weight: normal; text-decoration: none; font-size: 12px; color: gray">Все классы</a>
                     </th:block>
                 </h2>
                 <h2>
                     <th:block th:if="${car.category != null}">
-                        Category:
+                        Категория:
                         <a th:href="@{/categories/{id} (id = *{category.id})}" style="text-decoration: none">
                             <span th:text="*{category.name}" style="font-weight: normal"/>
                         </a><br>
-                        <a href="/categories" style="font-weight: normal; font-size: 12px; color: gray; text-decoration: none">All categories</a>
+                        <a href="/categories" style="font-weight: normal; font-size: 12px; color: gray; text-decoration: none">Все категории</a>
                     </th:block>
                 </h2>
                 <h2>
                     <th:block th:if="*{brand != null}">
-                        Brand: <a th:href="@{/brands/{id} (id = *{brand.id})}" th:text="${car.brand != null ? car.brand.title : 'No Brand'}"
+                        Бренд: <a th:href="@{/brands/{id} (id = *{brand.id})}" th:text="${car.brand != null ? car.brand.title : 'No Brand'}"
                                   style="font-weight: normal; text-decoration: none">Brand</a>
                     </th:block>
                 </h2>
                 <h2>
                     <th:block th:if="*{driveUnit != null}">
-                        Drive: <span th:text="*{driveUnit.name}" style="font-weight: normal"/><br>
+                        Привод: <span th:text="*{driveUnit.name}" style="font-weight: normal"/><br>
                         <a th:href="@{/drive-units/{id}/cars (id = ${car.driveUnit.id})}"
                            style="font-weight: normal; font-size: 12px; color: gray; text-decoration: none">Cars</a>
                     </th:block>
                 </h2>
                 <h2>
                     <th:block th:if="*{weight != null}">
-                        Weight: <span th:text="|${car.weight} кг|"/>
+                        Вес: <span th:text="|${car.weight} кг|"/>
                     </th:block>
                 </h2>
                 <h2>
-                    Webpage: <a th:href="*{webpage}" th:text="*{title}" target="_blank"
+                    Веб-страница: <a th:href="*{webpage}" th:text="*{title}" target="_blank"
                                 style="font-weight: normal; text-decoration: none">Webpage</a>
                 </h2>
                 <div style="margin-top: 100px">
-                    <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 50px">
+                    <input class="w3-button w3-round w3-hover-shadow w3-light-grey" type="button" value="Назад"
+                           onclick="history.back()" style="color: black;margin-top: 50px">
                 </div>
             </div>
 
             <div style="display: inline-block; margin-left: 200px; margin-right: -150px">
-                <h2>Description</h2>
+                <h2 class="w3-tag w3-win8-blue w3-round" style="width: 900px">Описание</h2>
                 <p th:text="*{description}" style="text-align: justify; padding-right: 250px;">Description</p>
 
-                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
-
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                    <h2 style="margin-top: 50px">Complectations</h2>
+                    <h2 style="margin-top: 50px; width: 900px" class="w3-tag w3-round w3-win8-blue">Комплектации</h2>
                     <div id="allEquipmentsContentMain">
                         <div id="allEquipmentsContent">
                             <div style="color: grey" th:if="*{equipments.size() != 0}">
                                 <span th:text="|*{equipments.size()}/5|"/>
                             </div>
                             <div style="color: grey" th:if="${car.equipments.size() == 0 && user.equipments.size() == 0}">
-                                <span>Create a complectation on your user page to install it on your vehicle.</span>
+                                <span>Создайте комплектацию на странице профиля, чтобы установить ее на автомобиль.</span>
                             </div>
                             <div id="divEquipmentOnCar" style="display: inline-flex; margin-top: 20px" th:each="complectation : *{equipments}">
-                                <div class="w3-card w3-hover-shadow w3-hover-opacity" style="border-radius: 5%">
+                                <div class="w3-card w3-hover-shadow" style="border-radius: 5%">
                                     <div style="display: inline-block; margin: 10px">
                                         <h3 style="text-align: center">
                                             <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
@@ -218,7 +219,7 @@
                                                     <form id="removeEquipmentFromCarForm">
                                                         <input type="hidden" name="complId" th:value="${complectation.id}">
                                                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                        <input class="w3-button w3-red w3-round" type="submit" value="Detach" style="color: black">
+                                                        <input class="w3-button w3-red w3-round" type="submit" value="Убрать" style="color: black">
                                                     </form>
                                                 </div>
                                             </th:block>
@@ -232,7 +233,7 @@
                                             </th:block>
                                             <th:block th:if="${complectation.getMaxSpeed() eq null
                                                         || complectation.getAcceleration() eq null}">
-                                                <span style="color: gray">Fill out the package to see the parameters.</span>
+                                                <span style="color: gray">Установите все запчасти, чтобы получить характеристики.</span>
                                             </th:block>
                                         </div>
                                     </div>
@@ -247,19 +248,19 @@
                                             <th:block th:if="${userEquipments.size() > 0}">
                                                 <div style="width: 200px">
                                                     <form id="attachEquipmentOnCarForm">
-                                                        <label for="equipments">Your Complectations</label><br><br>
+                                                        <label for="equipments">Ваши комплектации</label><br><br>
                                                         <select th:field="${addingEquipment.id}" id="equipments" style="width: 100px">
                                                             <option th:each="userEquipment : ${userEquipments}"
                                                                     th:value="${userEquipment.id}" th:text="${userEquipment.name}"></option>
                                                         </select>
                                                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                        <input type="submit" value="Attach" style="color: black">
+                                                        <input type="submit" value="Установить" style="color: black">
                                                     </form>
                                                 </div>
                                             </th:block>
                                             <th:block th:if="${userEquipments.size() == 0}">
-                                                <h4 style="color: grey">All your complectations attached.
-                                                    Create new complectations in your profile page.</h4>
+                                                <h4 style="color: grey">Все ваши комплектации установлены.
+                                                    Создайте новые на странице профиля.</h4>
                                             </th:block>
                                         </th:block>
                                     </div>
@@ -268,24 +269,22 @@
                         </div>
                     </div>
 
-                    <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
-
-                    <h2 style="margin-top: 50px">Tags</h2>
+                    <h2 style="margin-top: 50px; width: 900px" class="w3-tag w3-win8-blue w3-round">Теги</h2><br>
                     <th:block th:if="${user.username eq car.person.username}">
                         <div style="display: inline-flex; margin-top: 25px">
                             <form id="attachTagForm">
-                                <label for="tags">Ready Tags</label><br><br>
+                                <label for="tags">Готовые теги</label><br><br>
                                 <select th:field="${attachTag.id}" id="tags" size="1" multiple
                                         onclick="size=(size!==1)?n:5" onmouseleave="size=(size!==5)?n:1">
                                     <option th:each="tag : ${allTags}" th:value="${tag.id}" th:text="${tag.name}"></option>
                                 </select><br><br>
                                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                <input type="submit" value="Attach Tag" style="color: black">
+                                <input type="submit" value="Прикрепить тег" style="color: black">
                             </form>
                             <form id="addAndAttachTagForm" style="margin-left: 20px">
-                                <label for="tag">New Tag</label><br><br>
+                                <label for="tag">Новый тег</label><br><br>
                                 <input type="text" id="tag" th:field="${newTag.name}"><br><br>
-                                <input type="submit" value="Add and Attach" style="color: black">
+                                <input type="submit" value="Создать и прикрепить" style="color: black">
                                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                             </form>
                         </div>
@@ -299,19 +298,17 @@
                         </div>
                     </div>
 
-                    <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 240px"></div>
-
                     <th:block th:if="${user.username eq car.person.username}">
-                        <h2 style="margin-top: 50px">Car</h2>
+                        <h2 style="margin-top: 50px; width: 900px" class="w3-tag w3-round w3-win8-blue">Автомобиль</h2><br>
                         <div style="display: inline-flex; margin-top: 10px">
                             <form th:method="GET" th:action="@{/cars/{id}/edit (id = *{id})}">
-                                <input type="submit" value="Edit" style="color: black">
+                                <input type="submit" value="Изменить" style="color: black">
                             </form>
                             <form th:method="DELETE" th:action="@{/cars/{id}/delete (id = *{id})}">
-                                <input type="submit" value="Remove" style="color: black; margin-left: 20px">
+                                <input type="submit" value="Удалить" style="color: black; margin-left: 20px">
                             </form>
                             <form th:method="GET" th:action="@{/cars/{id}/handover (id = *{id})}">
-                                <input type="submit" value="Handover" style="color: black; margin-left: 20px">
+                                <input type="submit" value="Передать" style="color: black; margin-left: 20px">
                             </form>
                         </div>
                     </th:block>
@@ -319,7 +316,7 @@
 
                 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
                     <th:block th:case="${false}">
-                        <h2 style="margin-top: 50px">Tags</h2>
+                        <h2 style="margin-top: 50px">Теги</h2>
                         <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
                             <a th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
                                 <span class="w3-tag w3-blue w3-round" th:text="|${tag.name}|" style="margin: 5px"/>
