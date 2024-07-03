@@ -20,18 +20,18 @@
     </th:block>
 </th:block>
     <div style="margin: 50px 100px" class="w3-animate-opacity">
-        <h1>Users</h1>
+        <h1>Пользователи</h1>
         <div>
             <form th:method="GET" th:action="@{/users/search}" style="display: inline-flex">
                 <label for="search"></label><br>
-                <input class="w3-input" style="width: 250px" type="text" id="search" name="search" placeholder="Input keywords here">
-                <input class="w3-btn w3-blue w3-round" type="submit" value="Search" style="color: black; margin-left: 10px">
+                <input class="w3-input" style="width: 250px" type="text" id="search" name="search" placeholder="Введите пользователя">
+                <input class="w3-btn w3-blue w3-round" type="submit" value="Поиск" style="color: black; margin-left: 10px">
             </form>
         </div>
         <div th:each="selectUser : ${users}" style="margin-top: 50px">
             <a th:href="@{/users/{name} (name = ${selectUser.username})}">
-                <div style="display: inline-flex; width: 700px; height: 300px" class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
-                    <div style="margin: 10px">
+                <div style="width: 600px" class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
+                    <div class="w3-container" style="margin: 20px">
                         <th:block th:if="${selectUser.image != null}">
                             <img th:src="@{/images/{id} (id = ${selectUser.image.id})}"
                                  alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
@@ -74,7 +74,8 @@
             </th:block>
         </ul>
         <div>
-            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+            <input class="w3-button w3-round w3-hover-shadow w3-light-grey" type="button" value="Назад"
+                   onclick="history.back()" style="color: black; margin-top: 100px">
         </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
