@@ -64,7 +64,7 @@
                             <div id="divImageModal">
                                 <th:block th:each="image : *{images}">
                                     <th:block th:if="${image.preview eq true && car.hasPreview == true}">
-                                        <div id="divImg">
+                                        <div id="divImg" class="w3-border w3-round-large">
                                             <img id="myImg" th:src="@{|/images/${image.id}|}" alt="image" style="width: 600px; border-radius: 2%">
                                         </div>
                                         <div id="myModal" class="modal">
@@ -103,7 +103,7 @@
                                 </div>
                                 <div id="divCancelledImage">
                                     <th:block th:if="*{hasPreview == false}">
-                                        <div id="divEmptyImage">
+                                        <div id="divEmptyImage" class="w3-border w3-round-large">
                                             <img src="/resource/images/emptyCarImage.jpg" alt="image" style="width: 600px; border-radius: 2%">
                                         </div>
                                         <form id="addImageForm" enctype="multipart/form-data">
@@ -130,10 +130,11 @@
                             <div id="divAlbumImages">
                                 <th:block th:if="*{images.size() > 0}">
                                     <h3><a th:href="@{/cars/{id}/images (id = ${car.id})}">Показать все</a></h3>
-                                    <div id="divAlbumImg" style="overflow: auto; width: 600px; height: 200px">
+                                    <div id="divAlbumImg" style="overflow: auto; width: 600px; height: 200px" class="w3-border w3-round-large">
                                         <th:block th:each="image : *{images}">
-                                            <div style="display: inline-flex">
-                                                <img th:src="@{|/images/${image.id}|}" alt="image" style="width: 100px; border-radius: 2%">
+                                            <div style="display: inline-flex; margin: 5px">
+                                                <img class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity"
+                                                     th:src="@{|/images/${image.id}|}" alt="image" style="width: 100px; border-radius: 2%">
                                             </div>
                                         </th:block>
                                     </div>
@@ -231,9 +232,10 @@
                                     <div style="color: grey" th:if="${car.equipments.size() == 0 && user.equipments.size() == 0}">
                                         <span>Создайте комплектацию на странице профиля, чтобы установить ее на автомобиль.</span>
                                     </div>
-                                    <div id="divEquipmentOnCar" style="display: inline-flex; margin-top: 20px" th:each="complectation : *{equipments}">
-                                        <div class="w3-card w3-hover-shadow" style="border-radius: 5%">
-                                            <div style="display: inline-block; margin: 10px">
+                                    <div id="divEquipmentOnCar" class="w3-border w3-round-large"
+                                         style="display: inline-flex; margin-top: 20px" th:each="complectation : *{equipments}">
+                                        <div class="w3-card w3-hover-shadow" style="border-radius: 5%; width: 300px; height: 350px">
+                                            <div style="display: inline-block; margin: 10px" class="w3-container">
                                                 <h3 style="text-align: center">
                                                     <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
                                                        style="text-decoration: none">
@@ -260,10 +262,10 @@
                                                 <div style="margin-top: 25px">
                                                     <th:block th:if="${complectation.getAcceleration() != null
                                                     && complectation.getMaxSpeed() != null}">
-                                                        <span style="font-weight: bold">Acceleration: </span>
-                                                        <span th:text="|${complectation.getAcceleration()} sec (0-100 km/h)|"/><br>
-                                                        <span style="font-weight: bold">Maximum Speed: </span>
-                                                        <span th:text="|${complectation.getMaxSpeed()} km/h|"/>
+                                                        <span style="font-weight: bold">Ускорение: </span>
+                                                        <span th:text="|${complectation.getAcceleration()} sec (0-100 км/ч)|"/><br>
+                                                        <span style="font-weight: bold">Макс. Скорость: </span>
+                                                        <span th:text="|${complectation.getMaxSpeed()} км/ч|"/>
                                                     </th:block>
                                                     <th:block th:if="${complectation.getMaxSpeed() eq null
                                                         || complectation.getAcceleration() eq null}">
@@ -290,7 +292,8 @@
                                                                                 th:text="${userEquipment.name}"></option>
                                                                     </select>
                                                                     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                                    <input type="submit" value="Установить" style="color: black; margin-left: 20px">
+                                                                    <input class="w3-button w3-round w3-blue" type="submit" value="Установить"
+                                                                           style="color: black; margin-left: 20px">
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -298,7 +301,8 @@
                                                     </th:block>
                                                     <th:block th:if="${userEquipments.size() == 0}">
                                                         <h4 style="color: grey">Все ваши комплектации установлены.
-                                                            Создайте новые на странице профиля.</h4>
+                                                            Создайте новые на
+                                                            <a th:href="@{/users/{name} (name = ${car.person.username})}"> странице профиля</a>.</h4>
                                                     </th:block>
                                                 </th:block>
                                             </div>

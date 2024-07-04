@@ -110,7 +110,7 @@
                                         <th:block th:if="${owner.role.name != 'ADMIN'}">
                                             <form id="banUserForm">
                                                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                <input type="submit" value="Забанить" style="color: black">
+                                                <input class="w3-button w3-red w3-round" type="submit" value="Забанить" style="color: black">
                                             </form>
                                         </th:block>
                                     </th:block>
@@ -119,7 +119,7 @@
                                         <th:block th:if="${owner.role.name != 'ADMIN'}">
                                             <form id="unbanUserForm">
                                                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                <input type="submit" value="Разбанить" style="color: black">
+                                                <input class="w3-button w3-win8-green w3-round" type="submit" value="Разбанить" style="color: black">
                                             </form>
                                         </th:block>
                                     </th:block>
@@ -127,6 +127,7 @@
                             </div>
                         </div>
                     </div>
+                    <br>
                 </div>
             </th:block>
             <br>

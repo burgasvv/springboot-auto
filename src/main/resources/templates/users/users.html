@@ -30,37 +30,41 @@
         </div>
         <div th:each="selectUser : ${users}" style="margin-top: 50px">
             <a th:href="@{/users/{name} (name = ${selectUser.username})}">
-                <div style="width: 600px" class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
-                    <div class="w3-container" style="margin: 20px">
-                        <th:block th:if="${selectUser.image != null}">
-                            <img th:src="@{/images/{id} (id = ${selectUser.image.id})}"
-                                 alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
-                        </th:block>
-                        <th:block th:if="${selectUser.image == null}">
-                            <img src="/resource/images/emptyUserImage.png"
-                                 alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
-                        </th:block>
-                        <div style="display: inline-block">
-                            <div style="display: inline-flex">
-                                <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>
-                                <th:block th:if="${selectUser.status.name() eq 'ONLINE'}">
-                                    <h3 style="color: green; margin-left: 25px">Online</h3>
+                <div style="width: 800px" class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
+                    <div class="w3-container">
+                        <div style="margin: 20px; display: inline-flex">
+                            <div style="display: inline-block">
+                                <th:block th:if="${selectUser.image != null}">
+                                    <img th:src="@{/images/{id} (id = ${selectUser.image.id})}"
+                                         alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
                                 </th:block>
-                                <th:block th:if="${selectUser.status.name() eq 'OFFLINE'}">
-                                    <h3 style="color: black; margin-left: 25px">Offline</h3>
+                                <th:block th:if="${selectUser.image == null}">
+                                    <img src="/resource/images/emptyUserImage.png"
+                                         alt="image" style="width: 100px; border-radius: 5%; margin-right: 25px">
                                 </th:block>
                             </div>
-                            <br>
-                            <span th:text="${selectUser.username}"/>
-                            <h5 th:text="${selectUser.role.name}" style="color: grey">Role</h5>
-                            <th:block th:if="${user.role.name eq 'ADMIN'}">
-                                <th:block th:if="${selectUser.enabled == true}">
-                                    <span style="color: gray; margin-left: 500px">Active</span>
+                            <div style="display: inline-block">
+                                <div style="display: inline-flex">
+                                    <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>
+                                    <th:block th:if="${selectUser.status.name() eq 'ONLINE'}">
+                                        <h3 style="color: green; margin-left: 25px">Онлайн</h3>
+                                    </th:block>
+                                    <th:block th:if="${selectUser.status.name() eq 'OFFLINE'}">
+                                        <h3 style="color: black; margin-left: 25px">Офлайн</h3>
+                                    </th:block>
+                                </div>
+                                <br>
+                                <span th:text="${selectUser.username}"/>
+                                <h5 th:text="${selectUser.role.name}" style="color: grey">Role</h5>
+                                <th:block th:if="${user.role.name eq 'ADMIN'}">
+                                    <th:block th:if="${selectUser.enabled == true}">
+                                        <span style="color: gray; margin-left: 500px">Активен</span>
+                                    </th:block>
+                                    <th:block th:if="${selectUser.enabled == false}">
+                                        <span style="color: red; margin-left: 500px">Неактивен</span>
+                                    </th:block>
                                 </th:block>
-                                <th:block th:if="${selectUser.enabled == false}">
-                                    <span style="color: red; margin-left: 500px">Inactive</span>
-                                </th:block>
-                            </th:block>
+                            </div>
                         </div>
                     </div>
                 </div>
