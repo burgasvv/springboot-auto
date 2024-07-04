@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>My Cars</title>
+    <title>Мои автомобили</title>
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
@@ -21,7 +21,7 @@
 </th:block>
     <div style="margin: 50px 100px" th:object="${owner}" class="w3-animate-opacity">
         <th:block th:if="${owner.username eq guest.username}">
-            <h1>My Cars</h1>
+            <h1>Мои автомобили</h1>
         </th:block>
         <th:block th:if="${owner.username != guest.username}">
             <h2>
@@ -32,20 +32,26 @@
             </h2>
         </th:block>
         <th:block th:if="*{cars.size() < 1}">
-            <h2>No results</h2>
+            <h2>Нет результатов</h2>
         </th:block>
         <div style="margin-top: 50px; display: inline-flex">
-            <form th:method="GET" th:action="@{/users/{name}/cars/search (name = ${owner.username})}">
-                <label for="search"></label><br>
-                <input class="w3-input" style="width: 250px" type="text" id="search" name="search" placeholder="Input keywords here"><br>
-                <input class="w3-btn w3-blue w3-round" type="submit" value="Search" style="color: black; margin-left: 10px">
-            </form>
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${owner.username eq guest.username}">
-                    <input class="w3-btn w3-teal w3-round" type="button" value="Add" onclick="location.assign('/cars/secure/add')"
-                           style="color: black; height: 37px; margin-top: 23px; margin-left: 100px">
+            <div style="display: inline-flex">
+                <form th:method="GET" th:action="@{/users/{name}/cars/search (name = ${owner.username})}">
+                    <label for="search"></label>
+                    <input class="w3-input" style="width: 250px" type="text" id="search" name="search" placeholder="Введите искомое"><br>
+                    <input class="w3-btn w3-blue w3-round" type="submit" value="Поиск" style="color: black; margin-left: 10px">
+                </form>
+            </div>
+            <div>
+                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                    <th:block th:if="${owner.username eq guest.username}">
+                        <div style="display: inline-flex">
+                            <input class="w3-btn w3-teal w3-round" type="button" value="Добавить" onclick="location.assign('/cars/secure/add')"
+                                   style="color: black; height: 37px; margin-top: 23px; margin-left: 100px">
+                        </div>
+                    </th:block>
                 </th:block>
-            </th:block>
+            </div>
         </div>
         <br><br>
         <div th:each="car : ${cars}" style="display: inline-flex; float: left; height: 300px; width: 300px; margin: 15px"
@@ -82,7 +88,7 @@
                 </ul>
             </div>
             <div style="margin-top: 50px">
-                <input type="button" value="Back" onclick="history.back()" style="color: black">
+                <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">
             </div>
         </div>
     </div>

@@ -179,9 +179,9 @@ public class LoadDatabase {
             Brand mercedes = Brand.builder().title("Mercedes").image(mercedesImage)
                     .website(InitDatabaseUtil.MERCEDES_BRAND_WEBSITE).description(InitDatabaseUtil.MERCEDES_BRAND_DESCRIPTION).build();
 
-            DriveUnit frontWheel = DriveUnit.builder().name("Front Wheel/Передний привод").build();
-            DriveUnit rear = DriveUnit.builder().name("Rear/Задний привод").build();
-            DriveUnit fourWheel = DriveUnit.builder().name("Four Wheel/Полный Привод").build();
+            DriveUnit frontWheel = DriveUnit.builder().name("Передний привод").build();
+            DriveUnit rear = DriveUnit.builder().name("Задний привод").build();
+            DriveUnit fourWheel = DriveUnit.builder().name("Полный Привод").build();
 
             Image m5PreviewImage = Image.builder().name("m5-preview-image").isPreview(true)
                     .data(readBytesFromFile(InitDatabaseUtil.M5_PREVIEW_IMAGE)).build();
