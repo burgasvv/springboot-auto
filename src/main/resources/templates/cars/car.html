@@ -224,8 +224,8 @@
                     <div class="w3-card w3-round-large" style="margin-top: 50px">
                         <h2 style="width: 950px" class="w3-tag w3-round w3-win8-blue">Комплектации</h2>
                         <div class="w3-container">
-                            <div id="allEquipmentsContentMain">
-                                <div id="allEquipmentsContent">
+                            <div id="allEquipmentsContentMain" class="w3-border w3-round-large" style="overflow: auto; width: 900px; height: 600px">
+                                <div id="allEquipmentsContent" style="margin: 10px">
                                     <div style="color: grey" th:if="*{equipments.size() != 0}">
                                         <span th:text="|*{equipments.size()}/5|"/>
                                     </div>
@@ -234,7 +234,7 @@
                                     </div>
                                     <div id="divEquipmentOnCar" class="w3-border w3-round-large"
                                          style="display: inline-flex; margin-top: 20px" th:each="complectation : *{equipments}">
-                                        <div class="w3-card w3-hover-shadow" style="border-radius: 5%; width: 300px; height: 350px">
+                                        <div class="w3-card w3-hover-shadow" style="border-radius: 5%; width: 280px; height: 350px">
                                             <div style="display: inline-block; margin: 10px" class="w3-container">
                                                 <h3 style="text-align: center">
                                                     <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
@@ -310,6 +310,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <br>
                         </div>
                     </div>
                     <div class="w3-card w3-round-large" style="margin-top: 50px">
@@ -337,8 +338,8 @@
                                 </div>
                             </th:block>
                             <br><br>
-                            <div id="divTagsMain">
-                                <div id="divTags" th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
+                            <div id="divTagsMain" class="w3-border w3-round-large" style="height: 100px; width: 900px; overflow: auto">
+                                <div id="divTags" th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex; margin: 10px">
                                     <a th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
                                         <span class="w3-tag w3-blue w3-round" th:text="|${tag.name}|" style="margin-right: 25px"/>
                                     </a>
@@ -373,7 +374,7 @@
                     <th:block th:case="${false}">
                         <div class="w3-card w3-round-large" style="margin-top: 50px">
                             <h2 style="width: 950px" class="w3-tag w3-win8-blue w3-round">Теги</h2><br>
-                            <div class="w3-container">
+                            <div class="w3-container w3-border w3-round-large" style="height: 100px; width: 900px; overflow: auto">
                                 <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
                                     <a th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
                                         <span class="w3-tag w3-blue w3-round" th:text="|${tag.name}|" style="margin: 5px"/>
