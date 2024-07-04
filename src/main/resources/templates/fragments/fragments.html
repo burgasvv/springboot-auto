@@ -4,17 +4,27 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height: 120px" th:fragment="bar(user_image)">
         <h2 style="margin-left: 100px; display: inline-flex; margin-right: 20px">
             <a class="w3-hover-opacity" style="text-decoration: none" href="/">
-                <img src="/resource/images/home.png" alt="image" style="width: 30px; height: 30px; margin-top: -13px">
+                <img src="/resource/images/home5.png" alt="image" style="width: 30px; height: 30px; margin-top: -8px;
+                color: #808080; text-shadow:#fff 0 1px 0, #000 0 -1px 0;">
             </a></h2>
         <h3 style="display: inline-flex; margin-right: 20px">
-            <a class="w3-hover-opacity" style="text-decoration: none" href="/classes">Классы</a>
+            <a class="w3-hover-opacity"
+               style="text-decoration: none; color: #808080; text-shadow:#fff 0 1px 0, #000 0 -1px 0;" href="/classes">Классы</a>
         </h3>
-        <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/categories">Категории</a></h3>
-        <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/brands">Бренды</a></h3>
-        <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/cars">Автомобили</a></h3>
+        <h3 style="display: inline-flex; margin-right: 20px">
+            <a class="w3-hover-opacity"
+               style="text-decoration: none; color: #808080; text-shadow:#fff 0 1px 0, #000 0 -1px 0;" href="/categories">Категории</a></h3>
+        <h3 style="display: inline-flex; margin-right: 20px">
+            <a class="w3-hover-opacity"
+               style="text-decoration: none; color: #808080; text-shadow:#fff 0 1px 0, #000 0 -1px 0;" href="/brands">Бренды</a></h3>
+        <h3 style="display: inline-flex; margin-right: 20px">
+            <a class="w3-hover-opacity"
+               style="text-decoration: none; color: #808080; text-shadow:#fff 0 1px 0, #000 0 -1px 0;" href="/cars">Автомобили</a></h3>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <h3 style="display: inline-flex; margin-right: 20px">
-                <a class="w3-hover-opacity" style="text-decoration: none" href="/equipments">Комплектации</a></h3>
+                <a class="w3-hover-opacity"
+                   style="text-decoration: none; color: #808080; text-shadow:#fff 0 1px 0, #000 0 -1px 0;" href="/equipments">
+                    Комплектации</a></h3>
         </th:block>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <div style="display: inline-flex; margin-right: 20px">
@@ -50,15 +60,22 @@
             <th:block th:case="${false}">
                 <div style="text-align: right; margin-right: 100px; margin-top: -62px">
                     <h3 style="display: inline-flex; margin-right: 20px">
-                        <a class="w3-hover-opacity" style="text-decoration: none" href="/login">Войти</a>
+                        <a class="w3-hover-opacity"
+                           style="text-decoration: none; color: #808080; text-shadow:#fff 0 1px 0, #000 0 -1px 0;" href="/login">
+                            Войти</a>
                     </h3>
-                    <h3 style="display: inline-flex; margin-right: 20px"><a class="w3-hover-opacity" style="text-decoration: none" href="/registration">Регистрация</a></h3>
+                    <h3 style="display: inline-flex; margin-right: 20px">
+                        <a class="w3-hover-opacity"
+                           style="text-decoration: none; color: #808080; text-shadow:#fff 0 1px 0, #000 0 -1px 0;" href="/registration">
+                            Регистрация</a></h3>
                 </div>
             </th:block>
             <th:block th:case="${true}">
                 <div style="text-align: right; margin-right: 100px; margin-top: -65px; margin-left: 100px">
                     <h3 style="display: inline-flex; margin-right: 20px">
-                        <a class="w3-hover-opacity" style="text-decoration: none" th:href="@{/users}">Пользователи</a>
+                        <a class="w3-hover-opacity"
+                           style="text-decoration: none; color: #808080; text-shadow:#fff 0 1px 0, #000 0 -1px 0;" th:href="@{/users}">
+                            Пользователи</a>
                     </h3>
                     <h2 style="display: inline-flex; margin-right: 20px">
                         <a style="text-decoration: none" th:href="@{/users/{name} (name = ${#authentication.name})}">
@@ -75,6 +92,7 @@
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                         <input class="w3-hover-opacity" type="submit" value="Выйти"
                                style="background: none; border: none; text-decoration: none;
+                               color: #808080; text-shadow:#fff 0 1px 0, #000 0 -1px 0;
                                cursor: pointer; font-size: 20px">
                     </form>
                 </div>

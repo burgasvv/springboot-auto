@@ -215,16 +215,17 @@
             <div style="display: inline-block; margin-left: 100px">
                 <div class="w3-card w3-round-large" style="width: 950px">
                     <h2 class="w3-tag w3-win8-blue w3-round" style="width: 950px">Описание</h2>
-                    <div class="w3-container">
-                        <p th:text="*{description}" style="text-align: justify; text-indent: 30px">Description</p>
+                    <div class="w3-container w3-border w3-round-large" style="margin: 20px; width: 900px; height: 200px; overflow: auto">
+                        <p th:text="*{description}" style="text-align: justify; text-indent: 50px">Description</p>
                     </div>
+                    <br>
                 </div>
 
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                     <div class="w3-card w3-round-large" style="margin-top: 50px">
                         <h2 style="width: 950px" class="w3-tag w3-round w3-win8-blue">Комплектации</h2>
                         <div class="w3-container">
-                            <div id="allEquipmentsContentMain" class="w3-border w3-round-large" style="overflow: auto; width: 900px; height: 600px">
+                            <div id="allEquipmentsContentMain">
                                 <div id="allEquipmentsContent" style="margin: 10px">
                                     <div style="color: grey" th:if="*{equipments.size() != 0}">
                                         <span th:text="|*{equipments.size()}/5|"/>
@@ -232,45 +233,47 @@
                                     <div style="color: grey" th:if="${car.equipments.size() == 0 && user.equipments.size() == 0}">
                                         <span>Создайте комплектацию на странице профиля, чтобы установить ее на автомобиль.</span>
                                     </div>
-                                    <div id="divEquipmentOnCar" class="w3-border w3-round-large"
-                                         style="display: inline-flex; margin-top: 20px" th:each="complectation : *{equipments}">
-                                        <div class="w3-card w3-hover-shadow" style="border-radius: 5%; width: 280px; height: 350px">
-                                            <div style="display: inline-block; margin: 10px" class="w3-container">
-                                                <h3 style="text-align: center">
-                                                    <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
-                                                       style="text-decoration: none">
-                                                        <th:block th:if="${complectation.image != ''}">
-                                                            <img th:src="${complectation.image}" alt="image"
-                                                                 style="display: inline-flex; width: 100px; border-radius: 10%"><br>
+                                    <div class="w3-border w3-round-large" style="overflow: auto; width: 900px; height: 380px; text-align: center">
+                                        <div id="divEquipmentOnCar" class="w3-border w3-round-large"
+                                             style="display: inline-flex; margin: 10px" th:each="complectation : *{equipments}">
+                                            <div class="w3-card w3-hover-shadow" style="border-radius: 5%; width: 260px; height: 350px">
+                                                <div style="display: inline-block; " class="w3-container">
+                                                    <h3 style="text-align: center">
+                                                        <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
+                                                           style="text-decoration: none">
+                                                            <th:block th:if="${complectation.image != ''}">
+                                                                <img th:src="${complectation.image}" alt="image"
+                                                                     style="display: inline-flex; width: 100px; border-radius: 10%"><br>
+                                                            </th:block>
+                                                            <th:block th:if="${complectation.image eq ''}">
+                                                                <img src="/resource/images/complectImage.png" alt="image"
+                                                                     style="display: inline-flex; width: 100px; border-radius: 10%"><br>
+                                                            </th:block>
+                                                            <span th:text="${complectation.name}"/>
+                                                        </a>
+                                                        <th:block th:if="${user.username eq car.person.username}">
+                                                            <div style="margin-top: 25px">
+                                                                <form id="removeEquipmentFromCarForm">
+                                                                    <input type="hidden" name="complId" th:value="${complectation.id}">
+                                                                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                                                    <input class="w3-button w3-red w3-round" type="submit" value="Убрать" style="color: black">
+                                                                </form>
+                                                            </div>
                                                         </th:block>
-                                                        <th:block th:if="${complectation.image eq ''}">
-                                                            <img src="/resource/images/complectImage.png" alt="image"
-                                                                 style="display: inline-flex; width: 100px; border-radius: 10%"><br>
-                                                        </th:block>
-                                                        <span th:text="${complectation.name}"/>
-                                                    </a>
-                                                    <th:block th:if="${user.username eq car.person.username}">
-                                                        <div style="margin-top: 25px">
-                                                            <form id="removeEquipmentFromCarForm">
-                                                                <input type="hidden" name="complId" th:value="${complectation.id}">
-                                                                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                                <input class="w3-button w3-red w3-round" type="submit" value="Убрать" style="color: black">
-                                                            </form>
-                                                        </div>
-                                                    </th:block>
-                                                </h3>
-                                                <div style="margin-top: 25px">
-                                                    <th:block th:if="${complectation.getAcceleration() != null
+                                                    </h3>
+                                                    <div style="margin-top: 25px">
+                                                        <th:block th:if="${complectation.getAcceleration() != null
                                                     && complectation.getMaxSpeed() != null}">
-                                                        <span style="font-weight: bold">Ускорение: </span>
-                                                        <span th:text="|${complectation.getAcceleration()} sec (0-100 км/ч)|"/><br>
-                                                        <span style="font-weight: bold">Макс. Скорость: </span>
-                                                        <span th:text="|${complectation.getMaxSpeed()} км/ч|"/>
-                                                    </th:block>
-                                                    <th:block th:if="${complectation.getMaxSpeed() eq null
+                                                            <span style="font-weight: bold">Ускорение: </span>
+                                                            <span th:text="|${complectation.getAcceleration()} сек. (0-100 км/ч)|"/><br>
+                                                            <span style="font-weight: bold">Макс. Скорость: </span>
+                                                            <span th:text="|${complectation.getMaxSpeed()} км/ч|"/>
+                                                        </th:block>
+                                                        <th:block th:if="${complectation.getMaxSpeed() eq null
                                                         || complectation.getAcceleration() eq null}">
-                                                        <span style="color: gray">Установите все запчасти, чтобы получить характеристики.</span>
-                                                    </th:block>
+                                                            <span style="color: gray">Установите все запчасти, чтобы получить характеристики.</span>
+                                                        </th:block>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

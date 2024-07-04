@@ -98,10 +98,10 @@
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <div class="w3-card w3-round-large" style="margin-top: 50px">
                     <div class="w3-container">
-                        <h3 style="color: grey">Role: <span style="font-weight: normal" th:text="*{role.name}"/></h3>
-                        <h2>First Name: <span th:text="*{firstname}" style="font-weight: normal"/></h2>
-                        <h2>Last Name: <span th:text="*{lastname}" style="font-weight: normal"/></h2>
-                        <h2>Email: <span style="font-weight: normal" th:text="*{email}"/></h2>
+                        <h3 style="color: grey">Доступ: <span style="font-weight: normal" th:text="*{role.name}"/></h3>
+                        <h2>Фамилия: <span th:text="*{firstname}" style="font-weight: normal"/></h2>
+                        <h2>Имя: <span th:text="*{lastname}" style="font-weight: normal"/></h2>
+                        <h2>Эл. почта: <span style="font-weight: normal" th:text="*{email}"/></h2>
                         <div id="divBanAndUnbanMain">
                             <div id="divBanAndUnban">
                                 <th:block th:if="${guest.role.name eq 'ADMIN'}">
@@ -137,7 +137,9 @@
         <div style="display: inline-block">
             <div class="w3-card w3-round-large" style="text-align: center; margin-right: 100px">
                 <h3 class="w3-win8-blue w3-round-large" style="width: 950px">Описание</h3>
-                <p th:text="*{description}" style="text-align: justify; margin: 25px">Описание</p>
+                <div class="w3-container w3-border w3-round-large" style="margin: 20px; width: 900px; height: 200px; overflow: auto">
+                    <p th:text="*{description}" style="text-align: justify; margin: 25px">Описание</p>
+                </div>
                 <br>
             </div>
 
