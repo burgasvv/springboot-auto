@@ -285,7 +285,7 @@
                                 <div id="divMakeAdmin">
                                     <th:block th:if="${users.size() > 0}">
                                         <form id="makeAdminForm" style="margin: 20px">
-                                            <label for="make">Сделать амином</label><br>
+                                            <label for="make">Сделать админом</label><br>
                                             <select name="selectUser" id="make">
                                                 <option th:each="select : ${users}" th:value="${select.username}"
                                                         th:text="|${select.firstname} ${select.lastname} ${select.username}|">User</option>
