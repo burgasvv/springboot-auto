@@ -20,7 +20,9 @@ $(document).ready(function () {
                 alert("Images successfully added to album");
                 console.log(result);
                 $("#divAlbumImg").remove();
-                $("#divAlbumImages").load(location.href + ' #divAlbumImages');
+                $("#divAlbumImages").load(location.href + ' #divAlbumImages', function () {
+                    $.getScript("/resource/js/addCarAlbumImages.js");
+                });
             },
             error : function (e) {
                 alert("Something went wrong")

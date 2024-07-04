@@ -130,11 +130,13 @@
                             <div id="divAlbumImages">
                                 <th:block th:if="*{images.size() > 0}">
                                     <h3><a th:href="@{/cars/{id}/images (id = ${car.id})}">Показать все</a></h3>
-                                    <th:block th:each="image : *{images}">
-                                        <div id="divAlbumImg" style="display: inline-flex">
-                                            <img th:src="@{|/images/${image.id}|}" alt="image" style="width: 100px; border-radius: 2%">
-                                        </div>
-                                    </th:block>
+                                    <div id="divAlbumImg" style="overflow: auto; width: 600px; height: 200px">
+                                        <th:block th:each="image : *{images}">
+                                            <div style="display: inline-flex">
+                                                <img th:src="@{|/images/${image.id}|}" alt="image" style="width: 100px; border-radius: 2%">
+                                            </div>
+                                        </th:block>
+                                    </div>
                                 </th:block>
                                 <br><br>
                                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">

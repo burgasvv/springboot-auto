@@ -28,10 +28,10 @@
                 <h1 class="w3-tag w3-round w3-blue" style="width: 650px" th:text="*{username}"></h1>
                 <div class="w3-container">
                     <th:block th:if="*{status.name() eq 'ONLINE'}">
-                        <h2 style="font-weight: normal; font-size: 18px; color: green">Online</h2>
+                        <h2 style="color: green">Online</h2>
                     </th:block>
                     <th:block th:if="*{status.name() eq 'OFFLINE'}">
-                        <h2 style="font-weight: normal; font-size: 18px; color: grey">Offline</h2>
+                        <h2 style="color: grey">Offline</h2>
                     </th:block>
                     <div id="divChangeImageBlockMain">
                         <div id="divChangeImageBlock">
@@ -193,7 +193,7 @@
                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                         <th:block th:if="${owner.username eq guest.username}">
                             <div style="margin-top: 50px; margin-left: 20px">
-                                <input class="w3-btn w3-win8-teal w3-round" type="button" value="Добавить"
+                                <input class="w3-button w3-win8-teal w3-round" type="button" value="Добавить"
                                        onclick="location.assign('/cars/secure/add')" style="color: black">
                             </div>
                         </th:block>
@@ -256,7 +256,7 @@
                     </div>
                     <th:block th:if="${owner.username eq guest.username}">
                         <div style="margin-top: 20px">
-                            <input class="w3-btn w3-win8-teal w3-round" type="button" value="Добавить"
+                            <input class="w3-button w3-win8-teal w3-round" type="button" value="Добавить"
                                    onclick="location.assign('/equipments/secure/add')" style="color: black">
                         </div>
                     </th:block>
