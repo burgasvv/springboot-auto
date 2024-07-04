@@ -20,14 +20,27 @@
         </th:block>
     </th:block>
 
-    <div style="margin: 50px 100px" class="w3-animate-opacity">
+    <div class="w3-tag w3-light-grey w3-hover-opacity" style="margin-top: 50px; width: 1920px; height: 80px">
         <h1 th:text="${article.title}">Title</h1>
-        <h3 th:text="|Release date: ${article.date}|" style="color: gray">Date</h3>
-        <img th:src="${article.image}" alt="image" style="border-radius: 5%">
-        <p th:text="${article.content}" style="font-size: 18px; margin-right: 400px; margin-top: 50px">Content</p>
-        <h3>Original: <a th:href="${article.url}" th:text="${article.url}" target="_blank"></a></h3>
+    </div>
+    <div style="margin: 50px 100px" class="w3-animate-opacity">
+        <div class="w3-card w3-round-large w3-hover-shadow" style="width: 400px">
+            <h3 class="w3-tag w3-blue" th:text="|Дата: ${article.date}|" style="color: gray; width: 400px">Date</h3><br>
+            <div class="w3-container" style="text-align: center">
+                <img th:src="${article.image}" alt="image" class="w3-round-large">
+            </div>
+            <br>
+        </div>
+        <div class="w3-card w3-round-large w3-hover-shadow" style="width: 1000px">
+            <div class="w3-container" style="margin: 20px">
+                <div class="w3-border w3-round-large" style="margin: 20px; width: 900px; height: 200px; overflow: auto">
+                    <p th:text="${article.content}" style="font-size: 18px; text-align: justify; margin: 20px">Content</p>
+                </div>
+                <h3>Оригинал: <a th:href="${article.url}" th:text="${article.url}" target="_blank"></a></h3>
+            </div>
+        </div>
         <div style="margin-top: 100px">
-            <input type="button" value="Back" onclick="history.back()">
+            <input class="w3-button w3-light-grey" type="button" value="Back" onclick="history.back()">
         </div>
     </div>
 
