@@ -23,7 +23,7 @@
         <th:block th:if="${#authorization.expression('isAuthenticated')}">
             <div>
                 <h1 style="color: grey">Пожалуйста, выйдите из своего аккаунта, чтобы зарегистрироваться...</h1>
-                <form method="post" action="/logout">
+                <form method="post" action="/logout-status">
                     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                     <input type="submit" class="w3-btn w3-red w3-round" value="Выйти">
                 </form>
