@@ -55,7 +55,8 @@ public class CarService {
         return carRepository.findCarsByPersonId(personId, getPageRequest(page, size));
     }
 
-    public Page<Car>searchUserCarsByCategoryAndClassificationAndBrand(String username, String search, int page, int size) {
+    public Page<Car>searchUserCarsByCategoryAndClassificationAndBrand(
+            String username, String search, int page, int size) {
         return carRepository.searchUserCarsByCategoryAndClassificationAndBrand(username, search, getPageRequest(page, size));
     }
 
@@ -72,7 +73,8 @@ public class CarService {
         return carRepository.searchCarsByClassificationAndAndCategoryNoSpaces(search, getPageRequest(page, size));
     }
 
-    public Page<Car> searchCategoryCarsByBrandAndClassificationNoSpaces(String category, String search, int page, int size) {
+    public Page<Car> searchCategoryCarsByBrandAndClassificationNoSpaces(
+            String category, String search, int page, int size) {
         return carRepository.searchCategoryCarsByBrandAndClassificationNoSpaces(category, search, getPageRequest(page, size));
     }
 
