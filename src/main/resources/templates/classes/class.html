@@ -20,44 +20,61 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-<div class="w3-animate-opacity">
-    <div style="margin: 25px 100px">
-        <h3>
-            <a th:href="@{/classes}">Classes</a>
-        </h3>
-    </div>
-    <div style="display: inline-flex" th:object="${class}">
-        <div style="margin: 50px 100px; display: inline-block">
-            <h1><span th:text="*{name}"/></h1>
-            <img id="myImg" th:src="@{*{image}}" alt="image" style="width: 700px; border-radius: 5%">
-            <div id="myModal" class="modal">
-                <span class="close">&times;</span>
-                <img class="modal-content" id="img01" alt="image">
-                <div id="caption"></div>
-            </div>
-            <h2 style="margin-top: 50px">
-                <a th:href="@{/classes/{id}/cars (id = *{id})}" style="text-decoration: none">Class Cars</a>
-            </h2>
-            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 50px">
+
+    <div class="w3-animate-opacity">
+        <div style="margin: 25px 100px">
+            <h3 class="w3-tag w3-light-grey w3-round-large" style="width: 300px; height: 100px">
+                <div class="w3-container" style="margin-top: 25px">
+                    <a th:href="@{/classes}">Классы</a>
+                </div>
+            </h3>
         </div>
-        <div style="margin: 50px 100px; display: inline-block">
-            <h2>Description</h2>
-            <p th:text="*{description}" style="text-align: justify">Description</p><br>
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${user.role.name eq 'ADMIN'}">
-                    <div style="margin-top: 100px; display: inline-flex">
-                        <form th:method="GET" th:action="@{|/classes/${class.id}/edit|}" style="margin-right: 10px">
-                            <input type="submit" value="Edit" style="color: black">
-                        </form>
-                        <form th:method="DELETE" th:action="@{|/classes/${class.id}/delete|}">
-                            <input type="submit" value="Delete" style="color: black">
-                        </form>
+        <div style="display: inline-flex" th:object="${class}">
+            <div style="margin: 50px 100px; display: inline-block">
+                <div class="w3-card w3-round-large">
+                    <h1 class="w3-tag w3-round-large w3-win8-blue" style="width: 800px"><span th:text="*{name}"/></h1>
+                    <div class="w3-container">
+                        <div class="w3-border w3-round-large">
+                            <img id="myImg" th:src="@{*{image}}" alt="image" style="width: 700px; border-radius: 5%; margin: 20px">
+                        </div>
+                        <div id="myModal" class="modal">
+                            <span class="close">&times;</span>
+                            <img class="modal-content" id="img01" alt="image">
+                            <div id="caption"></div>
+                        </div>
                     </div>
+                    <h2 class="w3-tag w3-round-large w3-blue w3-hover-opacity" style="margin-top: 50px; width: 800px">
+                        <a th:href="@{/classes/{id}/cars (id = *{id})}" style="text-decoration: none">Автомобили данного класса</a>
+                    </h2>
+                    <br>
+                </div>
+                <input class="w3-button w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black;margin-top: 50px">
+            </div>
+            <div style="margin-bottom: 50px; margin-top: 50px; margin-right: 100px; display: inline-block">
+                <div class="w3-card w3-round-large">
+                    <h2 class="w3-tag w3-round-large w3-win8-blue" style="width: 820px">Описание</h2>
+                    <div class="w3-container">
+                        <div class="w3-border w3-round-large">
+                            <p th:text="*{description}" style="text-align: justify; margin: 20px; width: 750px; height: 200px; overflow: auto">Описание</p>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                    <th:block th:if="${user.role.name eq 'ADMIN'}">
+                        <div style="margin-top: 100px; display: inline-flex">
+                            <form th:method="GET" th:action="@{|/classes/${class.id}/edit|}" style="margin-right: 10px">
+                                <input class="w3-button w3-blue w3-round" type="submit" value="Изменить" style="color: black">
+                            </form>
+                            <form th:method="DELETE" th:action="@{|/classes/${class.id}/delete|}">
+                                <input class="w3-button w3-red w3-round" type="submit" value="Удалить" style="color: black">
+                            </form>
+                        </div>
+                    </th:block>
                 </th:block>
-            </th:block>
+            </div>
         </div>
     </div>
-</div>
 <script src="/resource/js/imageResource.js"></script>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
