@@ -19,52 +19,62 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="text-align: center; margin-top: 10%" class="w3-animate-opacity">
-        <h1>Handover</h1>
-        <h2>Equipments</h2>
-        <div class="w3-card-4 w3-hover-shadow" style="display: inline-flex; margin-right: 10px; margin-top: 10px; border-radius: 5%"
-             th:each="complectation : ${car.equipments}">
-            <div style="display: inline-block; margin: 10px">
-                <h3 style="text-align: center">
-                    <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
-                       style="text-decoration: none">
-                        <img th:src="${complectation.image}" alt="image" style="width: 100px; border-radius: 10%"><br>
-                        <span th:text="${complectation.name}"/>
-                    </a>
-                    <th:block th:if="${user.username eq car.person.username}">
-                        <div style="margin-top: 25px">
-                            <form th:method="POST"
-                                  th:action="@{/cars/{id}/remove-equipment-from-car-in-form (id = *{id}, complId = ${complectation.id})}">
-                                <span style="color: gray; font-size: 18px">Remove from car before handover?</span><br>
-                                <input class="w3-button w3-red w3-round" type="submit" value="Remove" style="color: black">
-                            </form>
-                        </div>
-                    </th:block>
-                </h3>
-                <div style="margin-top: 25px">
-                    <th:block th:if="${complectation.getAcceleration() != null && complectation.getMaxSpeed() != null}">
-                        <span style="font-weight: bold">Acceleration: </span>
-                        <span th:text="|${complectation.getAcceleration()} sec (0-100 km/h)|"/><br>
-                        <span style="font-weight: bold">Maximum Speed: </span>
-                        <span th:text="|${complectation.getMaxSpeed()} km/h|"/>
-                    </th:block>
-                    <th:block th:if="${complectation.getMaxSpeed() eq null
+    <div style="text-align: center; margin-top: 5%" class="w3-animate-opacity">
+        <div class="w3-card w3-round-large" style="width: 900px; margin-left: 500px">
+            <div class="w3-win8-blue" style="width: 900px">
+                <h1>Передать</h1>
+            </div>
+            <div class="w3-container">
+                <h2>Комплектации</h2>
+                <div class="w3-border w3-round-large" style="width: 800px; height: 290px; overflow: auto; text-align: center; margin-left: 30px">
+                    <div class="w3-card-4 w3-hover-shadow"
+                         style="display: inline-flex; margin-right: 10px; margin-top: 10px; border-radius: 5%; width: 260px"
+                         th:each="complectation : ${car.equipments}">
+                        <div style="display: inline-block; margin: 20px">
+                            <h3 style="text-align: center">
+                                <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
+                                   style="text-decoration: none">
+                                    <img th:src="${complectation.image}" alt="image" style="width: 100px; border-radius: 10%"><br>
+                                    <span th:text="${complectation.name}"/>
+                                </a>
+                                <th:block th:if="${user.username eq car.person.username}">
+                                    <div style="margin-top: 10px">
+                                        <form th:method="POST"
+                                              th:action="@{/cars/{id}/remove-equipment-from-car-in-form (id = *{id}, complId = ${complectation.id})}">
+                                            <span style="color: gray; font-size: 18px">Снять с автомобиля перед передачей?</span><br><br>
+                                            <input class="w3-button w3-red w3-round" type="submit" value="Снять" style="color: black">
+                                        </form>
+                                    </div>
+                                </th:block>
+                            </h3>
+                            <div style="margin-top: 25px">
+                                <th:block th:if="${complectation.getAcceleration() != null && complectation.getMaxSpeed() != null}">
+                                    <span style="font-weight: bold">Ускорение: </span>
+                                    <span th:text="|${complectation.getAcceleration()} сек. (0-100 км/ч)|"/><br>
+                                    <span style="font-weight: bold">Макс. Скорость: </span>
+                                    <span th:text="|${complectation.getMaxSpeed()} км/ч|"/>
+                                </th:block>
+                                <th:block th:if="${complectation.getMaxSpeed() eq null
                                                         || complectation.getAcceleration() eq null}">
-                        <span style="color: gray">Fill out the package to see the parameters.</span>
-                    </th:block>
+                                    <span style="color: gray">Установите все запчасти для расчета характеристик.</span>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <br>
+            <form th:method="POST" th:action="@{/cars/{id}/handover-done (id = ${car.id})}" style="margin-top: 20px">
+                <label for="users" style="font-size: 18px; font-weight: bold">Пользователи</label><br>
+                <select th:field="${car.person.id}" id="users">
+                    <option th:each="person : ${users}" th:value="${person.id}" th:text="|${person.firstname} ${person.lastname} ${person.username}|"
+                            th:selected="${person.id eq car.person.id}">User</option>
+                </select><br><br>
+                <input class="w3-button w3-win8-blue w3-round" type="submit" value="Принять" style="color: black">
+                <input class="w3-button w3-light-grey w3-round" type="button" value="Назад" style="color: black" onclick="history.back()">
+            </form>
+            <br>
         </div>
-
-        <form th:method="POST" th:action="@{/cars/{id}/handover-done (id = ${car.id})}" style="margin-top: 50px">
-            <label for="users" style="font-size: 18px; font-weight: bold">Users</label><br>
-            <select th:field="${car.person.id}" id="users">
-                <option th:each="person : ${users}" th:value="${person.id}" th:text="|${person.firstname} ${person.lastname} ${person.username}|"
-                        th:selected="${person.id eq car.person.id}">User</option>
-            </select><br><br>
-            <input type="submit" value="OK" style="color: black">
-            <input type="button" value="Back" style="color: black" onclick="history.back()">
-        </form>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
