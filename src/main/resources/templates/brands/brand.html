@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Brand Page</title>
+    <title>Бренд</title>
     <link rel="stylesheet" href="/resource/css/imageModule.css">
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
@@ -21,76 +21,107 @@
     </th:block>
 </th:block>
     <div class="w3-animate-opacity">
-        <div style="margin: 25px 100px">
-            <h3>
-                <a th:href="@{/brands}">Brands</a>
-            </h3>
+        <div class="w3-tag w3-light-grey w3-round-large" style="width: 300px; height: 100px; margin: 50px 100px">
+            <div class="w3-container" style="margin-top: 20px">
+                <h3>
+                    <a th:href="@{/brands}">Brands</a>
+                </h3>
+            </div>
         </div>
-        <div style="margin: 50px 100px 100px; display: inline-flex" th:object="${brand}">
+        <div style="margin: 20px 100px 100px; display: inline-flex" th:object="${brand}">
             <div style="display: inline-block">
-                <h1 th:text="*{title}">Title</h1>
-                <th:block th:if="*{image != null}">
-                    <h2>
-                        <img id="myImg" th:src="@{|/images/*{image.id}|}" alt="image" style="width: 500px">
-                        <div id="myModal" class="modal">
-                            <span class="close">&times;</span>
-                            <img class="modal-content" id="img01" alt="image">
-                            <div id="caption"></div>
-                        </div>
-                    </h2>
-                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                        <th:block th:if="${user.role.name eq 'ADMIN'}">
-                            <div style="display: inline-flex; margin-right: -100px; margin-top: 100px">
-                                <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
-                                    <label for="changeImage">Change Image</label>
-                                    <input type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
-                                    <input type="submit" style="color: black" value="Change">
-                                </form>
+                <div class="w3-card w3-round-large">
+                    <h1 class="w3-tag w3-win8-blue w3-round-large" style="width: 700px" th:text="*{title}">Title</h1>
+                    <div class="w3-container">
+                        <th:block th:if="*{image != null}">
+                            <div class="w3-border w3-round-large">
+                                <h2 style="margin: 10px">
+                                    <img id="myImg" th:src="@{|/images/*{image.id}|}" alt="image" style="width: 500px; margin-left: 70px">
+                                    <div id="myModal" class="modal">
+                                        <span class="close">&times;</span>
+                                        <img class="modal-content" id="img01" alt="image">
+                                        <div id="caption"></div>
+                                    </div>
+                                </h2>
                             </div>
-                            <br><br>
-                            <div>
-                                <form th:method="POST" th:action="@{/brands/{id}/remove-image (id = *{id})}">
-                                    <label for="removeImage">Remove Image</label>
-                                    <input type="submit" id="removeImage" value="Remove" style="color: black">
-                                </form>
-                            </div>
+                            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                                <th:block th:if="${user.role.name eq 'ADMIN'}">
+                                    <div style="display: inline-flex; margin-top: 50px">
+                                        <form style="display: inline-flex"
+                                              th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
+                                            <label for="changeImage"></label>
+                                            <input class="w3-input w3-border w3-round-large"
+                                                   type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
+                                            <input class="w3-button w3-blue w3-round" type="submit"
+                                                   style="color: black; margin-left: 20px; width: 130px" value="Изменить">
+                                        </form>
+                                        <form th:method="POST" th:action="@{/brands/{id}/remove-image (id = *{id})}"
+                                              style="margin-left: 20px; display: inline-flex">
+                                            <label for="removeImage"></label>
+                                            <input class="w3-button w3-red w3-round"
+                                                   type="submit" id="removeImage" value="Убрать" style="color: black">
+                                        </form>
+                                    </div>
+                                </th:block>
+                            </th:block>
                         </th:block>
-                    </th:block>
-                </th:block>
+                    </div>
+                    <br>
+                </div>
                 <th:block th:if="*{image == null}">
                     <form th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
                         <label for="addImage">Add Image</label><br><br>
                         <input type="file" id="addImage" name="file" accept="image/png, image/jpeg">
-                        <input type="submit" style="color: black" value="Add">
+                        <input type="submit" style="color: black" value="Добавить">
                     </form>
                 </th:block>
-                <h2 style="margin-top: 100px">
-                    Website: <a th:href="*{website}" th:text="*{website}" style="font-weight: normal" target="_blank"></a>
-                </h2>
-                <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+                <input class="w3-button w3-round w3-light-grey" type="button" value="Назад"
+                       onclick="history.back()" style="color: black; margin-top: 100px">
             </div>
-            <div style="display: inline-block; margin-left: 300px; margin-top: 100px">
-                <h3>Description</h3>
-                <p th:text="*{description}" style="text-align: justify;"></p>
+            <div style="display: inline-block; margin-left: 100px">
+                <div class="w3-card w3-round-large">
+                    <h3 class="w3-tag w3-round-large w3-win8-blue" style="width: 900px">Описание</h3>
+                    <div class="w3-container">
+                        <div class="w3-border w3-round-large" style="width: 850px; height: 150px; overflow: auto">
+                            <p th:text="*{description}" style="text-align: justify; margin: 20px"></p>
+                        </div>
+                    </div>
+                    <br>
+                </div>
 
-                <h2 style="margin-top: 100px">
-                    <a style="text-decoration: none" th:href="@{/brands/{id}/cars (id = *{id})}">Cars</a><br>
-                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                        <a style="text-decoration: none" th:href="@{/brands/{id}/editions (id = *{id})}">Engines</a><br>
-                        <a style="text-decoration: none" th:href="@{/brands/{id}/gearboxes (id = *{id})}">Transmissions</a><br>
-                        <a style="text-decoration: none" th:href="@{/brands/{id}/turbo-types (id = *{id})}">Turbochargers</a><br>
-                    </th:block>
-                </h2>
+                <div class="w3-card w3-round-large" style="margin-top: 20px">
+                    <h3 class="w3-tag w3-round-large w3-win8-blue" style="width: 900px">Автомобили и запчасти</h3>
+                    <div class="w3-container">
+                        <div class="w3-border w3-round-large" style="width: 850px; height: 250px; overflow: auto">
+                            <h2 style="margin: 20px">
+                                <a style="text-decoration: none" th:href="@{/brands/{id}/cars (id = *{id})}">Автомобили</a><br>
+                                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                                    <a style="text-decoration: none" th:href="@{/brands/{id}/editions (id = *{id})}">Двигатели</a><br>
+                                    <a style="text-decoration: none" th:href="@{/brands/{id}/gearboxes (id = *{id})}">Трансмиссии</a><br>
+                                    <a style="text-decoration: none" th:href="@{/brands/{id}/turbo-types (id = *{id})}">Турбонаддувы</a><br>
+                                </th:block>
+                            </h2>
+                        </div>
+                    </div>
+                    <br>
+                </div>
 
                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                     <th:block th:if="${user.role.name == 'ADMIN'}">
-                        <div style="display: inline-flex; margin-top: 100px">
-                            <form th:method="GET" th:action="@{/brands/{id}/edit (id = *{id})}">
-                                <input type="submit" value="Edit" style="color: black">
-                            </form>
-                            <form th:method="DELETE" th:action="@{/brands/{id}/delete (id = *{id})}">
-                                <input type="submit" value="Delete" style="color: black; margin-left: 10px">
-                            </form>
+                        <div class="w3-card w3-round-large" style="margin-top: 20px">
+                            <h3 class="w3-tag w3-round-large w3-win8-blue" style="width: 900px">Бренд</h3>
+                            <div class="w3-container">
+                                <div style="display: inline-flex; margin-top: 20px">
+                                    <form th:method="GET" th:action="@{/brands/{id}/edit (id = *{id})}">
+                                        <input class="w3-button w3-round w3-blue" type="submit" value="Изменить" style="color: black">
+                                    </form>
+                                    <form th:method="DELETE" th:action="@{/brands/{id}/delete (id = *{id})}">
+                                        <input class="w3-button w3-round w3-red" type="submit" value="Удалить"
+                                               style="color: black; margin-left: 10px">
+                                    </form>
+                                </div>
+                            </div>
+                            <br>
                         </div>
                     </th:block>
                 </th:block>

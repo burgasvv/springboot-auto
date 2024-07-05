@@ -31,15 +31,24 @@
         <div style="margin: 50px 100px">
             <h1>Бренды</h1>
         </div>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block th:if="${user.role.name == 'ADMIN'}">
+                <input class="w3-button w3-teal w3-round" type="button" value="Добавить"
+                       onclick="location.assign('/brands/secure/add')" style="color: black; margin-left: 100px">
+            </th:block>
+        </th:block>
         <div style="margin: 10px 100px; text-align: center" class="stories">
-            <div class="story" style="display: inline-flex; margin: 77px; text-align: center" th:each="brand : ${brands}">
-                <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none" class="w3-hover-opacity">
-                    <th:block th:if="${brand.image != null}">
-                        <div style="width: 400px; height: 400px">
-                            <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 400px">
-                        </div>
-                    </th:block>
-                    <h2 th:text="${brand.title}">Title</h2>
+            <div class="story" style="display: inline-flex; margin: 47px; text-align: center" th:each="brand : ${brands}">
+                <a th:href="@{/brands/{id} (id = ${brand.id})}"
+                   style="text-decoration: none" class="w3-hover-opacity w3-hover-shadow w3-card w3-round-large">
+                    <div class="w3-container" style="margin: 20px">
+                        <th:block th:if="${brand.image != null}">
+                            <div style="width: 400px; height: 400px">
+                                <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 400px">
+                            </div>
+                        </th:block>
+                        <h2 th:text="${brand.title}">Title</h2>
+                    </div>
                 </a>
             </div>
         </div>
@@ -54,11 +63,6 @@
             </ul>
         </div>
         <div style="margin: 100px">
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${user.role.name == 'ADMIN'}">
-                    <input type="button" value="Add Brand" onclick="location.assign('/brands/secure/add')" style="color: black">
-                </th:block>
-            </th:block>
             <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="location.assign('/')" style="color: black">
         </div>
     </div>
