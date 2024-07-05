@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Find class cars</title>
+    <title>Автомобили</title>
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
@@ -21,16 +21,18 @@
 </th:block>
 <div class="w3-animate-opacity">
     <div style="margin: 25px 100px">
-        <h3>
-            <a th:href="@{/templates/classes}">Classes</a> /
-            <a th:href="@{/classes/{id} (id = ${class.id})}" th:text="${class.name.substring(0,7)}">Class</a>
+        <h3 class="w3-tag w3-light-grey w3-round-large" style="width: 300px; height: 100px">
+            <div class="w3-container" style="margin-top: 25px">
+                <a th:href="@{/classes}">Классы</a> /
+                <a th:href="@{/classes/{id} (id = ${class.id})}" th:text="${class.name}">Class</a>
+            </div>
         </h3>
     </div>
     <div style="margin-top: 50px; margin-left: 100px">
         <form th:method="GET" th:action="@{/classes/{id}/find-class-cars (id = ${class.id})}">
             <div style="display: inline-flex">
                 <div style="text-align: center; display: inline-block; margin-right: 25px">
-                    <label for="brands">Brands</label><br>
+                    <label for="brands">Бренды</label><br>
                     <select name="searchBrand" id="brands">
                         <option value=""></option>
                         <option th:each="brand : ${brands}" th:value="${brand.title}" th:text="${brand.title}"
@@ -38,7 +40,7 @@
                     </select>
                 </div>
                 <div style="text-align: center; display: inline-block; margin-right: 25px">
-                    <label for="categories">Categories</label><br>
+                    <label for="categories">Категории</label><br>
                     <select name="searchCategory" id="categories">
                         <option value=""></option>
                         <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}"
@@ -46,21 +48,21 @@
                     </select>
                 </div>
                 <div style="text-align: center; display: inline-block; margin-right: 25px">
-                    <label for="drives">Drives</label><br>
+                    <label for="drives">Приводы</label><br>
                     <select name="searchDrive" id="drives">
                         <option value=""></option>
                         <option th:each="drive : ${drives}" th:value="${drive.name}" th:text="${drive.name}"
                                 th:selected="${searchDrive eq drive.name}">Drive</option>
                     </select>
                 </div>
-                <input type="submit" value="Get Cars" style="color: black">
+                <input class="w3-button w3-round w3-blue" type="submit" value="Найти" style="color: black">
             </div>
         </form>
     </div>
     <div style="margin: 50px 100px">
-        <h1>Find Cars</h1>
+        <h1>Соответствующие автомобили</h1>
         <th:block th:if="${cars.size() < 1}">
-            <h2>No results</h2>
+            <h2>Нет результатов</h2>
         </th:block>
         <div th:each="car : ${cars}" style="display: inline-flex; float: left; height: 300px; width: 300px; margin: 15px"
              class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
@@ -97,7 +99,7 @@
             </ul>
         </div>
         <div style="margin-top: 100px">
-            <input type="button" value="Back" onclick="history.back()" style="color: black">
+            <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">
         </div>
     </div>
 </div>
