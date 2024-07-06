@@ -79,6 +79,24 @@ public class BrandController {
         return "brands/brands";
     }
 
+    @GetMapping("/search")
+    public String searchBrand(Model model, @RequestParam(required = false) String brandName) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return searchBrandPage(1, model, brandName);
+    }
+
+    @GetMapping("/search/pages/{page}")
+    public String searchBrandPage(@PathVariable int page, Model model, @RequestParam(required = false) String brandName) {
+        paginate(model, brandService.findBrandByBrandName(brandName,page, 15));
+        model.addAttribute("brandName", brandName);
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "brands/findBrands";
+    }
+
     @GetMapping("/{id}")
     public String brand(@PathVariable("id") Long id, Model model) {
         model.addAttribute("brand", brandService.findById(id));

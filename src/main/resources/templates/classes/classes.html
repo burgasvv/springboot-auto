@@ -21,7 +21,15 @@
 </th:block>
     <div class="w3-animate-opacity">
         <div style="margin: 50px 100px">
-            <h1>Классы</h1><br><br>
+            <h1 class="w3-tag w3-light-grey w3-round-large" style="width: 1720px">Классы</h1><br><br>
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <th:block th:if="${user.role.name eq 'ADMIN'}">
+                    <div>
+                        <input class="w3-button w3-round w3-teal" type="button" value="Добавить"
+                               style="color: black" onclick="location.assign('/classes/secure/add')">
+                    </div>
+                </th:block>
+            </th:block>
             <div style="margin: 10px 100px; text-align: center" class="w3-row">
                 <div class="w3-col m2 w3-center w3-card w3-round-large w3-container" style="margin: 20px" th:each="class : ${classes}">
                     <a th:href="@{/classes/{id} (id = ${class.id})}" style="text-decoration: none"
@@ -35,13 +43,6 @@
                     </a>
                 </div>
             </div>
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${user.role.name eq 'ADMIN'}">
-                    <div style="margin-top: 100px">
-                        <input type="button" value="Add" style="color: black" onclick="location.assign('/classes/secure/add')">
-                    </div>
-                </th:block>
-            </th:block>
         </div>
         <div style="margin: 50px 100px">
             <input class="w3-button w3-round w3-hover-shadow w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">

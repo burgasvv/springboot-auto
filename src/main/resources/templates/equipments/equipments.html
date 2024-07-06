@@ -21,24 +21,24 @@
     </th:block>
 </th:block>
     <div style="margin: 50px 100px" class="w3-animate-opacity">
-        <h1>Complectations</h1>
+        <h1 class="w3-tag w3-light-grey w3-round-large" style="width: 1720px">Комплектации</h1>
         <div style="margin-top: 50px">
-            <form th:method="GET" th:action="@{/equipments/search}">
-                <label for="search">Search</label><br>
-                <input type="text" id="search" name="search">
-                <input type="submit" value="Search" style="color: black">
+            <form style="display: inline-flex" th:method="GET" th:action="@{/equipments/search}">
+                <label for="search"></label><br>
+                <input class="w3-input" style="width: 300px" type="text" id="search" name="search" placeholder="Введите искомое">
+                <input class="w3-btn w3-round w3-blue" type="submit" value="Поиск" style="color: black; margin-left: 20px">
             </form>
         </div>
         <table style="width: 40%; margin-top: 50px" class="w3-table-all w3-round-large">
             <tr>
-                <th><h2>Car</h2></th>
-                <th><h2>Complectation</h2></th>
-                <th><h2>User</h2></th>
+                <th><h2>Автомобиль</h2></th>
+                <th><h2>Комплектация</h2></th>
+                <th><h2>Пользователь</h2></th>
             </tr>
             <tr th:each="complectation : ${equipments}">
                 <th>
                     <th:block th:if="${complectation.car == null}">
-                        <span style="color: red">Not attached</span>
+                        <span style="color: red">Не установлен</span>
                     </th:block>
                     <th:block th:if="${complectation.car != null}">
                         <a class="a_class" th:href="@{/cars/{id} (id = ${complectation.car.id})}"
@@ -60,12 +60,13 @@
         <ul style="display: inline-flex; list-style-type: none">
             <th:block th:each="pageNumber : ${pages}">
                 <li class="page-item" style="margin-right: 10px">
-                    <a class="page-link" th:href="@{/equipments/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
+                    <a class="w3-bar-item w3-button w3-teal"
+                       th:href="@{/equipments/pages/{page}(page = ${pageNumber})}" th:text="${pageNumber}">1</a>
                 </li>
             </th:block>
         </ul>
         <div>
-            <input type="button" value="Back" onclick="history.back()" style="margin-top: 100px">
+            <input class="w3-button w3-light-grey w3-round" type="button" value="Назад" onclick="history.back()" style="margin-top: 100px">
         </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>

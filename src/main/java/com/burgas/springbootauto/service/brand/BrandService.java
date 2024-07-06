@@ -32,6 +32,11 @@ public class BrandService {
         return brandRepository.findAll(pageRequest);
     }
 
+    public Page<Brand>findBrandByBrandName(String brandName, int page, int size) {
+        Pageable pageRequest = PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.ASC,"title"));
+        return brandRepository.findBrandsByBrandName(brandName, pageRequest);
+    }
+
     public List<Brand> findAll() {
         return brandRepository.findAll();
     }

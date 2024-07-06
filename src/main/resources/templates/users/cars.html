@@ -35,8 +35,8 @@
             <h2>Нет результатов</h2>
         </th:block>
         <div style="margin-top: 50px; display: inline-flex">
-            <div style="display: inline-flex">
-                <form th:method="GET" th:action="@{/users/{name}/cars/search (name = ${owner.username})}">
+            <div style="margin-top: 20px">
+                <form style="display: inline-flex" th:method="GET" th:action="@{/users/{name}/cars/search (name = ${owner.username})}">
                     <label for="search"></label>
                     <input class="w3-input" style="width: 250px" type="text" id="search" name="search" placeholder="Введите искомое"><br>
                     <input class="w3-btn w3-blue w3-round" type="submit" value="Поиск" style="color: black; margin-left: 10px">
@@ -47,7 +47,7 @@
                     <th:block th:if="${owner.username eq guest.username}">
                         <div style="display: inline-flex">
                             <input class="w3-btn w3-teal w3-round" type="button" value="Добавить" onclick="location.assign('/cars/secure/add')"
-                                   style="color: black; height: 37px; margin-top: 23px; margin-left: 100px">
+                                   style="color: black; height: 40px; margin-top: 20px; margin-left: 20px">
                         </div>
                     </th:block>
                 </th:block>

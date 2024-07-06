@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Бренды</title>
+    <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
+    <style>
+        .stories {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-content: stretch;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <th:block th:if="${user.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+        </th:block>
+        <th:block th:if="${user.image != null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
+        </th:block>
+    </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
+<div class="w3-animate-opacity">
+    <div style="margin: 50px 100px">
+        <h1 class="w3-tag w3-light-grey w3-round-large" style="width: 1720px">Бренды</h1><br><br>
+    </div>
+    <div>
+        <form style="display: inline-flex; margin-left: 100px" th:method="GET" th:action="@{/brands/search}">
+            <label for="brandName"></label>
+            <input class="w3-input" style="width: 200px" type="text" id="brandName" name="brandName" th:value="${brandName}">
+            <input class="w3-button w3-blue w3-round" type="submit" value="Поиск" style="margin-left: 20px">
+        </form>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block th:if="${user.role.name == 'ADMIN'}">
+                <input class="w3-button w3-teal w3-round" type="button" value="Добавить"
+                       onclick="location.assign('/brands/secure/add')" style="color: black; margin-left: 20px; margin-top: -30px; height: 40px">
+            </th:block>
+        </th:block>
+    </div>
+    <div style="margin: 10px 100px; text-align: center" class="stories">
+        <div class="story" style="display: inline-flex; margin: 47px; text-align: center" th:each="brand : ${brands}">
+            <a th:href="@{/brands/{id} (id = ${brand.id})}"
+               style="text-decoration: none" class="w3-hover-opacity w3-hover-shadow w3-card w3-round-large">
+                <div class="w3-container" style="margin: 20px">
+                    <th:block th:if="${brand.image != null}">
+                        <div style="width: 400px; height: 400px">
+                            <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 400px">
+                        </div>
+                    </th:block>
+                    <h2 th:text="${brand.title}">Title</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div style="margin: 50px 100px; display: inline-flex" class="w3-bar w3-round">
+        <ul style="display: inline-flex; list-style-type: none">
+            <th:block th:each="pageNumber : ${pages}">
+                <li class="page-item" style="margin-right: 10px" >
+                    <a class="w3-bar-item w3-button w3-teal"
+                       th:href="@{/brands/search/pages/{page}(page = ${pageNumber}, brandName = ${brandName})}" th:text="${pageNumber}">1</a>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+    <div style="margin: 100px">
+        <input class="w3-button w3-round w3-light-grey" type="button" value="Назад"
+               onclick="location.assign('/')" style="color: black">
+    </div>
+</div>
+<div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
+</body>
+</html>

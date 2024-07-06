@@ -29,14 +29,21 @@
 </th:block>
     <div class="w3-animate-opacity">
         <div style="margin: 50px 100px">
-            <h1>Бренды</h1>
+            <h1 class="w3-tag w3-light-grey w3-round-large" style="width: 1720px">Бренды</h1><br><br>
         </div>
-        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-            <th:block th:if="${user.role.name == 'ADMIN'}">
-                <input class="w3-button w3-teal w3-round" type="button" value="Добавить"
-                       onclick="location.assign('/brands/secure/add')" style="color: black; margin-left: 100px">
+        <div>
+            <form style="display: inline-flex; margin-left: 100px" th:method="GET" th:action="@{/brands/search}">
+                <label for="brandName"></label>
+                <input class="w3-input" style="width: 200px" type="text" id="brandName" name="brandName" placeholder="Введите бренд">
+                <input class="w3-button w3-blue w3-round" type="submit" value="Поиск" style="margin-left: 20px">
+            </form>
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <th:block th:if="${user.role.name == 'ADMIN'}">
+                    <input class="w3-button w3-teal w3-round" type="button" value="Добавить"
+                           onclick="location.assign('/brands/secure/add')" style="color: black; margin-left: 20px; margin-top: -30px; height: 40px">
+                </th:block>
             </th:block>
-        </th:block>
+        </div>
         <div style="margin: 10px 100px; text-align: center" class="stories">
             <div class="story" style="display: inline-flex; margin: 47px; text-align: center" th:each="brand : ${brands}">
                 <a th:href="@{/brands/{id} (id = ${brand.id})}"
@@ -63,7 +70,8 @@
             </ul>
         </div>
         <div style="margin: 100px">
-            <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="location.assign('/')" style="color: black">
+            <input class="w3-button w3-round w3-light-grey" type="button" value="Назад"
+                   onclick="location.assign('/')" style="color: black">
         </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>

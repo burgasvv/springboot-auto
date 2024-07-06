@@ -32,7 +32,7 @@ public class SecurityConfig {
                                 "/forgotPassword","/forgotPassword/{status}","/restorePassword","/restorePassword/{token}",
                                 "/brands","/brands/pages/{page}","/brands/{id}","/brands/{id}/cars",
                                 "/brands/{id}/cars/pages/{page}","/brands/{id}/search-brand-cars",
-                                "/brands/{id}/search-brand-cars/pages/{page}",
+                                "/brands/{id}/search-brand-cars/pages/{page}","/brands/search","/brands/search/pages/{page}",
 
                                 "/cars","/cars/pages/{page}", "/cars/find-cars","/cars/find-cars/pages/{page}","/cars/{id}",
                                 "/cars/{id}/images", "/cars/{od}/images/pages/{page}","/cars/search-by-tag",

@@ -27,5 +27,12 @@ public interface BrandRepository extends JpaRepository<Brand, Long> {
     )
     List<Brand> searchBrandsByTitleAndCar(String brandName);
 
+    @Query(
+            nativeQuery = true,
+            value = """
+                    select distinct b.* from brand b where concat(b.title,' ') ilike concat('%',?1,'%')"""
+    )
+    Page<Brand> findBrandsByBrandName(String brandName, Pageable pageable);
+
     Brand findBrandByTitle(String title);
 }
