@@ -41,17 +41,17 @@
                         <span style="color: red">Не установлен</span>
                     </th:block>
                     <th:block th:if="${complectation.car != null}">
-                        <a class="a_class" th:href="@{/cars/{id} (id = ${complectation.car.id})}"
+                        <a class="a_class w3-hover-opacity" th:href="@{/cars/{id} (id = ${complectation.car.id})}"
                            th:text="|${complectation.car.brand != null ? complectation.car.brand.title : 'No brand'}
                            ${complectation.car.title}|">Car</a>
                     </th:block>
                 </th>
                 <th>
-                    <a class="a_class" th:href="@{/equipments/{id} (id = ${complectation.id})}"
+                    <a class="a_class w3-hover-opacity" th:href="@{/equipments/{id} (id = ${complectation.id})}"
                        th:text="${complectation.name}">Complectation</a>
                 </th>
                 <th>
-                    <a class="a_class" th:href="@{/users/{name} (name = ${complectation.person.username})}"
+                    <a class="a_class w3-hover-opacity" th:href="@{/users/{name} (name = ${complectation.person.username})}"
                        th:text="${complectation.person.username}">User</a>
                 </th>
             </tr>

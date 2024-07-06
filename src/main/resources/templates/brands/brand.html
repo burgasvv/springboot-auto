@@ -24,7 +24,7 @@
         <div class="w3-tag w3-light-grey w3-round-large" style="width: 300px; height: 100px; margin: 50px 100px">
             <div class="w3-container" style="margin-top: 20px">
                 <h3>
-                    <a th:href="@{/brands}">Brands</a>
+                    <a class="w3-hover-opacity" th:href="@{/brands}">Brands</a>
                 </h3>
             </div>
         </div>
@@ -94,11 +94,12 @@
                     <div class="w3-container">
                         <div class="w3-border w3-round-large" style="width: 850px; height: 250px; overflow: auto">
                             <h2 style="margin: 20px">
-                                <a style="text-decoration: none" th:href="@{/brands/{id}/cars (id = *{id})}">Автомобили</a><br>
+                                <a class="w3-hover-opacity" style="text-decoration: none"
+                                   th:href="@{/brands/{id}/cars (id = *{id})}">Автомобили</a><br>
                                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                                    <a style="text-decoration: none" th:href="@{/brands/{id}/editions (id = *{id})}">Двигатели</a><br>
-                                    <a style="text-decoration: none" th:href="@{/brands/{id}/gearboxes (id = *{id})}">Трансмиссии</a><br>
-                                    <a style="text-decoration: none" th:href="@{/brands/{id}/turbo-types (id = *{id})}">Турбонаддувы</a><br>
+                                    <a class="w3-hover-opacity" style="text-decoration: none" th:href="@{/brands/{id}/editions (id = *{id})}">Двигатели</a><br>
+                                    <a class="w3-hover-opacity" style="text-decoration: none" th:href="@{/brands/{id}/gearboxes (id = *{id})}">Трансмиссии</a><br>
+                                    <a class="w3-hover-opacity" style="text-decoration: none" th:href="@{/brands/{id}/turbo-types (id = *{id})}">Турбонаддувы</a><br>
                                 </th:block>
                             </h2>
                         </div>

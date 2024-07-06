@@ -24,25 +24,26 @@
         <div class="w3-tag w3-light-grey w3-round-large" style="margin: 20px 20px">
             <div style="margin: 10px 100px">
                 <h3>
-                    <a th:href="@{/brands}">Бренды</a> /
+                    <a class="w3-hover-opacity" th:href="@{/brands}">Бренды</a> /
                     <th:block th:if="${car.brand != null}">
-                        <a th:href="@{/brands/{id} (id = ${car.brand.id})}" th:text="${car.brand.title}">Бренд</a> /
-                        <a th:href="@{/brands/{id}/cars (id = ${car.brand.id})}">Брендовые Автомобили</a>
+                        <a class="w3-hover-opacity" th:href="@{/brands/{id} (id = ${car.brand.id})}" th:text="${car.brand.title}">Бренд</a> /
+                        <a class="w3-hover-opacity" th:href="@{/brands/{id}/cars (id = ${car.brand.id})}">Брендовые Автомобили</a>
                     </th:block>
                 </h3>
             </div>
             <div style="margin: 10px 100px">
                 <h3>
-                    <a th:href="@{/classes}">Классы</a> /
-                    <a th:href="@{/classes/{id} (id = ${car.classification.id})}" th:text="${car.classification.name}">Класс</a> /
-                    <a th:href="@{/classes/{id}/cars (id = ${car.classification.id})}">Автомобили</a>
+                    <a class="w3-hover-opacity" th:href="@{/classes}">Классы</a> /
+                    <a class="w3-hover-opacity" th:href="@{/classes/{id} (id = ${car.classification.id})}"
+                       th:text="${car.classification.name}">Класс</a> /
+                    <a class="w3-hover-opacity" th:href="@{/classes/{id}/cars (id = ${car.classification.id})}">Автомобили</a>
                 </h3>
             </div>
             <div style="margin: 10px 100px">
                 <h3>
-                    <a th:href="@{/categories}">Категории</a> /
-                    <a th:href="@{/categories/{id} (id = ${car.category.id})}" th:text="${car.category.name}"></a> /
-                    <a th:href="@{/categories/{id}/cars (id = ${car.category.id})}">Автомобили</a>
+                    <a class="w3-hover-opacity" th:href="@{/categories}">Категории</a> /
+                    <a  class="w3-hover-opacity"th:href="@{/categories/{id} (id = ${car.category.id})}" th:text="${car.category.name}"></a> /
+                    <a class="w3-hover-opacity" th:href="@{/categories/{id}/cars (id = ${car.category.id})}">Автомобили</a>
                 </h3>
             </div>
         </div>
@@ -54,9 +55,9 @@
                     <div class="w3-container">
                         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                             <h3 style="color: grey">
-                                Владелец: <a style="font-weight: normal; text-decoration: none"
+                                Владелец: <a class="w3-hover-opacity" style="font-weight: normal; text-decoration: none"
                                              th:href="@{/users/{name} (name = *{person.username})}" th:text="*{person.username}"></a><br>
-                                <a style="font-weight: normal; font-size: 14px; text-decoration: none"
+                                <a class="w3-hover-opacity" style="font-weight: normal; font-size: 14px; text-decoration: none"
                                    th:href="@{/users/{name}/cars (name = *{person.username})}">Все автомобили данного пользователя</a>
                             </h3>
                         </th:block>
@@ -130,7 +131,8 @@
                         <div class="w3-container">
                             <div id="divAlbumImages">
                                 <th:block th:if="*{images.size() > 0}">
-                                    <h3><a th:href="@{/cars/{id}/images (id = ${car.id})}">Показать все</a></h3>
+                                    <h3><a class="w3-hover-opacity"  style="text-decoration: none"
+                                           th:href="@{/cars/{id}/images (id = ${car.id})}">Показать все</a></h3>
                                     <div id="divAlbumImg" style="overflow: auto; width: 600px; height: 200px" class="w3-border w3-round-large">
                                         <th:block th:each="image : *{images}">
                                             <div style="display: inline-flex; margin: 5px">
@@ -167,32 +169,33 @@
                         <h2>
                             <th:block th:if="${car.classification != null}">
                                 Класс:
-                                <a th:href="@{/classes/{id} (id = *{classification.id})}" style="text-decoration: none">
+                                <a class="w3-hover-opacity" th:href="@{/classes/{id} (id = *{classification.id})}" style="text-decoration: none">
                                     <span th:text="*{classification.name}" style="font-weight: normal"/>
                                 </a><br>
-                                <a href="/classes" style="font-weight: normal; text-decoration: none; font-size: 18px; color: gray">Все классы</a>
+                                <a class="w3-hover-opacity" href="/classes" style="font-weight: normal; text-decoration: none; font-size: 18px; color: gray">Все классы</a>
                             </th:block>
                         </h2>
                         <h2>
                             <th:block th:if="${car.category != null}">
                                 Категория:
-                                <a th:href="@{/categories/{id} (id = *{category.id})}" style="text-decoration: none">
+                                <a class="w3-hover-opacity" th:href="@{/categories/{id} (id = *{category.id})}" style="text-decoration: none">
                                     <span th:text="*{category.name}" style="font-weight: normal"/>
                                 </a><br>
-                                <a href="/categories" style="font-weight: normal;
+                                <a class="w3-hover-opacity" href="/categories" style="font-weight: normal;
                                 font-size: 18px; color: gray; text-decoration: none">Все категории</a>
                             </th:block>
                         </h2>
                         <h2>
                             <th:block th:if="*{brand != null}">
-                                Бренд: <a th:href="@{/brands/{id} (id = *{brand.id})}" th:text="${car.brand != null ? car.brand.title : 'No Brand'}"
+                                Бренд: <a class="w3-hover-opacity" th:href="@{/brands/{id} (id = *{brand.id})}"
+                                          th:text="${car.brand != null ? car.brand.title : 'No Brand'}"
                                           style="font-weight: normal; text-decoration: none">Brand</a>
                             </th:block>
                         </h2>
                         <h2>
                             <th:block th:if="*{driveUnit != null}">
                                 Привод: <span th:text="*{driveUnit.name}" style="font-weight: normal"/><br>
-                                <a th:href="@{/drive-units/{id}/cars (id = ${car.driveUnit.id})}"
+                                <a class="w3-hover-opacity" th:href="@{/drive-units/{id}/cars (id = ${car.driveUnit.id})}"
                                    style="font-weight: normal; font-size: 18px; color: gray; text-decoration: none">Cars</a>
                             </th:block>
                         </h2>
@@ -202,7 +205,7 @@
                             </th:block>
                         </h2>
                         <h2>
-                            Веб-страница: <a th:href="*{webpage}" th:text="*{title}" target="_blank"
+                            Веб-страница: <a class="w3-hover-opacity" th:href="*{webpage}" th:text="*{title}" target="_blank"
                                              style="font-weight: normal; text-decoration: none">Webpage</a>
                         </h2>
                     </div>
@@ -306,7 +309,8 @@
                                                     <th:block th:if="${userEquipments.size() == 0}">
                                                         <h4 style="color: grey">Все ваши комплектации установлены.
                                                             Создайте новые на
-                                                            <a th:href="@{/users/{name} (name = ${car.person.username})}"> странице профиля</a>.</h4>
+                                                            <a class="w3-hover-opacity"
+                                                               th:href="@{/users/{name} (name = ${car.person.username})}"> странице профиля</a>.</h4>
                                                     </th:block>
                                                 </th:block>
                                             </div>
@@ -344,7 +348,7 @@
                             <br><br>
                             <div id="divTagsMain" class="w3-border w3-round-large" style="height: 100px; width: 900px; overflow: auto">
                                 <div id="divTags" th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex; margin: 10px">
-                                    <a th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
+                                    <a class="w3-hover-opacity" th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
                                         <span class="w3-tag w3-blue w3-round" th:text="|${tag.name}|" style="margin-right: 25px"/>
                                     </a>
                                 </div>
@@ -380,7 +384,8 @@
                             <h2 style="width: 950px" class="w3-tag w3-win8-blue w3-round">Теги</h2><br>
                             <div class="w3-container w3-border w3-round-large" style="height: 100px; width: 900px; overflow: auto; margin: 20px">
                                 <div th:each="tag : *{tags}" style="font-size: 18px; display: inline-flex">
-                                    <a th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}" style="text-decoration: none">
+                                    <a class="w3-hover-opacity" th:href="@{/cars/search-by-tag (tag = ${tag.name}, carId = ${car.id})}"
+                                       style="text-decoration: none">
                                         <span class="w3-tag w3-blue w3-round" th:text="|${tag.name}|" style="margin: 5px"/>
                                     </a>
                                 </div>

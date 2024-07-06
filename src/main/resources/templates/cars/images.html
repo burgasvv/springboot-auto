@@ -22,7 +22,7 @@
     <div style="margin: 50px 100px" class="w3-animate-opacity">
         <h3 class="w3-tag w3-light-grey w3-round-large" style="width: 300px; height: 100px">
             <div class="w3-container" style="margin-top: 25px">
-                <a th:href="@{/cars/{id} (id = ${car.id})}"
+                <a class="w3-hover-opacity" th:href="@{/cars/{id} (id = ${car.id})}"
                    th:text="|${car.brand != null ? car.brand.title : ''} ${car.title}|" style="text-decoration: none">Car Page</a>
             </div>
         </h3>
@@ -57,7 +57,7 @@
                                                     <form id="removePreviewImageForm"
                                                           th:method="POST"
                                                           th:action="@{/cars/{id}/images/remove-preview-from-images (id = ${car.id})}">
-                                                        <input type="submit" value="Убрать основное изображение"
+                                                        <input class="w3-hover-opacity" type="submit" value="Убрать основное изображение"
                                                                style="background: none; border: none; cursor: pointer;
                                                        text-decoration: underline; font-size: 20px">
                                                     </form>
@@ -66,7 +66,7 @@
                                                     th:method="DELETE" th:action="@{/cars/{id}/images/delete-image (id = ${car.id})}">
                                                         <input type="hidden" name="imageId" th:value="${image.id}">
                                                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                        <input type="submit" value="Удалить"
+                                                        <input class="w3-hover-opacity" type="submit" value="Удалить"
                                                                style="background: none; border: none; cursor: pointer;
                                                        text-decoration: underline; font-size: 20px">
                                                     </form>
@@ -97,11 +97,11 @@
                                     <th:block th:if="${user.username eq car.person.username}">
                                         <div>
                                             <form th:method="POST" th:action="@{|/cars/${car.id}/set-preview/${image.id}|}">
-                                                <input type="submit" value="Установить Основное"
+                                                <input class="w3-hover-opacity" type="submit" value="Установить Основное"
                                                        style="background: none; border: none; cursor: pointer;text-decoration: underline">
                                             </form>
                                             <form th:method="DELETE" th:action="@{|/cars/${car.id}/delete-image/${image.id}|}">
-                                                <input type="submit" value="Удалить"
+                                                <input class="w3-hover-opacity" type="submit" value="Удалить"
                                                        style="background: none; border: none; cursor: pointer;text-decoration: underline">
                                             </form>
                                         </div>
