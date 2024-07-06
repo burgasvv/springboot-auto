@@ -42,6 +42,15 @@ public class AuthorizationController {
         return "authorization/baned";
     }
 
+    @GetMapping("/login-wrong")
+    public String loginWrong(Model model) {
+        model.addAttribute("error", "Логин или пароль не существует");
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "authorization/loginWrong";
+    }
+
     @GetMapping("/forgotPassword/{status}")
     public String forgotPassword(@PathVariable String status, Model model) {
         model.addAttribute("status", status);

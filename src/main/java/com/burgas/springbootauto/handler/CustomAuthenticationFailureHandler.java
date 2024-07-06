@@ -15,7 +15,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
             response.sendRedirect(request.getContextPath() + "/baned");
         }
         else {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login-wrong");
         }
     }
 }
