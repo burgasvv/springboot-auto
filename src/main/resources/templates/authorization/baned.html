@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Activate Account</title>
+    <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
+</head>
+<body>
+<th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <th:block th:case="${true}">
+        <th:block th:if="${user.image == null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+        </th:block>
+        <th:block th:if="${user.image != null}">
+            <div th:insert="~{fragments/fragments.html :: bar(${user.image.id})}">Bar</div>
+        </th:block>
+    </th:block>
+    <th:block th:case="${false}">
+        <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+    </th:block>
+</th:block>
+
+<div class="w3-animate-opacity" style="text-align: center; margin: 10% 50px 100px">
+    <div class="w3-card w3-round-large" style="width: 500px; margin-left: 650px">
+        <div class="w3-container w3-win8-red">
+            <h1>Ваш статус</h1>
+        </div>
+        <h2 style="color: grey">К сожалению, вы забанены на данном сервисе, приносим свои извинения...</h2>
+        <br>
+    </div>
+</div>
+<div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
+</body>
+</html>

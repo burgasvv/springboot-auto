@@ -92,13 +92,14 @@ public class LoadDatabase {
             Image adminImage = Image.builder().isPreview(true).name("admin-image")
                     .data(readBytesByUrl(InitDatabaseUtil.ADMIN_ACCOUNT_IMAGE)).build();
             Person admin = Person.builder()
-                    .image(adminImage).enabled(true).status(Status.OFFLINE).firstname("Admin").lastname("Admin").username("admin")
+                    .image(adminImage).enabled(true).verified(true).status(Status.OFFLINE).firstname("Admin").lastname("Admin").username("admin")
                     .password(passwordEncoder.encode("admin")).email("admin@admin.com").role(adm)
                     .description(InitDatabaseUtil.ADMIN_ACCOUNT_DESCRIPTION).build();
 
             Image userImage = Image.builder().isPreview(true).name("user-image")
                     .data(readBytesByUrl(InitDatabaseUtil.USER_ACCOUNT_IMAGE)).build();
-            Person user = Person.builder().image(userImage).enabled(true).status(Status.OFFLINE).firstname("User").lastname("One").username("user")
+            Person user = Person.builder().image(userImage).enabled(true).verified(true).status(Status.OFFLINE)
+                    .firstname("User").lastname("One").username("user")
                     .password(passwordEncoder.encode("user")).email("user@user.com").role(usr)
                     .description(InitDatabaseUtil.USER_ACCOUNT_DESCRIPTION).build();
 

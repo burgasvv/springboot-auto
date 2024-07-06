@@ -25,6 +25,7 @@
             <form th:method="GET" th:action="@{/users/search}" style="display: inline-flex">
                 <label for="search"></label><br>
                 <input class="w3-input" style="width: 250px" type="text" id="search" name="search" placeholder="Введите пользователя">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                 <input class="w3-btn w3-blue w3-round" type="submit" value="Поиск" style="color: black; margin-left: 10px">
             </form>
         </div>

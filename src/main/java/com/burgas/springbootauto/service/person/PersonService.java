@@ -63,6 +63,7 @@ public class PersonService {
             return null;
         person.setStatus(Status.OFFLINE);
         person.setEnabled(false);
+        person.setVerified(false);
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRole(roleRepository.findByName("USER"));
         if (multipartFile.getSize() != 0) {
@@ -155,6 +156,7 @@ public class PersonService {
     @Transactional
     public void activateAccount(Person person) {
         person.setEnabled(true);
+        person.setVerified(true);
         personRepository.save(person);
     }
 }

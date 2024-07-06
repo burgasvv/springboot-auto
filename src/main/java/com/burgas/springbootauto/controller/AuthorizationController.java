@@ -34,6 +34,14 @@ public class AuthorizationController {
         return "redirect:/users/" + person.getUsername();
     }
 
+    @GetMapping("/baned")
+    public String baned(Model model) {
+        model.addAttribute("user",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "authorization/baned";
+    }
+
     @GetMapping("/forgotPassword/{status}")
     public String forgotPassword(@PathVariable String status, Model model) {
         model.addAttribute("status", status);

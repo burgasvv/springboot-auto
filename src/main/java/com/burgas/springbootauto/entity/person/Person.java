@@ -46,6 +46,9 @@ public class Person implements UserDetails {
     @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     private RestoreToken token;
 
+    @Column(nullable = false)
+    private boolean verified;
+
     @OneToOne
     @JoinColumn(name = "image_id")
     private Image image;

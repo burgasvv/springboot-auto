@@ -12,6 +12,11 @@ import org.springframework.stereotype.Repository;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @NotNull
+    @Query(
+            nativeQuery = true,
+            value = """
+                    select p.* from person p where p.verified = true"""
+    )
     Page<Person> findAll(@NotNull Pageable pageable);
 
     Person findPersonByUsername(String name);
@@ -22,7 +27,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
             nativeQuery = true,
             value = """
                     select p.* from person p
-                               where concat(p.firstname,' ',p.lastname,' ',p.username,' ',p.username,' ',\
+                               where p.verified = true and concat(p.firstname,' ',p.lastname,' ',p.username,' ',p.username,' ',\
                     p.firstname,' ',p.username,' ',p.lastname,' ',p.firstname,' ')
                                          ilike concat('%',?1,'%')"""
     )
