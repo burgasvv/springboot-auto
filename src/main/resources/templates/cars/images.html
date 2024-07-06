@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Car Images</title>
+    <title>Альбом Автомобиля</title>
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
@@ -19,78 +19,103 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 50px 100px 200px" class="w3-animate-opacity">
-        <h2>
-            <a th:href="@{/cars/{id} (id = ${car.id})}" th:text="|${car.brand != null ? car.brand.title : ''} ${car.title} page|">Car Page</a>
-        </h2>
-        <h1 style="margin-top: 50px"><span th:text="|${car.title} images|"/></h1>
+    <div style="margin: 50px 100px" class="w3-animate-opacity">
+        <h3 class="w3-tag w3-light-grey w3-round-large" style="width: 300px; height: 100px">
+            <div class="w3-container" style="margin-top: 25px">
+                <a th:href="@{/cars/{id} (id = ${car.id})}"
+                   th:text="|${car.brand != null ? car.brand.title : ''} ${car.title} page|" style="text-decoration: none">Car Page</a>
+            </div>
+        </h3>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <th:block th:if="${user.username eq car.person.username}">
-                <div style="margin-top: 100px">
-                    <form th:method="POST" th:action="@{/cars/{id}/add-images-at-images-page (id = ${car.id})}" enctype="multipart/form-data">
-                        <label for="addImages">Add Images</label>
-                        <input type="file" id="addImages" name="file" accept="image/png, image/jpeg" multiple>
-                        <input type="submit" value="Add" style="color: black">
+                <div style="margin-top: 50px">
+                    <form style="display: inline-flex" th:method="POST" th:action="@{/cars/{id}/add-images-at-images-page (id = ${car.id})}"
+                          enctype="multipart/form-data">
+                        <label for="addImages"></label>
+                        <input class="w3-input w3-border w3-round-large" style="width: 400px"
+                               type="file" id="addImages" name="file" accept="image/png, image/jpeg" multiple>
+                        <input class="w3-button w3-round w3-teal" type="submit" value="Добавить" style="color: black; margin-left: 20px">
                     </form>
                 </div>
             </th:block>
         </th:block>
         <th:block th:if="${car.hasPreview == true}">
-            <h2 style="margin-top: 50px">Preview Image</h2>
-            <div style="display: inline-flex" th:each="image : ${images}">
-                <th:block th:if="${image.preview == true}">
-                    <div style="width: 250px; margin-right: 80px; margin-top: 80px; display: inline-block; text-align: center">
-                        <img th:src="@{|/images/${image.id}|}" alt="image" style="display: inline-flex; width: 250px; border-radius: 2%">
-                        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                            <th:block th:if="${user.username eq car.person.username}">
-                                <div style="display: inline-flex">
-                                    <form th:method="POST" th:action="@{|/cars/${car.id}/remove-preview-from-images|}" style="margin-right: 10px">
-                                        <input type="submit" value="Remove Preview" style="color: black">
-                                    </form>
-                                    <form th:method="DELETE" th:action="@{|/cars/${car.id}/delete-image/${image.id}|}">
-                                        <input type="submit" value="Delete" style="color: black">
-                                    </form>
+            <div class="w3-card w3-round-large w3-hover-shadow" style="margin-top: 50px; width: 700px">
+                <h2 class="w3-tag w3-round-large w3-win8-blue" style="width: 700px">Основное изображение</h2>
+                <div class="w3-container">
+                    <div style="display: inline-flex" th:each="image : ${images}">
+                        <th:block th:if="${image.preview == true}">
+                            <div style="display: inline-block; text-align: center">
+                                <div class="w3-border w3-round-large">
+                                    <img th:src="@{|/images/${image.id}|}" alt="image" style="width: 630px">
                                 </div>
-                            </th:block>
+                                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                                    <th:block th:if="${user.username eq car.person.username}">
+                                        <div style="margin-top: 20px">
+                                            <form th:method="POST" th:action="@{|/cars/${car.id}/remove-preview-from-images|}">
+                                                <input type="submit" value="Убрать основное изображение"
+                                                       style="background: none; border: none; cursor: pointer;
+                                                       text-decoration: underline; font-size: 20px">
+                                            </form>
+                                            <br>
+                                            <form th:method="DELETE" th:action="@{|/cars/${car.id}/delete-image/${image.id}|}">
+                                                <input type="submit" value="Удалить"
+                                                       style="background: none; border: none; cursor: pointer;
+                                                       text-decoration: underline; font-size: 20px">
+                                            </form>
+                                        </div>
+                                    </th:block>
+                                </th:block>
+                            </div>
                         </th:block>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </th:block>
+        <div class="w3-row w3-center" style="margin-top: 50px">
+            <div class="w3-col m2 w3-center" th:each="image : ${images}" style="margin-right: 20px">
+                <th:block th:if="${image.preview == false}">
+                    <div class="w3-card w3-round-large w3-container w3-hover-shadow">
+                        <div style="margin: 20px 20px 20px -10px;">
+                            <div style="margin: 10px; width: 250px">
+                                <div style="margin: 10px; display: inline-block; text-align: center">
+                                    <img class="w3-round" th:src="@{|/images/${image.id}|}" alt="image" style="width: 200px">
+                                </div>
+                            </div>
+                            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                                <th:block th:if="${user.username eq car.person.username}">
+                                    <div>
+                                        <form th:method="POST" th:action="@{|/cars/${car.id}/set-preview/${image.id}|}">
+                                            <input type="submit" value="Основное изображение"
+                                                   style="background: none; border: none; cursor: pointer;text-decoration: underline">
+                                        </form>
+                                        <form th:method="DELETE" th:action="@{|/cars/${car.id}/delete-image/${image.id}|}">
+                                            <input type="submit" value="Удалить"
+                                                   style="background: none; border: none; cursor: pointer;text-decoration: underline">
+                                        </form>
+                                    </div>
+
+                                </th:block>
+                            </th:block>
+                        </div>
                     </div>
                 </th:block>
             </div>
-        </th:block>
-        <div style="margin-top: 80px">
-            <h2>Images</h2>
-        </div>
-        <div style="display: inline-flex" th:each="image : ${images}">
-            <th:block th:if="${image.preview == false}" >
-                <div style="width: 250px; margin-right: 80px; margin-top: 80px; display: inline-block; text-align: center">
-                    <img th:src="@{|/images/${image.id}|}" alt="image" style="display: inline-flex; width: 250px; border-radius: 2%">
-                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                        <th:block th:if="${user.username eq car.person.username}">
-                            <div style="display: inline-flex">
-                                <form th:method="POST" th:action="@{|/cars/${car.id}/set-preview/${image.id}|}" style="margin-right: 10px">
-                                    <input type="submit" value="Set Preview" style="color: black">
-                                </form>
-                                <form th:method="DELETE" th:action="@{|/cars/${car.id}/delete-image/${image.id}|}">
-                                    <input type="submit" value="Delete" style="color: black">
-                                </form>
-                            </div>
-                        </th:block>
-                    </th:block>
-                </div>
-            </th:block>
         </div>
         <br><br>
         <div style="margin-top: 100px">
             <ul style="display: inline-flex; list-style-type: none">
                 <th:block th:each="pageNumber : ${pages}">
                     <li class="page-item" style="margin-right: 10px">
-                        <a class="page-link" th:href="@{|/cars/${car.id}/images/pages/${pageNumber}|}" th:text="${pageNumber}">1</a>
+                        <a class="w3-bar-item w3-button w3-teal"
+                           th:href="@{|/cars/${car.id}/images/pages/${pageNumber}|}" th:text="${pageNumber}">1</a>
                     </li>
                 </th:block>
             </ul>
         </div>
         <div style="margin-top: 100px">
-            <input type="button" value="Back" style="color: black" onclick="history.back()">
+            <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" style="color: black" onclick="history.back()">
         </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
