@@ -216,8 +216,8 @@ public class CarController {
         return "redirect:/cars/" + id + "/images";
     }
 
-    @DeleteMapping("/{id}/delete-image/{imageId}")
-    public String deleteCarImage(@PathVariable Long id, @PathVariable Long imageId) {
+    @DeleteMapping("/{id}/images/delete-image")
+    public String deleteCarImage(@PathVariable Long id, @RequestParam Long imageId) {
         imageService.deletePreview(carService.findById(id), imageService.findById(imageId));
         //noinspection SpringMVCViewInspection
         return "redirect:/cars/" + id + "/images";
@@ -230,7 +230,7 @@ public class CarController {
         return "redirect:/cars/" + id + "/images";
     }
 
-    @PostMapping("/{id}/remove-preview-from-images")
+    @PostMapping("/{id}/images/remove-preview-from-images")
     public String removeCarPreviewFromImages(@PathVariable Long id) {
         Car car = carService.findById(id);
         carService.removePreviewImage(car);

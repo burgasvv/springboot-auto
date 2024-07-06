@@ -51,8 +51,8 @@ public class SecurityConfig {
 
                                 "/cars/secure/add","/cars/{id}/edit","/cars/{id}/add-images","/cars/{id}/add-preview-image",
                                 "/cars/{id}/add-images-at-images-page","/cars/{id}/remove-preview-image",
-                                "/cars/{id}/add-images-at-images-page","/cars/{id}/delete-image/{imageId}",
-                                "/cars/{id}/set-preview/{imageId}","/cars/{id}/remove-preview-from-images",
+                                "/cars/{id}/add-images-at-images-page","/cars/{id}/images/delete-image",
+                                "/cars/{id}/set-preview/{imageId}","/cars/{id}/images/remove-preview-from-images",
                                 "/cars/{id}/delete","/cars/{id}/handover","/cars/{id}/handover-done",
                                 "/cars/{id}/attach-tag","/cars/{id}/add-tag","/cars/{id}/attach-equipment",
                                 "/cars/{id}/remove-equipment-from-car","/cars/{id}/remove-equipment-from-car-in-form",
