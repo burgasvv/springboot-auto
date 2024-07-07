@@ -26,49 +26,66 @@
                 <a th:href="@{/brands/{id} (id = ${brand.id})}" th:text="${brand.title}">Brand</a>
             </h3>
         </div>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block th:if="${user.role.name == 'ADMIN'}">
+                <form th:method="GET" th:action="@{/brands/{id}/add-gearbox (id = *{id})}" style="margin-top: 100px; margin-left: 100px">
+                    <input class="w3-button w3-round w3-teal" type="submit" value="Добавить коробку передач" style="color: black">
+                </form>
+            </th:block>
+        </th:block>
         <div style="margin: 50px 100px" th:object="${brand}">
             <th:block th:if="*{gearboxes.size() < 1}">
                 <h2 style="color: grey">Empty</h2>
             </th:block>
-            <div th:each="gearbox : *{gearboxes}">
-                <h1>
-                    <a th:href="@{/gearboxes/{id} (id = ${gearbox.id})}" style="text-decoration: none">
-                        <span th:text="${gearbox.name}"/>
-                    </a>
-                </h1>
-                <img th:src="${gearbox.image}" alt="image"><br>
-                <div th:each="transmission : ${gearbox.transmissions}"  style="display: inline-flex">
-                    <th:block th:if="${transmission.brand.id eq brand.id}">
-                        <div style="display: inline-block">
-                            <h2>
-                                <a th:href="@{/transmissions/{id} (id = ${transmission.id}, brandId = *{id})}"
-                                   style="text-decoration: none; margin-right: 50px">
-                                    <span th:text="${transmission.name}">Engine Name</span><br>
-                                    <span th:text="${transmission.driveType.name}" style="color: grey; font-size: 14px">Fuel</span>
-                                </a>
-                            </h2>
+            <div class="w3-row-padding">
+                <div class="w3-col s6" th:each="gearbox : *{gearboxes}">
+                    <div class="w3-card w3-round-large w3-hover-shadow" style="width: 720px; margin-top: 20px">
+                        <h2 class="w3-tag w3-round-large w3-win8-blue" style="width: 720px" th:text="${gearbox.name}">Edition</h2>
+                        <div class="w3-container">
+                            <div style="display: inline-flex">
+                                <img th:src="${gearbox.image}" alt="image" style="width: 250px"><br>
+                            </div>
+                            <div class="w3-border w3-round-large" style="width: 660px; height: 200px; overflow: auto">
+                                <h2  th:each="transmission : ${gearbox.transmissions}" style="display: inline-flex; margin: 20px">
+                                    <a class="w3-hover-opacity" th:href="@{/transmissions/{id} (id = ${transmission.id})}"
+                                       style="text-decoration: none">
+                                        <div class="w3-card w3-round-large w3-hover-shadow">
+                                            <div style="display: inline-block; margin: 10px">
+                                                <div style="display: inline-flex">
+                                                    <img class="w3-round" th:src="${transmission.image}" alt="image" style="width: 50px">
+                                                    <span style="margin-left: 10px" th:text="${transmission.name}"/>
+                                                </div>
+                                                <br>
+                                                <span th:text="${transmission.driveType.name}" style="color: grey; font-size: 14px"/>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </h2>
+                            </div>
+                            <br>
+                            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                                <th:block th:if="${user.role.name == 'ADMIN'}">
+                                    <div style="display: inline-flex">
+                                        <a class="w3-button w3-teal w3-round" th:href="@{/transmissions/secure/add (gearboxId = ${gearbox.id})}"
+                                           style="text-decoration: none; margin-right: 20px">Добавить трансмиссию</a>
+                                        <form th:method="GET" th:action="@{|/gearboxes/${gearbox.id}/edit|}" style="margin-right: 20px">
+                                            <input class="w3-button w3-round w3-blue" type="submit" value="Изменить" style="color: black">
+                                        </form>
+                                        <form th:method="DELETE" th:action="@{|/gearboxes/${gearbox.id}/delete|}">
+                                            <input class="w3-button w3-round w3-red" type="submit" value="Удалить" style="color: black">
+                                        </form>
+                                    </div>
+                                </th:block>
+                            </th:block>
                         </div>
-                    </th:block>
-                    <br>
+                        <br>
+                    </div>
                 </div>
-                <br>
-                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                    <th:block th:if="${user.role.name == 'ADMIN'}">
-                        <a th:href="@{/brands/{id}/add-transmission (id = *{id}, gearboxId = ${gearbox.id})}"
-                           style="text-decoration: none">Add Transmission</a>
-                    </th:block>
-                </th:block>
-                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
             </div>
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${user.role.name == 'ADMIN'}">
-                    <form th:method="GET" th:action="@{/brands/{id}/add-gearbox (id = *{id})}" style="margin-top: 100px">
-                        <input type="submit" value="Add Gearbox" style="color: black">
-                    </form>
-                </th:block>
-            </th:block>
             <br><br>
-            <input type="button" value="Back" onclick="history.back()" style="color: black">
+            <div style="margin-top: 100px">
+                <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">
+            </div>
         </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>

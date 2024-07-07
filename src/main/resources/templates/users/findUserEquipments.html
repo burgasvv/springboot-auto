@@ -21,7 +21,7 @@
 </th:block>
     <div style="margin: 50px 100px" th:object="${owner}" class="w3-animate-opacity">
         <th:block th:if="${owner.username eq guest.username}">
-            <h1>My Complectations</h1>
+            <h1>Мои комплектации</h1>
         </th:block>
         <th:block th:if="${owner.username != guest.username}">
             <h2>
@@ -34,47 +34,61 @@
         <th:block th:if="*{equipments.size() < 1}">
             <h2>No results</h2>
         </th:block>
-        <div style="margin-top: 50px">
-            <form th:method="GET" th:action="@{/users/{name}/equipments/search (name = ${owner.username})}">
-                <label for="search">Search</label><br>
-                <input type="text" id="search" name="search" th:value="${search}">
-                <input type="submit" value="Search" style="color: black">
+        <div style="margin-top: 50px; display: inline-flex">
+            <form style="display: inline-flex"  th:method="GET" th:action="@{/users/{name}/equipments/search (name = ${owner.username})}">
+                <label for="search"></label><br>
+                <input class="w3-input" type="text" id="search" name="search" th:value="${search}">
+                <input class="w3-button w3-round w3-blue" type="submit" value="Поиск" style="color: black; margin-left: 20px; width: 100px">
             </form>
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <th:block th:if="${owner.username eq guest.username}">
+                    <input class="w3-button w3-teal w3-round" type="button" value="Добавить"
+                           onclick="location.assign('/equipments/add')" style="color: black; margin-left: 20px">
+                </th:block>
+            </th:block>
         </div>
+        <br>
         <div th:each="equipment : ${equipments}" style="display: inline-flex; margin-top: 50px">
-            <h2 style="height: 250px; width: 250px; margin-right: 80px">
+            <h2 style="height: 350px; width: 350px; margin-right: 80px">
                 <a th:href="@{/equipments/{id} (id = ${equipment.id})}" style="text-decoration: none">
-                    <img th:src="${equipment.image}" alt="image" style="display: inline-flex; width: 250px; border-radius: 10%"><br>
-                    <div th:text="${equipment.name}" style="margin-left: 20px"/>
-                    <th:block th:if="${equipment.attached == true}">
-                        <div th:text="|${equipment.car.brand != null ? equipment.car.brand.title : 'No brand'}
-                        ${equipment.car.title}|" style="margin-left: 20px"/>
-                        <div style="color: gray; margin-left: 20px">Attached</div>
-                    </th:block>
-                    <th:block th:if="${equipment.attached == false}">
-                        <div style="color: gray; margin-left: 20px">Not Attached</div>
-                    </th:block>
+                    <div class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
+                        <div class="w3-container" style="margin: 20px; text-align: center">
+                            <th:block th:if="${equipment.image != ''}">
+                                <img th:src="${equipment.image}" alt="image"
+                                     style="display: inline-flex; width: 250px; border-radius: 10%; margin-top: 20px"><br>
+                            </th:block>
+                            <th:block th:if="${equipment.image eq ''}">
+                                <img src="/resource/images/complectImage.png" alt="image"
+                                     style="display: inline-flex; width: 250px; border-radius: 10%"><br>
+                            </th:block>
+                            <div th:text="${equipment.name}" style="margin-left: 20px"/>
+                            <th:block th:if="${equipment.attached == true}">
+                                <th:block th:if="${equipment.car.brand != null}">
+                                    <div th:text="|${equipment.car.brand.title} ${equipment.car.title}|" style="margin-left: 20px"/>
+                                </th:block>
+                                <div style="color: green; margin-left: 20px">Установлен</div>
+                            </th:block>
+                            <th:block th:if="${equipment.attached == false}">
+                                <div style="color: gray; margin-left: 20px">Не установлен</div>
+                            </th:block>
+                        </div>
+                    </div>
                 </a>
             </h2>
         </div>
         <div style="margin-top: 250px">
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <th:block th:if="${owner.username eq guest.username}">
-                    <input type="button" value="Add" onclick="location.assign('/equipments/add')" style="color: black">
-                </th:block>
-            </th:block>
             <div style="margin-top: 50px">
                 <ul style="display: inline-flex; list-style-type: none">
                     <th:block th:each="pageNumber : ${pages}">
                         <li class="page-item" style="margin-right: 10px">
-                            <a class="page-link" th:href="@{/users/{name}/equipments/search/pages/{page}
+                            <a class="w3-bar-item w3-button w3-teal" th:href="@{/users/{name}/equipments/search/pages/{page}
                                 (name = ${owner.username}, page = ${pageNumber}, search = ${search})}" th:text="${pageNumber}">1</a>
                         </li>
                     </th:block>
                 </ul>
             </div>
             <div style="margin-top: 50px">
-                <input type="button" value="Back" onclick="history.back()" style="color: black">
+                <input class="w3-round w3-button w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">
             </div>
         </div>
     </div>

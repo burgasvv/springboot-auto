@@ -25,15 +25,15 @@
         <h3 class="w3-tag w3-light-grey w3-round-large" style="width: 400px; height: 150px">
             <div class="w3-container" style="margin-top: 25px">
                 <h3>
-                    <a th:href="@{/brands}">Brands</a> /
+                    <a th:href="@{/brands}">Бренды</a> /
                     <th:block th:if="${engine.engineEdition.brand != null}">
                         <a th:href="@{/brands/{id} (id = ${engine.engineEdition.brand.id})}"
                            th:text="${engine.engineEdition.brand.title}">Brand</a> /
-                        <a th:href="@{/brands/{id}/editions (id = ${engine.engineEdition.brand.id})}">Editions</a>
+                        <a th:href="@{/brands/{id}/editions (id = ${engine.engineEdition.brand.id})}">Линейки</a>
                     </th:block>
                 </h3>
                 <h3>
-                    <a th:href="@{/editions}">All Editions</a>
+                    <a th:href="@{/editions}">Все линейки</a>
                 </h3>
             </div>
         </h3>

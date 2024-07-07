@@ -20,63 +20,81 @@
     </th:block>
 </th:block>
     <div style="margin: 50px 100px" class="w3-animate-opacity">
-        <h1>Gearboxes</h1>
+        <h1 class="w3-tag w3-round-large w3-light-grey" style="width: 1720px">Коробки передач</h1>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-            <form th:method="GET" th:action="@{/transmissions/find-transmissions}" style="display: inline-flex">
-                <div style="display: inline-block; margin-right: 25px">
-                    <label for="brands">Brands</label>
-                    <select name="searchBrand" id="brands">
-                        <option value=""></option>
-                        <option th:each="b : ${brands}" th:value="${b.title}" th:text="${b.title}">Brand</option>
-                    </select>
-                </div>
-                <div style="display: inline-block; margin-right: 25px">
-                    <label for="gearboxes">Gearboxes</label>
-                    <select name="searchGearbox" id="gearboxes">
-                        <option value=""></option>
-                        <option th:each="gear : ${gearboxesSelect}" th:value="${gear.name}" th:text="${gear.name}">Gearbox</option>
-                    </select>
-                </div>
-                <div style="display: inline-block; margin-right: 25px">
-                    <label for="transmissions">Transmission</label>
-                    <select name="searchTransmission" id="transmissions">
-                        <option value=""></option>
-                        <option th:each="tr : ${transmissions}" th:value="${tr.name}" th:text="${tr.name}">Transmission</option>
-                    </select>
-                </div>
-                <div style="display: inline-block; margin-right: 25px">
-                    <label for="drivetypes">Drive Types</label>
-                    <select name="searchDriveType" id="drivetypes">
-                        <option value=""></option>
-                        <option th:each="type : ${driveTypes}" th:value="${type.name}" th:text="${type.name}">Drive Type</option>
-                    </select>
-                </div>
-                <input type="submit" value="Find Transmissions" style="color: black">
-            </form>
-            <th:block th:if="${user.role.name == 'ADMIN'}">
-                <form th:method="GET" th:action="@{/gearboxes/secure/add}" style="margin-top: 100px">
-                    <input type="submit" value="Add Gearbox" style="color: black">
+            <div style="margin-top: 50px">
+                <form th:method="GET" th:action="@{/transmissions/find-transmissions}" style="display: inline-flex">
+                    <div style="display: inline-block; margin-right: 25px">
+                        <label for="brands">Бренды</label><br>
+                        <select name="searchBrand" id="brands" style="width: 200px">
+                            <option value=""></option>
+                            <option th:each="b : ${brands}" th:value="${b.title}" th:text="${b.title}">Brand</option>
+                        </select>
+                    </div>
+                    <div style="display: inline-block; margin-right: 25px">
+                        <label for="gearboxes">Коробки передач</label><br>
+                        <select name="searchGearbox" id="gearboxes" style="width: 200px">
+                            <option value=""></option>
+                            <option th:each="gear : ${gearboxesSelect}" th:value="${gear.name}" th:text="${gear.name}">Gearbox</option>
+                        </select>
+                    </div>
+                    <div style="display: inline-block; margin-right: 25px">
+                        <label for="transmissions">Трансмиссии</label><br>
+                        <select name="searchTransmission" id="transmissions" style="width: 200px">
+                            <option value=""></option>
+                            <option th:each="tr : ${transmissions}" th:value="${tr.name}" th:text="${tr.name}">Transmission</option>
+                        </select>
+                    </div>
+                    <div style="display: inline-block; margin-right: 25px">
+                        <label for="drivetypes">Приводы</label><br>
+                        <select name="searchDriveType" id="drivetypes" style="width: 200px">
+                            <option value=""></option>
+                            <option th:each="type : ${driveTypes}" th:value="${type.name}" th:text="${type.name}">Drive Type</option>
+                        </select>
+                    </div>
+                    <input class="w3-button w3-blue w3-round" type="submit" value="Поиск" style="color: black">
                 </form>
+            </div>
+            <th:block th:if="${user.role.name == 'ADMIN'}">
+                <div>
+                    <form th:method="GET" th:action="@{/gearboxes/secure/add}" style="margin-top: 100px">
+                        <input class="w3-button w3-teal w3-round" type="submit" value="Добавить" style="color: black">
+                    </form>
+                </div>
             </th:block>
         </th:block>
-        <h2 th:each="gearbox : ${gearboxes}" style="margin-top: 50px">
-            <img th:src="${gearbox.image}" alt="image" style="width: 100px; margin-right: 25px">
-            <a th:href="@{/gearboxes/{id} (id = ${gearbox.id})}" style="text-decoration: none">
-                <span th:text="${gearbox.name}"/>
-            </a>
-            <h3 style="display: inline-flex; color: dimgrey; margin-right: 25px">Brands:</h3>
-            <th:block th:if="${gearbox.brands.size() > 0 && gearbox.brands != null}">
-                <h4 th:each="brand : ${gearbox.brands}" style="display: inline-flex">
-                    <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none; margin-right: 50px">
-                        <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 50px">
-                        <span th:text="${brand.title}" style="color: grey"/>
-                    </a>
-                </h4>
-            </th:block>
-            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
-        </h2>
+
+        <div th:each="gearbox : ${gearboxes}" style="margin-top: 50px">
+            <div class="w3-card w3-round-large w3-hover-shadow" style="width: 900px">
+                <div style="margin: 20px">
+                    <h2>
+                        <div style="margin-top: 10px">
+                            <a class="w3-hover-opacity" th:href="@{/gearboxes/{id} (id = ${gearbox.id})}" style="text-decoration: none">
+                                <img th:src="${gearbox.image}" alt="image" style="width: 100px; margin-right: 25px">
+                                <span th:text="${gearbox.name}"/>
+                            </a>
+                        </div>
+                        <div style="display: inline-flex; margin: 20px">
+                            <h3 style="color: dimgrey; margin-right: 25px">Бренды:</h3>
+                            <div class="w3-border w3-round-large" style="width: 700px; height: 200px; overflow: auto">
+                                <th:block th:if="${gearbox.brands.size() > 0 && gearbox.brands != null}">
+                                    <h4 th:each="brand : ${gearbox.brands}" style="display: inline-flex; margin: 20px">
+                                        <a class="w3-hover-opacity" th:href="@{/brands/{id} (id = ${brand.id})}"
+                                           style="text-decoration: none; margin-right: 10px">
+                                            <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 50px">
+                                            <span th:text="${brand.title}" style="color: grey"/>
+                                        </a>
+                                    </h4>
+                                </th:block>
+                            </div>
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
         <br>
-        <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+        <input class="w3-button w3-round w3-light-grey" type="button" value="Назад"
+               onclick="history.back()" style="color: black; margin-top: 100px">
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

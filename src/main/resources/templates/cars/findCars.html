@@ -24,45 +24,45 @@
             <form th:method="GET" th:action="@{/cars/find-cars}">
                 <div style="display: inline-flex">
                     <div style="text-align: center; display: inline-block; margin-right: 25px">
-                        <label for="brands">Brands</label><br>
-                        <select name="searchBrand" id="brands">
+                        <label for="brands">Бренды</label><br>
+                        <select name="searchBrand" id="brands" style="width: 200px">
                             <option value=""></option>
                             <option th:each="brand : ${brands}" th:value="${brand.title}" th:text="${brand.title}"
                                     th:selected="${searchBrand eq brand.title}">Brand</option>
                         </select>
                     </div>
                     <div style="text-align: center; display: inline-block; margin-right: 25px">
-                        <label for="classes">Classes</label><br>
-                        <select name="searchClass" id="classes">
+                        <label for="classes">Классы</label><br>
+                        <select name="searchClass" id="classes" style="width: 200px">
                             <option value=""></option>
                             <option th:each="class : ${classes}" th:value="${class.name}" th:text="${class.name}"
                                     th:selected="${searchClass eq class.name}">Brand</option>
                         </select>
                     </div>
                     <div style="text-align: center; display: inline-block; margin-right: 25px">
-                        <label for="categories">Categories</label><br>
-                        <select name="searchCategory" id="categories">
+                        <label for="categories">Категории</label><br>
+                        <select name="searchCategory" id="categories" style="width: 200px">
                             <option value=""></option>
                             <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}"
                                     th:selected="${searchCategory eq category.name}">Brand</option>
                         </select>
                     </div>
                     <div style="text-align: center; display: inline-block; margin-right: 25px">
-                        <label for="drives">Drives</label><br>
-                        <select name="searchDrive" id="drives">
+                        <label for="drives">Приводы</label><br>
+                        <select name="searchDrive" id="drives" style="width: 200px">
                             <option value=""></option>
                             <option th:each="drive : ${drives}" th:value="${drive.name}" th:text="${drive.name}"
                                     th:selected="${searchDrive eq drive.name}">Drive</option>
                         </select>
                     </div>
-                    <input class="w3-btn w3-blue w3-round" type="submit" value="Search" style="color: black">
+                    <input class="w3-btn w3-blue w3-round" type="submit" value="Поиск" style="color: black">
                 </div>
             </form>
         </div>
         <div style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
-            <h1>Find Cars</h1>
+            <h1>Найденные автомобили</h1>
             <th:block th:if="${cars.size() < 1}">
-                <h2>No results</h2>
+                <h2>Нет результатов</h2>
             </th:block>
             <div th:each="car : ${cars}" style="display: inline-flex; float: left; height: 300px; width: 300px; margin: 15px"
                  class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
@@ -95,7 +95,7 @@
                 </th:block>
             </ul>
             <div style="margin-top: 100px; margin-bottom: 50px">
-                <input type="button" value="Back" onclick="history.back()" style="color: black">
+                <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">
             </div>
         </div>
     </div>

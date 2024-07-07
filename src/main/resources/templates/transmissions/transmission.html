@@ -21,62 +21,98 @@
     </th:block>
 </th:block>
 <div class="w3-animate-opacity">
+
     <div style="margin: 25px 100px">
-        <h3>
-            <a th:href="@{/brands}">Brands</a> /
-            <th:block th:if="${transmission.brand != null}">
-                <a th:href="@{/brands/{id} (id = ${transmission.brand.id})}" th:text="${transmission.brand.title}">Brand</a> /
-                <a th:href="@{/brands/{id}/gearboxes (id = ${transmission.brand.id})}">Gearboxes</a>
-            </th:block>
-        </h3>
-        <h3>
-            <a th:href="@{/gearboxes}">All Gearboxes</a>
+        <h3 class="w3-tag w3-light-grey w3-round-large" style="width: 400px; height: 200px">
+            <div class="w3-container" style="margin-top: 25px">
+                <h3>
+                    <a th:href="@{/brands}">Бренды</a> /
+                    <th:block th:if="${transmission.brand != null}">
+                        <a th:href="@{/brands/{id} (id = ${transmission.brand.id})}" th:text="${transmission.brand.title}">Brand</a> /
+                        <a th:href="@{/brands/{id}/gearboxes (id = ${transmission.brand.id})}">Коробки передач</a>
+                    </th:block>
+                </h3>
+                <h3>
+                    <a th:href="@{/gearboxes}">Все коробки передач</a>
+                </h3>
+            </div>
         </h3>
     </div>
+
     <div style="display: inline-flex" th:object="${transmission}">
-        <div style="display: inline-block; margin: 50px 100px">
-            <h1 th:text="*{name}">Title</h1>
-            <img id="myImg" th:src="*{image}" alt="image" style="border-radius: 5%; width: 700px">
-            <div id="myModal" class="modal">
-                <span class="close">&times;</span>
-                <img class="modal-content" id="img01" alt="image">
-                <div id="caption"></div>
-            </div>
-            <h2 style="margin-top: 50px">
-                Brand: <span th:text="${transmission.brand != null ? transmission.brand.title : 'No brand'}"
-                             style="font-weight: normal">Brand</span>
-            </h2>
-            <h2>
-                Gearbox: <span th:text="*{gearbox.name}" style="font-weight: normal">Edition</span>
-            </h2>
-            <h2>
-                Drive type: <span th:text="*{driveType.name}" style="font-weight: normal">Fuel</span>
-            </h2>
-            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
-        </div>
-        <div style="display: inline-block; margin: 50px 100px">
-            <h3 style="margin-top: 50px">Description</h3>
-            <p th:text="*{description}" style="text-align: justify">Description</p>
-            <div style="margin-top: 50px">
-                <h2>
-                    Final ratio: <span th:text="*{finalRatio}"/>
-                </h2>
-                <h2>
-                    Ratio: <span th:text="*{ratio}"/>
-                </h2>
-            </div>
-            <th:block th:if="${#authorization.expression('isAuthenticated')}">
-                <th:block th:if="${user.role.name == 'ADMIN'}">
-                    <div style="margin-top: 50px; display: inline-flex">
-                        <form th:method="GET" th:action="@{/transmissions/{id}/edit (id = *{id})}" style="margin-right: 10px">
-                            <input type="submit" value="Edit" style="color: black">
-                        </form>
-                        <form th:method="DELETE" th:action="@{/transmissions/{id}/delete (id = *{id})}">
-                            <input type="submit" value="Delete" style="color: black">
-                        </form>
+        <div style="display: inline-block; margin-top: 50px; margin-bottom: 50px; margin-left: 100px">
+            <div class="w3-card w3-round-large w3-hover-shadow" style="width: 750px">
+                <div class="w3-tag w3-round-large w3-win8-blue" style="width: 750px">
+                    <h1 th:text="*{name}">Title</h1>
+                </div>
+                <div class="w3-container" style="text-align: center; margin: 10px">
+                    <div class="w3-border w3-round-large">
+                        <img class="w3-round-large" id="myImg" th:src="*{image}" alt="image" style="width: 600px; margin: 20px">
                     </div>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01" alt="image">
+                        <div id="caption"></div>
+                    </div>
+                    <div>
+                        <h2 style="margin-top: 50px">
+                            Бренд: <span th:text="${transmission.brand != null ? transmission.brand.title : 'No brand'}"
+                                         style="font-weight: normal">Brand</span>
+                        </h2>
+                        <h2>
+                            Коробка передач: <a th:text="*{gearbox.name}" th:href="@{/gearboxes/{id} (id = *{gearbox.id})}"
+                                        style="font-weight: normal; text-decoration: none">Коробка передач</a>
+
+                        </h2>
+                        <h2>
+                            Тип: <span th:text="*{driveType.name}" style="font-weight: normal">Тип коробки</span>
+                        </h2>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <input class="w3-button w3-round w3-light-grey" type="button" value="Назад"
+                   onclick="history.back()" style="color: black; margin-top: 100px">
+        </div>
+        <div style="display: inline-block; margin: 50px 100px;">
+            <div class="w3-card w3-round-large">
+                <h3 class="w3-tag w3-round-large w3-win8-blue" style="width: 900px">Описание</h3>
+                <div class="w3-container">
+                    <div class="w3-border w3-round-large" style="width: 860px; height: 200px; overflow: auto">
+                        <div style="margin: 20px">
+                            <p th:text="*{description}" style="text-align: justify">Description</p>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div style="margin-top: 50px">
+                <div class="w3-card w3-round-large">
+                    <div class="w3-tag w3-round-large w3-win8-blue" style="width: 900px">
+                        <h3 >Характеристики</h3>
+                    </div>
+                    <div class="w3-container">
+                        <h2>
+                            Конечное передаточное число: <span th:text="*{finalRatio}"/>
+                        </h2>
+                        <h2>
+                            Передаточное число: <span th:text="*{ratio}"/>
+                        </h2>
+                    </div>
+                </div>
+                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                    <th:block th:if="${user.role.name == 'ADMIN'}">
+                        <div style="margin-top: 50px; display: inline-flex">
+                            <form th:method="GET" th:action="@{/transmissions/{id}/edit (id = *{id})}" style="margin-right: 10px">
+                                <input class="w3-button w3-round w3-blue" type="submit" value="Изменить" style="color: black">
+                            </form>
+                            <form th:method="DELETE" th:action="@{/transmissions/{id}/delete (id = *{id})}">
+                                <input class="w3-button w3-round w3-red" type="submit" value="Удалить" style="color: black">
+                            </form>
+                        </div>
+                    </th:block>
                 </th:block>
-            </th:block>
+            </div>
         </div>
     </div>
 </div>
