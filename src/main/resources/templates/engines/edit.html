@@ -19,34 +19,42 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="margin: 10% 50px 100px; text-align: center" class="w3-animate-opacity">
-        <form th:method="PATCH" th:action="@{/engines/{id}/edit (id = *{id})}" th:object="${engine}">
+    <div style="margin: 5% 50px 100px; text-align: center" class="w3-animate-opacity">
+        <div class="w3-card w3-round-large w3-hover-shadow" style="width: 800px; margin-left: 500px; text-align: center">
+            <div class="w3-container w3-win8-blue">
+                <h1>Двигатель изменить</h1>
+            </div>
+            <div class="w3-container" style="text-align: center">
+                <form th:method="PATCH" th:action="@{/engines/{id}/edit (id = *{id})}" th:object="${engine}">
 
-            <h2>Engine</h2>
-            <label for="edition">Edition</label><br>
-            <select th:field="*{engineEdition.id}" id="edition">
-                <option th:value="*{engineEdition.id}" th:text="*{engineEdition.name}"></option>
-            </select><br><br>
+                    <label for="edition"></label><br>
+                    <input type="hidden" id="edition" th:field="*{engineEdition.id}">
 
-            <label for="name">Name</label><br>
-            <input type="text" id="name" th:field="*{name}"><br><br>
+                    <label for="name">Наименование</label><br>
+                    <input class="w3-input w3-border w3-round-large w3-light-grey" style="width: 300px; margin-left: 230px"
+                           type="text" id="name" th:field="*{name}"><br>
 
-            <label for="image">Image</label><br>
-            <input type="text" id="image" th:field="*{image}"><br><br>
+                    <label for="image">Изображение</label><br>
+                    <input class="w3-input w3-border w3-round-large w3-light-grey" style="width: 300px; margin-left: 230px"
+                           type="text" id="image" th:field="*{image}"><br>
 
-            <label for="fuel">Fuel</label><br>
-            <select th:field="*{fuel.id}" id="fuel">
-                <option th:each="type : ${fuel}"
-                        th:value="${type.id}" th:text="${type.name}" th:selected="${engine.fuel.id eq type.id}">Fuel Type</option>
-            </select><br><br>
+                    <label for="fuel">Топливо</label><br>
+                    <select th:field="*{fuel.id}" id="fuel" style="width: 300px">
+                        <option th:each="type : ${fuel}"
+                                th:value="${type.id}" th:text="${type.name}" th:selected="${engine.fuel.id eq type.id}">Fuel Type</option>
+                    </select><br><br>
 
-            <label for="description">Description</label><br>
-            <textarea th:field="*{description}" id="description" cols="30" rows="10">Description</textarea><br><br>
+                    <label for="description">Описание</label><br>
+                    <textarea class="w3-round-large" style="width: 500px"
+                              th:field="*{description}" id="description" cols="30" rows="10">Description</textarea><br><br>
 
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-            <input type="submit" value="Next" style="color: black">
-            <input type="button" value="Back" onclick="history.back()" style="color: black">
-        </form>
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input class="w3-button w3-round w3-win8-blue" type="submit" value="Далее" style="color: black">
+                    <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">
+                </form>
+            </div>
+            <br>
+        </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
