@@ -2,6 +2,8 @@ package com.burgas.springbootauto.repository.engine;
 
 import com.burgas.springbootauto.entity.engine.Engine;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +14,8 @@ import java.util.List;
 @Repository
 public interface EngineRepository extends JpaRepository<Engine, Long> {
 
-    List<Engine> searchEnginesByEngineEditionId(Long id);
+    @NotNull
+    Page<Engine>findAll(@NotNull Pageable pageable);
 
     @Query(
             nativeQuery = true,
@@ -40,7 +43,7 @@ public interface EngineRepository extends JpaRepository<Engine, Long> {
                           b.title,ee.name,en.name,ee.name,ee.name,f.name,ee.name,
                           en.name,f.name,en.name) ilike concat('%',?1,'%')"""
     )
-    List<Engine> searchEnginesByEngineBrandEditionCarNoSpaces(String search);
+    Page<Engine> searchEnginesByEngineBrandEditionCarNoSpaces(String search, Pageable pageable);
 
     Engine findEngineByName(String engineName);
 

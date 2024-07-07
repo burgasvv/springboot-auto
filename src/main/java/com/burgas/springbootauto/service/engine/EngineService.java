@@ -3,6 +3,9 @@ package com.burgas.springbootauto.service.engine;
 import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.repository.engine.EngineRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,8 +33,9 @@ public class EngineService {
         return engineRepository.searchEnginesByEngineBrandEditionCar(search).stream().distinct().toList();
     }
 
-    public List<Engine> searchEnginesByEngineBrandEditionCarNoSpaces(String search) {
-        return engineRepository.searchEnginesByEngineBrandEditionCarNoSpaces(search);
+    public Page<Engine> searchEnginesByEngineBrandEditionCarNoSpaces(String search, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size).withSort(Sort.Direction.ASC, "name");
+        return engineRepository.searchEnginesByEngineBrandEditionCarNoSpaces(search, pageRequest);
     }
 
     @Transactional

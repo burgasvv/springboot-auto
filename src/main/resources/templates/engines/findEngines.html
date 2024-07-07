@@ -20,67 +20,87 @@
     </th:block>
 </th:block>
     <div style="margin: 50px 100px" class="w3-animate-opacity">
-        <h1>Find Engines</h1>
+        <h1 class="w3-tag w3-light-grey w3-round-large" style="width: 1720px">Поиск двигателей</h1>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-            <form th:method="GET" th:action="@{/engines/find-engines}" style="display: inline-flex">
+            <form th:method="GET" th:action="@{/engines/find-engines}" style="display: inline-flex; margin-top: 50px">
                 <div style="display: inline-block; margin-right: 25px">
-                    <label for="brands">Brands</label>
-                    <select name="searchBrand" id="brands">
+                    <label for="brands">Бренды</label><br>
+                    <select name="searchBrand" id="brands" style="width: 200px">
                         <option value=""></option>
                         <option th:each="b : ${brands}" th:value="${b.title}" th:text="${b.title}"
                         th:selected="${searchBrand eq b.title}">Brand</option>
                     </select>
                 </div>
                 <div style="display: inline-block; margin-right: 25px">
-                    <label for="editions">Editions</label>
-                    <select name="searchEdition" id="editions">
+                    <label for="editions">Линейки</label><br>
+                    <select name="searchEdition" id="editions" style="width: 200px">
                         <option value=""></option>
                         <option th:each="ed : ${editions}" th:value="${ed.name}" th:text="${ed.name}"
                         th:selected="${searchEdition eq ed.name}">Edition</option>
                     </select>
                 </div>
                 <div style="display: inline-block; margin-right: 25px">
-                    <label for="engines">Engines</label>
-                    <select name="searchEngine" id="engines">
+                    <label for="engines">Двигатели</label><br>
+                    <select name="searchEngine" id="engines" style="width: 200px">
                         <option value=""></option>
                         <option th:each="en : ${engines}" th:value="${en.name}" th:text="${en.name}"
                         th:selected="${searchEngine eq en.name}">Engines</option>
                     </select>
                 </div>
                 <div style="display: inline-block; margin-right: 25px">
-                    <label for="fuel">Fuel</label>
-                    <select name="searchFuel" id="fuel">
+                    <label for="fuel">Топливо</label><br>
+                    <select name="searchFuel" id="fuel" style="width: 200px">
                         <option value=""></option>
                         <option th:each="fu : ${fuelTypes}" th:value="${fu.name}" th:text="${fu.name}"
                                 th:selected="${searchFuel eq fu.name}">Engines</option>
                     </select>
                 </div>
-                <input type="submit" value="Find Engines" style="color: black">
+                <input class="w3-button w3-round w3-blue" type="submit" value="Поиск" style="color: black">
             </form>
         </th:block>
         <div style="margin-top: 100px">
             <h2 th:each="engine : ${findEngines}" style="margin-right: 50px; display: inline-flex">
-                <a th:href="@{/engines/{id} (id = ${engine.id})}" style="text-decoration: none">
-                    <img th:src="${engine.image}" alt="image" style="width: 150px; border-radius: 5%"><br>
-                    <span th:text="${engine.name}"/>
-                    <span th:text="${engine.fuel.name}" style="color: gray; font-size: 14px"/>
-                </a>
-                <div style="display: inline-block; margin-left: 10px">
-                    <th:block th:if="${engine.engineEdition.brand != null}">
-                        Brand:
-                        <a th:href="@{/brands/{id} (id = ${engine.engineEdition.brand.id})}" style="color: gray; text-decoration: none">
-                            <span th:text="${engine.engineEdition.brand.title}"/>
-                        </a><br>
-                    </th:block>
-                    Edition:
-                    <a th:href="@{/editions/{id} (id = ${engine.engineEdition.id})}" style="text-decoration: none">
-                        <span th:text="${engine.engineEdition.name}"/>
-                    </a>
+                <div class="w3-card w3-round-large w3-hover-shadow" style="width: 500px">
+                    <div class="w3-container" style="display: inline-flex; text-align: center">
+                        <div style="display: inline-block">
+                            <a th:href="@{/engines/{id} (id = ${engine.id})}" style="text-decoration: none">
+                                <img th:src="${engine.image}" alt="image" style="width: 200px; margin-top: 10px; border-radius: 5%"><br>
+                                <span th:text="${engine.name}"/>
+                                <span th:text="${engine.fuel.name}" style="color: gray; font-size: 14px"/>
+                            </a>
+                        </div>
+                        <div style="display: inline-block; margin-left: 10px">
+                            <th:block th:if="${engine.engineEdition.brand != null}">
+                                Бренд:
+                                <a th:href="@{/brands/{id} (id = ${engine.engineEdition.brand.id})}" style="color: gray; text-decoration: none">
+                                    <span th:text="${engine.engineEdition.brand.title}"/>
+                                </a><br>
+                            </th:block>
+                            Линейка:
+                            <a th:href="@{/editions/{id} (id = ${engine.engineEdition.id})}" style="text-decoration: none">
+                                <span th:text="${engine.engineEdition.name}"/>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </h2>
         </div>
+        <div style="margin-top: 100px; display: inline-block" class="w3-bar w3-round">
+            <ul style="display: inline-flex; list-style-type: none">
+                <th:block th:each="pageNumber : ${pages}">
+                    <li class="page-item" style="margin-right: 10px" >
+                        <a class="w3-bar-item w3-button w3-teal"
+                           th:href="@{/engines/find-engines/pages/{page}
+                           (page = ${pageNumber}, searchBrand = ${searchBrand},
+                           searchEdition = ${searchEdition}, searchEngine = ${searchEngine}, searchFuel = ${searchFuel})}"
+                           th:text="${pageNumber}">1</a>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
         <div style="margin-top: 100px">
-            <input type="button" value="Back" onclick="history.back()" style="color: black">
+            <input class="w3-button w3-round w3-light-grey" type="button" value="Назад"
+                   onclick="history.back()" style="color: black">
         </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>

@@ -10,13 +10,16 @@ import com.burgas.springbootauto.service.engine.EngineCharacteristicsService;
 import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.engine.FuelService;
 import com.burgas.springbootauto.service.person.PersonService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/engines")
@@ -45,9 +48,19 @@ public class EngineController {
     }
 
     @GetMapping("/find-engines")
-    public String findEngines(Model model, @RequestParam("searchBrand") String brand,
-                              @RequestParam("searchEdition") String edition,
-                              @RequestParam("searchEngine") String engine, @RequestParam("searchFuel") String fuel) {
+    public String findEngines(Model model, HttpServletRequest request) {
+        return findEnginePages(1, model, request);
+    }
+
+    @GetMapping("/find-engines/pages/{page}")
+    public String findEnginePages(@PathVariable("page") Integer page, Model model, HttpServletRequest request) {
+        String searchBrand = request.getParameter("searchBrand");
+        String searchEdition = request.getParameter("searchEdition");
+        String searchEngine = request.getParameter("searchEngine");
+        String searchFuel = request.getParameter("searchFuel");
+        Page<Engine> engines = engineService.searchEnginesByEngineBrandEditionCarNoSpaces(
+                searchBrand + searchEdition + searchEngine + searchFuel, page, 25);
+        model.addAttribute("pages", IntStream.rangeClosed(1, engines.getTotalPages()).boxed().toList());
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
@@ -59,13 +72,11 @@ public class EngineController {
                 engineService.findAll().stream().filter(en -> en.getEngineEdition() != null).toList()
         );
         model.addAttribute("fuelTypes", fuelService.findAll());
-        model.addAttribute("findEngines",
-                engineService.searchEnginesByEngineBrandEditionCarNoSpaces(brand + edition + engine + fuel)
-        );
-        model.addAttribute("searchBrand", brand);
-        model.addAttribute("searchEdition", edition);
-        model.addAttribute("searchEngine", engine);
-        model.addAttribute("searchFuel", fuel);
+        model.addAttribute("findEngines", engines.getContent());
+        model.addAttribute("searchBrand", searchBrand);
+        model.addAttribute("searchEdition", searchEdition);
+        model.addAttribute("searchEngine", searchEngine);
+        model.addAttribute("searchFuel", searchFuel);
         return "engines/findEngines";
     }
 
