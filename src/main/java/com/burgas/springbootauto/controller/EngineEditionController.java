@@ -7,10 +7,13 @@ import com.burgas.springbootauto.service.engine.EngineService;
 import com.burgas.springbootauto.service.engine.FuelService;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/editions")
@@ -25,13 +28,20 @@ public class EngineEditionController {
 
     @GetMapping
     public String editions(Model model) {
+        return editionsPage(1, model);
+    }
+
+    @GetMapping("/pages/{page}")
+    public String editionsPage(@PathVariable int page, Model model) {
+        Page<EngineEdition> editions = editionService.findAll(page, 20);
+        model.addAttribute("pages", IntStream.rangeClosed(1, editions.getTotalPages()).boxed().toList());
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         model.addAttribute("brands",
                 brandService.findAll().stream().filter(brand -> !brand.getEngineEditions().isEmpty()).toList()
         );
-        model.addAttribute("editions", editionService.findAll());
+        model.addAttribute("editions", editions.getContent());
         model.addAttribute("engines",
                 engineService.findAll().stream().filter(engine -> engine.getEngineEdition() != null).toList()
         );

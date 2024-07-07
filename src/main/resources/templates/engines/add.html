@@ -19,53 +19,63 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="display: inline-flex" class="w3-animate-opacity">
+<div style="text-align: center;">
+    <div style="display: inline-flex; margin: 50px 100px; text-align: center"
+         class="w3-animate-opacity w3-card w3-round-large w3-hover-shadow">
         <form th:method="POST" th:action="@{/engines/secure/add}">
-
-            <div style=" margin: 12% 100px 12% 600px; display: inline-block">
-                <h2>Engine</h2>
-                <label for="edition"></label><br>
-                <select th:field="${edition.id}" id="edition">
-                    <option th:value="${edition.id}" th:text="${edition.name}">Edition</option>
-                </select><br><br>
-
-                <label for="name">Name</label><br>
-                <input type="text" id="name" th:field="${engine.name}"><br><br>
-
-                <label for="image">Image</label><br>
-                <input type="text" id="image" th:field="${engine.image}"><br><br>
-
-                <label for="fuel">Fuel</label><br>
-                <select th:field="${engine.fuel.id}" id="fuel">
-                    <option th:each="typeFuel : ${fuel}" th:value="${typeFuel.id}" th:text="${typeFuel.name}">Fuel Type</option>
-                </select><br><br>
-
-                <label for="description">Description</label><br>
-                <textarea th:field="${engine.description}" id="description" cols="30" rows="10">Description</textarea>>
+            <div class="w3-container w3-win8-blue" style="width: 700px">
+                <h1>Добавить двигатель</h1>
             </div>
+            <br>
+            <div class="w3-container">
+                <div style="display: inline-block; margin-right: 100px">
+                    <label for="edition"></label><br>
+                    <input type="hidden" id="edition" th:field="${edition.id}">
 
-            <div style="margin: 12% 100px 50px; display: inline-block">
-                <h2>Characteristics</h2>
-                <label for="volume">Volume</label><br>
-                <input type="text" id="volume" th:field="${characteristics.volume}"><br><br>
+                    <label for="name">Наименование</label><br>
+                    <input class="w3-input w3-border w3-light-grey w3-round-large"
+                           type="text" id="name" th:field="${engine.name}"><br>
 
-                <label for="torque">Torque</label><br>
-                <input type="text" id="torque" th:field="${characteristics.torque}"><br><br>
+                    <label for="image">Изображение</label><br>
+                    <input class="w3-input w3-border w3-light-grey w3-round-large" style="margin-bottom: 14px"
+                           type="text" id="image" th:field="${engine.image}"><br>
 
-                <label for="rpm">RPM</label><br>
-                <input type="text" id="rpm" th:field="${characteristics.rpm}"><br><br>
+                    <label for="fuel">Топливо</label><br>
+                    <select th:field="${engine.fuel.id}" id="fuel" style="width: 210px">
+                        <option th:each="typeFuel : ${fuel}" th:value="${typeFuel.id}" th:text="${typeFuel.name}">Fuel Type</option>
+                    </select><br><br>
+                </div>
 
-                <label for="cylinders">Cylinders</label><br>
-                <input type="text" id="cylinders" th:field="${characteristics.cylinders}"><br><br>
+                <div style="display: inline-block">
+                    <label for="volume">Объем</label><br>
+                    <input class="w3-input w3-border w3-light-grey w3-round-large"
+                           type="text" id="volume" th:field="${characteristics.volume}"><br>
 
-            </div>
-            <div style="text-align: center">
-                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                <input type="submit" value="OK" style="color: black">
-                <input type="button" value="Back" onclick="history.back()" style="color: black">
+                    <label for="torque">Крутящий момент</label><br>
+                    <input class="w3-input w3-border w3-light-grey w3-round-large"
+                           type="text" id="torque" th:field="${characteristics.torque}"><br>
+
+                    <label for="rpm">Обороты</label><br>
+                    <input class="w3-input w3-border w3-light-grey w3-round-large"
+                           type="text" id="rpm" th:field="${characteristics.rpm}"><br>
+
+                    <label for="cylinders">Цилиндры</label><br>
+                    <input class="w3-input w3-border w3-light-grey w3-round-large"
+                           type="text" id="cylinders" th:field="${characteristics.cylinders}"><br>
+                </div>
+                <div style="text-align: center">
+                    <label for="description">Описание</label><br>
+                    <textarea class="w3-round-large" th:field="${engine.description}"  style="width: 540px"
+                              id="description" cols="30" rows="10">Description</textarea><br><br>
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input class="w3-button w3-round w3-win8-blue" type="submit" value="Принять" style="color: black">
+                    <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">
+                </div>
+                <br>
             </div>
         </form>
     </div>
+</div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

@@ -4,6 +4,9 @@ import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.repository.engine.EngineEditionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +21,11 @@ public class EngineEditionService {
 
     public List<EngineEdition> findAll() {
         return engineEditionRepository.findAll();
+    }
+
+    public Page<EngineEdition> findAll(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page -1 , size).withSort(Sort.Direction.ASC, "name");
+        return engineEditionRepository.findAll(pageRequest);
     }
 
     public EngineEdition findById(Long id) {

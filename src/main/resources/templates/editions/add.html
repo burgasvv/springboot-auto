@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Edition</title>
+    <title>Добавить линейку двигателей</title>
     <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
 </head>
 <body>
@@ -19,21 +19,27 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="text-align: center; margin: 15% 100px 50px" class="w3-animate-opacity">
-        <form th:method="POST" th:action="@{/editions/secure/add}" th:object="${edition}">
-            <h2>Add Engine Edition</h2>
-            <label for="brand">Brand</label><br>
-            <select th:field="*{brand.id}" id="brand">
-                <option th:each="newBrand : ${brands}" th:value="${newBrand.id}" th:text="${newBrand.title}">Brand</option>
-            </select><br><br>
-            <label for="name">Name</label><br>
-            <input type="text" id="name" th:field="*{name}"><br><br>
-            <label for="image">Image</label><br>
-            <input type="text" id="image" th:field="*{image}"><br><br>
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-            <input type="submit" value="OK" style="color: black">
-            <input type="button" value="Back" onclick="history.back()" style="color: black">
-        </form>
+    <div class="w3-animate-opacity" style="text-align: center; margin: 10% 50px 100px">
+        <div class="w3-card w3-round-large" style="width: 500px; margin-left: 650px">
+            <div class="w3-container w3-win8-blue">
+                <h1>Добавить линейку двигателей</h1>
+            </div>
+            <br>
+            <form th:method="POST" th:action="@{/editions/secure/add}" th:object="${edition}" class="w3-container">
+                <label for="brand">Бренд</label><br>
+                <select th:field="*{brand.id}" id="brand" style="width: 450px">
+                    <option th:each="newBrand : ${brands}" th:value="${newBrand.id}" th:text="${newBrand.title}">Brand</option>
+                </select><br><br>
+                <label for="name">Наименование</label><br>
+                <input class="w3-input w3-border w3-light-grey w3-round-large" type="text" id="name" th:field="*{name}"><br>
+                <label for="image">Изображение</label><br>
+                <input class="w3-input w3-border w3-light-grey w3-round-large" type="text" id="image" th:field="*{image}"><br>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                <input class="w3-button w3-round w3-win8-blue" type="submit" value="Принять" style="color: black">
+                <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">
+            </form>
+            <br>
+        </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
