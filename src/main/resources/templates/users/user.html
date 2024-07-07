@@ -176,16 +176,16 @@
                                  class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
                                 <h3 style="margin: auto; text-align: center">
                                     <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
-                                        <th:block th:if="${car.images.size() > 0 && car.images != null}">
+                                        <th:block th:if="${car.images.size() > 0 && car.images != null && car.hasPreview eq true}">
                                             <th:block th:each="image : ${car.images}">
                                                 <th:block th:if="${image.preview eq true && car.hasPreview == true}">
                                                     <img th:src="@{|/images/${image.id}|}" alt="image"
                                                          style="display: inline-flex; width: 150px; border-radius: 10%"><br>
                                                 </th:block>
                                             </th:block>
-                                            <th:block th:if="${car.hasPreview == false}">
-                                                <img src="/resource/images/emptyCarImage.jpg" alt="image" style="width: 100px; border-radius: 10%">
-                                            </th:block>
+                                        </th:block>
+                                        <th:block th:if="${car.hasPreview == false}">
+                                            <img src="/resource/images/emptyCarImage.jpg" alt="image" style="width: 100px; border-radius: 10%">
                                         </th:block>
                                         <div th:text="${car.brand != null ? car.brand.title : 'No brand'}" style="margin-left: 20px"/>
                                         <div th:text="${car.title}" style="margin-left: 20px"/>
