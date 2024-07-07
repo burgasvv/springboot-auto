@@ -106,7 +106,7 @@
         </th:block>
         <br>
         <div style="display: inline-flex; margin-top: 50px" th:object="${equipment}">
-            <div style="display: inline-block; margin-right: 100px" class="w3-card w3-round-large w3-hover-shadow">
+            <div style="display: inline-block; margin-right: 100px; width: 500px; height: 600px" class="w3-card w3-round-large w3-hover-shadow">
                 <h2 class="w3-tag w3-win8-orange w3-round-large" style="width: 500px">Двигатель</h2>
                 <div class="w3-container">
                     <div style="width: 300px; height: 300px; margin-right: auto; margin-left: auto">
@@ -114,16 +114,21 @@
                     </div>
                     <div id="divEngineBlockMain">
                         <div id="divEngineBlock" style="display: inline-block">
-                            <h4 th:if="*{engine != null}">
-                                <a th:href="@{/engines/{id} (id = *{engine.id})}" style="text-decoration: none">
-                            <span th:text="${equipment.engine.engineEdition.brand != null ? equipment.engine.engineEdition.brand.title : 'No brand'}"
-                                  style="color: grey"/><br>
-                                    <span th:text="*{engine.engineEdition.name}"/>
-                                    <span th:text="*{engine.name}"/>
-                                </a><br><br>
+                            <th:block th:if="*{engine != null}">
+                                <div class="w3-border w3-round-large"
+                                     style="width: 460px; height: 100px; margin-top: 20px; overflow: auto; text-align: center">
+                                    <h4>
+                                        <a th:href="@{/engines/{id} (id = *{engine.id})}" style="text-decoration: none">
+                                    <span th:text="${equipment.engine.engineEdition.brand != null ? equipment.engine.engineEdition.brand.title : 'No brand'}"
+                                          style="color: grey"/><br>
+                                            <span th:text="*{engine.engineEdition.name}"/>
+                                            <span th:text="*{engine.name}"/>
+                                        </a><br><br>
+                                    </h4>
+                                </div>
                                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                                     <th:block th:if="${user.username eq owner.username}">
-                                        <div style="margin-left: 200px">
+                                        <div style="margin-left: 200px; margin-top: 20px">
                                             <form id="removeEngineForm">
                                                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                                                 <input class="w3-button w3-blue w3-round" type="submit" value="Изменить"
@@ -132,20 +137,24 @@
                                         </div>
                                     </th:block>
                                 </th:block>
-                            </h4>
+                            </th:block>
                             <h4 th:if="*{engine == null}">
-                                <span style="color: grey">Пусто</span>
-                                <div style="margin-top: -20px">
+                                <div class="w3-border w3-round-large"
+                                     style="width: 460px; height: 100px; margin-top: 20px; overflow: auto; text-align: center">
+                                    <span style="color: grey">Пусто</span>
+                                </div>
+                                <div style="margin-top: -20px; text-align: center">
                                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                                         <th:block th:if="${user.username eq owner.username}">
-                                            <form id="addEngineForm" style="margin-left: 170px">
+                                            <form id="addEngineForm">
                                                 <label for="engine" style="color: grey"></label><br>
-                                                <select th:field="${addEngine.id}" id="engine" style="width: 150px">
+                                                <select th:field="${addEngine.id}" id="engine" style="width: 200px">
                                                     <option th:each="chooseEngine : ${engines}" th:value="${chooseEngine.id}"
                                                             th:text="${chooseEngine.name}">Engine</option>
                                                 </select><br><br>
                                                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                <input class="w3-button w3-teal w3-round" type="submit" value="Установить" style="color: black">
+                                                <input class="w3-button w3-teal w3-round" type="submit" value="Установить"
+                                                       style="color: black; margin-top: -10px">
                                             </form>
                                         </th:block>
                                     </th:block>
@@ -155,7 +164,7 @@
                     </div>
                 </div>
             </div>
-            <div style="display: inline-block; margin-right: 100px" class="w3-card w3-round-large w3-hover-shadow">
+            <div style="display: inline-block; margin-right: 100px; width: 500px; height: 600px" class="w3-card w3-round-large w3-hover-shadow">
                 <h2 class="w3-tag w3-win8-orange w3-round-large" style="width: 500px">Трансмиссия</h2>
                 <div class="w3-container">
                     <div style="width: 300px; height: 300px; margin-right: auto; margin-left: auto">
@@ -163,17 +172,22 @@
                     </div>
                     <div id="divTransmissionBlockMain">
                         <div id="divTransmissionBlock" style="display: inline-block; margin-right: 50px">
-                            <h4 th:if="*{transmission != null}">
-                                <a th:href="@{/transmissions/{id} (id = *{transmission.id}, brandId = *{transmission.brand.id})}"
-                                   style="text-decoration: none">
-                            <span th:text="${equipment.transmission.brand != null ? equipment.transmission.brand.title : 'No brand'}"
-                                  style="color: grey"/><br>
-                                    <span th:text="*{transmission.gearbox.name}"/>
-                                    <span th:text="*{transmission.name}"/>
-                                </a><br><br>
+                            <th:block th:if="*{transmission != null}">
+                                <div class="w3-border w3-round-large"
+                                     style="width: 460px; height: 100px; margin-top: 20px; overflow: auto; text-align: center">
+                                    <h4>
+                                        <a th:href="@{/transmissions/{id} (id = *{transmission.id}, brandId = *{transmission.brand.id})}"
+                                           style="text-decoration: none">
+                                            <span th:text="${equipment.transmission.brand != null ? equipment.transmission.brand.title : 'No brand'}"
+                                                style="color: grey"/><br>
+                                            <span th:text="*{transmission.gearbox.name}"/>
+                                            <span th:text="*{transmission.name}"/>
+                                        </a><br><br>
+                                    </h4>
+                                </div>
                                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                                     <th:block th:if="${user.username eq owner.username}">
-                                        <div style="margin-left: 180px">
+                                        <div style="margin-left: 180px; margin-top: 20px">
                                             <form id="removeTransmissionForm">
                                                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                                                 <input class="w3-button w3-blue w3-round" type="submit" value="Изменить" style="color: black">
@@ -181,20 +195,25 @@
                                         </div>
                                     </th:block>
                                 </th:block>
-                            </h4>
+                            </th:block>
+
                             <h4 th:if="*{transmission == null}">
-                                <span style="color: grey">Пусто</span>
-                                <div>
+                                <div class="w3-border w3-round-large"
+                                     style="width: 460px; height: 100px; margin-top: 20px; overflow: auto; text-align: center">
+                                    <span style="color: grey">Пусто</span>
+                                </div>
+                                <div style="margin-top: -20px; text-align: center">
                                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                                         <th:block th:if="${user.username eq owner.username}">
-                                            <form id="addTransmissionForm" style="margin-left: 180px">
+                                            <form id="addTransmissionForm">
                                                 <label for="transmission" style="color: grey"></label><br>
-                                                <select th:field="${addTransmission.id}" id="transmission">
+                                                <select th:field="${addTransmission.id}" id="transmission" style="width: 200px">
                                                     <option th:each="chooseTransmission : ${transmissions}" th:value="${chooseTransmission.id}"
                                                             th:text="${chooseTransmission.name}">Transmission</option>
-                                                </select><br><br>
+                                                </select><br>
                                                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                <input class="w3-button w3-teal w3-round" type="submit" value="Установить" style="color: black">
+                                                <input class="w3-button w3-teal w3-round" type="submit" value="Установить"
+                                                       style="color: black; margin-top: 10px">
                                             </form>
                                         </th:block>
                                     </th:block>
@@ -204,7 +223,7 @@
                     </div>
                 </div>
             </div>
-            <div style="display: inline-block; margin-right: 100px" class="w3-card w3-round-large w3-hover-shadow">
+            <div style="display: inline-block; margin-right: 100px; width: 500px; height: 600px" class="w3-card w3-round-large w3-hover-shadow">
                 <h2 class="w3-tag w3-win8-orange w3-round-large" style="width: 500px">Турбонаддув</h2>
                 <div class="w3-container">
                     <div style="width: 300px; height: 300px; margin-right: auto; margin-left: auto">
@@ -212,39 +231,48 @@
                     </div>
                     <div id="divTurbochargerBlockMain">
                         <div id="divTurbochargerBlock" style="display: inline-block; margin-right: 50px">
-                            <h4 th:if="*{turbocharger != null}">
-                                <a th:href="@{/turbochargers/{id} (id = *{turbocharger.id}, brandId = *{turbocharger.brand.id})}"
-                                   style="text-decoration: none">
-
-                            <span th:text="${equipment.turbocharger.brand != null ? equipment.turbocharger.brand.title : 'No brand'}"
-                                  style="color: grey"/><br>
-                                    <span th:text="*{turbocharger.turboType.name}"/>
-                                    <span th:text="*{turbocharger.name}"/>
-                                </a><br><br>
+                            <th:block th:if="*{turbocharger != null}">
+                                <div class="w3-border w3-round-large"
+                                     style="width: 460px; height: 100px; margin-top: 20px; overflow: auto; text-align: center">
+                                    <h4>
+                                        <a th:href="@{/turbochargers/{id} (id = *{turbocharger.id}, brandId = *{turbocharger.brand.id})}"
+                                           style="text-decoration: none">
+                                    <span th:text="${equipment.turbocharger.brand != null ? equipment.turbocharger.brand.title : 'No brand'}"
+                                          style="color: grey"/>
+                                            <br>
+                                            <span th:text="*{turbocharger.turboType.name}"/>
+                                            <span th:text="*{turbocharger.name}"/>
+                                        </a><br><br>
+                                    </h4>
+                                </div>
                                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                                     <th:block th:if="${user.username eq owner.username}">
-                                        <div style="margin-left: 180px">
+                                        <div style="margin-left: 180px; margin-top: 20px">
                                             <form id="removeTurbochargerForm">
                                                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                <input class="w3-button w3-blue w3--round" type="submit" value="Изменить" style="color: black">
+                                                <input class="w3-button w3-blue w3-round" type="submit" value="Изменить" style="color: black">
                                             </form>
                                         </div>
                                     </th:block>
                                 </th:block>
-                            </h4>
+                            </th:block>
                             <h4 th:if="*{turbocharger == null}">
-                                <span style="color: grey">Пусто</span>
-                                <div style="margin-top: 50px">
+                                <div class="w3-border w3-round-large"
+                                     style="width: 460px; height: 100px; margin-top: 20px; overflow: auto; text-align: center">
+                                    <span style="color: grey">Пусто</span>
+                                </div>
+                                <div style="margin-top: -20px; text-align: center">
                                     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                                         <th:block th:if="${user.username eq owner.username}">
-                                            <form id="addTurbochargerForm" style="margin-left: 170px">
-                                                <label for="turbocharger" style="color: grey">Turbocharger</label><br>
-                                                <select th:field="${addTurbocharger.id}" id="turbocharger">
+                                            <form id="addTurbochargerForm">
+                                                <label for="turbocharger" style="color: grey"></label><br>
+                                                <select th:field="${addTurbocharger.id}" id="turbocharger" style="width: 200px">
                                                     <option th:each="chooseTurbocharger : ${turbochargers}" th:value="${chooseTurbocharger.id}"
                                                             th:text="${chooseTurbocharger.name}">Turbocharger</option>
-                                                </select><br><br>
+                                                </select><br>
                                                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                                                <input class="w3-button w3-teal w3-round" type="submit" value="Установить" style="color: black">
+                                                <input class="w3-button w3-teal w3-round" type="submit" value="Установить"
+                                                       style="color: black; margin-top: 10px">
                                             </form>
                                         </th:block>
                                     </th:block>
