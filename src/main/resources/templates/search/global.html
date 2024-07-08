@@ -23,96 +23,157 @@
     <th:block th:if="${brands.size() < 1 && cars.size() < 1 &&
                         engines.size() < 1 && transmissions.size() < 1 && turbochargers.size() < 1}">
         <div style="margin: 50px 100px">
-            <h2>No results</h2>
+            <h2>Нет результатов</h2>
         </div>
     </th:block>
     <div style="margin: 50px 100px">
 
         <th:block th:if="${brands.size() > 0}">
             <div style="margin-top: 50px">
-                <h2>Brands</h2>
-                <h3 th:each="brand : ${brands}" style="display: inline-flex; margin-right: 25px">
-                    <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
-                        <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="display: inline-flex; width: 150px">
-                        <p th:text="${brand.title}" style="margin-left: 20px; vertical-align: bottom"/>
-                    </a>
-                </h3>
+                <div class="w3-card w3-round-large w3-hover-shadow" style="width: 1720px; height: 500px">
+                    <div class="w3-tag w3-win8-blue w3-round-large" style="width: 1720px">
+                        <h2>Бренды</h2>
+                    </div>
+                    <div class="w3-container">
+                        <br>
+                        <div class="w3-border w3-round-large" style="width: 1680px; height: 400px; overflow: auto">
+                            <div style="margin: 20px">
+                                <h3 th:each="brand : ${brands}" style="display: inline-flex; margin-right: 25px">
+                                    <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
+                                        <div class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity"  style="width: 230px; height: 250px">
+                                            <div style="margin: 20px; text-align: center">
+                                                <div style="width: 190px; height: 190px; overflow: auto">
+                                                    <img th:src="@{|/images/${brand.image.id}|}" alt="image"
+                                                         style="display: inline-flex; width: 150px; margin-top: 20px">
+                                                </div>
+                                                <p th:text="${brand.title}" style="margin-left: 20px; vertical-align: bottom"/>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div style="border-top: 1px solid gray; margin-top: 50px"></div>
         </th:block>
 
         <th:block th:if="${cars.size() > 0}">
             <div style="margin-top: 50px">
-                <h2>Cars</h2>
-                <h3 th:each="car : ${cars}" style="display: inline-flex">
-                    <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none; margin: 25px">
-                        <th:block th:if="${car.images.size() > 0 && car.images != null}">
-                            <th:block th:each="image : ${car.images}">
-                                <th:block th:if="${image.preview eq true && car.hasPreview == true}">
-                                    <img th:src="@{|/images/${image.id}|}" alt="image"
-                                         style="display: inline-flex; width: 100px; border-radius: 10%"><br>
-                                </th:block>
-                            </th:block>
-                            <th:block th:if="${car.hasPreview == false}">
-                                <img src="/resource/images/emptyCarImage.jpg" alt="image" style="width: 100px; border-radius: 10%">
-                            </th:block>
-                        </th:block>
-                        <div th:text="${car.brand != null ? car.brand.title : 'No brand'}" style="margin-left: 20px"/>
-                        <div th:text="${car.title}" style="margin-left: 20px"/>
-                    </a>
-                </h3>
+                <div class="w3-card w3-round-large w3-hover-shadow" style="width: 1720px; height: 500px">
+                    <div class="w3-tag w3-win8-blue w3-round-large" style="width: 1720px">
+                        <h2>Автомобили</h2>
+                    </div>
+                    <div class="w3-container">
+                        <br>
+                        <div class="w3-border w3-round-large" style="width: 1680px; height: 400px; overflow: auto">
+                            <div style="margin: 20px">
+                                <h3 th:each="car : ${cars}" style="display: inline-flex; width: 190px; height: 240px">
+                                    <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
+                                        <div class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity" style="width: 190px; height: 200px">
+                                            <div style="margin: 20px; text-align: center">
+                                                <th:block th:if="${car.images.size() > 0 && car.images != null}">
+                                                    <th:block th:each="image : ${car.images}">
+                                                        <th:block th:if="${image.preview eq true && car.hasPreview == true}">
+                                                            <div style="width: 150px; height: 100px; overflow: auto">
+                                                                <img th:src="@{|/images/${image.id}|}" alt="image"
+                                                                     style="display: inline-flex; width: 150px; border-radius: 10%"><br>
+                                                            </div>
+                                                        </th:block>
+                                                    </th:block>
+                                                    <th:block th:if="${car.hasPreview == false}">
+                                                        <img src="/resource/images/emptyCarImage.jpg" alt="image" style="width: 100px; border-radius: 10%">
+                                                    </th:block>
+                                                </th:block>
+                                                <div th:text="${car.brand != null ? car.brand.title : 'No brand'}" style="margin-left: 20px"/>
+                                                <div th:text="${car.title}" style="margin-left: 20px"/>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div style="border-top: 1px solid gray; margin-top: 50px"></div>
         </th:block>
-
+        <br>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-
             <th:block th:if="${engines.size() > 0}">
-                <div style="margin-top: 50px">
-                    <h2>Engines</h2>
-                    <h3 th:each="engine : ${engines}" style="display: inline-flex">
-                        <a th:href="@{/engines/{id} (id = ${engine.id})}" style="text-decoration: none; margin: 25px">
-                            <img th:src="${engine.image}" alt="image" style="display: inline-flex; width: 150px; border-radius: 10%"><br>
-                            <span th:text="${engine.engineEdition.brand != null ? engine.engineEdition.brand.title : 'No brand'}"/>
-                            <span th:text="${engine.engineEdition.name}"/>
-                            <span th:text="${engine.name}"/>
-                        </a>
-                    </h3>
+                <div class="w3-card w3-round-large w3-hover-shadow" style="width: 1720px; height: 500px">
+                    <div class="w3-tag w3-win8-blue w3-round-large" style="width: 1720px">
+                        <h2>Двигатели</h2>
+                    </div>
+                    <div class="w3-round-large" style="width: 1600px; height: 400px">
+                        <div style="margin-top: 50px">
+                            <h3 th:each="engine : ${engines}" style="display: inline-flex">
+                                <a th:href="@{/engines/{id} (id = ${engine.id})}" style="text-decoration: none; margin: 25px">
+                                    <div class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity" style="width: 250px; height: 150px">
+                                        <div style="margin: 20px; text-align: center">
+                                            <img th:src="${engine.image}" alt="image"
+                                                 style="display: inline-flex; width: 150px; border-radius: 10%; margin-top: 20px"><br>
+                                            <span th:text="${engine.engineEdition.brand != null ? engine.engineEdition.brand.title : 'No brand'}"/>
+                                            <span th:text="${engine.engineEdition.name}"/>
+                                            <span th:text="${engine.name}"/>
+                                        </div>
+                                    </div>
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
                 </div>
-                <div style="border-top: 1px solid gray; margin-top: 50px"></div>
             </th:block>
-
+            <br>
             <th:block th:if="${transmissions.size() > 0}">
-                <div style="margin-top: 50px">
-                    <h2>Transmission</h2>
-                    <h3 th:each="transmission : ${transmissions}" style="display: inline-flex">
-                        <a th:href="@{/transmissions/{id} (id = ${transmission.id})}" style="text-decoration: none; margin: 25px">
-                            <img th:src="${transmission.image}" alt="image" style="display: inline-flex; width: 150px; border-radius: 10%"><br>
-                            <span th:text="${transmission.gearbox.name}"/>
-                            <span th:text="${transmission.name}"/>
-                        </a>
-                    </h3>
+                <div class="w3-card w3-round-large w3-hover-shadow" style="width: 1720px; height: 500px">
+                    <div class="w3-tag w3-win8-blue w3-round-large" style="width: 1720px">
+                        <h2>Трансмиссии</h2>
+                    </div>
+                    <div class="w3-round-large" style="width: 1600px; height: 400px">
+                        <div style="margin-top: 50px">
+                            <h3 th:each="transmission : ${transmissions}" style="display: inline-flex">
+                                <a th:href="@{/transmissions/{id} (id = ${transmission.id})}" style="text-decoration: none; margin: 25px">
+                                    <div class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity" style="width: 250px; height: 250px">
+                                        <div style="margin: 20px">
+                                            <img th:src="${transmission.image}" alt="image"
+                                                 style="display: inline-flex; width: 150px; border-radius: 10%"><br>
+                                            <span th:text="${transmission.gearbox.name}"/>
+                                            <span th:text="${transmission.name}"/>
+                                        </div>
+                                    </div>
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
                 </div>
-                <div style="border-top: 1px solid gray; margin-top: 50px"></div>
             </th:block>
-
+            <br>
             <th:block th:if="${turbochargers.size() > 0}">
-                <div style="margin-top: 50px">
-                    <h2>Turbocharger</h2>
-                    <h3 th:each="turbocharger : ${turbochargers}" style="display: inline-flex">
-                        <a th:href="@{/turbochargers/{id} (id = ${turbocharger.id})}" style="text-decoration: none; margin: 25px">
-                            <img th:src="${turbocharger.image}" alt="image" style="display: inline-flex; width: 150px; border-radius: 10%"><br>
-                            <span th:text="${turbocharger.turboType.name}"/>
-                            <span th:text="${turbocharger.name}"/>
-                        </a>
-                    </h3>
+                <div class="w3-card w3-round-large w3-hover-shadow" style="width: 1720px; height: 500px">
+                    <div class="w3-tag w3-win8-blue w3-round-large" style="width: 1720px">
+                        <h2>Турбонаддувы</h2>
+                    </div>
+                    <div class="w3-round-large" style="width: 1600px; height: 400px">
+                        <div style="margin-top: 50px">
+                            <h3 th:each="turbocharger : ${turbochargers}" style="display: inline-flex">
+                                <a th:href="@{/turbochargers/{id} (id = ${turbocharger.id})}" style="text-decoration: none; margin: 25px">
+                                    <div class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity" style="width: 250px; height: 250px">
+                                        <div style="margin: 20px">
+                                            <img th:src="${turbocharger.image}" alt="image" style="display: inline-flex; width: 150px; border-radius: 10%"><br>
+                                            <span th:text="${turbocharger.turboType.name}"/>
+                                            <span th:text="${turbocharger.name}"/>
+                                        </div>
+                                    </div>
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
                 </div>
-                <div style="border-top: 1px solid gray; margin-top: 50px"></div>
             </th:block>
 
         </th:block>
         <div>
-            <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+            <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black; margin-top: 100px">
         </div>
     </div>
 </div>
