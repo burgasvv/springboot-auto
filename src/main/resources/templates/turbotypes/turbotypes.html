@@ -20,56 +20,71 @@
     </th:block>
 </th:block>
     <div style="margin: 50px 100px" class="w3-animate-opacity">
-        <h1>Turbo Types</h1>
+        <div>
+            <h1 class="w3-tag w3-round-large w3-light-grey" style="width: 1720px">Категории турбин</h1>
+        </div>
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-            <form th:method="GET" th:action="@{/turbochargers/find-turbochargers}" style="display: inline-flex">
+            <form th:method="GET" th:action="@{/turbochargers/find-turbochargers}" style="display: inline-flex; margin-top: 50px">
                 <div style="display: inline-block; margin-right: 25px">
-                    <label for="brands">Brands</label>
-                    <select name="searchBrand" id="brands">
+                    <label for="brands">Бренды</label><br>
+                    <select name="searchBrand" id="brands" style="width: 200px">
                         <option value=""></option>
                         <option th:each="b : ${brands}" th:value="${b.title}" th:text="${b.title}">Brand</option>
                     </select>
                 </div>
                 <div style="display: inline-block; margin-right: 25px">
-                    <label for="turboTypes">Turbo Types</label>
-                    <select name="searchTurboType" id="turboTypes">
+                    <label for="turboTypes">Тип турбины</label><br>
+                    <select name="searchTurboType" id="turboTypes" style="width: 200px">
                         <option value=""></option>
                         <option th:each="turboType : ${turboTypesSelect}" th:value="${turboType.name}" th:text="${turboType.name}">Turbo Type</option>
                     </select>
                 </div>
                 <div style="display: inline-block; margin-right: 25px">
-                    <label for="turbochargers">Turbocharger</label>
-                    <select name="searchTurbocharger" id="turbochargers">
+                    <label for="turbochargers">Турбонаддув</label><br>
+                    <select name="searchTurbocharger" id="turbochargers" style="width: 200px">
                         <option value=""></option>
                         <option th:each="tc : ${turbochargers}" th:value="${tc.name}" th:text="${tc.name}">Turbocharger</option>
                     </select>
                 </div>
-                <input type="submit" value="Find Turbochargers" style="color: black">
+                <input class="w3-button w3-blue w3-round" type="submit" value="Поиск" style="color: black">
             </form>
             <th:block th:if="${user.role.name == 'ADMIN'}">
                 <form th:method="GET" th:action="@{/turbo-types/secure/add}" style="margin-top: 100px">
-                    <input type="submit" value="Add Turbo Type" style="color: black">
+                    <input class="w3-button w3-round w3-teal" type="submit" value="Добавить" style="color: black">
                 </form>
             </th:block>
         </th:block>
         <h2 th:each="turboType : ${turboTypes}" style="margin-top: 50px">
-            <img th:src="${turboType.image}" alt="image" style="width: 100px; margin-right: 25px">
-            <a th:href="@{/turbo-types/{id} (id = ${turboType.id})}" style="text-decoration: none">
-                <span th:text="${turboType.name}"/>
-            </a>
-            <h3 style="display: inline-flex; color: dimgrey; margin-right: 25px">Brands:</h3>
-            <th:block th:if="${turboType.brands.size() > 0 && turboType.brands != null}">
-                <h4 th:each="brand : ${turboType.brands}" style="display: inline-flex">
-                    <a th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none; margin-right: 50px">
-                        <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 50px">
-                        <span th:text="${brand.title}" style="color: grey"/>
-                    </a>
-                </h4>
-            </th:block>
-            <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
+            <div class="w3-card w3-round-large w3-hover-shadow" style="width: 800px">
+                <div class="w3-container">
+                    <div>
+                        <a class="w3-hover-opacity" th:href="@{/turbo-types/{id} (id = ${turboType.id})}" style="text-decoration: none">
+                            <div style="display: inline-flex">
+                                <img th:src="${turboType.image}" alt="image" style="width: 100px; margin-right: 25px">
+                                <span th:text="${turboType.name}"/>
+                            </div>
+                        </a>
+                    </div>
+                    <div style="display: inline-flex">
+                        <h3 style="color: dimgrey; margin-right: 25px">Бренды:</h3>
+                        <th:block th:if="${turboType.brands.size() > 0 && turboType.brands != null}">
+                            <div class="w3-border w3-round-large" style="width: 600px; height: 200px; overflow: auto">
+                                <h4 th:each="brand : ${turboType.brands}" style="display: inline-flex">
+                                    <a class="w3-hover-opacity" th:href="@{/brands/{id} (id = ${brand.id})}"
+                                       style="text-decoration: none; margin: 20px">
+                                        <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 50px">
+                                        <span th:text="${brand.title}" style="color: grey"/>
+                                    </a>
+                                </h4>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+                <br>
+            </div>
         </h2>
         <br>
-        <input type="button" value="Back" onclick="history.back()" style="color: black; margin-top: 100px">
+        <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black; margin-top: 100px">
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

@@ -200,7 +200,7 @@ public class CarController {
     public String carImagesPage(@PathVariable Long id, @PathVariable int page, Model model) {
         model.addAttribute("car", carService.findById(id));
         Page<Image> images = imageService.findImagesByCarId(id, page, 50);
-        model.addAttribute("images", images.getContent());
+        model.addAttribute("carImages", images.getContent());
         model.addAttribute("pages", IntStream.rangeClosed(1, images.getTotalPages()).boxed().toList());
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())

@@ -45,7 +45,7 @@
                     <div class="w3-card w3-round-large w3-hover-shadow" style="margin-top: 50px; width: 700px">
                         <h2 class="w3-tag w3-round-large w3-win8-blue" style="width: 700px">Основное изображение</h2>
                         <div class="w3-container">
-                            <div style="display: inline-flex" th:each="image : ${images}">
+                            <div style="display: inline-flex" th:each="image : ${carImages}">
                                 <th:block th:if="${image.preview == true}">
                                     <div style="display: inline-block; text-align: center">
                                         <div class="w3-border w3-round-large">
@@ -84,13 +84,14 @@
         </div>
         <div id="divAlbumImagesMain">
             <div id="divAlbumImages" class="w3-row w3-center" style="margin-top: 50px">
-                <div class="w3-col m2 w3-center" th:each="image : ${images}" style="margin-right: 20px">
+                <div class="w3-col m2 w3-center" th:each="image : ${carImages}" style="margin-right: 20px">
                     <th:block th:if="${image.preview == false}">
                         <div class="w3-card w3-round-large w3-container w3-hover-shadow">
                             <div style="margin: 20px 20px 20px -10px;">
-                                <div style="margin: 10px; width: 250px">
+                                <div style="margin: 10px; width: 250px; height: 200px; overflow: auto">
                                     <div style="margin: 10px; display: inline-block; text-align: center">
-                                        <img class="w3-round" th:src="@{|/images/${image.id}|}" alt="image" style="width: 200px">
+                                        <img class="w3-round" th:src="@{|/images/${image.id}|}" alt="image"
+                                             style="width: 200px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)">
                                     </div>
                                 </div>
                                 <th:block th:if="${#authorization.expression('isAuthenticated()')}">

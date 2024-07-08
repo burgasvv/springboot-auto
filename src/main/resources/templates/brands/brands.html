@@ -47,7 +47,7 @@
         <div style="margin: 10px 100px; text-align: center" class="stories">
             <div class="story" style="display: inline-flex; margin: 47px; text-align: center" th:each="brand : ${brands}">
                 <a th:href="@{/brands/{id} (id = ${brand.id})}"
-                   style="text-decoration: none" class="w3-hover-opacity w3-hover-shadow w3-card w3-round-large">
+                   style="text-decoration: none" class="w3-hover-opacity w3-hover-shadow w3-card w3-round-xxlarge">
                     <div class="w3-container" style="margin: 20px">
                         <th:block th:if="${brand.image != null}">
                             <div style="width: 400px; height: 400px">
