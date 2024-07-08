@@ -356,17 +356,17 @@ public class BrandController {
     }
 
     @PostMapping("/{id}/add-turbocharger")
-    public String addTurbocharger(@ModelAttribute Turbocharger turbocharger, @ModelAttribute TurboType turboType) {
+    public String addTurbocharger(@PathVariable("id") Long id, @ModelAttribute Turbocharger turbocharger, @ModelAttribute TurboType turboType) {
         Turbocharger newTurbocharger = new Turbocharger();
         newTurbocharger.setName(turbocharger.getName());
-        newTurbocharger.setBrand(turbocharger.getBrand());
+        newTurbocharger.setBrand(brandService.findById(id));
         newTurbocharger.setTurboType(turboType);
         newTurbocharger.setImage(turbocharger.getImage());
         newTurbocharger.setRpm(turbocharger.getRpm());
         newTurbocharger.setTorque(turbocharger.getTorque());
         newTurbocharger.setDescription(turbocharger.getDescription());
         turbochargerService.save(newTurbocharger);
-        Long id = turbochargerService.findByName(newTurbocharger.getName()).getId();
-        return "redirect:/turbochargers/" + id;
+        Long turbochargerId = turbochargerService.findByName(newTurbocharger.getName()).getId();
+        return "redirect:/turbochargers/" + turbochargerId;
     }
 }

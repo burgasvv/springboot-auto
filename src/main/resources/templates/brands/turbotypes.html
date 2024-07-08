@@ -23,7 +23,7 @@
         <div style="margin: 25px 100px">
             <h3 class="w3-tag w3-light-grey w3-round-large" style="width: 300px; height: 100px">
                 <div class="w3-container" style="margin-top: 25px">
-                    <a th:href="@{/templates/brands}">Бренды</a> /
+                    <a th:href="@{/brands}">Бренды</a> /
                     <a th:href="@{/brands/{id} (id = ${brand.id})}" th:text="${brand.title}">Brand</a>
                 </div>
             </h3>
@@ -71,9 +71,11 @@
                         <br><br>
                         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                             <th:block th:if="${user.role.name == 'ADMIN'}">
-                                <a class="w3-button w3-teal w3-round"
-                                   th:href="@{/brands/{id}/add-turbocharger (id = *{id}, turbotypeId = ${turboType.id})}"
-                                   style="text-decoration: none; font-weight: normal; font-size: 18px">Добавить турбонаддув</a>
+                                <form th:method="GET" th:action="@{/brands/{id}/add-turbocharger (id = *{id}, turbotypeId = ${turboType.id})}">
+                                    <input type="hidden" name="turbotypeId" th:value="${turboType.id}">
+                                    <input class="w3-button w3-teal w3-round" style="text-decoration: none; font-weight: normal; font-size: 18px"
+                                           type="submit" value="Добавить турбонаддув">
+                                </form>
                             </th:block>
                         </th:block>
                     </div>

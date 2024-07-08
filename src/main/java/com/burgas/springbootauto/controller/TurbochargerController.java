@@ -75,11 +75,11 @@ public class TurbochargerController {
     }
 
     @PostMapping("/secure/add")
-    public String addTurbocharger(@ModelAttribute Turbocharger turbocharger, @ModelAttribute TurboType turboType) {
+    public String addTurbocharger(@ModelAttribute Turbocharger turbocharger, @RequestParam Long turbotypeId) {
         Turbocharger newTurbocharger = new Turbocharger();
         newTurbocharger.setName(turbocharger.getName());
         newTurbocharger.setBrand(turbocharger.getBrand());
-        newTurbocharger.setTurboType(turboType);
+        newTurbocharger.setTurboType(turboTypeService.findById(turbotypeId));
         newTurbocharger.setImage(turbocharger.getImage());
         newTurbocharger.setRpm(turbocharger.getRpm());
         newTurbocharger.setTorque(turbocharger.getTorque());

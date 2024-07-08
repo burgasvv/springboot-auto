@@ -27,10 +27,7 @@
                 <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.title}">Brand</option>
             </select><br><br>
 
-            <label for="turbotype"></label><br>
-            <select th:field="${turboType.id}" id="turbotype">
-                <option th:value="${turboType.id}" th:text="${turboType.name}">Type</option>
-            </select><br><br>
+            <input type="hidden" name="turbotypeId" th:value="${turboType.id}">
 
             <label for="name">Name</label><br>
             <input type="text" id="name" th:field="${turbocharger.name}"><br><br>
@@ -45,7 +42,7 @@
             <input type="text" id="torque" th:field="${turbocharger.torque}"><br><br>
 
             <label for="description">Description</label><br>
-            <textarea th:field="${turbocharger.description}" id="description" cols="30" rows="10">Description</textarea>><br><br>
+            <textarea th:field="${turbocharger.description}" id="description" cols="30" rows="10">Description</textarea><br><br>
 
             <input type="submit" value="OK" style="color: black">
             <input type="button" value="Back" onclick="history.back()" style="color: black">
