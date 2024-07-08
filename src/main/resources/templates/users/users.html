@@ -45,16 +45,15 @@
                                 </th:block>
                             </div>
                             <div style="display: inline-block">
-                                <div style="display: inline-flex">
-                                    <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>
+                                <div>
                                     <th:block th:if="${selectUser.status.name() eq 'ONLINE'}">
-                                        <h3 style="color: green; margin-left: 25px">Онлайн</h3>
+                                        <h4 style="color: green; margin-left: 500px">Онлайн</h4>
                                     </th:block>
                                     <th:block th:if="${selectUser.status.name() eq 'OFFLINE'}">
-                                        <h3 style="color: black; margin-left: 25px">Офлайн</h3>
+                                        <h4 style="color: black; margin-left: 500px">Офлайн</h4>
                                     </th:block>
+                                    <h3 th:text="|${selectUser.firstname} ${selectUser.lastname}|">User</h3>
                                 </div>
-                                <br>
                                 <span th:text="${selectUser.username}"/>
                                 <h5 th:text="${selectUser.role.name}" style="color: grey">Role</h5>
                                 <th:block th:if="${user.role.name eq 'ADMIN'}">

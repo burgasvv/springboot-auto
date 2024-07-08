@@ -19,23 +19,31 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
+    <div style="margin: 8% 100px 50px; text-align: center" class="w3-animate-opacity">
+        <div class="w3-card w3-round-large w3-hover-shadow" style="width: 500px; margin-left: 600px">
+            <div class="w3-container w3-win8-blue">
+                <h1>Добавить категорию</h1>
+            </div>
+            <br>
+            <form th:method="POST" th:action="@{/categoories/secure/add}">
+                <label for="name">Наименование</label><br>
+                <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 400px; margin-left: 50px"
+                       type="text" id="name" th:field="${category.name}"><br>
 
-    <div style="margin: 15% 100px 50px; text-align: center" class="w3-animate-opacity">
-        <form th:method="POST" th:action="@{/categories/secure/add}">
-            <h1>New Category</h1>
-            <label for="name">Name</label><br>
-            <input type="text" id="name" th:field="${category.name}"><br><br>
+                <label for="image">Изображение</label><br>
+                <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 400px; margin-left: 50px"
+                       type="text" id="image" th:field="${category.image}"><br>
 
-            <label for="image">Image</label><br>
-            <input type="text" id="image" th:field="${category.image}"><br><br>
+                <label for="description">Описание</label><br>
+                <textarea class="w3-round-large" name="description" id="description" cols="30" rows="10"
+                          th:field="${category.description}" style="width: 400px"></textarea><br><br>
 
-            <label for="description">Description</label><br>
-            <input type="text" id="description" th:field="${category.description}"><br><br>
-
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-            <input type="submit" value="Accept" style="color: black">
-            <input type="button" value="Cancel" style="color: black" onclick="history.back()">
-        </form>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                <input class="w3-button w3-round w3-win8-blue" type="submit" value="Принять" style="color: black">
+                <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" style="color: black" onclick="history.back()">
+            </form>
+            <br>
+        </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

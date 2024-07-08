@@ -20,18 +20,31 @@
     </th:block>
 </th:block>
 
-    <div style="text-align: center; margin: 15% 100px 50px" class="w3-animate-opacity">
-        <form th:method="PATCH" th:action="@{/gearboxes/{id}/edit (id = ${gearbox.id})}" th:object="${gearbox}">
-            <h2>Gearbox</h2>
-            <label for="name">Name</label><br>
-            <input type="text" id="name" th:field="*{name}"><br><br>
-            <label for="stairs">Stairs</label><br>
-            <input type="number" id="stairs" th:field="*{stairs}"><br><br>
-            <label for="image">Image</label><br>
-            <input type="text" id="image" th:field="*{image}"><br><br>
-            <input type="submit" value="OK" style="color: black">
-            <input type="button" value="Back" onclick="history.back()" style="color: black">
-        </form>
+    <div style="text-align: center; margin: 10% 100px 50px" class="w3-animate-opacity">
+        <div class="w3-card w3-round-large w3-hover-shadow" style="width: 500px; margin-left: 600px">
+            <div class="w3-container w3-win8-blue">
+                <h2>Изменить коробку передач</h2>
+            </div>
+            <br>
+            <form th:method="PATCH" th:action="@{/gearboxes/{id}/edit (id = ${gearbox.id})}" th:object="${gearbox}">
+
+                <label for="name">Наименование</label><br>
+                <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 400px; margin-left: 50px"
+                       type="text" id="name" th:field="*{name}"><br>
+
+                <label for="stairs">Количество передач</label><br>
+                <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 400px; margin-left: 50px"
+                       type="number" id="stairs" th:field="*{stairs}"><br>
+
+                <label for="image">Изображение</label><br>
+                <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 400px; margin-left: 50px"
+                       type="text" id="image" th:field="*{image}"><br>
+
+                <input class="w3-button w3-round w3-win8-blue" type="submit" value="Принять" style="color: black">
+                <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">
+            </form>
+            <br>
+        </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

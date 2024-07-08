@@ -90,6 +90,8 @@ public class TransmissionController {
         newTransmission.setName(transmission.getName());
         newTransmission.setBrand(transmission.getBrand());
         newTransmission.setGearbox(gearbox);
+        newTransmission.setFinalRatio(transmission.getFinalRatio());
+        newTransmission.setRatio(transmission.getRatio());
         newTransmission.setDriveType(transmission.getDriveType());
         newTransmission.setImage(transmission.getImage());
         newTransmission.setDescription(transmission.getDescription());

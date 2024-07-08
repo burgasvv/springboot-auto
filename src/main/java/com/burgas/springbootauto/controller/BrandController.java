@@ -298,17 +298,19 @@ public class BrandController {
     }
 
     @PostMapping("/{id}/add-transmission")
-    public String addTransmission(@ModelAttribute Transmission transmission, @ModelAttribute Gearbox gearbox) {
+    public String addTransmission(@PathVariable("id") Long id, @ModelAttribute Transmission transmission, @ModelAttribute Gearbox gearbox) {
         Transmission newTransmission = new Transmission();
         newTransmission.setName(transmission.getName());
-        newTransmission.setBrand(transmission.getBrand());
+        newTransmission.setBrand(brandService.findById(id));
         newTransmission.setGearbox(gearbox);
+        newTransmission.setRatio(transmission.getRatio());
+        newTransmission.setFinalRatio(transmission.getFinalRatio());
         newTransmission.setDriveType(transmission.getDriveType());
         newTransmission.setImage(transmission.getImage());
         newTransmission.setDescription(transmission.getDescription());
         transmissionService.save(newTransmission);
-        Long id = transmissionService.findByName(newTransmission.getName()).getId();
-        return "redirect:/transmissions/" + id;
+        Long transmissionId = transmissionService.findByName(newTransmission.getName()).getId();
+        return "redirect:/transmissions/" + transmissionId;
     }
 
     @GetMapping("/{id}/turbo-types")
