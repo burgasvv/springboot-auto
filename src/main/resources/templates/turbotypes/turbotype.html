@@ -51,7 +51,7 @@
                             <div style="margin: 20px">
                                 <h2 th:each="turbocharger : ${turboType.turbochargers}" style="display: inline-flex">
                                     <a class="w3-hover-opacity" th:href="@{/turbochargers/{id} (id = ${turbocharger.id})}" style="text-decoration: none; margin-right: 20px">
-                                        <span th:text="${turbocharger.name}"/><br>
+                                        <span class="w3-tag w3-orange w3-round-large" th:text="${turbocharger.name}"/><br>
                                     </a>
                                 </h2>
                             </div>

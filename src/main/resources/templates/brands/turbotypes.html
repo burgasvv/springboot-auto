@@ -21,49 +21,67 @@
 </th:block>
     <div class="w3-animate-opacity">
         <div style="margin: 25px 100px">
-            <h3>
-                <a th:href="@{/templates/brands}">Brands</a> /
-                <a th:href="@{/brands/{id} (id = ${brand.id})}" th:text="${brand.title}">Brand</a>
+            <h3 class="w3-tag w3-light-grey w3-round-large" style="width: 300px; height: 100px">
+                <div class="w3-container" style="margin-top: 25px">
+                    <a th:href="@{/templates/brands}">Бренды</a> /
+                    <a th:href="@{/brands/{id} (id = ${brand.id})}" th:text="${brand.title}">Brand</a>
+                </div>
             </h3>
         </div>
         <div style="margin: 50px 100px" th:object="${brand}">
-            <th:block th:if="*{turboTypes.size() < 1}">
-                <h2 style="color: grey">Empty</h2>
-            </th:block>
-            <div th:each="type : *{turboTypes}">
-                <h1 th:text="${type.name}">Edition</h1>
-                <img th:src="${type.image}" alt="image" style="width: 250px"><br>
-                <p th:text="${type.description}"></p>
-                <div th:each="turbocharger : ${type.turbochargers}"  style="display: inline-flex">
-                    <th:block th:if="${turbocharger.brand.id eq brand.id}">
-                        <div style="display: inline-block">
-                            <h2>
-                                <a th:href="@{/turbochargers/{id} (id = ${turbocharger.id})}"
-                                   style="text-decoration: none; margin-right: 50px">
-                                    <span th:text="${turbocharger.name}">Engine Name</span><br>
-                                </a>
-                            </h2>
-                        </div>
-                    </th:block>
-                    <br>
-                </div>
-                <br>
-                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                    <th:block th:if="${user.role.name == 'ADMIN'}">
-                        <a th:href="@{/brands/{id}/add-turbocharger (id = *{id}, turbotypeId = ${type.id})}" style="text-decoration: none">Add Turbocharger</a>
-                    </th:block>
-                </th:block>
-                <div style="border-top: 1px solid gray; margin-top: 50px; margin-right: 900px"></div>
-            </div>
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:if="${user.role.name == 'ADMIN'}">
                     <form th:method="GET" th:action="@{/brands/{id}/add-turbo-type (id = *{id})}" style="margin-top: 100px">
-                        <input type="submit" value="Add Gearbox" style="color: black">
+                        <input class="w3-button w3-round w3-teal" type="submit" value="Добавить Тип  Турбины" style="color: black">
                     </form>
                 </th:block>
             </th:block>
+            <th:block th:if="*{turboTypes.size() < 1}">
+                <h2 style="color: grey">Нет результатов</h2>
+            </th:block>
+            <h2 th:each="turboType : *{turboTypes}" style="margin-top: 50px">
+                <div class="w3-card w3-round-large w3-hover-shadow" style="width: 800px">
+                    <div class="w3-container">
+                        <div>
+                            <a class="w3-hover-opacity" th:href="@{/turbo-types/{id} (id = ${turboType.id})}" style="text-decoration: none">
+                                <div style="display: inline-flex">
+                                    <img th:src="${turboType.image}" alt="image" style="width: 100px; margin-right: 25px">
+                                    <span th:text="${turboType.name}"/>
+                                </div>
+                            </a>
+                        </div>
+                        <div style="display: inline-flex">
+                            <h3 style="color: dimgrey; margin-right: 25px">Турбонаддувы:</h3>
+                            <th:block th:if="${turboType.brands.size() > 0 && turboType.brands != null}">
+                                <div class="w3-border w3-round-large" style="width: 550px; height: 200px; overflow: auto">
+                                    <div th:each="turbocharger : ${turboType.turbochargers}"  style="display: inline-flex; margin: 20px">
+                                        <th:block th:if="${turbocharger.brand.id eq brand.id}">
+                                            <h2>
+                                                <a class="w3-hover-opacity w3-tag w3-orange w3-round-large"
+                                                   th:href="@{/turbochargers/{id} (id = ${turbocharger.id})}"
+                                                   style="text-decoration: none; margin-right: 50px">
+                                                    <span th:text="${turbocharger.name}">Engine Name</span><br>
+                                                </a>
+                                            </h2>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                        <br><br>
+                        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                            <th:block th:if="${user.role.name == 'ADMIN'}">
+                                <a class="w3-button w3-teal w3-round"
+                                   th:href="@{/brands/{id}/add-turbocharger (id = *{id}, turbotypeId = ${turboType.id})}"
+                                   style="text-decoration: none; font-weight: normal; font-size: 18px">Добавить турбонаддув</a>
+                            </th:block>
+                        </th:block>
+                    </div>
+                    <br>
+                </div>
+            </h2>
             <br><br>
-            <input type="button" value="Back" onclick="history.back()" style="color: black">
+            <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()" style="color: black">
         </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>

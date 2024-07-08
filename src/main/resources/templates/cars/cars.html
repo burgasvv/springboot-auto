@@ -60,10 +60,11 @@
             <th:block th:if="${cars.size() < 1}">
                 <h2>Нет результатов</h2>
             </th:block>
-            <div th:each="car : ${cars}" style="display: inline-flex; float: left; height: 300px; width: 300px; margin: 15px"
+            <div th:each="car : ${cars}"
+                 style="display: inline-flex; float: left; height: 300px; width: 300px; margin: 15px"
                  class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
-                <h2 style="margin: 10px; text-align: center">
-                    <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none">
+                <h2 style="margin: 10px">
+                    <a th:href="@{/cars/{id} (id = ${car.id})}" style="text-decoration: none; text-align: center">
                         <th:block th:if="${imageMap.size() > 0 && imageMap != null}">
                             <th:block th:each="image : ${imageMap}">
                                 <th:block th:if="${image.key.equals(car.title) eq true && car.hasPreview == true}">

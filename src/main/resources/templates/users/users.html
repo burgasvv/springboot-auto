@@ -31,7 +31,7 @@
         </div>
         <div th:each="selectUser : ${users}" style="margin-top: 50px">
             <a th:href="@{/users/{name} (name = ${selectUser.username})}">
-                <div style="width: 800px" class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
+                <div style="width: 800px; background-color: #f1f1f1" class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
                     <div class="w3-container">
                         <div style="margin: 20px; display: inline-flex">
                             <div style="display: inline-block">
