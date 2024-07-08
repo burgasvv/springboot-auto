@@ -29,7 +29,7 @@
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <div style="display: inline-flex; margin-right: 20px">
                 <label for="SelectOption"></label><br>
-                <select id="SelectOption" onchange="window.location.href=this.value">
+                <select id="SelectOption" onchange="window.location.href=this.value" style="width: 150px">
                     <option>Запчасти</option>
                     <option value="/editions">Двигатели</option>
                     <option value="/gearboxes">Трансмиссии</option>
@@ -39,20 +39,8 @@
         </th:block>
         <form th:method="GET" th:action="@{/search}" style="display: inline-flex; margin-right: 20px">
             <label for="search"></label>
-            <input class="w3-input" type="text" id="search" name="search"
+            <input class="w3-input w3-border w3-round" type="text" id="search" name="search"
                    style="margin-right: 10px; height: 28px; margin-top: 68px; width: 150px">
-            <label for="objects"></label>
-            <div style="margin-top: 67px">
-                <select name="selectObjects" id="objects" multiple style="width: 150px">
-                    <option value="brands" name="Brands">Бренды</option>
-                    <option value="cars" name="Cars">Автомобили</option>
-                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                        <option value="engines" name="Engines">Двигатели</option>
-                        <option value="transmissions" name="Transmissions">Трансмиссии</option>
-                        <option value="turbochargers" name="Turbochargers">Турбонаддувы</option>
-                    </th:block>
-                </select>
-            </div>
             <input class="w3-button w3-blue w3-round"
                    type="submit" value="Поиск" style="margin-left: 10px; color: black; height: 38px; margin-top: 58px">
         </form>

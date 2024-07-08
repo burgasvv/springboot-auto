@@ -34,11 +34,23 @@
         </th:block>
         <th:block th:if="${news.isEmpty() eq false}">
             <div style="display: inline-flex" th:each="article : ${news}">
-                <div class="w3-hover-opacity" style="width: 250px; height: 250px; margin-right: 80px; margin-top: 80px; display: inline-block">
+                <div style="display: inline-block">
                     <a th:href="@{/news/{id} (id = ${article.id})}" style="text-decoration: none">
-                        <img th:src="${article.image}" alt="image" style="width: 250px; border-radius: 5%">
-                        <span th:text="${article.title}" style="font-size: 16px; font-weight: bold"/><br>
-                        <span th:text="|Дата выхода: ${article.date}|" style="font-size: 12px; color: gray"/>
+                        <div class="w3-card w3-round-large w3-hover-shadow"
+                             style="width: 290px; height: 450px; margin-right: 40px; margin-top: 40px; ">
+                            <div class="w3-container">
+                                <div style="width: 250px; height: 200px; overflow: auto; margin-top: 20px">
+                                    <img class="w3-round-large" th:src="${article.image}" alt="image"
+                                         style="width: 250px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)">
+                                </div>
+                                <div  style="width: 250px; height: 200px; overflow: auto; margin-top: 10px">
+                                    <div style="margin: 20px">
+                                        <span th:text="${article.title}" style="font-size: 16px; font-weight: bold"/><br>
+                                        <span th:text="|Дата выхлда: ${article.date}|" style="font-size: 12px; color: gray"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </a>
                 </div>
             </div>
