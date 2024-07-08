@@ -63,7 +63,7 @@ public class TurboTypeController {
 
     @PostMapping("/secure/add")
     public String addTurboType(@ModelAttribute("turboType") TurboType turboType, HttpServletRequest request) {
-        String[] turboTypeBrands = request.getParameterValues("turboTypeBrands");
+        String[] turboTypeBrands = request.getParameterValues("selectedBrands");
         TurboType newTurboType = new TurboType();
         newTurboType.setName(turboType.getName());
         newTurboType.setImage(turboType.getImage());
@@ -76,7 +76,7 @@ public class TurboTypeController {
         return "redirect:/turbo-types/" + id;
     }
 
-    @GetMapping("//{id}/edit")
+    @GetMapping("/{id}/edit")
     public String editTurboType(@PathVariable Long id, Model model) {
         model.addAttribute("turboType", turboTypeService.findById(id));
         model.addAttribute("user",

@@ -32,11 +32,7 @@
                 <label for="fuel">Тип трансмиссии</label><br>
                 <select th:field="${transmission.driveType.id}" id="fuel" style="width: 500px">
                     <option th:each="driveType : ${driveTypes}" th:value="${driveType.id}" th:text="${driveType.name}">Drive Type</option>
-                </select><br>
-
-                <label for="gearbox"></label><br>
-                <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 500px; margin-left: 50px"
-                       type="hidden" id="gearbox" th:field="${gearbox.id}">
+                </select><br><br>
 
                 <label for="name">Наименование</label><br>
                 <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 500px; margin-left: 50px"
