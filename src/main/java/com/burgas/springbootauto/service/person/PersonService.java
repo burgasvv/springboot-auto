@@ -98,6 +98,7 @@ public class PersonService {
     @Transactional
     public void update(Person person) {
         person.setEnabled(true);
+        person.setStatus(Status.OFFLINE);
         Person oldPerson = personRepository.findById(person.getId()).orElse(null);
         if (!person.getPassword().equals(Objects.requireNonNull(oldPerson).getPassword())) {
             person.setPassword(passwordEncoder.encode(person.getPassword()));

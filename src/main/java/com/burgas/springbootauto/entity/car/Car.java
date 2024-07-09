@@ -37,16 +37,6 @@ public class Car {
         images.forEach(this::addImage);
     }
 
-    public void removeImage(Image image) {
-        this.images.remove(image);
-        image.setCar(null);
-    }
-
-    public void removeImages(List<Image> images) {
-        this.images.removeAll(images);
-        images.forEach(this::removeImage);
-    }
-
     @Column(nullable = false)
     private boolean hasPreview;
 
@@ -56,7 +46,7 @@ public class Car {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
 

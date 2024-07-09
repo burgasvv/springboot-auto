@@ -9,7 +9,6 @@ import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -90,12 +89,11 @@ public class PersonController {
         return "users/edit";
     }
 
-    @PatchMapping("/secure/edit")
-    public String edit(@ModelAttribute Person owner) {
+    @PostMapping("/secure/edit")
+    public String edit(@ModelAttribute Person owner, @RequestParam Long roleId) {
+        owner.setRole(roleRepository.findById(roleId).orElse(null));
         personService.update(owner);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        authentication.setAuthenticated(false);
-        return "redirect:/login";
+        return "forward:/logout";
     }
 
     @PostMapping("/{name}/change-image")
@@ -141,12 +139,10 @@ public class PersonController {
         return "redirect:/users/" + unbanned.getUsername();
     }
 
-    @DeleteMapping("/{name}/delete")
+    @PostMapping("/{name}/delete")
     public String delete(@PathVariable String name) {
         personService.delete(personService.findPersonByUsername(name));
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        authentication.setAuthenticated(false);
-        return "redirect:/login";
+        return "forward:/logout";
     }
 
     @GetMapping("/{name}/cars")

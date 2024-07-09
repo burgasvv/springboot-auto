@@ -49,7 +49,7 @@ public class Person implements UserDetails {
     @Column(nullable = false)
     private boolean verified;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "image_id")
     private Image image;
 

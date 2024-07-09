@@ -32,4 +32,6 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
                                          ilike concat('%',?1,'%')"""
     )
     Page<Person> searchAllByFirstnameAndLastnameAndUsername(String search, Pageable pageable);
+
+    void deleteById(@NotNull Long id);
 }
