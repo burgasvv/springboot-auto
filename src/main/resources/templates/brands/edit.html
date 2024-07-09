@@ -19,29 +19,33 @@
         <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
     </th:block>
 </th:block>
-    <div style="text-align: center; margin-top: 10%" class="w3-animate-opacity">
-        <form th:method="PATCH" th:action="@{/brands/{id}/edit (id = *{id})}" th:object="${brand}">
-            <h1>Brand</h1>
-            <label for="title">Title</label><br>
-            <input type="text" id="title" th:field="*{title}" >
-            <th:block th:if="${#fields.hasErrors('title')}">
-                <span th:errors="*{title}" style="color: red">Title Errors</span>
-            </th:block>
-            <br><br>
+    <div style="text-align: center; margin-top: 8%" class="w3-animate-opacity">
+        <div class="w3-card w3-round-large w3-hover-shadow" style="width: 500px; margin-left: 700px">
+            <div class="w3-container w3-win8-blue">
+                <h1>Добавить бренд</h1>
+            </div>
+            <br>
+            <form th:method="PATCH" th:action="@{/brands/{id}/edit (id = *{id})}">
+                <label for="name">Наименование</label><br>
+                <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 400px; margin-left: 50px"
+                       type="text" id="name" th:field="${brand.title}"><br>
 
-            <label for="image">Image</label><br>
-            <input type="hidden" id="image" th:field="*{image}" alt="image" ><br><br>
+                <input type="hidden" th:field="${brand.image}">
 
-            <label for="website">Website</label><br>
-            <input type="url" id="website" th:field="*{website}" ><br><br>
+                <label for="website">Веб-страница</label><br>
+                <input class="w3-input w3-border w3-light-grey w3-round-large"
+                       style="width: 400px; margin-left: 50px" type="url" id="website" th:field="${brand.website}" ><br>
 
-            <label for="description">Description</label><br>
-            <textarea th:field="*{description}" id="description" cols="40" rows="5" ></textarea>
-            <br><br>
+                <label for="description">Описание</label><br>
+                <textarea class="w3-round-large" name="description" id="description" cols="30" rows="10"
+                          th:field="${brand.description}" style="width: 400px"></textarea><br><br>
 
-            <input type="submit" value="OK" style="color: black">
-            <input type="button" value="Back" onclick="history.back()" style="color: black">
-        </form>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                <input class="w3-button w3-round w3-win8-blue" type="submit" value="Принять" style="color: black">
+                <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" style="color: black" onclick="history.back()">
+            </form>
+            <br>
+        </div>
     </div>
 <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

@@ -32,7 +32,7 @@ public class Brand {
     @JoinColumn(name = "image_id")
     private Image image;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT")
     private String website;
 
     @Column(nullable = false, columnDefinition = "TEXT")

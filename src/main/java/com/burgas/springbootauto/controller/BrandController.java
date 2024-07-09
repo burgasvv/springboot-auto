@@ -21,13 +21,11 @@ import com.burgas.springbootauto.service.transmission.TransmissionService;
 import com.burgas.springbootauto.service.turbocharging.TurboTypeService;
 import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -116,10 +114,7 @@ public class BrandController {
     }
 
     @PostMapping("/secure/add")
-    public String addBrand(@ModelAttribute("brand") @Valid Brand brand, @RequestPart MultipartFile file, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "brands/add";
-        }
+    public String addBrand(@ModelAttribute Brand brand, @RequestPart MultipartFile file) {
         brandService.save(brand, file);
         return "redirect:/brands/" + brandService.findBrandByTitle(brand.getTitle()).getId();
     }
@@ -134,10 +129,7 @@ public class BrandController {
     }
 
     @PatchMapping("/{id}/edit")
-    public String editBrand(@ModelAttribute("brand") @Valid Brand brand, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "brands/edit";
-        }
+    public String editBrand(@ModelAttribute Brand brand) {
         brandService.update(brand);
         return "redirect:/brands/{id}";
     }
