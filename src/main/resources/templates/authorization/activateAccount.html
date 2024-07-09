@@ -30,7 +30,7 @@
                 <br>
             </th:block>
             <th:block th:if="${activation eq 'on'}">
-                <form action="/login" method="post" class="w3-container">
+                <form action="/login" method="get" class="w3-container">
                     <h2 style="color: grey">Аккаунт успешно активирован</h2><br>
                     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                     <input type="submit" value="Войти" class="w3-button w3-round w3-teal"><br><br>

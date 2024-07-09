@@ -302,6 +302,10 @@
                                 <form th:method="GET" th:action="@{/users/{name}/edit (name = ${owner.username})}" style="margin-right: 10px">
                                     <input class="w3-button w3-round w3-blue" type="submit" value="Изменить данные аккаунта" style="color: black">
                                 </form>
+                                <form th:method="POST" th:action="@{/forgotPassword}" style="margin-right: 10px">
+                                    <input type="hidden" name="email" th:field="${owner.email}">
+                                    <input class="w3-button w3-round w3-light-grey" type="submit" value="Изменить пароль">
+                                </form>
                                 <form th:method="POST" th:action="@{/users/{name}/delete (name = ${owner.username})}">
                                     <input class="w3-button w3-round w3-red" type="submit" value="Удалить аккаунт" style="color: black">
                                 </form>
