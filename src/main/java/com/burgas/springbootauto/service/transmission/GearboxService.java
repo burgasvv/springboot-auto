@@ -40,7 +40,7 @@ public class GearboxService {
     @Transactional
     public void delete(Long id) {
         Gearbox gearbox = gearboxRepository.findById(id).orElse(null);
-        Objects.requireNonNull(gearbox).getBrands().forEach(brand -> brand.setGearboxes(null));
+        Objects.requireNonNull(gearbox).getBrands().forEach(brand -> brand.getGearboxes().remove(gearbox));
         Objects.requireNonNull(gearbox).getTransmissions()
                         .forEach(transmission -> transmission.getEquipments()
                                 .forEach(equipment -> equipment.setTransmission(null)));

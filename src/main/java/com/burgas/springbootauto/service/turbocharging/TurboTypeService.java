@@ -41,7 +41,7 @@ public class TurboTypeService {
     public void delete(Long id) {
         TurboType turboType = turboTypeRepository.findById(id).orElse(null);
         Objects.requireNonNull(turboType).getBrands()
-                        .forEach(brand -> brand.setTurboTypes(null));
+                        .forEach(brand -> brand.getTurboTypes().remove(turboType));
         turboType.getTurbochargers().forEach(turbocharger -> turbocharger.getEquipments()
                 .forEach(equipment -> equipment.setTurbocharger(null)));
         turboTypeRepository.deleteById(id);
