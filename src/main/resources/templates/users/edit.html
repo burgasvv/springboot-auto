@@ -34,15 +34,15 @@
 
                         <label for="username">Логин</label><br>
                         <input class="w3-input w3-border w3-light-grey w3-round-large"
-                               type="text" id="username" th:field="${owner.username}"><br><br>
+                               type="text" id="username" th:field="${owner.username}"><br>
 
                         <label for="email">Эл. почта</label><br>
                         <input class="w3-input w3-border w3-light-grey w3-round-large"
-                               type="email" id="email" th:field="${owner.email}"><br><br>
+                               type="email" id="email" th:field="${owner.email}"><br>
 
-                        <label for="password">Пароль</label><br>
+                        <label for="password"></label><br>
                         <input class="w3-input w3-border w3-light-grey w3-round-large"
-                               type="text" id="password" th:field="${owner.password}"><br><br>
+                               type="hidden" id="password" th:field="${owner.password}"><br>
 
                         <input type="hidden" th:field="${owner.image}">
                         <input type="hidden" th:field="${owner.verified}">
@@ -51,15 +51,14 @@
                     <div style="display: inline-block; margin-left: 100px; margin-top: 20px">
                         <label for="firstname">Фамилия</label><br>
                         <input class="w3-input w3-border w3-light-grey w3-round-large"
-                               type="text" id="firstname" th:field="${owner.firstname}"><br><br>
+                               type="text" id="firstname" th:field="${owner.firstname}"><br>
 
                         <label for="lastname">Имя</label><br>
                         <input class="w3-input w3-border w3-light-grey w3-round-large"
-                               type="text" id="lastname" th:field="${owner.lastname}"><br><br>
+                               type="text" id="lastname" th:field="${owner.lastname}"><br>
 
                     </div>
                 </div>
-
                 <div>
                     <label for="description">Описание</label><br>
                     <textarea class="w3-round" style="width: 500px; height: 100px"
