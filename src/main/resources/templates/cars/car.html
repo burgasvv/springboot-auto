@@ -33,17 +33,21 @@
             </div>
             <div style="margin: 10px 100px">
                 <h3>
-                    <a class="w3-hover-opacity" th:href="@{/classes}">Классы</a> /
-                    <a class="w3-hover-opacity" th:href="@{/classes/{id} (id = ${car.classification.id})}"
-                       th:text="${car.classification.name}">Класс</a> /
-                    <a class="w3-hover-opacity" th:href="@{/classes/{id}/cars (id = ${car.classification.id})}">Автомобили</a>
+                    <th:block th:if="${car.classification != null}">
+                        <a class="w3-hover-opacity" th:href="@{/classes/{id}/cars (id = ${car.classification.id})}">Автомобили</a>
+                        <a class="w3-hover-opacity" th:href="@{/classes}">Классы</a> /
+                        <a class="w3-hover-opacity" th:href="@{/classes/{id} (id = ${car.classification.id})}"
+                           th:text="${car.classification.name}">Класс</a> /
+                    </th:block>
                 </h3>
             </div>
             <div style="margin: 10px 100px">
                 <h3>
-                    <a class="w3-hover-opacity" th:href="@{/categories}">Категории</a> /
-                    <a  class="w3-hover-opacity"th:href="@{/categories/{id} (id = ${car.category.id})}" th:text="${car.category.name}"></a> /
-                    <a class="w3-hover-opacity" th:href="@{/categories/{id}/cars (id = ${car.category.id})}">Автомобили</a>
+                    <th:block th:if="${car.category != null}">
+                        <a class="w3-hover-opacity" th:href="@{/categories}">Категории</a> /
+                        <a  class="w3-hover-opacity"th:href="@{/categories/{id} (id = ${car.category.id})}" th:text="${car.category.name}"></a> /
+                        <a class="w3-hover-opacity" th:href="@{/categories/{id}/cars (id = ${car.category.id})}">Автомобили</a>
+                    </th:block>
                 </h3>
             </div>
         </div>

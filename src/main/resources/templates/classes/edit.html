@@ -25,7 +25,7 @@
                 <h1>Изменить класс</h1>
             </div>
             <br>
-            <form th:method="PATCH" th:action="@{/classes/{id}/edit (id ${class.id})}">
+            <form th:method="PATCH" th:action="@{/classes/{id}/edit (id = ${class.id})}">
                 <label for="name">Наименование</label><br>
                 <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 400px; margin-left: 50px"
                        type="text" id="name" th:field="${class.name}"><br>

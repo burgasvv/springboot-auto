@@ -105,7 +105,7 @@ public class EquipmentDataProcessing {
             return null;
         }
         double maxSpeed = (engineRpm + turbochargerRpm) * 24 * transmissionFinalRatio * transmissionRatio *
-                60 / (3080.0 + carWeight) / 100.0 * 1.609;
+                60 / (2080.0 + carWeight) / 100.0 * 1.609;
         return (int) maxSpeed;
     }
 }
