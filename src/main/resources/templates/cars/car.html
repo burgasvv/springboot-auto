@@ -45,7 +45,7 @@
                 <h3>
                     <th:block th:if="${car.category != null}">
                         <a class="w3-hover-opacity" th:href="@{/categories}">Категории</a> /
-                        <a  class="w3-hover-opacity"th:href="@{/categories/{id} (id = ${car.category.id})}" th:text="${car.category.name}"></a> /
+                        <a  class="w3-hover-opacity" th:href="@{/categories/{id} (id = ${car.category.id})}" th:text="${car.category.name}"></a> /
                         <a class="w3-hover-opacity" th:href="@{/categories/{id}/cars (id = ${car.category.id})}">Автомобили</a>
                     </th:block>
                 </h3>
