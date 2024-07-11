@@ -36,6 +36,30 @@
                     <input type="submit" value="Войти" class="w3-button w3-round w3-teal"><br><br>
                 </form>
             </th:block>
+            <th:block th:if="${activation eq 'activate'}">
+                <form action="/activateAccount/getCode" method="get" class="w3-container">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input type="hidden" name="token" th:value="${restoreToken.token}">
+                    <br>
+                    <label for="code">Введите код из сообщения</label>
+                    <input class="w3-input w3-border w3-round-large w3-light-grey" id="code" type="number" name="code">
+                    <br>
+                    <input type="submit" value="Принять" class="w3-button w3-round w3-teal"><br><br>
+                </form>
+            </th:block>
+            <th:block th:if="${activation eq 'negative'}">
+                <form action="/activateAccount/getCode" method="get" class="w3-container">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input type="hidden" name="token" th:value="${restoreToken.token}">
+                    <br>
+                    <label for="codeNegative">Введите код из сообщения</label>
+                    <input class="w3-input w3-border w3-round-large w3-light-grey"
+                           id="codeNegative" type="number" name="code" th:value="${code}">
+                    <span style="color: red">Неверный код активации</span>
+                    <br><br>
+                    <input type="submit" value="Принять" class="w3-button w3-round w3-teal"><br><br>
+                </form>
+            </th:block>
         </div>
     </div>
     <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>

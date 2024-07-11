@@ -1,6 +1,7 @@
 package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.person.Person;
+import com.burgas.springbootauto.entity.person.RestoreToken;
 import com.burgas.springbootauto.service.person.CustomJavaMailSender;
 import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.person.RestoreTokenService;
@@ -110,12 +111,32 @@ public class AuthorizationController {
 
     @GetMapping("/activateAccount/{token}")
     public String activateAccount(@PathVariable String token, Model model) {
-        Person person = restoreTokenService.findByToken(token).getPerson();
-        personService.activateAccount(person);
+        model.addAttribute("restoreToken", restoreTokenService.findByToken(token));
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
-        model.addAttribute("activation", "on");
+        model.addAttribute("activation", "activate");
+        return "authorization/activateAccount";
+    }
+
+    @GetMapping("/activateAccount/getCode")
+    public String activateAccountGetCode(@RequestParam String token, @RequestParam Integer code, Model model) {
+        RestoreToken restoreToken = restoreTokenService.findByToken(token);
+        if (code.equals(restoreToken.getCode())) {
+            Person person = restoreTokenService.findByToken(token).getPerson();
+            personService.activateAccount(person);
+            model.addAttribute("user",
+                    personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+            );
+            model.addAttribute("activation", "on");
+        } else {
+            model.addAttribute("user",
+                    personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+            );
+            model.addAttribute("restoreToken", restoreTokenService.findByToken(token));
+            model.addAttribute("code", code);
+            model.addAttribute("activation", "negative");
+        }
         return "authorization/activateAccount";
     }
 

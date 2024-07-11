@@ -8,7 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -37,18 +37,29 @@ public class CustomJavaMailSender {
     }
 
     public void sendMailToActivateAccount(Person person) {
+        String tokenLinkForAccount = getRestoreTokenLinkForAccount(person);
+        RestoreToken token = restoreTokenService.findTokenByPerson(person);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(person.getEmail());
         message.setFrom("admin");
         message.setSubject("Activate Account");
-        message.setText("Follow this link " + getRestoreTokenLinkForAccount(person) + " to activate your account");
+        message.setText("Follow this link "
+                + tokenLinkForAccount +
+                " to activate your account and input activation code " + token.getCode());
         mailSender.send(message);
     }
 
     private String getRestoreTokenLinkForAccount(Person person) {
         clearToken(person);
         UUID uuid = UUID.randomUUID();
-        RestoreToken token = RestoreToken.builder().token(uuid.toString()).person(person).build();
+        List<Integer>integers = new ArrayList<>();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            integers.add(new Random().nextInt(0,9));
+            stringBuilder.append(integers.get(i));
+        }
+        RestoreToken token = RestoreToken.builder()
+                .token(uuid.toString()).code(Integer.valueOf(stringBuilder.toString())).person(person).build();
         token = restoreTokenService.save(token);
         return "http://localhost:8080/activateAccount/" + token.getToken();
     }

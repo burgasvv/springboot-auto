@@ -18,6 +18,9 @@ public class RestoreToken {
     @Column(nullable = false)
     private String token;
 
+    @Column
+    private Integer code;
+
     @OneToOne
     @JoinColumn(name = "person_id")
     private Person person;
