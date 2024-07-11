@@ -31,7 +31,7 @@ public class SecurityConfig {
                 requests -> requests
                         .requestMatchers("/resource/**").permitAll()
                         .requestMatchers("/","/registration","/search","news/**","/images/**","/activateAccount/{token}",
-                                "/login-wrong", "/forgotPassword","/forgotPassword/{status}",
+                                "/login-wrong", "/forgotPassword","/forgotPassword/{status}","/activateAccount/getCode",
                                 "/restorePassword","/restorePassword/{token}", "/baned",
                                 "/brands","/brands/pages/{page}","/brands/{id}","/brands/{id}/cars",
                                 "/brands/{id}/cars/pages/{page}","/brands/{id}/search-brand-cars",
