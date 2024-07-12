@@ -37,6 +37,4 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     Page<Person> searchAllByFirstnameAndLastnameAndUsername(String search, Pageable pageable);
 
     void deleteById(@NotNull Long id);
-
-    List<Person> findPeopleByStatus(Status status);
 }
