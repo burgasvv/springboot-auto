@@ -56,6 +56,10 @@ public class PersonService {
         return personRepository.findPersonByEmail(email);
     }
 
+    public List<Person> connectedPeople() {
+        return personRepository.findPeopleByStatus(Status.ONLINE);
+    }
+
     @SneakyThrows
     @Transactional
     public Person createUser(Person person, MultipartFile multipartFile) {
