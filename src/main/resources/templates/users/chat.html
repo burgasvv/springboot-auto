@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
@@ -30,19 +30,20 @@
                 <h2>У вас нет доступа к сообщениям</h2>
             </th:block>
             <th:block th:if="${owner.username eq guest.username}">
-                <div style="display: inline-flex">
+                <div>
                     <div class="row" style="margin-top: 10px; margin-right: 100px; display: inline-block">
                         <div class="col-md-12">
                             <form class="form-inline">
                                 <label for="private-message">Личное сообщение</label><br>
-                                <div style="display: inline-flex">
+                                <div>
                                     <input type="hidden" id="sender" name="sender" th:field="${owner.username}">
                                     <input type="hidden" id="receiver" name="receiver" th:field="${receiver.username}">
-                                    <input type="text" id="private-message" style="width: 300px; margin-right: 10px"
-                                           class="w3-input w3-border w3-round w3-light-grey" placeholder="Введите текст сообщения">
+                                    <textarea id="private-message" style="width: 800px; height: 200px"
+                                           class="w3-round w3-light-grey" placeholder="Введите текст сообщения">
+                                    </textarea><br><br>
+                                    <button id="send-private" class="w3-button w3-round w3-teal" type="button"
+                                            style="margin-left: 10px">Отправить</button>
                                 </div>
-                                <button id="send-private" class="w3-button w3-round w3-teal" type="button"
-                                        style="margin-left: 10px">Отправить</button>
                             </form>
                         </div>
                         <div class="row" style="margin-top: 50px">
@@ -50,7 +51,7 @@
                                 <table id="message-history" class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Чаты пользователя
+                                        <th th:text="|Чат с пользователем ${receiver.username}|">
                                             <span id="notifications"
                                                   style="color: white; background-color: red;padding-left: 15px; padding-right: 15px">
                                     </span>
@@ -75,7 +76,7 @@
                                                             </div>
                                                             <div style="margin-left: 10px; display: inline-block">
                                                                 <div style="width: 50px; height: 40px">
-                                                                    <img th:src="@{/images/{id} (id = ${message.sender.id})}" alt="image"
+                                                                    <img th:src="@{/images/{id} (id = ${message.sender.image.id})}" alt="image"
                                                                          style="width: 50px; margin-top: -20px"><br>
                                                                 </div>
                                                                 <span th:text="${message.sender.username}" style="font-weight: bold"></span>
@@ -86,7 +87,7 @@
                                                         <div style="display: inline-flex">
                                                             <div style="margin-right: 10px; display: inline-block">
                                                                 <div style="width: 50px; height: 40px">
-                                                                    <img th:src="@{/images/{id} (id = ${message.sender.id})}" alt="image"
+                                                                    <img th:src="@{/images/{id} (id = ${message.sender.image.id})}" alt="image"
                                                                          style="width: 50px; margin-top: -20px"><br>
                                                                 </div>
                                                                 <span th:text="${message.sender.username}" style="font-weight: bold"></span>
