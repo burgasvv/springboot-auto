@@ -14,8 +14,10 @@ public interface ChatRepository extends JpaRepository<Chat, Long> {
     @Query(
             nativeQuery = true,
             value = """
-                        select c.* from chat c left join chat_people cp on c.id = cp.chat_id where cp.person_id in (:people)
+                        select distinct c.* from chat c left join chat_people cp on c.id = cp.chat_id where cp.person_id in (:people)
                     """
     )
     Optional<Chat> findChatByPeople(List<Long> people);
+
+    Optional<Chat> findChatBySenderAndReceiver(String sender, String receiver);
 }

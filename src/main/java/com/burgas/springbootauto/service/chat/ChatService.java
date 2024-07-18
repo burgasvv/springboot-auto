@@ -16,14 +16,29 @@ public class ChatService {
 
     private final ChatRepository chatRepository;
 
+    @SuppressWarnings("unused")
     @Transactional
-    public Optional<Chat> findChatByPeople(List<Person> persons) {
-        List<Long> list = persons.stream().map(Person::getId).toList();
+    public Optional<Chat> findChatByPeople(List<Person> people) {
+        List<Long> list = people.stream().map(Person::getId).toList();
         return chatRepository.findChatByPeople(list)
                 .or(() -> {
-                    Chat chat = Chat.builder().people(persons).build();
+                    Chat chat = Chat.builder().people(people).build();
                     chatRepository.save(chat);
                     return Optional.of(chat);
+                });
+    }
+
+    @Transactional
+    public Optional<Chat> findChatBySenderAndReceiver(List<Person> people, String sender, String receiver) {
+        return chatRepository.findChatBySenderAndReceiver(sender, receiver)
+                .or(() -> {
+                    Optional<Chat> reversedChat = chatRepository.findChatBySenderAndReceiver(receiver, sender);
+                    if (reversedChat.isEmpty()){
+                        Chat chat = Chat.builder().people(people).sender(sender).receiver(receiver).build();
+                        chatRepository.save(chat);
+                        return Optional.of(chat);
+                    }
+                    return reversedChat;
                 });
     }
 }

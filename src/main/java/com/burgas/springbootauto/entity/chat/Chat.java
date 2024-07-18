@@ -19,6 +19,12 @@ public class Chat {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
+    private String sender;
+
+    @Column(nullable = false)
+    private String receiver;
+
     @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToMany
     @JoinTable(

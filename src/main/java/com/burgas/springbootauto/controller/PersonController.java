@@ -6,8 +6,6 @@ import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.person.RoleRepository;
 import com.burgas.springbootauto.service.car.CarService;
 import com.burgas.springbootauto.service.car.EquipmentService;
-import com.burgas.springbootauto.service.chat.ChatService;
-import com.burgas.springbootauto.service.chat.MessageService;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,8 +27,6 @@ public class PersonController {
     private final RoleRepository roleRepository;
     private final CarService carService;
     private final EquipmentService equipmentService;
-    private final MessageService messageService;
-    private final ChatService chatService;
 
     @GetMapping
     public String users(Model model) {
@@ -250,11 +246,6 @@ public class PersonController {
     public String userChat(@PathVariable String name, @PathVariable String receiverName, Model model) {
         Person owner = personService.findPersonByUsername(name);
         Person receiver = personService.findPersonByUsername(receiverName);
-        model.addAttribute("messages",
-                messageService.findMessagesByChat(
-                        chatService.findChatByPeople(List.of(owner, receiver)).orElse(null)
-                )
-        );
         model.addAttribute("owner", owner);
         model.addAttribute("receiver", receiver);
         model.addAttribute("guest",
