@@ -303,6 +303,9 @@
                         </th:block>
                         <div class="w3-container">
                             <div style="display: inline-flex">
+                                <form th:method="GET" th:action="@{/users/{name}/chats (name = ${owner.username})}" style="margin-right: 10px">
+                                    <input class="w3-button w3-round w3-green" type="submit" value="Мои сообщения">
+                                </form>
                                 <form th:method="GET" th:action="@{/users/{name}/edit (name = ${owner.username})}" style="margin-right: 10px">
                                     <input class="w3-button w3-round w3-blue" type="submit" value="Изменить данные аккаунта" style="color: black">
                                 </form>

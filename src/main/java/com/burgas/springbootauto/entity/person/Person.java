@@ -2,6 +2,7 @@ package com.burgas.springbootauto.entity.person;
 
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Equipment;
+import com.burgas.springbootauto.entity.chat.Chat;
 import com.burgas.springbootauto.entity.image.Image;
 import jakarta.persistence.*;
 import lombok.*;
@@ -62,6 +63,9 @@ public class Person implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @ManyToMany(mappedBy = "people", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    private List<Chat>chats = new ArrayList<>();
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<Car>cars = new ArrayList<>();

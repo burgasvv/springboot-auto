@@ -6,6 +6,8 @@ import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.person.RoleRepository;
 import com.burgas.springbootauto.service.car.CarService;
 import com.burgas.springbootauto.service.car.EquipmentService;
+import com.burgas.springbootauto.service.chat.ChatService;
+import com.burgas.springbootauto.service.chat.MessageService;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,8 @@ public class PersonController {
     private final RoleRepository roleRepository;
     private final CarService carService;
     private final EquipmentService equipmentService;
+    private final MessageService messageService;
+    private final ChatService chatService;
 
     @GetMapping
     public String users(Model model) {
@@ -227,5 +231,35 @@ public class PersonController {
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
         return "users/findUserEquipments";
+    }
+
+    @GetMapping("/{name}/chats")
+    public String userChats(@PathVariable String name, Model model) {
+        Person owner = personService.findPersonByUsername(name);
+        model.addAttribute("users",
+                personService.findAll().stream().filter(person -> !person.equals(owner)).toList()
+        );
+        model.addAttribute("owner", owner);
+        model.addAttribute("guest",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "users/chats";
+    }
+
+    @GetMapping("/{name}/chats/{receiverName}")
+    public String userChat(@PathVariable String name, @PathVariable String receiverName, Model model) {
+        Person owner = personService.findPersonByUsername(name);
+        Person receiver = personService.findPersonByUsername(receiverName);
+        model.addAttribute("messages",
+                messageService.findMessagesByChat(
+                        chatService.findChatByPeople(List.of(owner, receiver)).orElse(null)
+                )
+        );
+        model.addAttribute("owner", owner);
+        model.addAttribute("receiver", receiver);
+        model.addAttribute("guest",
+                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        );
+        return "users/chat";
     }
 }

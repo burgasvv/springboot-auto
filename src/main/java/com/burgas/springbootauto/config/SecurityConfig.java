@@ -51,7 +51,7 @@ public class SecurityConfig {
                                 "/classes/{id}/find-class-cars","/classes/{id}/find-class-cars/pages/{page}")
                         .permitAll()
                         .requestMatchers("/brands/{id}/editions","/brands/{id}/gearboxes","/brands/{id}/turbo-types",
-
+                                "/websocket",
                                 "/cars/secure/add","/cars/{id}/edit","/cars/{id}/add-images","/cars/{id}/add-preview-image",
                                 "/cars/{id}/add-images-at-images-page","/cars/{id}/remove-preview-image",
                                 "/cars/{id}/add-images-at-images-page","/cars/{id}/images/delete-image",
@@ -76,7 +76,7 @@ public class SecurityConfig {
                                 "/users/{name}/cars","/users/{name}/cars/pages/{page}","/users/{name}/cars/search",
                                 "/users/{name}/cars/search/pages/{page}","/users/{name}/equipments",
                                 "/users/{name}/equipments/pages/{page}","/users/{name}/equipments/search",
-                                "/users/{name}/equipments/search/pages/{page}",
+                                "/users/{name}/equipments/search/pages/{page}","/users/{name}/chats",
 
                                 "/transmissions","/transmissions/{id}","/transmissions/find-transmissions",
                                 "/turbochargers","/turbochargers/{id}","/turbochargers/find-turbochargers",

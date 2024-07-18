@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chats</title>
+    <div th:insert="~{fragments/fragments.html :: searchSelectors}">Search Selectors</div>
+</head>
+<body>
+    <div id="divBarUserBlock">
+        <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+            <th:block th:case="${true}">
+                <th:block th:if="${guest.image eq null}">
+                    <div th:insert="~{fragments/fragments.html :: bar(${null})}">Bar</div>
+                </th:block>
+                <th:block th:if="${guest.image != null}">
+                    <div id="divBarUserImage" th:insert="~{fragments/fragments.html :: bar(${guest.image.id})}">Bar</div>
+                </th:block>
+            </th:block>
+            <th:block th:case="${false}">
+                <div th:insert="~{fragments/fragments.html :: bar(_)}">Bar</div>
+            </th:block>
+        </th:block>
+    </div>
+
+    <div style="margin: 50px 100px">
+        <th:block th:if="${#authorization.expression('!isAuthenticated()')}">
+            <h2>У вас нет доступа к сообщениям</h2>
+        </th:block>
+        <th:block th:if="${#authorization.expression('isAuthenticated')}">
+            <th:block th:if="${owner.username != guest.username}">
+                <h2>У вас нет доступа к сообщениям</h2>
+            </th:block>
+            <th:block th:if="${owner.username eq guest.username}">
+                <div class="col-md-12">
+                    <form class="form-inline">
+                        <label for="private-message">Личное сообщение</label><br>
+                        <div>
+                            <select name="receiver" id="users" style="width: 200px">
+                                <option th:each="user : ${users}" th:value="${user.username}" th:text="${user.username}"></option>
+                            </select><br><br>
+                            <input type="hidden" id="sender" name="sender" th:field="${owner.username}">
+                            <textarea id="private-message" style="width: 400px; height: 100px; margin-right: 10px"
+                                   class="w3-round-large" placeholder="Введите текст сообщения"></textarea><br>
+                            <label for="users"></label>
+                            <button id="send-private" class="w3-button w3-round w3-teal" type="button"
+                                    style="margin-left: 10px">Отправить</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="divChatsMain">
+                    <div id="divChats" style="margin-top: 100px">
+                        <th:block th:each="chat : ${owner.chats}">
+                            <div th:each="receiver : ${chat.people}">
+                                <th:block th:if="${owner.username != receiver.username}">
+                                    <a th:href="@{/users/{name}/chats/{receiverName} (name = ${owner.username}, receiverName = ${receiver.username})}"
+                                       style="width: 1000px; height: 400px; margin-bottom: 50px">
+                                        <div class="w3-card w3-round-large w3-hover-shadow" >
+                                            <div class="w3-container" style="margin: 20px; display: inline-flex">
+                                                <div style="display: inline-block; margin-right: 50px">
+                                                    <div th:if="${owner.username != receiver.username}" style="width: 150px; height: 200px">
+                                                        <img th:src="@{/images/{id} (id = ${receiver.id})}" alt="image" style="width: 150px">
+                                                    </div>
+                                                    <h2 th:text="${receiver.username}"></h2>
+                                                </div>
+                                                <div style="display: inline-block; width: 700px; height: 400px; overflow: hidden">
+                                                    <div th:each="message : ${chat.messages}">
+                                                        <th:block th:if="${message eq chat.messages.last}">
+                                                            <div style="display: inline-flex">
+                                                                <div style="width: 50px; height: 80px">
+                                                                    <img th:src="@{/images/{id} ((id = ${message.sender.id}))}"
+                                                                         alt="image" style="width: 50px">
+                                                                </div>
+                                                                <div style="display: inline-block">
+                                                                    <span th:text="${message.content}"></span><br>
+                                                                    <span th:text="${message.date}" style="color: grey"></span>
+                                                                </div>
+                                                            </div>
+                                                        </th:block>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </th:block>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </th:block>
+        </th:block>
+    </div>
+
+    <script src="/resource/js/chatsWebSocketConfig.js"></script>
+    <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
+</body>
+</html>
