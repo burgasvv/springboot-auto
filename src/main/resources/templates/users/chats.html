@@ -39,8 +39,9 @@
                                 <option th:each="user : ${users}" th:value="${user.username}" th:text="${user.username}"></option>
                             </select><br><br>
                             <input type="hidden" id="sender" name="sender" th:field="${owner.username}">
-                            <textarea id="private-message" style="width: 800px; height: 200px; margin-right: 10px"
+                            <textarea id="private-message" style="width: 800px; height: 200px"
                                    class="w3-round-large" placeholder="Введите текст сообщения"></textarea><br><br>
+                            <input type="hidden" id="_csrf" name="_csrf" th:value="${_csrf.token}">
                             <label for="users"></label>
                             <button id="send-private" class="w3-button w3-round w3-teal" type="button"
                                     style="margin-left: 10px">Отправить</button>
@@ -88,6 +89,9 @@
                 </div>
             </th:block>
         </th:block>
+        <div style="margin-top: 100px">
+            <input class="w3-button w3-round w3-light-grey" type="button" value="Назад" onclick="history.back()">
+        </div>
     </div>
 
     <script src="/resource/js/chatsWebSocketConfig.js"></script>
