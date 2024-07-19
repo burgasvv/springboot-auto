@@ -2,6 +2,7 @@ package com.burgas.springbootauto.entity.image;
 
 import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.car.Car;
+import com.burgas.springbootauto.entity.car.Category;
 import com.burgas.springbootauto.entity.person.Person;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,6 +37,11 @@ public class Image {
             CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
     })
     private Brand brand;
+
+    @OneToOne(mappedBy = "image", cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
+    })
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "car_id")

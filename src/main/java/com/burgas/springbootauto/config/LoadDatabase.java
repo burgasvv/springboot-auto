@@ -103,29 +103,64 @@ public class LoadDatabase {
                     .password(passwordEncoder.encode("user")).email("user@user.com").role(usr)
                     .description(InitDatabaseUtil.USER_ACCOUNT_DESCRIPTION).build();
 
-            Category hatchBack = Category.builder().name("Хэтчбек").image(InitDatabaseUtil.HATCHBACK_CATEGORY_IMAGE)
+            Image hatchbackImage = Image.builder().name("hatchback-image")
+                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.HATCHBACK_CATEGORY_IMAGE)).build();
+            Category hatchBack = Category.builder().name("Хэтчбек").image(hatchbackImage)
                     .description(InitDatabaseUtil.HATCHBACK_CATEGORY_DESCRIPTION).build();
-            Category coupe = Category.builder().name("Купе").image(InitDatabaseUtil.COUPE_CATEGORY_IMAGE)
+
+            Image coupeImage = Image.builder().name("coupe-image")
+                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.COUPE_CATEGORY_IMAGE)).build();
+            Category coupe = Category.builder().name("Купе").image(coupeImage)
                     .description(InitDatabaseUtil.COUPE_CATEGORY_DESCRIPTION).build();
-            Category sedan = Category.builder().name("Седан").image(InitDatabaseUtil.SEDAN_CATEGORY_IMAGE)
+
+            Image sedanImage = Image.builder().name("sedan-image")
+                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.SEDAN_CATEGORY_IMAGE)).build();
+            Category sedan = Category.builder().name("Седан").image(sedanImage)
                     .description(InitDatabaseUtil.SEDAN_CATEGORY_DESCRIPTION).build();
-            Category liftBack = Category.builder().name("Лифтбек").image(InitDatabaseUtil.LIFTBACK_CATEGORY_IMAGE)
+
+            Image liftbackImage = Image.builder().isPreview(true)
+                    .name("liftback-image").data(readBytesByUrl(InitDatabaseUtil.LIFTBACK_CATEGORY_IMAGE)).build();
+            Category liftBack = Category.builder().name("Лифтбек").image(liftbackImage)
                     .description(InitDatabaseUtil.LIFTBACK_CATEGORY_DESCRIPTION).build();
-            Category fastBack = Category.builder().name("Фастбек").image(InitDatabaseUtil.FASTBACK_CATEGORY_IMAGE)
+
+            Image fastbackImage = Image.builder().isPreview(true)
+                    .name("fastback-image").data(readBytesByUrl(InitDatabaseUtil.FASTBACK_CATEGORY_IMAGE)).build();
+            Category fastBack = Category.builder().name("Фастбек").image(fastbackImage)
                     .description(InitDatabaseUtil.DASTBACK_CATEGORY_DESCRIPTION).build();
-            Category wagon = Category.builder().name("Универсал").image(InitDatabaseUtil.WAGON_CATEGORY_IMAGE)
+
+            Image wagonImage = Image.builder().isPreview(true)
+                    .name("wagon-image").data(readBytesByUrl(InitDatabaseUtil.WAGON_CATEGORY_IMAGE)).build();
+            Category wagon = Category.builder().name("Универсал").image(wagonImage)
                     .description(InitDatabaseUtil.WAGON_CATEGORY_DESCRIPTION).build();
+
+            Image cabrioletImage = Image.builder().name("cabriolet-image")
+                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.CABRIOLET_CATEGORY_IMAGE)).build();
             Category cabriolet = Category.builder().name("Кабриолет")
-                    .image(InitDatabaseUtil.CABRIOLET_CATEGORY_IMAGE).description(InitDatabaseUtil.CABRIOLET_CATEGORY_DESCRIPTION).build();
-            Category pickUp = Category.builder().name("Пикап").image(InitDatabaseUtil.PICKUP_CATEGORY_IMAGE)
+                    .image(cabrioletImage).description(InitDatabaseUtil.CABRIOLET_CATEGORY_DESCRIPTION).build();
+
+            Image pickupImage = Image.builder().name("pickup-image").isPreview(true)
+                    .data(readBytesByUrl(InitDatabaseUtil.PICKUP_CATEGORY_IMAGE)).build();
+            Category pickUp = Category.builder().name("Пикап").image(pickupImage)
                     .description(InitDatabaseUtil.PICKUP_CATEGORY_DESCRIPTION).build();
-            Category crossOver = Category.builder().name("Кроссовер").image(InitDatabaseUtil.CROSSOVER_CATEGORY_IMAGE)
+
+            Image crossoverImage = Image.builder().isPreview(true)
+                    .name("crossover-image").data(readBytesByUrl(InitDatabaseUtil.CROSSOVER_CATEGORY_IMAGE)).build();
+            Category crossOver = Category.builder().name("Кроссовер").image(crossoverImage)
                     .description(InitDatabaseUtil.CROSSOVER_CATEGORY_DESCRIPTION).build();
-            Category suv = Category.builder().name("Внедорожник/Джип").image(InitDatabaseUtil.SUV_CATEGORY_IMAGE)
+
+            Image suvImage = Image.builder().name("suv-image")
+                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.SUV_CATEGORY_IMAGE)).build();
+            Category suv = Category.builder().name("Внедорожник/Джип").image(suvImage)
                     .description(InitDatabaseUtil.SUV_CATEGORY_DESCRIPTION).build();
-            Category minivan = Category.builder().name("/Минивэн/Микроавтобус").image(InitDatabaseUtil.MINIVAN_CATEGORY_IMAGE)
+
+            Image minivanImage = Image.builder().isPreview(true)
+                    .name("minivan-image").data(readBytesByUrl(InitDatabaseUtil.MINIVAN_CATEGORY_IMAGE)).build();
+            Category minivan = Category.builder().name("/Минивэн/Микроавтобус").image(minivanImage)
                     .description(InitDatabaseUtil.MINIVAN_CATEGORY_DESCRIPTION).build();
-            Category limousin = Category.builder().name("Лимузин").image(InitDatabaseUtil.LIMOUSIN_CATEGORY_IMAGE)
+
+            Image limousinImage = Image.builder().name("limousin-image")
+                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.LIMOUSIN_CATEGORY_IMAGE)).build();
+            Category limousin = Category.builder().name("Лимузин").image(limousinImage)
                     .description(InitDatabaseUtil.LIMOUSIN_CATEGORY_DESCRIPTION).build();
 
             Classification aClass = Classification.builder().name("A class").image(InitDatabaseUtil.A_CLASS_IMAGE)
@@ -442,7 +477,9 @@ public class LoadDatabase {
             equipM4.setAttached(true);
 
             log.info("Preload: {}", roleRepository.saveAll(List.of(adm,usr)));
-            log.info("Preload: {}", imageRepository.saveAll(List.of(adminImage, userImage,bmwImage,audiImage,mercedesImage)));
+            log.info("Preload: {}", imageRepository.saveAll(List.of(adminImage, userImage,bmwImage,audiImage,mercedesImage,
+                    hatchbackImage, coupeImage, sedanImage, liftbackImage, fastbackImage, wagonImage, cabrioletImage, pickupImage,
+                    crossoverImage, suvImage, limousinImage, minivanImage)));
             log.info("Preload: {}", personRepository.saveAll(List.of(admin,user)));
             log.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))

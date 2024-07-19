@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -71,8 +72,8 @@ public class CategoryController {
     }
 
     @PostMapping("/secure/add")
-    public String addCategory(@ModelAttribute("category") Category category) {
-        categoryService.save(category);
+    public String addCategory(@ModelAttribute("category") Category category, @RequestPart MultipartFile file) {
+        categoryService.save(category, file);
         return "redirect:/categories";
     }
 
@@ -89,6 +90,20 @@ public class CategoryController {
     public String editCategory(@ModelAttribute Category category) {
         categoryService.update(category);
         return "redirect:/categories/" + category.getId();
+    }
+
+    @PostMapping("/{id}/change-image")
+    public String changeImage(@PathVariable("id") Long id, @RequestPart("file") MultipartFile file) {
+        Category category = categoryService.findById(id);
+        categoryService.save(category, file);
+        return "redirect:/categories/" + id;
+    }
+
+    @PostMapping("/{id}/remove-image")
+    public String removeImage(@PathVariable Long id) {
+        Category category = categoryService.findById(id);
+        categoryService.removeImage(category);
+        return "redirect:/categories/" + id;
     }
 
     @DeleteMapping("/{id}/delete")
