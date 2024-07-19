@@ -48,14 +48,6 @@
                         <th:block th:if="${user.role.name eq 'ADMIN'}">
                             <div style="display: inline-flex; margin-top: 50px">
                                 <th:block th:if="*{image != null}">
-                                    <form style="display: inline-flex"
-                                          th:method="POST" th:action="@{/categories/{id}/change-image (id = *{id})}" enctype="multipart/form-data">
-                                        <label for="changeImage"></label>
-                                        <input class="w3-input w3-border w3-round-large"
-                                               type="file" id="changeImage" name="file" accept="image/png, image/jpeg">
-                                        <input class="w3-button w3-blue w3-round" type="submit"
-                                               style="color: black; margin-left: 20px; width: 130px" value="Изменить">
-                                    </form>
                                     <form th:method="POST" th:action="@{/categories/{id}/remove-image (id = *{id})}"
                                           style="margin-left: 20px; display: inline-flex">
                                         <label for="removeImage"></label>

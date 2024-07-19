@@ -26,14 +26,14 @@
                 <h1>Добавить класс</h1>
             </div>
             <br>
-            <form th:method="POST" th:action="@{/classes/secure/add}">
+            <form th:method="POST" th:action="@{/classes/secure/add}" enctype="multipart/form-data">
                 <label for="name">Наименование</label><br>
                 <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 400px; margin-left: 50px"
                        type="text" id="name" th:field="${class.name}"><br>
 
                 <label for="image">Изображение</label><br>
                 <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 400px; margin-left: 50px"
-                       type="text" id="image" th:field="${class.image}"><br>
+                       type="file" id="image" name="file" accept="image/png, image/jpeg"><br>
 
                 <label for="description">Описание</label><br>
                 <textarea class="w3-round-large" name="description" id="description" cols="30" rows="10"

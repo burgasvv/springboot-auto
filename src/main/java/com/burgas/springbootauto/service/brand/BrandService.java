@@ -56,9 +56,6 @@ public class BrandService {
     @SneakyThrows
     @Transactional
     public void save(Brand brand, MultipartFile file) {
-        if (imageService.findByName(file.getOriginalFilename()) != null) {
-            return;
-        }
         if (file.getSize() != 0) {
             Image image = new Image();
             image.setName(file.getOriginalFilename());

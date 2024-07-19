@@ -163,24 +163,50 @@ public class LoadDatabase {
             Category limousin = Category.builder().name("Лимузин").image(limousinImage)
                     .description(InitDatabaseUtil.LIMOUSIN_CATEGORY_DESCRIPTION).build();
 
-            Classification aClass = Classification.builder().name("A class").image(InitDatabaseUtil.A_CLASS_IMAGE)
+            Image aClassImage = Image.builder().name("aClass-image").isPreview(true)
+                    .data(readBytesFromFile(InitDatabaseUtil.A_CLASS_IMAGE)).build();
+            Classification aClass = Classification.builder().name("A class").image(aClassImage)
                     .description(InitDatabaseUtil.A_CLASS_DESCRIPTION).build();
-            Classification bClass = Classification.builder().name("B class").image(InitDatabaseUtil.B_CLASS_IMAGE)
+
+            Image bClassImage = Image.builder().name("bClass-image").isPreview(true)
+                    .data(readBytesFromFile(InitDatabaseUtil.B_CLASS_IMAGE)).build();
+            Classification bClass = Classification.builder().name("B class").image(bClassImage)
                     .description(InitDatabaseUtil.B_CLASS_DESCRIPTION).build();
+
+            Image cClassImage = Image.builder().name("cClass-image").isPreview(true)
+                    .data(readBytesFromFile(InitDatabaseUtil.C_CLASS_IMAGE)).build();
             Classification cClass = Classification.builder().name("C class")
-                    .image(InitDatabaseUtil.C_CLASS_IMAGE).description(InitDatabaseUtil.C_CLASS_DESCRIPTION).build();
+                    .image(cClassImage).description(InitDatabaseUtil.C_CLASS_DESCRIPTION).build();
+
+            Image dClassImage = Image.builder().name("dClass-image").isPreview(true)
+                    .data(readBytesFromFile(InitDatabaseUtil.D_CLASS_IMAGE)).build();
             Classification dClass = Classification.builder().name("D class")
-                    .image(InitDatabaseUtil.D_CLASS_IMAGE).description(InitDatabaseUtil.D_CLASS_DESCRIPTION).build();
+                    .image(dClassImage).description(InitDatabaseUtil.D_CLASS_DESCRIPTION).build();
+
+            Image eClassImage = Image.builder().name("eClass-image").isPreview(true)
+                    .data(readBytesFromFile(InitDatabaseUtil.E_CLASS_IMAGE)).build();
             Classification eClass = Classification.builder().name("E class")
-                    .image(InitDatabaseUtil.E_CLASS_IMAGE).description(InitDatabaseUtil.E_CLASS_DESCRIPTION).build();
-            Classification fClass = Classification.builder().name("F class").image(InitDatabaseUtil.F_CLASS_IMAGE)
+                    .image(eClassImage).description(InitDatabaseUtil.E_CLASS_DESCRIPTION).build();
+
+            Image fClassImage = Image.builder().name("fClass-image").isPreview(true)
+                    .data(readBytesFromFile(InitDatabaseUtil.F_CLASS_IMAGE)).build();
+            Classification fClass = Classification.builder().name("F class").image(fClassImage)
                     .description(InitDatabaseUtil.F_CLASS_DESCRIPTION).build();
-            Classification sClass = Classification.builder().name("S class").image(InitDatabaseUtil.S_CLASS_IMAGE)
+
+            Image sClassImage = Image.builder().name("sClass-image").isPreview(true)
+                    .data(readBytesFromFile(InitDatabaseUtil.S_CLASS_IMAGE)).build();
+            Classification sClass = Classification.builder().name("S class").image(sClassImage)
                     .description(InitDatabaseUtil.S_CLASS_DESCRIPTION).build();
-            Classification mClass = Classification.builder().name("M class").image(InitDatabaseUtil.M_CLASS_IMAGE)
+
+            Image mClassImage = Image.builder().name("mClass-image").isPreview(true)
+                    .data(readBytesFromFile(InitDatabaseUtil.M_CLASS_IMAGE)).build();
+            Classification mClass = Classification.builder().name("M class").image(mClassImage)
                     .description(InitDatabaseUtil.M_CLASS_DESCRIPTION).build();
+
+            Image jClassImage = Image.builder().name("jClass-image").isPreview(true)
+                    .data(readBytesFromFile(InitDatabaseUtil.J_CLASS_IMAGE)).build();
             Classification jClass = Classification.builder().name("J class")
-                    .image(InitDatabaseUtil.J_CLASS_IMAGE).description(InitDatabaseUtil.J_CLASS_DESCRIPTION).build();
+                    .image(jClassImage).description(InitDatabaseUtil.J_CLASS_DESCRIPTION).build();
 
             Tag tag1 = Tag.builder().name("спорт").build();
             Tag tag2 = Tag.builder().name("внедорожник").build();
@@ -479,7 +505,8 @@ public class LoadDatabase {
             log.info("Preload: {}", roleRepository.saveAll(List.of(adm,usr)));
             log.info("Preload: {}", imageRepository.saveAll(List.of(adminImage, userImage,bmwImage,audiImage,mercedesImage,
                     hatchbackImage, coupeImage, sedanImage, liftbackImage, fastbackImage, wagonImage, cabrioletImage, pickupImage,
-                    crossoverImage, suvImage, limousinImage, minivanImage)));
+                    crossoverImage, suvImage, limousinImage, minivanImage, aClassImage,bClassImage,cClassImage,dClassImage,eClassImage,
+                    fClassImage,sClassImage,mClassImage,jClassImage)));
             log.info("Preload: {}", personRepository.saveAll(List.of(admin,user)));
             log.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))

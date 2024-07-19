@@ -31,9 +31,6 @@ public class CategoryService {
     @SneakyThrows
     @Transactional
     public void save(Category category, MultipartFile file) {
-        if (imageService.findByName(file.getOriginalFilename()) != null) {
-            return;
-        }
         if (file.getSize() != 0) {
             Image image = Image.builder()
                     .name(file.getOriginalFilename())

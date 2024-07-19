@@ -31,15 +31,17 @@
                 </th:block>
             </th:block>
             <div style="margin: 10px 100px; text-align: center" class="w3-row">
-                <div class="w3-col m2 w3-center w3-card w3-round-large w3-container" style="margin: 20px" th:each="class : ${classes}">
-                    <a th:href="@{/classes/{id} (id = ${class.id})}" style="text-decoration: none"
-                       class="w3-hover-opacity w3-hover-shadow">
-                        <th:block th:if="${class.image != ''}">
-                            <div style="width: 150px; height: 150px">
-                                <img th:src="${class.image}" alt="image" style="width: 150px">
-                            </div>
-                        </th:block>
-                        <h2 th:text="${class.name}">Class</h2>
+                <div class="w3-col m2 w3-center" style="margin: 20px" th:each="class : ${classes}">
+                    <a th:href="@{/classes/{id} (id = ${class.id})}" style="text-decoration: none">
+                        <div class="w3-card w3-round-large w3-container w3-hover-opacity w3-hover-shadow"
+                             style="width: 290px; height: 300px">
+                            <th:block th:if="${class.image != null}">
+                                <div style="width: 250px; height: 150px; margin-top: 20px">
+                                    <img th:src="@{/images/{id} (id = ${class.image.id})}" alt="image" style="width: 250px">
+                                </div>
+                            </th:block>
+                            <h2 th:text="${class.name}">Class</h2>
+                        </div>
                     </a>
                 </div>
             </div>

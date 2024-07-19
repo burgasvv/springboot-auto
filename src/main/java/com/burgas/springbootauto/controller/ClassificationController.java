@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -71,8 +72,8 @@ public class ClassificationController {
     }
 
     @PostMapping("/secure/add")
-    public String addClass(@ModelAttribute("class") Classification classification) {
-        classificationService.save(classification);
+    public String addClass(@ModelAttribute("class") Classification classification, @RequestPart MultipartFile file) {
+        classificationService.save(classification, file);
         return "redirect:/classes";
     }
 
@@ -89,6 +90,20 @@ public class ClassificationController {
     public String editClass(@ModelAttribute("class") Classification classification) {
         classificationService.update(classification);
         return "redirect:/classes/" + classification.getId();
+    }
+
+    @PostMapping("/{id}/change-image")
+    public String changeImage(@PathVariable("id") Long id, @RequestPart("file") MultipartFile file) {
+        Classification classification = classificationService.findById(id);
+        classificationService.save(classification, file);
+        return "redirect:/classes/" + id;
+    }
+
+    @PostMapping("/{id}/remove-image")
+    public String removeImage(@PathVariable Long id) {
+        Classification classification = classificationService.findById(id);
+        classificationService.removeImage(classification);
+        return "redirect:/classes/" + id;
     }
 
     @DeleteMapping("/{id}/delete")

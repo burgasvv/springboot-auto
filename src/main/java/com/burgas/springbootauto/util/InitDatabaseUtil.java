@@ -170,7 +170,7 @@ public class InitDatabaseUtil {
                      'классический пример — Mitsubishi Delica.""";
 
     public static final String A_CLASS_IMAGE =
-            "https://class-car.ru/wp-content/uploads/2015/04/Volkswagen-Up-2-23.jpg";
+            "src/main/resources/static/resource/images/aClass-image.jpg";
 
     public static final String A_CLASS_DESCRIPTION = """
             Включает в себя самые маленькие автомобили. Их габариты редко не превышают 3,6-3,7 м в длину, а исполнение '
@@ -180,7 +180,7 @@ public class InitDatabaseUtil {
                     'двигателями и сегодня среди них есть даже электрифицированные экземпляры.'""";
 
     public static final String B_CLASS_IMAGE =
-            "https://class-car.ru/wp-content/uploads/2015/04/B-Volkswagen-Polo2.jpg";
+            "src/main/resources/static/resource/images/bClass-image.jpg";
 
     public static final String B_CLASS_DESCRIPTION = """
             Как и класс А, этот сегмент преимущественно ориентирован на городские поездки. Размеры моделей B-сегмента варьируются '
@@ -189,7 +189,7 @@ public class InitDatabaseUtil {
                      'в том числе в России. Автомобили класса B, как правило, находятся в среднем ценовом сегменте.""";
 
     public static final String C_CLASS_IMAGE =
-            "https://class-car.ru/wp-content/uploads/2015/04/Volkswagen-Golf-11.jpg";
+            "src/main/resources/static/resource/images/cClass-image.jpg";
 
     public static final String C_CLASS_DESCRIPTION = """
             Также известен как гольф-класс, его родоначальником принято считать модель Volkswagen Golf. Машины С-класса —\s
@@ -197,7 +197,7 @@ public class InitDatabaseUtil {
                      'Габариты авто колеблются от 4,1 м до 4,6 м (иногда чуть больше), а модельный ряд включает в себя седаны,\s
                      'универсалы, пятидверные хэтчбеки.""";
 
-    public static final String D_CLASS_IMAGE = "https://class-car.ru/wp-content/uploads/2015/04/ford-mondeo-11.jpg";
+    public static final String D_CLASS_IMAGE = "src/main/resources/static/resource/images/dClass-image.jpg";
 
     public static final String D_CLASS_DESCRIPTION = """
             Именно с этого сегмента начинаются настоящие большие седаны. Размеры моделей стремятся к пяти метрам и они\s
@@ -206,7 +206,7 @@ public class InitDatabaseUtil {
                      'ассортимент моторов и трансмиссий довольно широк.""";
 
     public static final String E_CLASS_IMAGE =
-            "https://class-car.ru/wp-content/uploads/2015/04/E-Mercedes-Benz-E-Class-Coupe2.jpg";
+            "src/main/resources/static/resource/images/eClass-image.jpg";
 
     public static final String E_CLASS_DESCRIPTION = """
             Автомобили E-сегмента отличают внушительные размеры, более сложное техническое оснащение и, соответственно, цена.
@@ -214,7 +214,7 @@ public class InitDatabaseUtil {
                      'отделки салона и прочего.""";
 
     public static final String F_CLASS_IMAGE =
-            "https://class-car.ru/wp-content/uploads/2015/04/1.jpg";
+            "src/main/resources/static/resource/images/fClass-image.jpg";
 
     public static final String F_CLASS_DESCRIPTION = """
             Это автомобили класса люкс. Их выделяют не только высокотехнологичные характеристики, но и безусловная роскошь и комфорт.
@@ -224,7 +224,7 @@ public class InitDatabaseUtil {
                      'брендированных наборов для пикника и прочими мелочами. Для тех, кто заботится о своей безопасности даже могут
                      'предложить дополнительно бронирование кузова.""";
 
-    public static final String S_CLASS_IMAGE = "https://class-car.ru/wp-content/uploads/2015/04/audi_r82.jpg";
+    public static final String S_CLASS_IMAGE = "src/main/resources/static/resource/images/sClass-image.jpg";
 
     public static final String S_CLASS_DESCRIPTION = """
             Этот класс концентрируется на спортивном характере и включает в себя родстеры, гранд-туреры, кабриолеты и маслкары.
@@ -233,7 +233,7 @@ public class InitDatabaseUtil {
                      'почти не встречаются вместительные и практичные седаны, поскольку в центре внимания водитель. От чего задний
                      'диван часто носит чисто номинальный характер.""";
 
-    public static final String M_CLASS_IMAGE = "https://class-car.ru/wp-content/uploads/2015/04/13.jpg";
+    public static final String M_CLASS_IMAGE = "src/main/resources/static/resource/images/mClass-image.jpg";
 
     public static final String M_CLASS_DESCRIPTION = """
             Эти многоцелевые транспортные средства, которые перевозят как пассажиров, так и грузы.
@@ -241,7 +241,7 @@ public class InitDatabaseUtil {
                      'гибкостью салона и наличием третьего ряда сидений. Это отличный выбор для большой семьи (от 5 человек и выше)
                      'или долгих поездок, отдельные модели также используются в бизнесе.""";
 
-    public static final String J_CLASS_IMAGE = "https://class-car.ru/wp-content/uploads/2015/04/chevrolet_suburban_2007.jpg";
+    public static final String J_CLASS_IMAGE = "src/main/resources/static/resource/images/jClass-image.jpg";
 
     public static final String J_CLASS_DESCRIPTION = """
             Как правило, в этот сегмент записывают все модели авто, которые отличаются внедорожными характеристиками
