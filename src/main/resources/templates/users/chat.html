@@ -68,36 +68,46 @@
                                             <th:block th:if="${(owner.username eq chat.sender && receiver.username eq chat.receiver)
                                             || (owner.username eq chat.receiver && receiver.username eq chat.sender)}">
                                                 <div class="w3-container" style="margin: 50px" th:each="message : ${chat.messages}">
-                                                    <div th:if="${owner eq message.sender}" style="text-align: right">
-                                                        <div style="display: inline-flex">
-                                                            <div style="display: inline-block">
-                                                                <span class="w3-round w3-tag w3-green" th:text="${message.content}"></span><br>
-                                                                <span style="color: grey" th:text="${message.date}"></span>
-                                                            </div>
-                                                            <div style="margin-left: 10px; display: inline-block">
-                                                                <div style="width: 50px; height: 40px">
-                                                                    <img th:src="@{/images/{id} (id = ${message.sender.image.id})}" alt="image"
-                                                                         style="width: 50px; margin-top: -20px"><br>
+                                                    <th:block th:if="${message.sender eq null}">
+                                                        <span>Пользователь удален</span>
+                                                    </th:block>
+                                                    <th:block th:if="${message.sender != null}">
+                                                        <div th:if="${owner eq message.sender}" style="text-align: right">
+                                                            <div style="display: inline-flex">
+                                                                <div style="display: inline-block">
+                                                                    <span class="w3-round w3-tag w3-green" th:text="${message.content}"></span><br>
+                                                                    <span style="color: grey" th:text="${message.date}"></span>
                                                                 </div>
-                                                                <span th:text="${message.sender.username}" style="font-weight: bold"></span>
+                                                                <div style="margin-left: 10px; display: inline-block">
+                                                                    <div style="width: 50px; height: 40px">
+                                                                        <img th:src="@{/images/{id} (id = ${message.sender.image.id})}" alt="image"
+                                                                             style="width: 50px; margin-top: -20px"><br>
+                                                                    </div>
+                                                                    <span th:text="${message.sender.username}" style="font-weight: bold"></span>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div th:if="${owner eq message.receiver}" style="text-align: left">
-                                                        <div style="display: inline-flex">
-                                                            <div style="margin-right: 10px; display: inline-block">
-                                                                <div style="width: 50px; height: 40px">
-                                                                    <img th:src="@{/images/{id} (id = ${message.sender.image.id})}" alt="image"
-                                                                         style="width: 50px; margin-top: -20px"><br>
+                                                    </th:block>
+                                                    <th:block th:if="${message.receiver eq null}">
+                                                        <span>Пользователь удален</span>
+                                                    </th:block>
+                                                    <th:block th:if="${message.sender != null}">
+                                                        <div th:if="${owner eq message.receiver}" style="text-align: left">
+                                                            <div style="display: inline-flex">
+                                                                <div style="margin-right: 10px; display: inline-block">
+                                                                    <div style="width: 50px; height: 40px">
+                                                                        <img th:src="@{/images/{id} (id = ${message.sender.image.id})}" alt="image"
+                                                                             style="width: 50px; margin-top: -20px"><br>
+                                                                    </div>
+                                                                    <span th:text="${message.sender.username}" style="font-weight: bold"></span>
                                                                 </div>
-                                                                <span th:text="${message.sender.username}" style="font-weight: bold"></span>
-                                                            </div>
-                                                            <div style="display: inline-block">
-                                                                <span class="w3-round w3-tag w3-light-blue" th:text="${message.content}"></span><br>
-                                                                <span style="color: grey" th:text="${message.date}"></span>
+                                                                <div style="display: inline-block">
+                                                                    <span class="w3-round w3-tag w3-light-blue" th:text="${message.content}"></span><br>
+                                                                    <span style="color: grey" th:text="${message.date}"></span>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </th:block>
                                                 </div>
                                             </th:block>
                                         </th:block>

@@ -5,6 +5,7 @@ import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.person.Status;
 import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.repository.person.RoleRepository;
+import com.burgas.springbootauto.service.chat.MessageService;
 import com.burgas.springbootauto.service.image.ImageService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class PersonService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final ImageService imageService;
+    private final MessageService messageService;
 
     public List<Person> findAll() {
         return personRepository.findAll();
@@ -108,6 +110,18 @@ public class PersonService {
 
     @Transactional
     public void delete(Person person) {
+        person.getChats().forEach(chat -> chat.getMessages().forEach(message -> {
+            if (message.getSender().equals(person)) {
+                message.setSender(null);
+                messageService.save(message);
+            }
+            if (message.getReceiver().equals(person)) {
+                message.setReceiver(null);
+                messageService.save(message);
+            }
+        }));
+        person.getChats().forEach(chat -> chat.getPeople().remove(person));
+        personRepository.save(person);
         personRepository.deleteById(person.getId());
     }
 
