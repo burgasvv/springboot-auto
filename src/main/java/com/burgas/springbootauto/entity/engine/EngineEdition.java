@@ -18,7 +18,7 @@ public class EngineEdition {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String image;
 
     @SuppressWarnings("JpaDataSourceORMInspection")

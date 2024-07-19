@@ -18,7 +18,7 @@ public class Engine {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String image;
 
     @Column(nullable = false, columnDefinition = "TEXT")
