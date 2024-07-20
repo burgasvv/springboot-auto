@@ -11,10 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
-@SuperBuilder
-@Data
+@AllArgsConstructor
 public class Car {
 
     @Id

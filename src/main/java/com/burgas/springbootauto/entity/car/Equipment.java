@@ -1,6 +1,7 @@
 package com.burgas.springbootauto.entity.car;
 
 import com.burgas.springbootauto.entity.engine.Engine;
+import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
@@ -9,7 +10,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Equipment {
 
     @Id
@@ -19,8 +24,9 @@ public class Equipment {
     @Column(nullable = false)
     private String name;
 
-    @Column
-    private String image;
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "image_id")
+    private Image image;
 
     @Column(nullable = false)
     private boolean attached;

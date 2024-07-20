@@ -2,14 +2,18 @@ package com.burgas.springbootauto.service.car;
 
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Equipment;
+import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.repository.car.EquipmentRepository;
+import com.burgas.springbootauto.service.image.ImageService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,6 +22,7 @@ import java.util.List;
 public class EquipmentService {
 
     private final EquipmentRepository equipmentRepository;
+    private final ImageService imageService;
 
     public List<Equipment> findAll() {
         return equipmentRepository.findAll();
@@ -68,6 +73,20 @@ public class EquipmentService {
         equipmentRepository.save(equipment);
     }
 
+    @SneakyThrows
+    @Transactional
+    public void saveMultipart(Equipment equipment, MultipartFile file) {
+        if (file.getSize() != 0) {
+            Image image = Image.builder().isPreview(true)
+                    .name(file.getOriginalFilename())
+                    .data(file.getBytes())
+                    .build();
+            imageService.save(image);
+            equipment.setImage(image);
+        }
+        equipmentRepository.save(equipment);
+    }
+
     @Transactional
     public void saveAll(List<Equipment> equipments) {
         equipmentRepository.saveAll(equipments);
@@ -91,9 +110,17 @@ public class EquipmentService {
     }
 
     @Transactional
-    public void detachFromCar(Equipment equipment, Car car) {
+    public void detachFromCar(Equipment equipment) {
         equipment.setCar(null);
         equipment.setAttached(false);
         equipmentRepository.save(equipment);
+    }
+
+    @Transactional
+    public void removeImage(Equipment equipment) {
+        Image image = equipment.getImage();
+        equipment.setImage(null);
+        equipmentRepository.save(equipment);
+        imageService.delete(image);
     }
 }

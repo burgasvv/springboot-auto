@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class EngineCharacteristics {

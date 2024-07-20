@@ -249,11 +249,11 @@
                                                     <h3 style="text-align: center">
                                                         <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
                                                            style="text-decoration: none">
-                                                            <th:block th:if="${complectation.image != ''}">
-                                                                <img th:src="${complectation.image}" alt="image"
+                                                            <th:block th:if="${complectation.image != null}">
+                                                                <img th:src="@{/images/{id} (id = ${complectation.image.id})}" alt="image"
                                                                      style="display: inline-flex; width: 100px; border-radius: 10%"><br>
                                                             </th:block>
-                                                            <th:block th:if="${complectation.image eq ''}">
+                                                            <th:block th:if="${complectation.image eq null}">
                                                                 <img src="/resource/images/complectImage.png" alt="image"
                                                                      style="display: inline-flex; width: 100px; border-radius: 10%"><br>
                                                             </th:block>

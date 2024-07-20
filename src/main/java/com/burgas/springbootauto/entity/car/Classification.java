@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Classification {
 
     @Id
@@ -21,7 +22,6 @@ public class Classification {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @SuppressWarnings("JpaDataSourceORMInspection")
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "image_id")
     private Image image;

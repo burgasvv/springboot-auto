@@ -26,14 +26,13 @@
                 <h1>Добавить комплектацию</h1>
             </div>
             <br>
-            <form th:method="POST" th:action="@{/equipments/secure/add (id = ${equipment.id})}" class="w3-container">
+            <form th:method="POST" th:action="@{/equipments/secure/add (id = ${equipment.id})}" class="w3-container" enctype="multipart/form-data">
                 <label for="name">Наименование</label><br>
                 <input class="w3-input w3-border w3-light-grey w3-round-large"
                        type="text" id="name" th:field="${equipment.name}" placeholder="Введите наименование"><br>
 
                 <label for="image">Изображение </label><br>
-                <input class="w3-input w3-border w3-light-grey w3-round-large"
-                       type="password" id="image" th:field="${equipment.image}" placeholder="Укажите ссылку на изображение"><br>
+                <input class="w3-input w3-border w3-light-grey w3-round-large" type="file" id="image" name="file"><br>
 
                 <input type="hidden" name="_csrf" th:value="${_csrf.token}"><br>
 

@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
 public class Role implements GrantedAuthority {
 
     @Id

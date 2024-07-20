@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -105,12 +106,26 @@ public class EquipmentController {
     }
 
     @PostMapping("/secure/add")
-    public String addEquipment(@ModelAttribute("equipment") Equipment equipment) {
+    public String addEquipment(@ModelAttribute("equipment") Equipment equipment, @RequestPart MultipartFile file) {
         Person user = personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         equipment.setAttached(false);
         equipment.setPerson(user);
-        equipmentService.save(equipment);
+        equipmentService.saveMultipart(equipment, file);
         return "redirect:/users/" + user.getUsername();
+    }
+
+    @PostMapping("/{id}/change-image")
+    public String changeImage(@PathVariable("id") Long id, @RequestPart("file") MultipartFile file) {
+        Equipment equipment = equipmentService.findById(id);
+        equipmentService.saveMultipart(equipment, file);
+        return "redirect:/equipments/" + id;
+    }
+
+    @PostMapping("/{id}/remove-image")
+    public String removeImage(@PathVariable Long id) {
+        Equipment equipment = equipmentService.findById(id);
+        equipmentService.removeImage(equipment);
+        return "redirect:/equipments/" + id;
     }
 
     @GetMapping("/{id}/edit-equipment")
@@ -169,7 +184,7 @@ public class EquipmentController {
 
     @PostMapping("/{id}/detach-from-car")
     public String detachFromCar(@PathVariable("id") Long id, @RequestParam Long carId) {
-        equipmentService.detachFromCar(equipmentService.findById(id), carService.findById(carId));
+        equipmentService.detachFromCar(equipmentService.findById(id));
         return "redirect:/cars/" + carId;
     }
 

@@ -22,7 +22,7 @@
     <div class="w3-animate-opacity" style="text-align: center; margin: 10% 50px 100px">
         <div class="w3-card w3-round-large" style="width: 500px; margin-left: 650px">
             <div class="w3-container w3-win8-blue">
-                <h1>Добавить комплектацию</h1>
+                <h1>Изменить комплектацию</h1>
             </div>
             <br>
             <form th:method="POST" th:action="@{/equipments/{id}/edit-equipment (id = ${equipment.id})}" class="w3-container">
@@ -30,9 +30,7 @@
                 <input class="w3-input w3-border w3-light-grey w3-round-large"
                        type="text" id="name" th:field="${equipment.name}" placeholder="Введите наименование"><br>
 
-                <label for="image">Изображение </label><br>
-                <input class="w3-input w3-border w3-light-grey w3-round-large"
-                       type="password" id="image" th:field="${equipment.image}"><br>
+                <input type="hidden" th:field="${equipment.image}">
 
                 <input type="hidden" name="_csrf" th:value="${_csrf.token}"><br>
 

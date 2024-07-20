@@ -51,11 +51,11 @@
                 <a th:href="@{/equipments/{id} (id = ${equipment.id})}" style="text-decoration: none">
                     <div class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity">
                         <div class="w3-container" style="margin: 20px; text-align: center">
-                            <th:block th:if="${equipment.image != ''}">
-                                <img th:src="${equipment.image}" alt="image"
+                            <th:block th:if="${equipment.image != null}">
+                                <img th:src="@{/images/{id} (id = ${equipment.image.id})}" alt="image"
                                      style="display: inline-flex; width: 250px; border-radius: 10%; margin-top: 20px"><br>
                             </th:block>
-                            <th:block th:if="${equipment.image eq ''}">
+                            <th:block th:if="${equipment.image eq null}">
                                 <img src="/resource/images/complectImage.png" alt="image"
                                      style="display: inline-flex; width: 250px; border-radius: 10%"><br>
                             </th:block>

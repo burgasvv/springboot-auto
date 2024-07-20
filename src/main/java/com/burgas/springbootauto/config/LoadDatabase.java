@@ -483,18 +483,23 @@ public class LoadDatabase {
             audi.setTurboTypes(List.of(vtgTurbo,compressor,comboTurbo));
             mercedes.setTurboTypes(List.of(vtgTurbo,compressor,comboTurbo));
 
+            Image equipM5Image = Image.builder().name("equipM5-image")
+                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.EQUIPM5_IMAGE)).build();
             Equipment equipM5 = new Equipment();
             equipM5.setName("Test 1");
-            equipM5.setImage(InitDatabaseUtil.EQUIPM5_IMAGE);
+            equipM5.setImage(equipM5Image);
             equipM5.setPerson(admin);
             equipM5.setCar(m5);
             equipM5.setEngine(en63);
             equipM5.setTransmission(al950);
             equipM5.setTurbocharger(gtb2260vk);
             equipM5.setAttached(true);
+
+            Image equipM4Image = Image.builder().name("equipM4Image").isPreview(true)
+                    .data(readBytesByUrl(InitDatabaseUtil.EQUIPM4_IMAGE)).build();
             Equipment equipM4 = new Equipment();
             equipM4.setName("Test 2");
-            equipM4.setImage(InitDatabaseUtil.EQUIPM4_IMAGE);
+            equipM4.setImage(equipM4Image);
             equipM4.setPerson(admin);
             equipM4.setCar(m4);
             equipM4.setEngine(en62);
@@ -506,7 +511,7 @@ public class LoadDatabase {
             log.info("Preload: {}", imageRepository.saveAll(List.of(adminImage, userImage,bmwImage,audiImage,mercedesImage,
                     hatchbackImage, coupeImage, sedanImage, liftbackImage, fastbackImage, wagonImage, cabrioletImage, pickupImage,
                     crossoverImage, suvImage, limousinImage, minivanImage, aClassImage,bClassImage,cClassImage,dClassImage,eClassImage,
-                    fClassImage,sClassImage,mClassImage,jClassImage)));
+                    fClassImage,sClassImage,mClassImage,jClassImage, equipM4Image, equipM5Image)));
             log.info("Preload: {}", personRepository.saveAll(List.of(admin,user)));
             log.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))
