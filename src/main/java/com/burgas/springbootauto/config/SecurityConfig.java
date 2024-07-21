@@ -82,8 +82,7 @@ public class SecurityConfig {
                                 "/turbochargers","/turbochargers/{id}","/turbochargers/find-turbochargers",
                                 "/turbo-types","/turbo-types/{id}")
                         .hasAnyAuthority("USER", "ADMIN")
-                        .requestMatchers("/brands/secure/add","/brands/{id}/edit","/brands/{id}/change-image",
-                                "/brands/{id}/remove-image","/brands/{id}/delete","/brands/{id}/add-edition",
+                        .requestMatchers("/brands/secure/add","/brands/{id}/edit","/brands/{id}/delete","/brands/{id}/add-edition",
                                 "/brands/{id}/add-gearbox","/brands/{id}/add-transmission","/brands/{id}/add-turbo-type",
                                 "/brands/{id}/add-turbocharger",
 
