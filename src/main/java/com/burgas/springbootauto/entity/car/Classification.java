@@ -21,10 +21,6 @@ public class Classification {
     @Column(nullable = false, unique = true)
     private String name;
 
-//    @OneToOne(cascade = CascadeType.REMOVE)
-//    @JoinColumn(name = "image_id")
-//    private Image image;
-
     @Column(columnDefinition = "TEXT")
     private String image;
 
