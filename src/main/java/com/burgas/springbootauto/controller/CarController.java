@@ -10,6 +10,8 @@ import com.burgas.springbootauto.service.person.PersonService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -134,11 +136,9 @@ public class CarController {
         return "cars/add";
     }
 
+    @SneakyThrows
     @PostMapping("/secure/add")
-    public String addCar(@ModelAttribute("car") @Valid Car car, @RequestPart MultipartFile file, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "cars/add";
-        }
+    public String addCar(@ModelAttribute Car car, @RequestPart MultipartFile file) {
         car.setPerson(personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         carService.create(car, file);
         return "redirect:/users/" + SecurityContextHolder.getContext().getAuthentication().getName();
@@ -269,15 +269,7 @@ public class CarController {
 
         List<Equipment>newEquipments = new ArrayList<>();
         for (Equipment equipment : handoverEquipments) {
-            Equipment newEquipment = new Equipment();
-            newEquipment.setCar(equipment.getCar());
-            newEquipment.setAttached(equipment.isAttached());
-            newEquipment.setImage(equipment.getImage());
-            newEquipment.setName(equipment.getName());
-            newEquipment.setPerson(handoverPerson);
-            newEquipment.setEngine(equipment.getEngine());
-            newEquipment.setTransmission(equipment.getTransmission());
-            newEquipment.setTurbocharger(equipment.getTurbocharger());
+            Equipment newEquipment = getEquipment(equipment, handoverPerson);
             newEquipments.add(newEquipment);
         }
         equipmentService.saveAll(newEquipments);
@@ -286,6 +278,19 @@ public class CarController {
         carService.update(handoverCar);
 
         return "redirect:/users/" + SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    private static @NotNull Equipment getEquipment(Equipment equipment, Person handoverPerson) {
+        Equipment newEquipment = new Equipment();
+        newEquipment.setCar(equipment.getCar());
+        newEquipment.setAttached(equipment.isAttached());
+        newEquipment.setImage(equipment.getImage());
+        newEquipment.setName(equipment.getName());
+        newEquipment.setPerson(handoverPerson);
+        newEquipment.setEngine(equipment.getEngine());
+        newEquipment.setTransmission(equipment.getTransmission());
+        newEquipment.setTurbocharger(equipment.getTurbocharger());
+        return newEquipment;
     }
 
     @GetMapping("/search-by-tag")

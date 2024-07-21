@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +20,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class CarService {
 
     private final CarRepository carRepository;
@@ -101,8 +104,8 @@ public class CarService {
     }
 
     @SneakyThrows
-    @Transactional
-    public void create(Car car, MultipartFile multipartFile) {
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public void create(Car car,  MultipartFile multipartFile) {
         car.setHasPreview(false);
         if (multipartFile.getSize() != 0) {
             Image image = new Image();
@@ -116,7 +119,7 @@ public class CarService {
     }
 
     @SneakyThrows
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
     public void changePreviewImage(Car car, MultipartFile multipartFile) {
         if (multipartFile.getSize() != 0) {
             car.getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
@@ -130,7 +133,7 @@ public class CarService {
         }
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
     public void removePreviewImage(Car car) {
         car.getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
         car.setHasPreview(false);
@@ -138,7 +141,7 @@ public class CarService {
     }
 
     @SneakyThrows
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
     public void addImages(Car car, MultipartFile[] files) {
         for (MultipartFile file : files) {
             Image image = new Image();
@@ -150,22 +153,22 @@ public class CarService {
         }
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
     public void save(Car car) {
         carRepository.save(car);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public void update(Car car) {
         carRepository.save(car);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
     public void delete(Long id) {
         carRepository.deleteById(id);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
     public void setPreviewImage(Car car, Image image) {
         if (!car.isHasPreview()){
             car.setHasPreview(true);

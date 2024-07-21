@@ -7,7 +7,6 @@ import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.repository.person.RoleRepository;
 import com.burgas.springbootauto.service.chat.MessageService;
 import com.burgas.springbootauto.service.image.ImageService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
@@ -15,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -79,7 +79,7 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    @Transactional
+
     public void connectUser(Person person) {
         person.setStatus(Status.ONLINE);
         personRepository.save(person);
