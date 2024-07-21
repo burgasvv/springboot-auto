@@ -30,7 +30,9 @@
                 <input class="w3-input w3-border w3-light-grey w3-round-large" style="width: 400px; margin-left: 50px"
                        type="text" id="name" th:field="${brand.title}"><br>
 
-                <input type="hidden" th:field="${brand.image}">
+                <label for="image">Изображение</label><br>
+                <input class="w3-input w3-border w3-round-large w3-light-grey" style="width: 400px; margin-left: 50px"
+                       type="text" id="image" th:field="${brand.image}" alt="image" ><br>
 
                 <label for="website">Веб-страница</label><br>
                 <input class="w3-input w3-border w3-light-grey w3-round-large"

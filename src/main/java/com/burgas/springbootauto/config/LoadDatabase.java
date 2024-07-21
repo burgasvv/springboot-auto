@@ -103,110 +103,49 @@ public class LoadDatabase {
                     .password(passwordEncoder.encode("user")).email("user@user.com").role(usr)
                     .description(InitDatabaseUtil.USER_ACCOUNT_DESCRIPTION).build();
 
-            Image hatchbackImage = Image.builder().name("hatchback-image")
-                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.HATCHBACK_CATEGORY_IMAGE)).build();
-            Category hatchBack = Category.builder().name("Хэтчбек").image(hatchbackImage)
+            Category hatchBack = Category.builder().name("Хэтчбек").image(InitDatabaseUtil.HATCHBACK_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.HATCHBACK_CATEGORY_DESCRIPTION).build();
-
-            Image coupeImage = Image.builder().name("coupe-image")
-                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.COUPE_CATEGORY_IMAGE)).build();
-            Category coupe = Category.builder().name("Купе").image(coupeImage)
+            Category coupe = Category.builder().name("Купе").image(InitDatabaseUtil.COUPE_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.COUPE_CATEGORY_DESCRIPTION).build();
-
-            Image sedanImage = Image.builder().name("sedan-image")
-                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.SEDAN_CATEGORY_IMAGE)).build();
-            Category sedan = Category.builder().name("Седан").image(sedanImage)
+            Category sedan = Category.builder().name("Седан").image(InitDatabaseUtil.SEDAN_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.SEDAN_CATEGORY_DESCRIPTION).build();
-
-            Image liftbackImage = Image.builder().isPreview(true)
-                    .name("liftback-image").data(readBytesByUrl(InitDatabaseUtil.LIFTBACK_CATEGORY_IMAGE)).build();
-            Category liftBack = Category.builder().name("Лифтбек").image(liftbackImage)
+            Category liftBack = Category.builder().name("Лифтбек").image(InitDatabaseUtil.LIFTBACK_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.LIFTBACK_CATEGORY_DESCRIPTION).build();
-
-            Image fastbackImage = Image.builder().isPreview(true)
-                    .name("fastback-image").data(readBytesByUrl(InitDatabaseUtil.FASTBACK_CATEGORY_IMAGE)).build();
-            Category fastBack = Category.builder().name("Фастбек").image(fastbackImage)
+            Category fastBack = Category.builder().name("Фастбек").image(InitDatabaseUtil.FASTBACK_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.DASTBACK_CATEGORY_DESCRIPTION).build();
-
-            Image wagonImage = Image.builder().isPreview(true)
-                    .name("wagon-image").data(readBytesByUrl(InitDatabaseUtil.WAGON_CATEGORY_IMAGE)).build();
-            Category wagon = Category.builder().name("Универсал").image(wagonImage)
+            Category wagon = Category.builder().name("Универсал").image(InitDatabaseUtil.WAGON_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.WAGON_CATEGORY_DESCRIPTION).build();
-
-            Image cabrioletImage = Image.builder().name("cabriolet-image")
-                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.CABRIOLET_CATEGORY_IMAGE)).build();
-            Category cabriolet = Category.builder().name("Кабриолет")
-                    .image(cabrioletImage).description(InitDatabaseUtil.CABRIOLET_CATEGORY_DESCRIPTION).build();
-
-            Image pickupImage = Image.builder().name("pickup-image").isPreview(true)
-                    .data(readBytesByUrl(InitDatabaseUtil.PICKUP_CATEGORY_IMAGE)).build();
-            Category pickUp = Category.builder().name("Пикап").image(pickupImage)
+            Category cabriolet = Category.builder().name("Кабриолет").image(InitDatabaseUtil.CABRIOLET_CATEGORY_IMAGE)
+                    .description(InitDatabaseUtil.CABRIOLET_CATEGORY_DESCRIPTION).build();
+            Category pickUp = Category.builder().name("Пикап").image(InitDatabaseUtil.PICKUP_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.PICKUP_CATEGORY_DESCRIPTION).build();
-
-            Image crossoverImage = Image.builder().isPreview(true)
-                    .name("crossover-image").data(readBytesByUrl(InitDatabaseUtil.CROSSOVER_CATEGORY_IMAGE)).build();
-            Category crossOver = Category.builder().name("Кроссовер").image(crossoverImage)
+            Category crossOver = Category.builder().name("Кроссовер").image(InitDatabaseUtil.CROSSOVER_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.CROSSOVER_CATEGORY_DESCRIPTION).build();
-
-            Image suvImage = Image.builder().name("suv-image")
-                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.SUV_CATEGORY_IMAGE)).build();
-            Category suv = Category.builder().name("Внедорожник/Джип").image(suvImage)
+            Category suv = Category.builder().name("Внедорожник/Джип").image(InitDatabaseUtil.SUV_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.SUV_CATEGORY_DESCRIPTION).build();
-
-            Image minivanImage = Image.builder().isPreview(true)
-                    .name("minivan-image").data(readBytesByUrl(InitDatabaseUtil.MINIVAN_CATEGORY_IMAGE)).build();
-            Category minivan = Category.builder().name("/Минивэн/Микроавтобус").image(minivanImage)
+            Category minivan = Category.builder().name("/Минивэн/Микроавтобус").image(InitDatabaseUtil.MINIVAN_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.MINIVAN_CATEGORY_DESCRIPTION).build();
-
-            Image limousinImage = Image.builder().name("limousin-image")
-                    .isPreview(true).data(readBytesByUrl(InitDatabaseUtil.LIMOUSIN_CATEGORY_IMAGE)).build();
-            Category limousin = Category.builder().name("Лимузин").image(limousinImage)
+            Category limousin = Category.builder().name("Лимузин").image(InitDatabaseUtil.LIMOUSIN_CATEGORY_IMAGE)
                     .description(InitDatabaseUtil.LIMOUSIN_CATEGORY_DESCRIPTION).build();
 
-            Image aClassImage = Image.builder().name("aClass-image").isPreview(true)
-                    .data(readBytesFromFile(InitDatabaseUtil.A_CLASS_IMAGE)).build();
-            Classification aClass = Classification.builder().name("A class").image(aClassImage)
+            Classification aClass = Classification.builder().name("A class").image(InitDatabaseUtil.A_CLASS_IMAGE)
                     .description(InitDatabaseUtil.A_CLASS_DESCRIPTION).build();
-
-            Image bClassImage = Image.builder().name("bClass-image").isPreview(true)
-                    .data(readBytesFromFile(InitDatabaseUtil.B_CLASS_IMAGE)).build();
-            Classification bClass = Classification.builder().name("B class").image(bClassImage)
+            Classification bClass = Classification.builder().name("B class").image(InitDatabaseUtil.B_CLASS_IMAGE)
                     .description(InitDatabaseUtil.B_CLASS_DESCRIPTION).build();
-
-            Image cClassImage = Image.builder().name("cClass-image").isPreview(true)
-                    .data(readBytesFromFile(InitDatabaseUtil.C_CLASS_IMAGE)).build();
             Classification cClass = Classification.builder().name("C class")
-                    .image(cClassImage).description(InitDatabaseUtil.C_CLASS_DESCRIPTION).build();
-
-            Image dClassImage = Image.builder().name("dClass-image").isPreview(true)
-                    .data(readBytesFromFile(InitDatabaseUtil.D_CLASS_IMAGE)).build();
+                    .image(InitDatabaseUtil.C_CLASS_IMAGE).description(InitDatabaseUtil.C_CLASS_DESCRIPTION).build();
             Classification dClass = Classification.builder().name("D class")
-                    .image(dClassImage).description(InitDatabaseUtil.D_CLASS_DESCRIPTION).build();
-
-            Image eClassImage = Image.builder().name("eClass-image").isPreview(true)
-                    .data(readBytesFromFile(InitDatabaseUtil.E_CLASS_IMAGE)).build();
+                    .image(InitDatabaseUtil.D_CLASS_IMAGE).description(InitDatabaseUtil.D_CLASS_DESCRIPTION).build();
             Classification eClass = Classification.builder().name("E class")
-                    .image(eClassImage).description(InitDatabaseUtil.E_CLASS_DESCRIPTION).build();
-
-            Image fClassImage = Image.builder().name("fClass-image").isPreview(true)
-                    .data(readBytesFromFile(InitDatabaseUtil.F_CLASS_IMAGE)).build();
-            Classification fClass = Classification.builder().name("F class").image(fClassImage)
+                    .image(InitDatabaseUtil.E_CLASS_IMAGE).description(InitDatabaseUtil.E_CLASS_DESCRIPTION).build();
+            Classification fClass = Classification.builder().name("F class").image(InitDatabaseUtil.F_CLASS_IMAGE)
                     .description(InitDatabaseUtil.F_CLASS_DESCRIPTION).build();
-
-            Image sClassImage = Image.builder().name("sClass-image").isPreview(true)
-                    .data(readBytesFromFile(InitDatabaseUtil.S_CLASS_IMAGE)).build();
-            Classification sClass = Classification.builder().name("S class").image(sClassImage)
+            Classification sClass = Classification.builder().name("S class").image(InitDatabaseUtil.S_CLASS_IMAGE)
                     .description(InitDatabaseUtil.S_CLASS_DESCRIPTION).build();
-
-            Image mClassImage = Image.builder().name("mClass-image").isPreview(true)
-                    .data(readBytesFromFile(InitDatabaseUtil.M_CLASS_IMAGE)).build();
-            Classification mClass = Classification.builder().name("M class").image(mClassImage)
+            Classification mClass = Classification.builder().name("M class").image(InitDatabaseUtil.M_CLASS_IMAGE)
                     .description(InitDatabaseUtil.M_CLASS_DESCRIPTION).build();
-
-            Image jClassImage = Image.builder().name("jClass-image").isPreview(true)
-                    .data(readBytesFromFile(InitDatabaseUtil.J_CLASS_IMAGE)).build();
-            Classification jClass = Classification.builder().name("J class")
-                    .image(jClassImage).description(InitDatabaseUtil.J_CLASS_DESCRIPTION).build();
+            Classification jClass = Classification.builder().name("J class").image(InitDatabaseUtil.J_CLASS_IMAGE)
+                    .description(InitDatabaseUtil.J_CLASS_DESCRIPTION).build();
 
             Tag tag1 = Tag.builder().name("спорт").build();
             Tag tag2 = Tag.builder().name("внедорожник").build();
@@ -226,20 +165,16 @@ public class LoadDatabase {
             Tag tag16 = Tag.builder().name("beautiful").build();
             Tag tag17 = Tag.builder().name("phenomenal").build();
 
-            Image bmwImage = Image.builder().name("bmw-image").isPreview(true)
-                    .data(readBytesByUrl(InitDatabaseUtil.BMW_BRAND_IMAGE)).build();
-            Brand bmw = Brand.builder().title("BMW").image(bmwImage).website(InitDatabaseUtil.BMW_BRAND_WEBSITE)
+
+            Brand bmw = Brand.builder().title("BMW").image(InitDatabaseUtil.BMW_BRAND_IMAGE)
+                    .website(InitDatabaseUtil.BMW_BRAND_WEBSITE)
                     .description(InitDatabaseUtil.BMW_BRAND_DESCRIPTION).build();
-
-            Image audiImage = Image.builder().name("audi-image").isPreview(true)
-                    .data(readBytesByUrl(InitDatabaseUtil.AUDI_BRAND_IMAGE)).build();
-            Brand audi = Brand.builder().title("Audi").image(audiImage).website(InitDatabaseUtil.AUDI_BRAND_WEBSITE)
+            Brand audi = Brand.builder().title("Audi").image(InitDatabaseUtil.AUDI_BRAND_IMAGE)
+                    .website(InitDatabaseUtil.AUDI_BRAND_WEBSITE)
                     .description(InitDatabaseUtil.AUDI_BRAND_DESCRIPTION).build();
-
-            Image mercedesImage = Image.builder().name("mercedes-image").isPreview(true)
-                    .data(readBytesByUrl(InitDatabaseUtil.MERCEDES_BRAND_IMAGE)).build();
-            Brand mercedes = Brand.builder().title("Mercedes").image(mercedesImage)
-                    .website(InitDatabaseUtil.MERCEDES_BRAND_WEBSITE).description(InitDatabaseUtil.MERCEDES_BRAND_DESCRIPTION).build();
+            Brand mercedes = Brand.builder().title("Mercedes").image(InitDatabaseUtil.MERCEDES_BRAND_IMAGE)
+                    .website(InitDatabaseUtil.MERCEDES_BRAND_WEBSITE)
+                    .description(InitDatabaseUtil.MERCEDES_BRAND_DESCRIPTION).build();
 
             DriveUnit frontWheel = DriveUnit.builder().name("Передний привод").build();
             DriveUnit rear = DriveUnit.builder().name("Задний привод").build();
@@ -508,10 +443,7 @@ public class LoadDatabase {
             equipM4.setAttached(true);
 
             log.info("Preload: {}", roleRepository.saveAll(List.of(adm,usr)));
-            log.info("Preload: {}", imageRepository.saveAll(List.of(adminImage, userImage,bmwImage,audiImage,mercedesImage,
-                    hatchbackImage, coupeImage, sedanImage, liftbackImage, fastbackImage, wagonImage, cabrioletImage, pickupImage,
-                    crossoverImage, suvImage, limousinImage, minivanImage, aClassImage,bClassImage,cClassImage,dClassImage,eClassImage,
-                    fClassImage,sClassImage,mClassImage,jClassImage, equipM4Image, equipM5Image)));
+            log.info("Preload: {}", imageRepository.saveAll(List.of(adminImage, userImage,equipM4Image, equipM5Image)));
             log.info("Preload: {}", personRepository.saveAll(List.of(admin,user)));
             log.info("Preload: {}", categoryRepository.saveAll(
                     List.of(hatchBack, coupe, sedan, limousin, liftBack, fastBack, wagon, cabriolet, pickUp, crossOver, suv, minivan))

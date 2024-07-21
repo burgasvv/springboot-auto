@@ -39,7 +39,7 @@
                             <div class="w3-border w3-round-large" style="margin: 20px; width: 400px; height: 200px; overflow: auto">
                                 <h4 th:each="brand : ${gearbox.brands}" style="display: inline-flex; margin: 20px">
                                     <a class="w3-hover-opacity" th:href="@{/brands/{id} (id = ${brand.id})}" style="text-decoration: none">
-                                        <img th:src="@{|/images/${brand.image.id}|}" alt="image" style="width: 50px">
+                                        <img th:src="${brand.image}" alt="image" style="width: 50px">
                                         <span th:text="${brand.title}"/>
                                     </a>
                                 </h4>

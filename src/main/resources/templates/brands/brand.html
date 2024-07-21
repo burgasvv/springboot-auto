@@ -33,10 +33,10 @@
                 <div class="w3-card w3-round-large">
                     <h1 class="w3-tag w3-win8-blue w3-round-large" style="width: 700px" th:text="*{title}">Title</h1>
                     <div class="w3-container">
-                        <th:block th:if="*{image != null}">
+                        <th:block th:if="*{image != ''}">
                             <div class="w3-border w3-round-large">
                                 <h2 style="margin: 10px">
-                                    <img id="myImg" th:src="@{|/images/*{image.id}|}" alt="image" style="width: 500px; margin-left: 70px">
+                                    <img id="myImg" th:src="${brand.image}" alt="image" style="width: 500px; margin-left: 70px">
                                     <div id="myModal" class="modal">
                                         <span class="close">&times;</span>
                                         <img class="modal-content" id="img01" alt="image">
@@ -44,27 +44,6 @@
                                     </div>
                                 </h2>
                             </div>
-                            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                                <th:block th:if="${user.role.name eq 'ADMIN'}">
-                                    <div style="display: inline-flex; margin-top: 50px">
-                                        <form th:method="POST" th:action="@{/brands/{id}/remove-image (id = *{id})}"
-                                              style="margin-left: 20px; display: inline-flex">
-                                            <label for="removeImage"></label>
-                                            <input class="w3-button w3-red w3-round"
-                                                   type="submit" id="removeImage" value="Убрать" style="color: black">
-                                        </form>
-                                    </div>
-                                </th:block>
-                            </th:block>
-                        </th:block>
-                        <th:block th:if="*{image == null}">
-                            <form style="display: inline-flex" th:method="POST" th:action="@{/brands/{id}/change-image (id = *{id})}"
-                                  enctype="multipart/form-data">
-                                <label for="addImage"></label><br><br>
-                                <input class="w3-input w3-round-large w3-light-grey" style="width: 400px; margin-right: 20px"
-                                       type="file" id="addImage" name="file" accept="image/png, image/jpeg">
-                                <input class="w3-button w3-round w3-teal" type="submit" style="color: black" value="Добавить">
-                            </form>
                         </th:block>
                     </div>
                     <br>

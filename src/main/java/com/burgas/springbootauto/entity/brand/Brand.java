@@ -2,7 +2,6 @@ package com.burgas.springbootauto.entity.brand;
 
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
-import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.entity.turbocharging.TurboType;
@@ -28,9 +27,12 @@ public class Brand {
     @Column(nullable = false, unique = true)
     private String title;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "image_id")
-    private Image image;
+//    @OneToOne(cascade = CascadeType.REMOVE)
+//    @JoinColumn(name = "image_id")
+//    private Image image;
+
+    @Column(columnDefinition = "TEXT")
+    private String image;
 
     @Column(columnDefinition = "TEXT")
     private String website;

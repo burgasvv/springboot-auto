@@ -68,7 +68,7 @@
                         <div class="w3-border w3-round-large w3-hover-opacity" style="margin-right: 20px">
                             <div style="margin: 20px">
                                 <a th:href="@{/brands/{id} (id = ${edition.brand.id})}" style="text-decoration: none; margin-right: 25px">
-                                    <img th:src="@{|/images/${edition.brand.image.id}|}" alt="image" style="width: 50px">
+                                    <img th:src="${edition.brand.image}" alt="image" style="width: 50px">
                                     <span th:text="${edition.brand.title}" style="color: grey"/>
                                 </a>
                             </div>

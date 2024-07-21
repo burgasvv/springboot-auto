@@ -27,7 +27,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -114,8 +113,8 @@ public class BrandController {
     }
 
     @PostMapping("/secure/add")
-    public String addBrand(@ModelAttribute Brand brand, @RequestPart MultipartFile file) {
-        brandService.save(brand, file);
+    public String addBrand(@ModelAttribute Brand brand) {
+        brandService.save(brand);
         return "redirect:/brands/" + brandService.findBrandByTitle(brand.getTitle()).getId();
     }
 
@@ -132,20 +131,6 @@ public class BrandController {
     public String editBrand(@ModelAttribute Brand brand) {
         brandService.update(brand);
         return "redirect:/brands/{id}";
-    }
-
-    @PostMapping("/{id}/change-image")
-    public String changeImage(@PathVariable("id") Long id, @RequestPart("file") MultipartFile file) {
-        Brand brand = brandService.findById(id);
-        brandService.save(brand, file);
-        return "redirect:/brands/" + id;
-    }
-
-    @PostMapping("/{id}/remove-image")
-    public String removeImage(@PathVariable Long id) {
-        Brand brand = brandService.findById(id);
-        brandService.removeImage(brand);
-        return "redirect:/brands/" + id;
     }
 
     @DeleteMapping("/{id}/delete")

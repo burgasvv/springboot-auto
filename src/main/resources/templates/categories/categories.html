@@ -34,9 +34,9 @@
                  style="margin: 20px" th:each="category : ${categories}">
                 <a th:href="@{/categories/{id} (id = ${category.id})}" style="text-decoration: none"
                    class="w3-hover-opacity w3-hover-shadow">
-                    <th:block th:if="${category.image != null}">
+                    <th:block th:if="${category.image != ''}">
                         <div style="width: 200px; height: 200px">
-                            <img th:src="@{/images/{id} (id = ${category.image.id})}" alt="image" style="width: 200px; margin-top: 70px">
+                            <img th:src="${category.image}" alt="image" style="width: 200px; margin-top: 70px">
                         </div>
                     </th:block>
                     <h2 th:text="${category.name}">Class</h2>

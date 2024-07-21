@@ -1,9 +1,7 @@
 package com.burgas.springbootauto.service.brand;
 
 import com.burgas.springbootauto.entity.brand.Brand;
-import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.repository.brand.BrandRepository;
-import com.burgas.springbootauto.service.image.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
@@ -12,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,7 +18,6 @@ import java.util.List;
 public class BrandService {
 
     private final BrandRepository brandRepository;
-    private final ImageService imageService;
 
     public Page<Brand> findAll(Pageable pageable) {
         return brandRepository.findAll(pageable);
@@ -55,15 +51,7 @@ public class BrandService {
 
     @SneakyThrows
     @Transactional
-    public void save(Brand brand, MultipartFile file) {
-        if (file.getSize() != 0) {
-            Image image = new Image();
-            image.setName(file.getOriginalFilename());
-            image.setPreview(true);
-            image.setData(file.getBytes());
-            imageService.save(image);
-            brand.setImage(image);
-        }
+    public void save(Brand brand) {
         brandRepository.save(brand);
     }
 
@@ -86,13 +74,5 @@ public class BrandService {
                                 .forEach(equipment -> equipment.setTurbocharger(null)));
         brandRepository.save(brand);
         brandRepository.deleteById(brand.getId());
-    }
-
-    @Transactional
-    public void removeImage(Brand brand) {
-        Image image = brand.getImage();
-        brand.setImage(null);
-        brandRepository.save(brand);
-        imageService.delete(image);
     }
 }
