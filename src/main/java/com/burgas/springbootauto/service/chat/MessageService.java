@@ -17,6 +17,7 @@ public class MessageService {
 
     private final MessageRepository messageRepository;
 
+    @SuppressWarnings("unused")
     public List<Message> findMessagesByChat(Chat chat) {
         return messageRepository.findMessagesByChat(chat);
     }

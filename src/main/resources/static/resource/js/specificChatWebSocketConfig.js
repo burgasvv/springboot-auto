@@ -24,7 +24,7 @@ function connect() {
         updateNotificationDisplay();
 
         stompClient.subscribe('/user/topic/private-messages', function () {
-            setTimeout(showMessage, 1000)
+            setTimeout(refreshMessages, 1000)
         });
 
         stompClient.subscribe('/user/topic/private-notifications', function () {
@@ -32,11 +32,6 @@ function connect() {
             setTimeout(updateNotificationDisplay, 1000)
         });
     });
-}
-
-function showMessage() {
-    $('#divChatMessages').remove();
-    $('#divChatMessagesMain').load(location.href + ' #divChatMessagesMain');
 }
 
 function sendPrivateMessage() {

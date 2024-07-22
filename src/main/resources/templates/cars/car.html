@@ -380,6 +380,50 @@
                             <br>
                         </div>
                     </th:block>
+                    <div style="margin-top: 50px">
+                        <div class="w3-card w3-round-large w3-hover-shadow" style="width: 950px; height: 1050px">
+                            <h1 class="w3-tag w3-win8-blue w3-round" style="width: 950px"> Комментарии</h1>
+                            <div class="w3-container" style="margin: 50px">
+                                <div class="w3-border w3-round-large" style="width: 820px; height: 600px; overflow: auto">
+                                    <div id="divCommentsMain" style="margin: 20px">
+                                        <div id="divComments" th:each="comment : ${car.comments}">
+                                            <div style="display: inline-flex; margin-top: 20px" class="w3-hover-opacity">
+                                                <div style="text-align: center">
+                                                    <div style="width: 80px; height: 100px">
+                                                        <img th:src="@{/images/{id} (id = ${comment.author.image.id})}" alt="image" style="width: 80px"><br>
+                                                    </div>
+                                                    <h4 th:text="${comment.author.username}"></h4>
+                                                </div>
+                                                <th:block th:if="${user.username eq comment.author.username}">
+                                                    <div style="display: inline-block; margin-left: 10px">
+                                                        <span th:text="${comment.content}" class="w3-tag w3-round w3-green"></span><br>
+                                                        <span th:text="${comment.date}" style="color: grey"></span>
+                                                    </div>
+                                                </th:block>
+                                                <th:block th:if="${user.username != comment.author.username}">
+                                                    <div style="display: inline-block; margin-left: 10px">
+                                                        <span th:text="${comment.content}" class="w3-tag w3-round w3-blue"></span><br>
+                                                        <span th:text="${comment.date}" style="color: grey"></span>
+                                                    </div>
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 20px">
+                                    <form id="formSendComment">
+                                        <input type="hidden" id="objectId" name="objectId" th:value="${car.id}">
+                                        <input type="hidden" id="author" name="author" th:value="${user.username}">
+                                        <input type="hidden" id="_csrf" name="_csrf" th:value="${_csrf.token}">
+                                        <label for="content"></label><br>
+                                        <textarea name="content" id="content" class="w3-round-large" style="width: 820px; height: 200px"></textarea>
+                                        <br><br>
+                                        <button type="button" class="w3-button w3-round w3-teal" id="sendComment" name="sendComment">Отправить</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </th:block>
 
                 <th:block th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
@@ -411,6 +455,7 @@
         <script src="/resource/js/addAndAttachCarTag.js"></script>
         <script src="/resource/js/removeEquipmentFromCar.js"></script>
         <script src="/resource/js/attachEquipmentOnCar.js"></script>
+        <script src="/resource/js/sendCommentToCar.js"></script>
     </div>
     <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>

@@ -1,6 +1,7 @@
 package com.burgas.springbootauto.entity.car;
 
 import com.burgas.springbootauto.entity.brand.Brand;
+import com.burgas.springbootauto.entity.comment.Comment;
 import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import jakarta.persistence.*;
@@ -95,6 +96,9 @@ public class Car {
         equipments.forEach(equipment -> equipment.setCar(null));
         this.equipments.removeAll(equipments);
     }
+
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment>comments = new ArrayList<>();
 
     @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToMany
