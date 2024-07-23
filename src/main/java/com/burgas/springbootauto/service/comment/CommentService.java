@@ -16,7 +16,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public void saveCarComment(final Comment comment) {
+    public void save(final Comment comment) {
         comment.setDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm")));
         commentRepository.save(comment);
     }

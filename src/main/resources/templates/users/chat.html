@@ -67,7 +67,7 @@
                                         <th:block th:each="chat : ${owner.chats}">
                                             <th:block th:if="${(owner.username eq chat.sender && receiver.username eq chat.receiver)
                                             || (owner.username eq chat.receiver && receiver.username eq chat.sender)}">
-                                                <div class="w3-container" style="margin: 50px" th:each="message : ${chat.messages}">
+                                                <div class="w3-container w3-hover-opacity" style="margin: 50px" th:each="message : ${chat.messages}">
                                                     <th:block th:if="${message.sender eq null}">
                                                         <span>Пользователь удален</span>
                                                     </th:block>

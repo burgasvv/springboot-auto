@@ -50,7 +50,7 @@ public class MessageController {
     public void getCarComment(@Payload CommentForm commentForm) {
         Person author = personService.findPersonByUsername(commentForm.getAuthor());
         Car car = carService.findById(Long.valueOf(commentForm.getObjectId()));
-        commentService.saveCarComment(
+        commentService.save(
                 Comment.builder().author(author).car(car).content(commentForm.getContent()).build()
         );
         messagingTemplate.convertAndSend("/queue/car-comments", commentForm);

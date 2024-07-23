@@ -43,7 +43,7 @@
                                         <div class="w3-card w3-round-large w3-hover-shadow w3-hover-opacity"  style="width: 230px; height: 250px">
                                             <div style="margin: 20px; text-align: center">
                                                 <div style="width: 190px; height: 190px; overflow: auto">
-                                                    <img th:src="@{|/images/${brand.image.id}|}" alt="image"
+                                                    <img th:src="${brand.image}" alt="image"
                                                          style="display: inline-flex; width: 150px; margin-top: 20px">
                                                 </div>
                                                 <p th:text="${brand.title}" style="margin-left: 20px; vertical-align: bottom"/>
