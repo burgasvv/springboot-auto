@@ -41,6 +41,5 @@ function sendPrivateMessage() {
 }
 
 function refreshMessages(){
-    $('#divChats').remove();
     $('#divChatsMain').load(location.href + ' #divChatsMain');
 }

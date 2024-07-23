@@ -35,6 +35,5 @@ function sendPrivateMessage() {
 }
 
 function refreshMessages(){
-    $('#divChatMessages').remove();
     $('#divChatMessagesMain').load(location.href + ' #divChatMessagesMain');
 }
