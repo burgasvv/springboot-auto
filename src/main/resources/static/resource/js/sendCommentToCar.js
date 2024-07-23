@@ -21,7 +21,6 @@ function connect() {
 }
 
 function showComments() {
-    $('#divComments').remove();
     $('#divCommentsMain').load(location.href + ' #divCommentsMain');
 }
 
@@ -33,6 +32,6 @@ function sendComment() {
             'objectId' : $('#objectId').val()
         }
     ))
-
+    $('#divCommentText').load(location.href + ' #divCommentText');
     setTimeout(showComments, 1000);
 }

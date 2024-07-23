@@ -416,9 +416,12 @@
                                         <input type="hidden" id="author" name="author" th:value="${user.username}">
                                         <input type="hidden" id="_csrf" name="_csrf" th:value="${_csrf.token}">
                                         <label for="content"></label><br>
-                                        <textarea name="content" id="content" class="w3-round-large" style="width: 820px; height: 200px"></textarea>
-                                        <br><br>
-                                        <button type="button" class="w3-button w3-round w3-teal" id="sendComment" name="sendComment">Отправить</button>
+                                        <div id="divCommentText">
+                                            <textarea name="content" id="content" class="w3-round-large" style="width: 820px; height: 200px"></textarea>
+                                        </div>
+                                        <br>
+                                        <button type="button" class="w3-button w3-round w3-teal" id="sendComment"
+                                                name="sendComment">Отправить</button>
                                     </form>
                                 </div>
                             </div>
