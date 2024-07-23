@@ -42,7 +42,6 @@ public class MessageController {
                 .sender(sender).receiver(receiver).chat(chat)
                 .build()
         );
-        messagingTemplate.convertAndSendToUser(messageForm.getReceiver(), "/topic/private-notifications", messageForm);
         messagingTemplate.convertAndSendToUser(messageForm.getReceiver(), "/topic/private-messages", messageForm);
     }
 

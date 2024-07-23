@@ -32,35 +32,11 @@
             <th:block th:if="${owner.username eq guest.username}">
                 <div>
                     <div class="row" style="margin-top: 10px; margin-right: 100px; display: inline-block">
-                        <div class="col-md-12">
-                            <form class="form-inline">
-                                <div>
-                                    <label for="private-message">Личное сообщение</label><br>
-                                    <input type="hidden" id="sender" name="sender" th:field="${owner.username}">
-                                    <input type="hidden" id="receiver" name="receiver" th:field="${receiver.username}">
-                                    <textarea id="private-message" style="width: 800px; height: 200px"
-                                           class="w3-round-round-large" placeholder="Введите текст сообщения"></textarea><br><br>
-                                    <input type="hidden" id="_csrf" name="_csrf" th:value="${_csrf.token}">
-                                    <button id="send-private" class="w3-button w3-round w3-teal" type="button"
-                                            style="margin-left: 10px">Отправить</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="row" style="margin-top: 50px">
+                        <div class="row">
                             <div class="col-md-12">
-                                <table id="message-history" class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th th:text="|Чат с пользователем ${receiver.username}|">
-                                            <span id="notifications"
-                                                  style="color: white; background-color: red;padding-left: 15px; padding-right: 15px">
-                                    </span>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="messages">
-                                    </tbody>
-                                </table>
+                                <h2>Чат с пользователем <a th:href="@{/users/{name} (name = ${receiver.username})}"
+                                                           th:text="${receiver.username}"></a>
+                                </h2>
                                 <div id="divChatMessagesMain">
                                     <div class="w3-border w3-round-large" id="divChatMessages"
                                          style="display: inline-block; width: 800px; height: 500px; overflow: auto">
@@ -68,52 +44,56 @@
                                             <th:block th:if="${(owner.username eq chat.sender && receiver.username eq chat.receiver)
                                             || (owner.username eq chat.receiver && receiver.username eq chat.sender)}">
                                                 <div class="w3-container w3-hover-opacity" style="margin: 50px" th:each="message : ${chat.messages}">
-                                                    <th:block th:if="${message.sender eq null}">
-                                                        <span>Пользователь удален</span>
-                                                    </th:block>
-                                                    <th:block th:if="${message.sender != null}">
-                                                        <div th:if="${owner eq message.sender}" style="text-align: right">
-                                                            <div style="display: inline-flex">
-                                                                <div style="display: inline-block">
-                                                                    <span class="w3-round w3-tag w3-green" th:text="${message.content}"></span><br>
-                                                                    <span style="color: grey" th:text="${message.date}"></span>
+                                                    <div th:if="${owner eq message.sender}" style="text-align: right">
+                                                        <div style="display: inline-flex">
+                                                            <div style="display: inline-block">
+                                                                <span class="w3-round w3-tag w3-green" th:text="${message.content}"></span><br>
+                                                                <span style="color: grey" th:text="${message.date}"></span>
+                                                            </div>
+                                                            <div style="margin-left: 10px; display: inline-block">
+                                                                <div style="width: 50px; height: 40px">
+                                                                    <img th:src="@{/images/{id} (id = ${message.sender.image.id})}" alt="image"
+                                                                         style="width: 50px; margin-top: -20px"><br>
                                                                 </div>
-                                                                <div style="margin-left: 10px; display: inline-block">
-                                                                    <div style="width: 50px; height: 40px">
-                                                                        <img th:src="@{/images/{id} (id = ${message.sender.image.id})}" alt="image"
-                                                                             style="width: 50px; margin-top: -20px"><br>
-                                                                    </div>
-                                                                    <span th:text="${message.sender.username}" style="font-weight: bold"></span>
-                                                                </div>
+                                                                <span th:text="${message.sender.username}" style="font-weight: bold"></span>
                                                             </div>
                                                         </div>
-                                                    </th:block>
-                                                    <th:block th:if="${message.receiver eq null}">
-                                                        <span>Пользователь удален</span>
-                                                    </th:block>
-                                                    <th:block th:if="${message.sender != null}">
-                                                        <div th:if="${owner eq message.receiver}" style="text-align: left">
-                                                            <div style="display: inline-flex">
-                                                                <div style="margin-right: 10px; display: inline-block">
-                                                                    <div style="width: 50px; height: 40px">
-                                                                        <img th:src="@{/images/{id} (id = ${message.sender.image.id})}" alt="image"
-                                                                             style="width: 50px; margin-top: -20px"><br>
-                                                                    </div>
-                                                                    <span th:text="${message.sender.username}" style="font-weight: bold"></span>
+                                                    </div>
+                                                    <div th:if="${owner eq message.receiver}" style="text-align: left">
+                                                        <div style="display: inline-flex">
+                                                            <div style="margin-right: 10px; display: inline-block">
+                                                                <div style="width: 50px; height: 40px">
+                                                                    <img th:src="@{/images/{id} (id = ${message.sender.image.id})}" alt="image"
+                                                                         style="width: 50px; margin-top: -20px"><br>
                                                                 </div>
-                                                                <div style="display: inline-block">
-                                                                    <span class="w3-round w3-tag w3-light-blue" th:text="${message.content}"></span><br>
-                                                                    <span style="color: grey" th:text="${message.date}"></span>
-                                                                </div>
+                                                                <span th:text="${message.sender.username}" style="font-weight: bold"></span>
+                                                            </div>
+                                                            <div style="display: inline-block">
+                                                                <span class="w3-round w3-tag w3-light-blue" th:text="${message.content}"></span><br>
+                                                                <span style="color: grey" th:text="${message.date}"></span>
                                                             </div>
                                                         </div>
-                                                    </th:block>
+                                                    </div>
                                                 </div>
                                             </th:block>
                                         </th:block>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-12" style="margin-top: 50px">
+                            <form class="form-inline">
+                                <div>
+                                    <label for="private-message">Личное сообщение</label><br>
+                                    <input type="hidden" id="sender" name="sender" th:field="${owner.username}">
+                                    <input type="hidden" id="receiver" name="receiver" th:field="${receiver.username}">
+                                    <textarea id="private-message" style="width: 800px; height: 200px"
+                                              class="w3-round-round-large" placeholder="Введите текст сообщения"></textarea><br><br>
+                                    <input type="hidden" id="_csrf" name="_csrf" th:value="${_csrf.token}">
+                                    <button id="send-private" class="w3-button w3-round w3-teal" type="button"
+                                            style="margin-left: 10px">Отправить</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
