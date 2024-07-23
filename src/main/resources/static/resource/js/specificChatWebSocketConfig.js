@@ -31,6 +31,7 @@ function sendPrivateMessage() {
                 'sender' : $("#sender").val(),
             }
         ));
+    $('#divMessageText').load(location.href + ' #divMessageText');
     setTimeout(refreshMessages, 1000);
 }
 

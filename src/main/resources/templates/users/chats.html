@@ -39,8 +39,10 @@
                                 <option th:each="user : ${users}" th:value="${user.username}" th:text="${user.username}"></option>
                             </select><br><br>
                             <input type="hidden" id="sender" name="sender" th:field="${owner.username}">
-                            <textarea id="private-message" style="width: 800px; height: 200px"
-                                   class="w3-round-large" placeholder="Введите текст сообщения"></textarea><br><br>
+                            <div id="divMessageText">
+                                <textarea id="private-message" style="width: 800px; height: 200px"
+                                          class="w3-round-large" placeholder="Введите текст сообщения"></textarea><br><br>
+                            </div>
                             <input type="hidden" id="_csrf" name="_csrf" th:value="${_csrf.token}">
                             <label for="users"></label>
                             <button id="send-private" class="w3-button w3-round w3-teal" type="button"
