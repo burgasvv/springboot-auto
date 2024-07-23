@@ -28,22 +28,7 @@ public class GearboxController {
 
     @GetMapping
     public String gearboxes(Model model) {
-        model.addAttribute("user",
-                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
-        );
-        model.addAttribute("brands",
-                brandService.findAll().stream().filter(brand -> !brand.getTransmissions().isEmpty()).toList()
-        );
-        model.addAttribute("gearboxes", gearboxService.findAll());
-        model.addAttribute("gearboxesSelect",
-                gearboxService.findAll().stream().filter(gearbox -> !gearbox.getTransmissions().isEmpty()).toList()
-        );
-        model.addAttribute("transmissions",
-                transmissionService.findAll().stream().filter(transmission -> transmission.getGearbox() != null).toList()
-        );
-        model.addAttribute("driveTypes", driveTypeService.findAll()
-                .stream().filter(driveType -> !driveType.getTransmissions().isEmpty()).toList()
-        );
+        TransmissionController.getSearchLists(model, personService, brandService, gearboxService, transmissionService, driveTypeService);
         return "gearboxes/gearboxes";
     }
 

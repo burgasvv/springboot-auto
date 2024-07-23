@@ -37,6 +37,21 @@ public class TurbochargerController {
 
     @GetMapping("/find-turbochargers")
     public String findTurbochargers(Model model, HttpServletRequest request) {
+        getSearchLists(model, personService, brandService, turboTypeService, turbochargerService);
+        String searchBrand = request.getParameter("searchBrand");
+        String searchTurboType = request.getParameter("searchTurboType");
+        String searchTurbocharger = request.getParameter("searchTurbocharger");
+        model.addAttribute("findTurbochargers",
+                turbochargerService.searchTurbochargersByNeighbourNamesNoSpaces(searchBrand + searchTurboType + searchTurbocharger)
+        );
+        model.addAttribute("searchBrand", searchBrand);
+        model.addAttribute("searchTurboType", searchTurboType);
+        model.addAttribute("searchTurbocharger", searchTurbocharger);
+        return "turbochargers/findTurbochargers";
+    }
+
+    static void getSearchLists(Model model, PersonService personService, BrandService brandService,
+                               TurboTypeService turboTypeService, TurbochargerService turbochargerService) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
@@ -50,16 +65,6 @@ public class TurbochargerController {
         model.addAttribute("turbochargers",
                 turbochargerService.findAll().stream().filter(turbocharger -> turbocharger.getTurboType() != null).toList()
         );
-        String searchBrand = request.getParameter("searchBrand");
-        String searchTurboType = request.getParameter("searchTurboType");
-        String searchTurbocharger = request.getParameter("searchTurbocharger");
-        model.addAttribute("findTurbochargers",
-                turbochargerService.searchTurbochargersByNeighbourNamesNoSpaces(searchBrand + searchTurboType + searchTurbocharger)
-        );
-        model.addAttribute("searchBrand", searchBrand);
-        model.addAttribute("searchTurboType", searchTurboType);
-        model.addAttribute("searchTurbocharger", searchTurbocharger);
-        return "turbochargers/findTurbochargers";
     }
 
     @GetMapping("/secure/add")

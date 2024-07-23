@@ -42,15 +42,7 @@ public class CarController {
         model.addAttribute("brands",
                 brandService.findAll().stream().filter(brand -> !brand.getCars().isEmpty()).toList()
         );
-        model.addAttribute("classes",
-                classificationService.findAll().stream().filter(classification -> !classification.getCars().isEmpty()).toList()
-        );
-        model.addAttribute("categories",
-                categoryService.findAll().stream().filter(category -> !category.getCars().isEmpty()).toList()
-        );
-        model.addAttribute("drives",
-                driveUnitService.findAll().stream().filter(drive -> !drive.getCars().isEmpty()).toList()
-        );
+        BrandController.getSearchLists(model, classificationService, categoryService, driveUnitService);
     }
 
     private static void paginate(Model model, Page<Car> pageCars) {

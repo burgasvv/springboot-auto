@@ -39,6 +39,25 @@ public class TransmissionController {
 
     @GetMapping("/find-transmissions")
     public String findTransmissions(Model model, HttpServletRequest request) {
+        getSearchLists(model, personService, brandService, gearboxService, transmissionService, driveTypeService);
+        String searchBrand = request.getParameter("searchBrand");
+        String searchGearbox = request.getParameter("searchGearbox");
+        String searchTransmission = request.getParameter("searchTransmission");
+        String searchDriveType = request.getParameter("searchDriveType");
+        model.addAttribute("findTransmissions",
+                transmissionService.searchTransmissionsByNeighbourNamesNoSpaces(
+                        searchBrand + searchGearbox + searchTransmission + searchDriveType
+                )
+        );
+        model.addAttribute("searchBrand", searchBrand);
+        model.addAttribute("searchGearbox", searchGearbox);
+        model.addAttribute("searchTransmission", searchTransmission);
+        model.addAttribute("searchDriveType", searchDriveType);
+        return "transmissions/findTransmissions";
+    }
+
+    static void getSearchLists(Model model, PersonService personService, BrandService brandService,
+                               GearboxService gearboxService, TransmissionService transmissionService, DriveTypeService driveTypeService) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );
@@ -55,20 +74,6 @@ public class TransmissionController {
         model.addAttribute("driveTypes", driveTypeService.findAll()
                 .stream().filter(driveType -> !driveType.getTransmissions().isEmpty()).toList()
         );
-        String searchBrand = request.getParameter("searchBrand");
-        String searchGearbox = request.getParameter("searchGearbox");
-        String searchTransmission = request.getParameter("searchTransmission");
-        String searchDriveType = request.getParameter("searchDriveType");
-        model.addAttribute("findTransmissions",
-                transmissionService.searchTransmissionsByNeighbourNamesNoSpaces(
-                        searchBrand + searchGearbox + searchTransmission + searchDriveType
-                )
-        );
-        model.addAttribute("searchBrand", searchBrand);
-        model.addAttribute("searchGearbox", searchGearbox);
-        model.addAttribute("searchTransmission", searchTransmission);
-        model.addAttribute("searchDriveType", searchDriveType);
-        return "transmissions/findTransmissions";
     }
 
     @GetMapping("/secure/add")

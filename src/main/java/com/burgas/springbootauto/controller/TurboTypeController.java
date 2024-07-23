@@ -26,19 +26,7 @@ public class TurboTypeController {
 
     @GetMapping
     public String turboTypes(Model model) {
-        model.addAttribute("user",
-                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
-        );
-        model.addAttribute("brands",
-                brandService.findAll().stream().filter(brand -> !brand.getTurbochargers().isEmpty()).toList()
-        );
-        model.addAttribute("turboTypes", turboTypeService.findAll());
-        model.addAttribute("turboTypesSelect",
-                turboTypeService.findAll().stream().filter(turboType -> !turboType.getTurbochargers().isEmpty()).toList()
-        );
-        model.addAttribute("turbochargers",
-                turbochargerService.findAll().stream().filter(turbocharger -> turbocharger.getTurboType() != null).toList()
-        );
+        TurbochargerController.getSearchLists(model, personService, brandService, turboTypeService, turbochargerService);
         return "turbotypes/turbotypes";
     }
 

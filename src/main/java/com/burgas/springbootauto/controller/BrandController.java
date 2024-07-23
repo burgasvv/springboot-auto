@@ -140,6 +140,11 @@ public class BrandController {
     }
 
     private void getSearchLists(Model model) {
+        getSearchLists(model, classificationService, categoryService, driveUnitService);
+    }
+
+    static void getSearchLists(Model model, ClassificationService classificationService,
+                               CategoryService categoryService, DriveUnitService driveUnitService) {
         model.addAttribute("classes",
                 classificationService.findAll().stream().filter(classification -> !classification.getCars().isEmpty()).toList()
         );
