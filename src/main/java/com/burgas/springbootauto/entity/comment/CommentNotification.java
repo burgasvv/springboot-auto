@@ -19,6 +19,7 @@ public class CommentNotification {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
+    @SuppressWarnings("JpaDataSourceORMInspection")
     @OneToOne
     @JsonIgnore
     @JoinColumn(name = "comment_id")
@@ -29,8 +30,4 @@ public class CommentNotification {
 
     @Column(nullable = false)
     private String objectId;
-
-    @Column
-    private String amount;
 }
-

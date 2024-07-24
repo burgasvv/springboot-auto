@@ -19,6 +19,7 @@ public class MessageNotification {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
+    @SuppressWarnings("JpaDataSourceORMInspection")
     @OneToOne
     @JsonIgnore
     @JoinColumn(name = "message_id")
@@ -29,7 +30,4 @@ public class MessageNotification {
 
     @Column(nullable = false)
     private String receiver;
-
-    @Column
-    private String amount;
 }
