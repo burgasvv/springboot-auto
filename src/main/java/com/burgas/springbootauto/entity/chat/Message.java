@@ -1,6 +1,7 @@
 package com.burgas.springbootauto.entity.chat;
 
 import com.burgas.springbootauto.entity.person.Person;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,15 @@ public class Message {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @OneToOne(mappedBy = "message", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private MessageNotification notification;
+
+    public void setNotification(MessageNotification notification) {
+        this.notification = notification;
+        notification.setMessage(this);
+    }
 
     @ManyToOne
     @JoinColumn(name = "chat_id")

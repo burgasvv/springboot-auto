@@ -3,9 +3,9 @@ package com.burgas.springbootauto.controller;
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.chat.Chat;
 import com.burgas.springbootauto.entity.chat.Message;
-import com.burgas.springbootauto.entity.chat.MessageForm;
+import com.burgas.springbootauto.entity.chat.MessageNotification;
 import com.burgas.springbootauto.entity.comment.Comment;
-import com.burgas.springbootauto.entity.comment.CommentForm;
+import com.burgas.springbootauto.entity.comment.CommentNotification;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.service.car.CarService;
 import com.burgas.springbootauto.service.chat.ChatService;
@@ -32,26 +32,26 @@ public class MessageController {
     private final CommentService commentService;
 
     @MessageMapping("/private-message")
-    public void getPrivateMessage(@Payload MessageForm messageForm) {
-        Person sender = personService.findPersonByUsername(messageForm.getSender());
-        Person receiver = personService.findPersonByUsername(messageForm.getReceiver());
+    public void getPrivateMessage(@Payload MessageNotification messageNotification) {
+        Person sender = personService.findPersonByUsername(messageNotification.getSender());
+        Person receiver = personService.findPersonByUsername(messageNotification.getReceiver());
         Chat chat = chatService.findChatBySenderAndReceiver(
                 List.of(sender, receiver), sender.getUsername(), receiver.getUsername()).orElse(null);
-        messageService.save(
-                Message.builder().content(messageForm.getContent())
-                .sender(sender).receiver(receiver).chat(chat)
-                .build()
-        );
-        messagingTemplate.convertAndSendToUser(messageForm.getReceiver(), "/topic/private-messages", messageForm);
+        Message message = Message.builder().content(messageNotification.getContent())
+                .sender(sender).receiver(receiver).chat(chat).build();
+        message.setNotification(messageNotification);
+        messageService.save(message);
+        messagingTemplate.convertAndSendToUser(messageNotification.getReceiver(), "/topic/private-messages", messageNotification);
     }
 
     @MessageMapping("/car-comment")
-    public void getCarComment(@Payload CommentForm commentForm) {
-        Person author = personService.findPersonByUsername(commentForm.getAuthor());
-        Car car = carService.findById(Long.valueOf(commentForm.getObjectId()));
-        commentService.save(
-                Comment.builder().author(author).car(car).content(commentForm.getContent()).build()
-        );
-        messagingTemplate.convertAndSend("/queue/car-comments", commentForm);
+    public void getCarComment(@Payload CommentNotification commentNotification) {
+        Person author = personService.findPersonByUsername(commentNotification.getAuthor());
+        Car car = carService.findById(Long.valueOf(commentNotification.getObjectId()));
+        Comment comment = Comment.builder().author(author).car(car)
+                .content(commentNotification.getContent()).build();
+        comment.setNotification(commentNotification);
+        commentService.save(comment);
+        messagingTemplate.convertAndSend("/queue/car-comments", commentNotification);
     }
 }
