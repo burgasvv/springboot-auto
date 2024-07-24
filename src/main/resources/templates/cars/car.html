@@ -417,7 +417,8 @@
                                         <input type="hidden" id="_csrf" name="_csrf" th:value="${_csrf.token}">
                                         <label for="content"></label><br>
                                         <div id="divCommentText">
-                                            <textarea name="content" id="content" class="w3-round-large" style="width: 820px; height: 200px"></textarea>
+                                            <textarea name="content" id="content" class="w3-round-large"
+                                                      placeholder="Введите текст комментария" style="width: 820px; height: 200px"></textarea>
                                         </div>
                                         <br>
                                         <button type="button" class="w3-button w3-round w3-teal" id="sendComment"
