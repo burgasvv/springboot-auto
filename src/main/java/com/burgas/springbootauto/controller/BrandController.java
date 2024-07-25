@@ -135,7 +135,7 @@ public class BrandController {
 
     @DeleteMapping("/{id}/delete")
     public String deleteBrand(@PathVariable Long id) {
-        brandService.delete(brandService.findById(id));
+        brandService.delete(id);
         return "redirect:/brands";
     }
 

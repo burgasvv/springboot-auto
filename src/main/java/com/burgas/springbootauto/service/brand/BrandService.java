@@ -9,12 +9,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class BrandService {
 
     private final BrandRepository brandRepository;
@@ -50,19 +54,20 @@ public class BrandService {
     }
 
     @SneakyThrows
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public void save(Brand brand) {
         brandRepository.save(brand);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void update(Brand brand) {
         brandRepository.save(brand);
     }
 
-    @Transactional
-    public void delete(Brand brand) {
-        brand.getCars().forEach(car -> car.setBrand(null));
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
+    public void delete(Long id) {
+        Brand brand = brandRepository.findById(id).orElse(null);
+        Objects.requireNonNull(brand).getCars().forEach(car -> car.setBrand(null));
         brand.getEngineEditions()
                 .forEach(engineEdition -> engineEdition.getEngines()
                         .forEach(engine -> engine.getEquipments().forEach(equipment -> equipment.setEngine(null))));
