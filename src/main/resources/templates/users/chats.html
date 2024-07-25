@@ -72,14 +72,18 @@
                                                     <div style="display: inline-block; width: 500px; height: 200px; overflow: hidden">
                                                         <div th:each="message : ${chat.messages}">
                                                             <th:block th:if="${message eq chat.messages.last}">
-                                                                <div style="display: inline-flex">
-                                                                    <div style="width: 50px; height: 80px">
-                                                                        <img th:src="@{/images/{id} ((id = ${message.sender.image.id}))}"
-                                                                             alt="image" style="width: 50px">
-                                                                    </div>
-                                                                    <div style="display: inline-block">
-                                                                        <span th:text="${message.content}"></span><br>
-                                                                        <span th:text="${message.date}" style="color: grey"></span>
+                                                                <div style="width: 500px; height: 200px"
+                                                                     class="w3-tag w3-light-grey w3-round-large">
+                                                                    <div style="margin: 20px; display: inline-flex;">
+                                                                        <div style="width: 50px; height: 80px; margin-right: 10px; display: inline-block">
+                                                                            <img th:src="@{/images/{id} ((id = ${message.sender.image.id}))}"
+                                                                                 alt="image" style="width: 50px"><br>
+                                                                            <span th:text="${message.sender.username}"></span>
+                                                                        </div>
+                                                                        <div style="display: inline-block">
+                                                                            <span th:text="${message.content}"></span><br>
+                                                                            <span th:text="${message.date}" style="color: grey"></span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </th:block>

@@ -35,13 +35,24 @@ public class MessageController {
     public void getPrivateMessage(@Payload MessageNotification messageNotification) {
         Person sender = personService.findPersonByUsername(messageNotification.getSender());
         Person receiver = personService.findPersonByUsername(messageNotification.getReceiver());
+        personService.plusMessage(receiver);
         Chat chat = chatService.findChatBySenderAndReceiver(
                 List.of(sender, receiver), sender.getUsername(), receiver.getUsername()).orElse(null);
-        Message message = Message.builder().content(messageNotification.getContent())
+        Message message = Message.builder().read(false).content(messageNotification.getContent())
                 .sender(sender).receiver(receiver).chat(chat).build();
         message.setNotification(messageNotification);
         messageService.save(message);
-        messagingTemplate.convertAndSendToUser(messageNotification.getReceiver(), "/topic/private-messages", messageNotification);
+        messagingTemplate.convertAndSendToUser(messageNotification.getReceiver(),
+                "/topic/private-messages", messageNotification);
+    }
+
+    @MessageMapping("/read-message")
+    public void getReadMessage(@Payload MessageNotification messageNotification) {
+        Person receiver = personService.findPersonByUsername(messageNotification.getReceiver());
+        personService.minusMessage(receiver);
+        messageService.read(messageService.findById(Long.valueOf(messageNotification.getContent())));
+        messagingTemplate.convertAndSendToUser(messageNotification.getReceiver(),
+                "/topic/read-messages", messageNotification);
     }
 
     @MessageMapping("/car-comment")

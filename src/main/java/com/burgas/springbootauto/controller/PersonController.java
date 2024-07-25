@@ -127,21 +127,19 @@ public class PersonController {
 
     @PostMapping("/{name}/ban")
     public String ban(@PathVariable String name) {
-        Person owner = personService.findPersonByUsername(name);
-        Person banned = personService.ban(owner);
+        Person banned = personService.ban(name);
         return "redirect:/users/" + banned.getUsername();
     }
 
     @PostMapping("/{name}/unban")
     public String unban(@PathVariable String name) {
-        Person owner = personService.findPersonByUsername(name);
-        Person unbanned = personService.unban(owner);
+        Person unbanned = personService.unban(name);
         return "redirect:/users/" + unbanned.getUsername();
     }
 
     @PostMapping("/{name}/delete")
     public String delete(@PathVariable String name) {
-        personService.delete(personService.findPersonByUsername(name));
+        personService.delete(name);
         return "forward:/logout";
     }
 

@@ -3,8 +3,10 @@ package com.burgas.springbootauto.entity.person;
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.chat.Chat;
+import com.burgas.springbootauto.entity.chat.MessageAmount;
 import com.burgas.springbootauto.entity.comment.Comment;
 import com.burgas.springbootauto.entity.image.Image;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -67,6 +69,15 @@ public class Person implements UserDetails {
 
     @ManyToMany(mappedBy = "people", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private List<Chat>chats = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "receiver", cascade = CascadeType.ALL)
+    private MessageAmount messageAmount;
+
+    public void setMessageAmount(MessageAmount messageAmount) {
+        this.messageAmount = messageAmount;
+        messageAmount.setReceiver(this);
+    }
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();

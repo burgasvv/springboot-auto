@@ -99,12 +99,10 @@ public class AuthorizationController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute Person person, @RequestPart MultipartFile file, Model model) {
-        model.addAttribute("user",
-                personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
-        );
-        Person user = personService.createUser(person, file);
-        mailSender.sendMailToActivateAccount(user);
+    public String registration(@ModelAttribute Person person, @RequestPart MultipartFile file, Model model, @ModelAttribute Person user) {
+        model.addAttribute("user", user);
+        Person newUser = personService.createUser(person, file);
+        mailSender.sendMailToActivateAccount(newUser);
         model.addAttribute("activation", "off");
         return "authorization/activateAccount";
     }

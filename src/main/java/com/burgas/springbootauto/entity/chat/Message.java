@@ -42,5 +42,8 @@ public class Message {
     private Person receiver;
 
     @Column(nullable = false)
+    private boolean read;
+
+    @Column(nullable = false)
     private String date;
 }

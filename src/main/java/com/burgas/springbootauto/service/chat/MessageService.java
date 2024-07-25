@@ -17,6 +17,10 @@ public class MessageService {
 
     private final MessageRepository messageRepository;
 
+    public Message findById(Long id) {
+        return messageRepository.findById(id).orElse(null);
+    }
+
     @SuppressWarnings("unused")
     public List<Message> findMessagesByChat(Chat chat) {
         return messageRepository.findMessagesByChat(chat);
@@ -26,5 +30,11 @@ public class MessageService {
     public Message save(Message message) {
         message.setDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm")));
         return messageRepository.save(message);
+    }
+
+    @Transactional
+    public void read(Message message) {
+        message.setRead(true);
+        messageRepository.save(message);
     }
 }

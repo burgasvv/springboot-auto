@@ -304,7 +304,20 @@
                         <div class="w3-container">
                             <div style="display: inline-flex">
                                 <form th:method="GET" th:action="@{/users/{name}/chats (name = ${owner.username})}" style="margin-right: 10px">
-                                    <input class="w3-button w3-round w3-green" type="submit" value="Мои сообщения">
+                                    <div id="divMyMessages">
+                                        <th:block th:if="${owner.messageAmount != null}">
+                                            <th:block th:if="${owner.messageAmount.amount > 0}">
+                                                <input class="w3-button w3-round w3-green" type="submit"
+                                                       th:value="|Мои сообщения ${owner.messageAmount.amount}|">
+                                            </th:block>
+                                            <th:block th:if="${owner.messageAmount.amount < 1}">
+                                                <input class="w3-button w3-round w3-green" type="submit" value="Мои сообщения">
+                                            </th:block>
+                                        </th:block>
+                                        <th:block th:if="${owner.messageAmount eq null}">
+                                            <input class="w3-button w3-round w3-green" type="submit" value="Мои сообщения">
+                                        </th:block>
+                                    </div>
                                 </form>
                                 <form th:method="GET" th:action="@{/users/{name}/edit (name = ${owner.username})}" style="margin-right: 10px">
                                     <input class="w3-button w3-round w3-blue" type="submit" value="Изменить данные аккаунта" style="color: black">
@@ -329,6 +342,7 @@
     <script src="/resource/js/makeAdmin.js"></script>
     <script src="/resource/js/bunAndUnbanUser.js"></script>
     <script src="/resource/js/imageResource.js"></script>
+    <script src="/resource/js/specificMessagesAmount.js"></script>
     <div th:insert="~{fragments/fragments.html :: searchScript}">Search Script</div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.burgas.springbootauto.service.person;
 
+import com.burgas.springbootauto.entity.chat.MessageAmount;
 import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.person.Status;
@@ -14,6 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +25,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class PersonService {
 
     private final PersonRepository personRepository;
@@ -59,7 +63,7 @@ public class PersonService {
     }
 
     @SneakyThrows
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
     public Person createUser(Person person, MultipartFile multipartFile) {
         if (personRepository.findPersonByUsername(person.getUsername()) != null)
             return null;
@@ -79,25 +83,25 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public void connectUser(Person person) {
         person.setStatus(Status.ONLINE);
         personRepository.save(person);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public void disconnectUser(Person person) {
         person.setStatus(Status.OFFLINE);
         personRepository.save(person);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public void restorePassword(Person person, String password) {
         person.setPassword(passwordEncoder.encode(password));
         personRepository.save(person);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.NESTED)
     public void update(Person person) {
         person.setEnabled(true);
         person.setStatus(Status.OFFLINE);
@@ -108,8 +112,9 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    @Transactional
-    public void delete(Person person) {
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
+    public void delete(String name) {
+        Person person = personRepository.findPersonByUsername(name);
         person.getChats().forEach(chat -> chat.getMessages().forEach(message -> {
             if (message.getSender().equals(person)) {
                 message.setSender(null);
@@ -125,26 +130,28 @@ public class PersonService {
         personRepository.deleteById(person.getId());
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public Person makeAdmin(Person person) {
         person.setRole(roleRepository.findByName("ADMIN"));
         return personRepository.save(person);
     }
 
-    @Transactional
-    public Person ban(Person person) {
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public Person ban(String name) {
+        Person person = personRepository.findPersonByUsername(name);
         person.setEnabled(false);
         return personRepository.save(person);
     }
 
-    @Transactional
-    public Person unban(Person person) {
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public Person unban(String name) {
+        Person person = personRepository.findPersonByUsername(name);
         person.setEnabled(true);
         return personRepository.save(person);
     }
 
     @SneakyThrows
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public void changeImage(Person person, MultipartFile file) {
         if (imageService.findByName(file.getOriginalFilename()) != null) {
             return;
@@ -160,7 +167,7 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public void removeImage(Person person) {
         Image image = person.getImage();
         person.setImage(null);
@@ -168,10 +175,33 @@ public class PersonService {
         imageService.delete(image);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public void activateAccount(Person person) {
         person.setEnabled(true);
         person.setVerified(true);
+        personRepository.save(person);
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public void plusMessage(Person person) {
+        MessageAmount messageAmount = person.getMessageAmount();
+        if (messageAmount == null) {
+            person.setMessageAmount(
+                    MessageAmount.builder().receiver(person).amount(1L).build()
+            );
+            personRepository.save(person);
+        } else {
+            messageAmount.setAmount(messageAmount.getAmount() + 1L);
+            person.setMessageAmount(messageAmount);
+            personRepository.save(person);
+        }
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public void minusMessage(Person person) {
+        MessageAmount messageAmount = person.getMessageAmount();
+        messageAmount.setAmount(messageAmount.getAmount() - 1L);
+        person.setMessageAmount(messageAmount);
         personRepository.save(person);
     }
 }
