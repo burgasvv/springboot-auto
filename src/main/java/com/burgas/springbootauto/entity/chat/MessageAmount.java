@@ -20,6 +20,7 @@ public class MessageAmount {
     @Column(nullable = false)
     private Long amount;
 
+    @SuppressWarnings("JpaDataSourceORMInspection")
     @OneToOne
     @JsonIgnore
     @JoinColumn(name = "receiver_id")
