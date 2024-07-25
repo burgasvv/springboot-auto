@@ -104,7 +104,7 @@ public class CarService {
     }
 
     @SneakyThrows
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
     public void create(Car car,  MultipartFile multipartFile) {
         car.setHasPreview(false);
         if (multipartFile.getSize() != 0) {
@@ -119,7 +119,7 @@ public class CarService {
     }
 
     @SneakyThrows
-    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void changePreviewImage(Car car, MultipartFile multipartFile) {
         if (multipartFile.getSize() != 0) {
             car.getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
@@ -133,7 +133,7 @@ public class CarService {
         }
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void removePreviewImage(Car car) {
         car.getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
         car.setHasPreview(false);
@@ -141,7 +141,7 @@ public class CarService {
     }
 
     @SneakyThrows
-    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void addImages(Car car, MultipartFile[] files) {
         for (MultipartFile file : files) {
             Image image = new Image();
@@ -153,7 +153,7 @@ public class CarService {
         }
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public void save(Car car) {
         carRepository.save(car);
     }
@@ -163,12 +163,12 @@ public class CarService {
         carRepository.save(car);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void delete(Long id) {
         carRepository.deleteById(id);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void setPreviewImage(Car car, Image image) {
         if (!car.isHasPreview()){
             car.setHasPreview(true);

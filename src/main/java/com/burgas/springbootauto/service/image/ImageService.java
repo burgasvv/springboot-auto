@@ -37,6 +37,11 @@ public class ImageService {
     }
 
     @Transactional
+    public Image saveNewImage(Image image) {
+        return imageRepository.save(image);
+    }
+
+    @Transactional
     public void delete(Image image) {
         imageRepository.deleteById(image.getId());
     }

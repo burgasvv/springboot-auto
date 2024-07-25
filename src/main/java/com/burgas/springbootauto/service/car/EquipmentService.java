@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -114,6 +115,12 @@ public class EquipmentService {
         equipment.setCar(null);
         equipment.setAttached(false);
         equipmentRepository.save(equipment);
+    }
+
+    public Image saveNewImage(Image image) {
+        Image newImage = Image.builder().isPreview(true).name(image.getName() + UUID.randomUUID())
+                .data(image.getData()).build();
+        return imageService.saveNewImage(newImage);
     }
 
     @Transactional

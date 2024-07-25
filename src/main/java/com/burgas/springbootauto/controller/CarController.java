@@ -10,7 +10,6 @@ import com.burgas.springbootauto.service.person.PersonService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -128,10 +127,8 @@ public class CarController {
         return "cars/add";
     }
 
-    @SneakyThrows
     @PostMapping("/secure/add")
     public String addCar(@ModelAttribute Car car, @RequestPart MultipartFile file) {
-        car.setPerson(personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         carService.create(car, file);
         return "redirect:/users/" + SecurityContextHolder.getContext().getAuthentication().getName();
     }
@@ -151,12 +148,12 @@ public class CarController {
     }
 
     @PatchMapping("/{id}/edit")
-    public String editCar(@ModelAttribute("car") @Valid Car car,  BindingResult bindingResult) {
-        Car temp = carService.findById(car.getId());
+    public String editCar(@ModelAttribute("car") @Valid Car car,  BindingResult bindingResult, @RequestParam String username) {
         if (bindingResult.hasErrors()) {
             return "cars/edit";
         }
-        car.setPerson(temp.getPerson());
+        car.setPerson(personService.findPersonByUsername(username));
+        car.setHasPreview(true);
         car.setTags(tagService.searchTagsByCars(car));
         carService.update(car);
         return "redirect:/cars/{id}";
@@ -272,11 +269,11 @@ public class CarController {
         return "redirect:/users/" + SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    private static @NotNull Equipment getEquipment(Equipment equipment, Person handoverPerson) {
+    private @NotNull Equipment getEquipment(Equipment equipment, Person handoverPerson) {
         Equipment newEquipment = new Equipment();
         newEquipment.setCar(equipment.getCar());
         newEquipment.setAttached(equipment.isAttached());
-        newEquipment.setImage(equipment.getImage());
+        newEquipment.setImage(equipmentService.saveNewImage(equipment.getImage()));
         newEquipment.setName(equipment.getName());
         newEquipment.setPerson(handoverPerson);
         newEquipment.setEngine(equipment.getEngine());

@@ -34,7 +34,7 @@
                             <h3 style="text-align: center">
                                 <a th:href="@{/equipments/{id} (id = ${complectation.id})}"
                                    style="text-decoration: none">
-                                    <img th:src="${complectation.image}" alt="image" style="width: 100px; border-radius: 10%"><br>
+                                    <img th:src="@{/images/{id} (id = ${complectation.image.id})}" alt="image" style="width: 100px; border-radius: 10%"><br>
                                     <span th:text="${complectation.name}"/>
                                 </a>
                                 <th:block th:if="${user.username eq car.person.username}">

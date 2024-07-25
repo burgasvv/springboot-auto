@@ -30,6 +30,8 @@
                     <div style="margin-left: 100px; margin-top: 20px">
                         <div style="display: inline-block; margin-left: -100px; margin-right: 100px">
 
+                            <input type="hidden" name="username" th:value="${user.username}">
+
                             <label for="brand">Бренд</label><br>
                             <select size="1" th:field="*{brand.id}" id="brand" style="width: 300px">
                                 <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.title}"
