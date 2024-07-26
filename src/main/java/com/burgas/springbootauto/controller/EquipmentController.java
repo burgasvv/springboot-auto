@@ -28,7 +28,6 @@ import java.util.stream.IntStream;
 public class EquipmentController {
 
     private final EquipmentService equipmentService;
-    private final CarService carService;
     private final EngineService engineService;
     private final TransmissionService transmissionService;
     private final TurbochargerService turbochargerService;
