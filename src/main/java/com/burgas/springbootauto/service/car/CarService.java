@@ -166,11 +166,6 @@ public class CarService {
         }
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public void save(Car car) {
-        carRepository.save(car);
-    }
-
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void removeEquipment(Long carId, Long equipmentId) {
         Car car = carRepository.findById(carId).orElse(null);
