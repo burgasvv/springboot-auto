@@ -155,37 +155,24 @@ public class EquipmentController {
 
     @DeleteMapping("/{id}/delete-equipment")
     public String deleteEquipment(@PathVariable("id") Long id) {
-        Equipment equipment = equipmentService.findById(id);
-        equipmentService.delete(equipment.getId());
-        return "redirect:/users/" + equipment.getPerson().getUsername();
+        return "redirect:/users/" + equipmentService.deleteRedirectingToUser(id);
     }
 
     @PostMapping("/{id}/share-equipment")
     public String shareEquipment(@PathVariable("id") Long id, @ModelAttribute("userForShare") Person userForShare) {
-        Equipment equipment = equipmentService.findById(id);
-        Person person = personService.findById(userForShare.getId());
-        Equipment newEquipment = new Equipment();
-        newEquipment.setPerson(person);
-        newEquipment.setName(equipment.getName());
-        newEquipment.setCar(null);
-        newEquipment.setEngine(equipment.getEngine());
-        newEquipment.setTransmission(equipment.getTransmission());
-        newEquipment.setTurbocharger(equipment.getTurbocharger());
-        newEquipment.setAttached(false);
-        newEquipment.setImage(equipmentService.saveNewImage(equipment.getImage()));
-        equipmentService.save(newEquipment);
+        equipmentService.save(id, userForShare.getId());
         return "redirect:/equipments/{id}";
     }
 
     @PostMapping("/{id}/attach-to-car")
     public String attachToCar(@PathVariable("id") Long id, @RequestParam Long carId) {
-        equipmentService.attachToCar(equipmentService.findById(id), carService.findById(carId));
+        equipmentService.attachToCar(id, carId);
         return "redirect:/cars/" + carId;
     }
 
     @PostMapping("/{id}/detach-from-car")
     public String detachFromCar(@PathVariable("id") Long id, @RequestParam Long carId) {
-        equipmentService.detachFromCar(equipmentService.findById(id));
+        equipmentService.detachFromCar(id);
         return "redirect:/cars/" + carId;
     }
 

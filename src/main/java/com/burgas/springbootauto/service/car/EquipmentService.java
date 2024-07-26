@@ -3,7 +3,10 @@ package com.burgas.springbootauto.service.car;
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Equipment;
 import com.burgas.springbootauto.entity.image.Image;
+import com.burgas.springbootauto.entity.person.Person;
+import com.burgas.springbootauto.repository.car.CarRepository;
 import com.burgas.springbootauto.repository.car.EquipmentRepository;
+import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.service.image.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -18,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -26,6 +30,8 @@ public class EquipmentService {
 
     private final EquipmentRepository equipmentRepository;
     private final ImageService imageService;
+    private final CarRepository carRepository;
+    private final PersonRepository personRepository;
 
     public List<Equipment> findAll() {
         return equipmentRepository.findAll();
@@ -71,9 +77,17 @@ public class EquipmentService {
         return equipmentRepository.findAllByTurbochargerId(id);
     }
 
-    @Transactional
-    public void save(Equipment equipment) {
-        equipmentRepository.save(equipment);
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void save(Long equipmentId, Long userId) {
+        Equipment equipment = equipmentRepository.findById(equipmentId).orElse(null);
+        Person person = personRepository.findById(userId).orElse(null);
+        equipmentRepository.save(
+                Equipment.builder().person(person)
+                .name(Objects.requireNonNull(equipment).getName())
+                .car(null).engine(equipment.getEngine())
+                .transmission(equipment.getTransmission()).turbocharger(equipment.getTurbocharger())
+                .attached(false).image(saveNewImage(equipment.getImage())).build()
+        );
     }
 
     @SneakyThrows
@@ -100,25 +114,31 @@ public class EquipmentService {
         equipmentRepository.save(equipment);
     }
 
-    @Transactional
-    public void delete(Long id) {
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public String deleteRedirectingToUser(Long id) {
+        Equipment equipment = equipmentRepository.findById(id).orElse(null);
         equipmentRepository.deleteById(id);
+        return Objects.requireNonNull(equipment).getPerson().getUsername();
     }
 
-    @Transactional
-    public void attachToCar(Equipment equipment, Car car) {
-        equipment.setCar(car);
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void attachToCar(Long equipmentId, Long carId) {
+        Equipment equipment = equipmentRepository.findById(equipmentId).orElse(null);
+        Car car = carRepository.findById(carId).orElse(null);
+        Objects.requireNonNull(equipment).setCar(car);
         equipment.setAttached(true);
         equipmentRepository.save(equipment);
     }
 
-    @Transactional
-    public void detachFromCar(Equipment equipment) {
-        equipment.setCar(null);
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void detachFromCar(Long equipmentId) {
+        Equipment equipment = equipmentRepository.findById(equipmentId).orElse(null);
+        Objects.requireNonNull(equipment).setCar(null);
         equipment.setAttached(false);
         equipmentRepository.save(equipment);
     }
 
+    @Transactional
     public Image saveNewImage(Image image) {
         Image newImage = Image.builder().isPreview(true).name(image.getName() + UUID.randomUUID())
                 .data(image.getData()).build();
