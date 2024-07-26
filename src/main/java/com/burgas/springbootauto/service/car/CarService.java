@@ -1,8 +1,13 @@
 package com.burgas.springbootauto.service.car;
 
 import com.burgas.springbootauto.entity.car.Car;
+import com.burgas.springbootauto.entity.car.Equipment;
+import com.burgas.springbootauto.entity.car.Tag;
 import com.burgas.springbootauto.entity.image.Image;
+import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.car.CarRepository;
+import com.burgas.springbootauto.repository.car.TagRepository;
+import com.burgas.springbootauto.repository.person.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +20,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -24,6 +31,9 @@ import java.util.UUID;
 public class CarService {
 
     private final CarRepository carRepository;
+    private final PersonRepository personRepository;
+    private final TagRepository tagRepository;
+    private final EquipmentService equipmentService;
 
     private static @NotNull PageRequest getPageRequest(int page, int size) {
         return PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
@@ -120,9 +130,10 @@ public class CarService {
 
     @SneakyThrows
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
-    public void changePreviewImage(Car car, MultipartFile multipartFile) {
+    public void changePreviewImage(Long carId, MultipartFile multipartFile) {
+        Car car = carRepository.findById(carId).orElse(null);
         if (multipartFile.getSize() != 0) {
-            car.getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
+            Objects.requireNonNull(car).getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
             Image image = new Image();
             image.setName(multipartFile.getOriginalFilename() + UUID.randomUUID());
             image.setPreview(true);
@@ -134,21 +145,23 @@ public class CarService {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
-    public void removePreviewImage(Car car) {
-        car.getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
+    public void removePreviewImage(Long carId) {
+        Car car = carRepository.findById(carId).orElse(null);
+        Objects.requireNonNull(car).getImages().stream().filter(Image::isPreview).forEach(image -> image.setPreview(false));
         car.setHasPreview(false);
         carRepository.save(car);
     }
 
     @SneakyThrows
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
-    public void addImages(Car car, MultipartFile[] files) {
+    public void addImages(Long carId, MultipartFile[] files) {
+        Car car = carRepository.findById(carId).orElse(null);
         for (MultipartFile file : files) {
             Image image = new Image();
             image.setName(file.getOriginalFilename() + UUID.randomUUID());
             image.setPreview(false);
             image.setData(file.getBytes());
-            car.addImage(image);
+            Objects.requireNonNull(car).addImage(image);
             carRepository.save(car);
         }
     }
@@ -158,8 +171,74 @@ public class CarService {
         carRepository.save(car);
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public void update(Car car) {
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void removeEquipment(Long carId, Long equipmentId) {
+        Car car = carRepository.findById(carId).orElse(null);
+        Objects.requireNonNull(car).removeEquipment(equipmentService.findById(equipmentId));
+        carRepository.save(car);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void attachEquipment(Equipment equipment, Long carId) {
+        Car car = carRepository.findById(carId).orElse(null);
+        Objects.requireNonNull(car).addEquipment(equipmentService.findById(equipment.getId()));
+        carRepository.save(car);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void addTag(Tag tag, Long carId) {
+        Car car = carRepository.findById(carId).orElse(null);
+        Tag newTag = new Tag();
+        newTag.setName(tag.getName());
+        Objects.requireNonNull(car).getTags().add(newTag);
+        tagRepository.save(newTag);
+        carRepository.save(car);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void attachTag(Long carId, Tag tag) {
+        Car car = carRepository.findById(carId).orElse(null);
+        Objects.requireNonNull(car).getTags().add(tag);
+        carRepository.save(car);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void handover(Car car) {
+        Car handoverCar = carRepository.findById(car.getId()).orElse(null);
+        List<Equipment> handoverEquipments = equipmentService.findAllByCarId(car.getId());
+        Person handoverPerson = car.getPerson();
+        Objects.requireNonNull(handoverCar).setPerson(handoverPerson);
+        handoverCar.removeEquipments(handoverEquipments);
+        carRepository.save(handoverCar);
+
+        List<Equipment>newEquipments = new ArrayList<>();
+        for (Equipment equipment : handoverEquipments) {
+            newEquipments.add(Equipment.builder().car(equipment.getCar())
+                    .attached(equipment.isAttached()).image(equipmentService.saveNewImage(equipment.getImage()))
+                    .name(equipment.getName()).person(handoverPerson).engine(equipment.getEngine())
+                    .transmission(equipment.getTransmission()).turbocharger(equipment.getTurbocharger()).build());
+        }
+        equipmentService.saveAll(newEquipments);
+
+        handoverCar.addEquipments(newEquipments);
+        carRepository.save(handoverCar);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public String updateAndDelete(Long carId) {
+        Car car = carRepository.findById(carId).orElse(null);
+        Person person = Objects.requireNonNull(car).getPerson();
+        Objects.requireNonNull(car).removeEquipments(car.getEquipments());
+        carRepository.save(car);
+        carRepository.delete(car);
+        return person.getUsername();
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void editCar(Car car, String username) {
+        car.setPerson(personRepository.findPersonByUsername(username));
+        car.setHasPreview(true);
+        car.setTags(tagRepository.searchTagsByCars(List.of(car)));
         carRepository.save(car);
     }
 

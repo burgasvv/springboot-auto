@@ -61,9 +61,6 @@
                             <label for="title">Наименование</label><br>
                             <input class="w3-input w3-border w3-light-grey w3-round-large"
                                    type="text" id="title" th:field="*{title}" required>
-                            <th:block th:if="${#fields.hasErrors('title')}">
-                                <span th:errors="*{title}" style="color: red">Title Field Errors</span>
-                            </th:block>
                             <br>
 
                             <label for="weight">Вес</label><br>

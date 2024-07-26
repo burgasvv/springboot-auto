@@ -6,8 +6,8 @@ import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.car.CarRepository;
 import com.burgas.springbootauto.repository.car.EquipmentRepository;
+import com.burgas.springbootauto.repository.image.ImageRepository;
 import com.burgas.springbootauto.repository.person.PersonRepository;
-import com.burgas.springbootauto.service.image.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
@@ -29,7 +29,7 @@ import java.util.UUID;
 public class EquipmentService {
 
     private final EquipmentRepository equipmentRepository;
-    private final ImageService imageService;
+    private final ImageRepository imageRepository;
     private final CarRepository carRepository;
     private final PersonRepository personRepository;
 
@@ -98,7 +98,7 @@ public class EquipmentService {
                     .name(file.getOriginalFilename())
                     .data(file.getBytes())
                     .build();
-            imageService.save(image);
+            imageRepository.save(image);
             equipment.setImage(image);
         }
         equipmentRepository.save(equipment);
@@ -142,7 +142,7 @@ public class EquipmentService {
     public Image saveNewImage(Image image) {
         Image newImage = Image.builder().isPreview(true).name(image.getName() + UUID.randomUUID())
                 .data(image.getData()).build();
-        return imageService.saveNewImage(newImage);
+        return imageRepository.save(newImage);
     }
 
     @Transactional
@@ -150,6 +150,6 @@ public class EquipmentService {
         Image image = equipment.getImage();
         equipment.setImage(null);
         equipmentRepository.save(equipment);
-        imageService.delete(image);
+        imageRepository.delete(image);
     }
 }

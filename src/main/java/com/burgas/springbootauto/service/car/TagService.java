@@ -1,6 +1,5 @@
 package com.burgas.springbootauto.service.car;
 
-import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Tag;
 import com.burgas.springbootauto.repository.car.TagRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +16,6 @@ public class TagService {
 
     public List<Tag> findAll() {
         return tagRepository.findAll();
-    }
-
-    public List<Tag> searchTagsByCars(Car car) {
-        return tagRepository.searchTagsByCars(List.of(car));
     }
 
     public Tag findById(Long id) {

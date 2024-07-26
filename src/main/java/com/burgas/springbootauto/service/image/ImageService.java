@@ -2,8 +2,8 @@ package com.burgas.springbootauto.service.image;
 
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.image.Image;
+import com.burgas.springbootauto.repository.car.CarRepository;
 import com.burgas.springbootauto.repository.image.ImageRepository;
-import com.burgas.springbootauto.service.car.CarService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class ImageService {
 
     private final ImageRepository imageRepository;
-    private final CarService carService;
+    private final CarRepository carRepository;
 
     public Image findById(Long id) {
         return imageRepository.findById(id).orElse(null);
@@ -37,11 +37,6 @@ public class ImageService {
     }
 
     @Transactional
-    public Image saveNewImage(Image image) {
-        return imageRepository.save(image);
-    }
-
-    @Transactional
     public void delete(Image image) {
         imageRepository.deleteById(image.getId());
     }
@@ -51,7 +46,7 @@ public class ImageService {
         if (image.isPreview()) {
             car.setHasPreview(false);
         }
-        carService.update(car);
+        carRepository.save(car);
         imageRepository.deleteById(image.getId());
     }
 }

@@ -29,6 +29,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 @Controller
@@ -145,14 +146,15 @@ public class BrandController {
 
     static void getSearchLists(Model model, ClassificationService classificationService,
                                CategoryService categoryService, DriveUnitService driveUnitService) {
-        model.addAttribute("classes",
-                classificationService.findAll().stream().filter(classification -> !classification.getCars().isEmpty()).toList()
-        );
-        model.addAttribute("categories",
-                categoryService.findAll().stream().filter(category -> !category.getCars().isEmpty()).toList()
-        );
-        model.addAttribute("drives",
-                driveUnitService.findAll().stream().filter(drive -> !drive.getCars().isEmpty()).toList()
+        model.addAllAttributes(
+                Map.of(
+                        "classes",
+                        classificationService.findAll().stream().filter(classification -> !classification.getCars().isEmpty()).toList(),
+                        "categories",
+                        categoryService.findAll().stream().filter(category -> !category.getCars().isEmpty()).toList(),
+                        "drives",
+                        driveUnitService.findAll().stream().filter(drive -> !drive.getCars().isEmpty()).toList()
+                )
         );
     }
 
