@@ -231,7 +231,8 @@ public class PersonController {
     public String userChats(@PathVariable String name, Model model) {
         Person owner = personService.findPersonByUsername(name);
         model.addAttribute("users",
-                personService.findAll().stream().filter(person -> !person.equals(owner)).toList()
+                personService.findAll().stream().filter(person -> !person.equals(owner))
+                        .filter(Person::isEnabled).filter(Person::isVerified).toList()
         );
         model.addAttribute("owner", owner);
         model.addAttribute("guest",

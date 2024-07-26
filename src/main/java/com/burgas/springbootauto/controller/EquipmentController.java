@@ -90,7 +90,8 @@ public class EquipmentController {
         model.addAttribute("turbochargers", turbochargerService.findAll());
         model.addAttribute("addTurbocharger", new Turbocharger());
         model.addAttribute("users",
-                personService.findAll().stream().filter(person -> !person.equals(owner)).toList()
+                personService.findAll().stream().filter(person -> !person.equals(owner))
+                        .filter(Person::isEnabled).filter(Person::isVerified).toList()
         );
         model.addAttribute("userForShare", new Person());
         return "equipments/equipment";
@@ -171,7 +172,7 @@ public class EquipmentController {
         newEquipment.setTransmission(equipment.getTransmission());
         newEquipment.setTurbocharger(equipment.getTurbocharger());
         newEquipment.setAttached(false);
-        newEquipment.setImage(equipment.getImage());
+        newEquipment.setImage(equipmentService.saveNewImage(equipment.getImage()));
         equipmentService.save(newEquipment);
         return "redirect:/equipments/{id}";
     }

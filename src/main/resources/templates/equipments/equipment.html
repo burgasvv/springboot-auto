@@ -49,26 +49,30 @@
     </div>
     <br>
     <div style="margin-left: 100px; margin-right: 100px; margin-bottom: 100px" class="w3-animate-opacity">
-        <div style="display: inline-flex; margin-top: 20px">
-            <th:block th:if="${equipment.image != null}">
-                <form th:method="POST" th:action="@{/equipments/{id}/remove-image (id = ${equipment.id})}"
-                      style="margin-left: 20px; display: inline-flex">
-                    <label for="removeImage"></label>
-                    <input class="w3-button w3-red w3-round"
-                           type="submit" id="removeImage" value="Убрать изображение" style="color: black">
-                </form>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block th:if="${user.username eq owner.username}">
+                <div style="display: inline-flex; margin-top: 20px">
+                    <th:block th:if="${equipment.image != null}">
+                        <form th:method="POST" th:action="@{/equipments/{id}/remove-image (id = ${equipment.id})}"
+                              style="margin-left: 20px; display: inline-flex">
+                            <label for="removeImage"></label>
+                            <input class="w3-button w3-red w3-round"
+                                   type="submit" id="removeImage" value="Убрать изображение" style="color: black">
+                        </form>
+                    </th:block>
+                    <th:block th:if="${equipment.image eq null}">
+                        <form style="display: inline-flex"
+                              th:method="POST" th:action="@{/equipments/{id}/change-image (id = ${equipment.id})}" enctype="multipart/form-data">
+                            <label for="addImage"></label>
+                            <input class="w3-input w3-border w3-round-large"
+                                   type="file" id="addImage" name="file" accept="image/png, image/jpeg">
+                            <input class="w3-button w3-teal w3-round" type="submit"
+                                   style="color: black; margin-left: 20px; width: 130px" value="Добавить">
+                        </form>
+                    </th:block>
+                </div>
             </th:block>
-            <th:block th:if="${equipment.image eq null}">
-                <form style="display: inline-flex"
-                      th:method="POST" th:action="@{/equipments/{id}/change-image (id = ${equipment.id})}" enctype="multipart/form-data">
-                    <label for="addImage"></label>
-                    <input class="w3-input w3-border w3-round-large"
-                           type="file" id="addImage" name="file" accept="image/png, image/jpeg">
-                    <input class="w3-button w3-teal w3-round" type="submit"
-                           style="color: black; margin-left: 20px; width: 130px" value="Добавить">
-                </form>
-            </th:block>
-        </div>
+        </th:block>
         <div>
             <h3>
                 Владелец: <a style="color: grey; text-decoration: none"
