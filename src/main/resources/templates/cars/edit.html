@@ -26,7 +26,7 @@
                 <h1>Добавить автомобиль</h1>
             </div>
             <div class="w3-container">
-                <form th:method="PATCH" th:action="@{/cars/{id}/edit (id = *{id})}" th:object="${car}">
+                <form th:method="PATCH" th:action="@{/cars/{id}/edit (id = ${car.id})}" th:object="${car}">
                     <div style="margin-left: 100px; margin-top: 20px">
                         <div style="display: inline-block; margin-left: -100px; margin-right: 100px">
 
@@ -60,21 +60,21 @@
 
                             <label for="title">Наименование</label><br>
                             <input class="w3-input w3-border w3-light-grey w3-round-large"
-                                   type="text" id="title" th:field="*{title}" required>
+                                   type="text" id="title" th:field="${car.title}" required>
                             <br>
 
                             <label for="weight">Вес</label><br>
                             <input class="w3-input w3-border w3-light-grey w3-round-large"
-                                   type="text" id="weight" th:field="*{weight}" required><br>
+                                   type="text" id="weight" th:field="${car.weight}" required><br>
 
                             <label for="webpage">Веб-страница</label><br>
                             <input class="w3-input w3-border w3-light-grey w3-round-large"
-                                   type="url" id="webpage" th:field="*{webpage}"><br>
+                                   type="url" id="webpage" th:field="${car.webpage}"><br>
                         </div>
                     </div>
 
                     <label for="description">Описание</label><br>
-                    <textarea th:field="*{description}" id="description" cols="40" rows="5" style="width: 750px"></textarea><br><br>
+                    <textarea th:field="${car.description}" id="description" cols="40" rows="5" style="width: 750px"></textarea><br><br>
 
                     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                     <input class="w3-button w3-win8-blue w3-round" type="submit" value="Принять" style="color: black">
