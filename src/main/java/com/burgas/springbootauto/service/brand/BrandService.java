@@ -54,7 +54,7 @@ public class BrandService {
     }
 
     @SneakyThrows
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void save(Brand brand) {
         brandRepository.save(brand);
     }

@@ -166,11 +166,9 @@ public class BrandController {
     @GetMapping("/{id}/cars/pages/{page}")
     public String brandCarsPage(@PathVariable("id") Long id, Model model, @PathVariable int page) {
         getSearchLists(model);
-        Brand brand = brandService.findById(id);
-        model.addAttribute("brand", brand);
+        model.addAttribute("brand", brandService.findById(id));
         Page<Car> cars = carService.findCarsByBrandId(id, page, 25);
-        int totalPages = cars.getTotalPages();
-        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        List<Integer> pages = IntStream.rangeClosed(1, cars.getTotalPages()).boxed().toList();
         model.addAttribute("cars", cars.getContent());
         model.addAttribute("pages", pages);
         model.addAttribute("user",
