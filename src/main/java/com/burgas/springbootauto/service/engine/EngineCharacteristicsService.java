@@ -24,17 +24,8 @@ public class EngineCharacteristicsService {
         return engineCharacteristicsRepository.findById(id).orElse(null);
     }
 
-    public EngineCharacteristics findByEngineId(Long id) {
-        return engineCharacteristicsRepository.searchEngineCharacteristicsByEngineId(id);
-    }
-
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void update(EngineCharacteristics engineCharacteristics) {
         engineCharacteristicsRepository.save(engineCharacteristics);
-    }
-
-    @Transactional
-    public void deleteByEngineId(Long id) {
-        engineCharacteristicsRepository.deleteByEngineId(id);
     }
 }
