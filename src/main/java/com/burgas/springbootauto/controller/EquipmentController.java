@@ -40,8 +40,7 @@ public class EquipmentController {
     @GetMapping("/pages/{page}")
     public String equipmentsPage(@PathVariable int page, Model model) {
         Page<Equipment> equipments = equipmentService.findAll(page, 50);
-        int totalPages = equipments.getTotalPages();
-        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        List<Integer> pages = IntStream.rangeClosed(1, equipments.getTotalPages()).boxed().toList();
         model.addAttribute("equipments", equipments.getContent());
         model.addAttribute("pages", pages);
         model.addAttribute("user",
@@ -106,24 +105,18 @@ public class EquipmentController {
 
     @PostMapping("/secure/add")
     public String addEquipment(@ModelAttribute("equipment") Equipment equipment, @RequestPart MultipartFile file) {
-        Person user = personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        equipment.setAttached(false);
-        equipment.setPerson(user);
-        equipmentService.saveMultipart(equipment, file);
-        return "redirect:/users/" + user.getUsername();
+        return "redirect:/users/" + equipmentService.createEquipment(equipment, file);
     }
 
     @PostMapping("/{id}/change-image")
     public String changeImage(@PathVariable("id") Long id, @RequestPart("file") MultipartFile file) {
-        Equipment equipment = equipmentService.findById(id);
-        equipmentService.saveMultipart(equipment, file);
+        equipmentService.changeImage(id, file);
         return "redirect:/equipments/" + id;
     }
 
     @PostMapping("/{id}/remove-image")
     public String removeImage(@PathVariable Long id) {
-        Equipment equipment = equipmentService.findById(id);
-        equipmentService.removeImage(equipment);
+        equipmentService.removeImage(id);
         return "redirect:/equipments/" + id;
     }
 
@@ -139,15 +132,7 @@ public class EquipmentController {
 
     @PostMapping("/{id}/edit-equipment")
     public String editEquipment(@ModelAttribute Equipment equipment, Model model) {
-        Equipment temp = equipmentService.findById(equipment.getId());
-        equipment.setAttached(temp.isAttached());
-        equipment.setPerson(temp.getPerson());
-        equipment.setCar(temp.getCar());
-        equipment.setEngine(temp.getEngine());
-        equipment.setTransmission(temp.getTransmission());
-        equipment.setTurbocharger(temp.getTurbocharger());
-        model.addAttribute("equipment", equipment);
-        equipmentService.update(equipment);
+        equipmentService.editEquipment(equipment, model);
         return "redirect:/equipments/{id}";
     }
 
@@ -176,49 +161,37 @@ public class EquipmentController {
 
     @PostMapping("/{id}/add-engine")
     public String addEngine(@PathVariable("id") Long id, @ModelAttribute("engine") Engine engine) {
-        Equipment equipment = equipmentService.findById(id);
-        equipment.addEngine(engine);
-        equipmentService.update(equipment);
+        equipmentService.addEngine(id, engine);
         return "redirect:/equipments/{id}";
     }
 
     @PostMapping("/{id}/remove-engine")
     public String removeEngine(@PathVariable("id") Long id) {
-        Equipment equipment = equipmentService.findById(id);
-        equipment.removeEngine(equipment.getEngine());
-        equipmentService.update(equipment);
+        equipmentService.removeEngine(id);
         return "redirect:/equipments/{id}";
     }
 
     @PostMapping("/{id}/add-transmission")
     public String addTransmission(@PathVariable("id") Long id, @ModelAttribute("transmission") Transmission transmission) {
-        Equipment equipment = equipmentService.findById(id);
-        equipment.addTransmission(transmission);
-        equipmentService.update(equipment);
+        equipmentService.addTransmission(id, transmission);
         return "redirect:/equipments/{id}";
     }
 
     @PostMapping("/{id}/remove-transmission")
     public String removeTransmission(@PathVariable("id") Long id) {
-        Equipment equipment = equipmentService.findById(id);
-        equipment.removeTransmission(equipment.getTransmission());
-        equipmentService.update(equipment);
+        equipmentService.removeTransmission(id);
         return "redirect:/equipments/{id}";
     }
 
     @PostMapping("/{id}/add-turbocharger")
     public String addTurbocharger(@PathVariable("id") Long id, @ModelAttribute("turbocharger") Turbocharger turbocharger) {
-        Equipment equipment = equipmentService.findById(id);
-        equipment.addTurbocharger(turbocharger);
-        equipmentService.update(equipment);
+        equipmentService.addTurbocharger(id, turbocharger);
         return "redirect:/equipments/{id}";
     }
 
     @PostMapping("/{id}/remove-turbocharger")
     public String removeTurbocharger(@PathVariable("id") Long id) {
-        Equipment equipment = equipmentService.findById(id);
-        equipment.removeTurbocharger(equipment.getTurbocharger());
-        equipmentService.update(equipment);
+        equipmentService.removeTurbocharger(id);
         return "redirect:/equipments/{id}";
     }
 }

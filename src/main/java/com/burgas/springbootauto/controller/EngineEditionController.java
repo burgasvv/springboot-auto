@@ -70,13 +70,7 @@ public class EngineEditionController {
 
     @PostMapping("/secure/add")
     public String addEdition(@ModelAttribute("edition") EngineEdition edition) {
-        EngineEdition newEdition = new EngineEdition();
-        newEdition.setBrand(edition.getBrand());
-        newEdition.setName(edition.getName());
-        newEdition.setImage(edition.getImage());
-        editionService.save(edition);
-        Long id = editionService.findByName(newEdition.getName()).getId();
-        return "redirect:/editions/" + id;
+        return "redirect:/editions/" + editionService.createEdition(edition);
     }
 
     @GetMapping("/{id}/edit")

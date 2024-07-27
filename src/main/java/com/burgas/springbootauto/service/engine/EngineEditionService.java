@@ -1,6 +1,5 @@
 package com.burgas.springbootauto.service.engine;
 
-import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
 import com.burgas.springbootauto.repository.brand.BrandRepository;
 import com.burgas.springbootauto.repository.engine.EngineEditionRepository;
@@ -40,13 +39,12 @@ public class EngineEditionService {
         return engineEditionRepository.findEngineEditionByName(name);
     }
 
-    public EngineEdition searchEngineEditionByEngines(List<Engine> engines) {
-        return engineEditionRepository.searchEngineEditionByEngines(engines);
-    }
-
-    @Transactional
-    public void save(EngineEdition engineEdition) {
-        engineEditionRepository.save(engineEdition);
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public Long createEdition(EngineEdition edition) {
+        EngineEdition newEdition = EngineEdition.builder().name(edition.getName())
+                .image(edition.getImage()).brand(edition.getBrand()).build();
+        engineEditionRepository.save(edition);
+       return engineEditionRepository.findEngineEditionByName(newEdition.getName()).getId();
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
@@ -58,12 +56,12 @@ public class EngineEditionService {
         return engineEditionRepository.findEngineEditionByName(edition.getName()).getId();
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void update(EngineEdition engineEdition) {
         engineEditionRepository.save(engineEdition);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void delete(Long id) {
         EngineEdition engineEdition = engineEditionRepository.findById(id).orElse(null);
         Objects.requireNonNull(engineEdition).getEngines()

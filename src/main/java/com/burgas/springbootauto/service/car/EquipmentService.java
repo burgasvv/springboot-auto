@@ -2,8 +2,11 @@ package com.burgas.springbootauto.service.car;
 
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.car.Equipment;
+import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
+import com.burgas.springbootauto.entity.transmission.Transmission;
+import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
 import com.burgas.springbootauto.repository.car.CarRepository;
 import com.burgas.springbootauto.repository.car.EquipmentRepository;
 import com.burgas.springbootauto.repository.image.ImageRepository;
@@ -14,10 +17,12 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -65,10 +70,6 @@ public class EquipmentService {
         return equipmentRepository.searchEquipmentsByBrandAndCar(username, search, pageRequest);
     }
 
-    public List<Equipment>findAllByEngineId(Long id) {
-        return equipmentRepository.findAllByEngineId(id);
-    }
-
     public List<Equipment>findAllByTransmissionId(Long id) {
         return equipmentRepository.findAllByTransmissionId(id);
     }
@@ -91,8 +92,11 @@ public class EquipmentService {
     }
 
     @SneakyThrows
-    @Transactional
-    public void saveMultipart(Equipment equipment, MultipartFile file) {
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public String createEquipment(Equipment equipment, MultipartFile file) {
+        Person user = personRepository.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        equipment.setAttached(false);
+        equipment.setPerson(user);
         if (file.getSize() != 0) {
             Image image = Image.builder().isPreview(true)
                     .name(file.getOriginalFilename())
@@ -102,9 +106,25 @@ public class EquipmentService {
             equipment.setImage(image);
         }
         equipmentRepository.save(equipment);
+        return user.getUsername();
     }
 
-    @Transactional
+    @SneakyThrows
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void changeImage(Long id, MultipartFile file) {
+        Equipment equipment = equipmentRepository.findById(id).orElse(null);
+        if (file.getSize() != 0) {
+            Image image = Image.builder().isPreview(true)
+                    .name(file.getOriginalFilename())
+                    .data(file.getBytes())
+                    .build();
+            imageRepository.save(image);
+            Objects.requireNonNull(equipment).setImage(image);
+        }
+        equipmentRepository.save(Objects.requireNonNull(equipment));
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void saveAll(List<Equipment> equipments) {
         equipmentRepository.saveAll(equipments);
     }
@@ -112,6 +132,54 @@ public class EquipmentService {
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void update(Equipment equipment) {
         equipmentRepository.save(equipment);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void addEngine(Long equipmentId, Engine engine) {
+        Equipment equipment = equipmentRepository.findById(equipmentId).orElse(null);
+        Objects.requireNonNull(equipment).addEngine(engine);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void removeEngine(Long equipmentId) {
+        Equipment equipment = equipmentRepository.findById(equipmentId).orElse(null);
+        Objects.requireNonNull(equipment).removeEngine(equipment.getEngine());
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void addTransmission(Long equipmentId, Transmission transmission) {
+        Equipment equipment = equipmentRepository.findById(equipmentId).orElse(null);
+        Objects.requireNonNull(equipment).addTransmission(transmission);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void removeTransmission(Long equipmentId) {
+        Equipment equipment = equipmentRepository.findById(equipmentId).orElse(null);
+        Objects.requireNonNull(equipment).removeTransmission(equipment.getTransmission());
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void addTurbocharger(Long equipmentId, Turbocharger turbocharger) {
+        Equipment equipment = equipmentRepository.findById(equipmentId).orElse(null);
+        Objects.requireNonNull(equipment).addTurbocharger(turbocharger);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void removeTurbocharger(Long equipmentId) {
+        Equipment equipment = equipmentRepository.findById(equipmentId).orElse(null);
+        Objects.requireNonNull(equipment).removeTurbocharger(equipment.getTurbocharger());
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void editEquipment(Equipment equipment, Model model) {
+        Equipment temp = equipmentRepository.findById(equipment.getId()).orElse(null);
+        equipment.setAttached(Objects.requireNonNull(temp).isAttached());
+        equipment.setPerson(temp.getPerson());
+        equipment.setCar(temp.getCar());
+        equipment.setEngine(temp.getEngine());
+        equipment.setTransmission(temp.getTransmission());
+        equipment.setTurbocharger(temp.getTurbocharger());
+        model.addAttribute("equipment", equipment);
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
@@ -145,9 +213,10 @@ public class EquipmentService {
         return imageRepository.save(newImage);
     }
 
-    @Transactional
-    public void removeImage(Equipment equipment) {
-        Image image = equipment.getImage();
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void removeImage(Long id) {
+        Equipment equipment = equipmentRepository.findById(id).orElse(null);
+        Image image = Objects.requireNonNull(equipment).getImage();
         equipment.setImage(null);
         equipmentRepository.save(equipment);
         imageRepository.delete(image);
