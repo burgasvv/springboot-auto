@@ -30,9 +30,8 @@ public class AuthorizationController {
 
     @PostMapping("/login-status")
     public String loginStatus(@RequestParam("username") String username) {
-        Person person = personService.findPersonByUsername(username);
-        personService.connectUser(person);
-        return "redirect:/users/" + person.getUsername();
+        personService.connectUser(username);
+        return "redirect:/users/" + username;
     }
 
     @GetMapping("/baned")
@@ -85,8 +84,7 @@ public class AuthorizationController {
 
     @PostMapping("/restorePassword")
     public String restorePasswordSubmit(@RequestParam String password, @RequestParam Long id) {
-        Person person = personService.findById(id);
-        personService.restorePassword(person, password);
+        personService.restorePassword(id, password);
         return "redirect:/login";
     }
 

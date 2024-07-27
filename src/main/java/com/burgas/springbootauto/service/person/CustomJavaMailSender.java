@@ -2,22 +2,24 @@ package com.burgas.springbootauto.service.person;
 
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.person.RestoreToken;
+import com.burgas.springbootauto.repository.person.PersonRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class CustomJavaMailSender {
 
     private final JavaMailSender mailSender;
     private final RestoreTokenService restoreTokenService;
-    private final PersonService personService;
+    private final PersonRepository personRepository;
 
     public void sendMailToRestorePassword(Person person) {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -36,6 +38,7 @@ public class CustomJavaMailSender {
         return "http://localhost:8080/restorePassword/" + token.getToken();
     }
 
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void sendMailToActivateAccount(Person person) {
         String tokenLinkForAccount = getRestoreTokenLinkForAccount(person);
         RestoreToken token = restoreTokenService.findTokenByPerson(person);
@@ -65,10 +68,10 @@ public class CustomJavaMailSender {
     }
 
     private void clearToken(Person person) {
-        if (restoreTokenService.existsRestoreTokenByPerson(person)) {
-            RestoreToken token = restoreTokenService.findTokenByPerson(person);
+        RestoreToken token = restoreTokenService.findTokenByPerson(person);
+        if (token != null) {
             person.setToken(null);
-            personService.update(person);
+            personRepository.save(person);
             restoreTokenService.delete(token);
         }
     }

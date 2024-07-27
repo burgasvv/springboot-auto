@@ -83,8 +83,9 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public void connectUser(Person person) {
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void connectUser(String username) {
+        Person person = personRepository.findPersonByUsername(username);
         person.setStatus(Status.ONLINE);
         personRepository.save(person);
     }
@@ -95,9 +96,10 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public void restorePassword(Person person, String password) {
-        person.setPassword(passwordEncoder.encode(password));
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void restorePassword(Long userId, String password) {
+        Person person = personRepository.findById(userId).orElse(null);
+        Objects.requireNonNull(person).setPassword(passwordEncoder.encode(password));
         personRepository.save(person);
     }
 
