@@ -2,12 +2,15 @@ package com.burgas.springbootauto.service.engine;
 
 import com.burgas.springbootauto.entity.engine.Engine;
 import com.burgas.springbootauto.entity.engine.EngineEdition;
+import com.burgas.springbootauto.repository.brand.BrandRepository;
 import com.burgas.springbootauto.repository.engine.EngineEditionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -18,6 +21,7 @@ import java.util.Objects;
 public class EngineEditionService {
 
     private final EngineEditionRepository engineEditionRepository;
+    private final BrandRepository brandRepository;
 
     public List<EngineEdition> findAll() {
         return engineEditionRepository.findAll();
@@ -43,6 +47,15 @@ public class EngineEditionService {
     @Transactional
     public void save(EngineEdition engineEdition) {
         engineEditionRepository.save(engineEdition);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public Long addEditionToBrand(Long brandId, EngineEdition engineEdition) {
+        EngineEdition edition = EngineEdition.builder().
+                name(engineEdition.getName()).image(engineEdition.getImage())
+                .brand(brandRepository.findById(brandId).orElse(null)).build();
+        engineEditionRepository.save(edition);
+        return engineEditionRepository.findEngineEditionByName(edition.getName()).getId();
     }
 
     @Transactional

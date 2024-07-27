@@ -1,9 +1,12 @@
 package com.burgas.springbootauto.service.turbocharging;
 
 import com.burgas.springbootauto.entity.turbocharging.TurboType;
+import com.burgas.springbootauto.repository.brand.BrandRepository;
 import com.burgas.springbootauto.repository.turbocharging.TurboTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.Objects;
 public class TurboTypeService {
 
     private final TurboTypeRepository turboTypeRepository;
+    private final BrandRepository brandRepository;
 
     public List<TurboType> findAll() {
         return turboTypeRepository.findAll();
@@ -30,6 +34,17 @@ public class TurboTypeService {
     @Transactional
     public void save(TurboType turboType) {
         turboTypeRepository.save(turboType);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public Long addTurboTypeToBrand(Long brandId, TurboType turboType) {
+        TurboType newTurboType = new TurboType();
+        newTurboType.setName(turboType.getName());
+        newTurboType.setImage(turboType.getImage());
+        newTurboType.setDescription(turboType.getDescription());
+        newTurboType.addBrand(brandRepository.findById(brandId).orElse(null));
+        turboTypeRepository.save(newTurboType);
+        return turboTypeRepository.findByName(newTurboType.getName()).getId();
     }
 
     @Transactional

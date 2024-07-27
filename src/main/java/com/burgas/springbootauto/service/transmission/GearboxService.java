@@ -1,9 +1,12 @@
 package com.burgas.springbootauto.service.transmission;
 
 import com.burgas.springbootauto.entity.transmission.Gearbox;
+import com.burgas.springbootauto.repository.brand.BrandRepository;
 import com.burgas.springbootauto.repository.transmission.GearboxRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.Objects;
 public class GearboxService {
 
     private final GearboxRepository gearboxRepository;
+    private final BrandRepository brandRepository;
 
     public List<Gearbox> findAll() {
         return gearboxRepository.findAll();
@@ -30,6 +34,17 @@ public class GearboxService {
     @Transactional
     public void save(Gearbox gearbox) {
         gearboxRepository.save(gearbox);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public Long addGearboxToBrand(Long brandId, Gearbox gearbox) {
+        Gearbox newGearbox = new Gearbox();
+        newGearbox.setName(gearbox.getName());
+        newGearbox.setStairs(gearbox.getStairs());
+        newGearbox.setImage(gearbox.getImage());
+        newGearbox.addBrand(brandRepository.findById(brandId).orElse(null));
+        gearboxRepository.save(newGearbox);
+        return gearboxRepository.findGearboxByName(newGearbox.getName()).getId();
     }
 
     @Transactional

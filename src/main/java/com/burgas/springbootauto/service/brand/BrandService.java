@@ -3,7 +3,6 @@ package com.burgas.springbootauto.service.brand;
 import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.repository.brand.BrandRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -53,10 +52,10 @@ public class BrandService {
         return brandRepository.findBrandByTitle(title);
     }
 
-    @SneakyThrows
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
-    public void save(Brand brand) {
+    public Long createBrand(Brand brand) {
         brandRepository.save(brand);
+        return brandRepository.findBrandByTitle(brand.getTitle()).getId();
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
