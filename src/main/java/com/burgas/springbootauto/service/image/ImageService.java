@@ -4,14 +4,17 @@ import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.repository.car.CarRepository;
 import com.burgas.springbootauto.repository.image.ImageRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -37,22 +40,14 @@ public class ImageService {
         return imageRepository.findImagesByCarId(carId, pageRequest);
     }
 
-    @Transactional
-    public void save(Image image) {
-        imageRepository.save(image);
-    }
-
-    @Transactional
-    public void delete(Image image) {
-        imageRepository.deleteById(image.getId());
-    }
-
-    @Transactional
-    public void deletePreview(Car car, Image image) {
-        if (image.isPreview()) {
-            car.setHasPreview(false);
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void deletePreview(Long carId, Long imageId) {
+        Car car = carRepository.findById(carId).orElse(null);
+        Image image = imageRepository.findById(imageId).orElse(null);
+        if (Objects.requireNonNull(image).isPreview()) {
+            Objects.requireNonNull(car).setHasPreview(false);
         }
-        carRepository.save(car);
+        carRepository.save(Objects.requireNonNull(car));
         imageRepository.deleteById(image.getId());
     }
 }

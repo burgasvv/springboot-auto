@@ -91,37 +91,32 @@ public class PersonController {
 
     @PostMapping("/secure/edit")
     public String edit(@ModelAttribute Person owner, @RequestParam Long roleId) {
-        owner.setRole(roleRepository.findById(roleId).orElse(null));
-        personService.update(owner);
+        personService.editUser(owner, roleId);
         return "forward:/logout";
     }
 
     @PostMapping("/{name}/change-image")
     public String changeImage(@PathVariable String name, @RequestPart MultipartFile file) {
-        Person person = personService.findPersonByUsername(name);
-        personService.removeImage(person);
-        personService.changeImage(person, file);
-        return "redirect:/users/" + person.getUsername();
+        personService.removeImage(name);
+        personService.changeImage(name, file);
+        return "redirect:/users/" + name;
     }
 
     @PostMapping("/{name}/add-image")
     public String addImage(@PathVariable String name, @RequestPart MultipartFile file) {
-        Person person = personService.findPersonByUsername(name);
-        personService.changeImage(person, file);
-        return "redirect:/users/" + person.getUsername();
+        personService.changeImage(name, file);
+        return "redirect:/users/" + name;
     }
 
     @PostMapping("{name}/remove-image")
     public String removeImage(@PathVariable String name) {
-        Person person = personService.findPersonByUsername(name);
-        personService.removeImage(person);
-        return "redirect:/users/" + person.getUsername();
+        personService.removeImage(name);
+        return "redirect:/users/" + name;
     }
 
     @PostMapping("/secure/make-admin")
     public String makeAdmin(@RequestParam String selectUser) {
-        Person user = personService.findPersonByUsername(selectUser);
-        Person admin = personService.makeAdmin(user);
+        Person admin = personService.makeAdmin(selectUser);
         return "redirect:/users/" + admin.getUsername();
     }
 

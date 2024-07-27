@@ -205,14 +205,14 @@ public class CarController {
 
     @DeleteMapping("/{id}/images/delete-image")
     public String deleteCarImage(@PathVariable Long id, @RequestParam Long imageId) {
-        imageService.deletePreview(carService.findById(id), imageService.findById(imageId));
+        imageService.deletePreview(id, imageId);
         //noinspection SpringMVCViewInspection
         return "redirect:/cars/" + id + "/images";
     }
 
     @PostMapping("/{id}/set-preview/{imageId}")
     public String setCarPreview(@PathVariable Long id, @PathVariable Long imageId) {
-        carService.setPreviewImage(carService.findById(id), imageService.findById(imageId));
+        carService.setPreviewImage(id, imageId);
         //noinspection SpringMVCViewInspection
         return "redirect:/cars/" + id + "/images";
     }

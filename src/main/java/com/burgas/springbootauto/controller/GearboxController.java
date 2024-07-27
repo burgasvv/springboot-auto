@@ -13,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-
 @Controller
 @RequestMapping("/gearboxes")
 @RequiredArgsConstructor
@@ -53,17 +51,7 @@ public class GearboxController {
 
     @PostMapping("/secure/add")
     public String addGearbox(@ModelAttribute Gearbox gearbox, HttpServletRequest servletRequest) {
-        String[] selectedBrands = servletRequest.getParameterValues("selectedBrands");
-        Gearbox newGearbox = new Gearbox();
-        newGearbox.setName(gearbox.getName());
-        newGearbox.setStairs(gearbox.getStairs());
-        newGearbox.setImage(gearbox.getImage());
-        Arrays.stream(selectedBrands).toList().iterator().forEachRemaining(s ->
-                newGearbox.addBrand(brandService.findById(Long.valueOf(s)))
-        );
-        gearboxService.save(newGearbox);
-        Long id = gearboxService.findByName(newGearbox.getName()).getId();
-        return "redirect:/gearboxes/" + id;
+        return "redirect:/gearboxes/" + gearboxService.createGearbox(gearbox, servletRequest);
     }
 
     @GetMapping("/{id}/edit")

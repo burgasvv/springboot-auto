@@ -4,10 +4,10 @@ import com.burgas.springbootauto.entity.chat.MessageAmount;
 import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.person.Status;
+import com.burgas.springbootauto.repository.image.ImageRepository;
 import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.repository.person.RoleRepository;
 import com.burgas.springbootauto.service.chat.MessageService;
-import com.burgas.springbootauto.service.image.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
@@ -31,7 +31,7 @@ public class PersonService {
     private final PersonRepository personRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ImageService imageService;
+    private final ImageRepository imageRepository;
     private final MessageService messageService;
 
     public List<Person> findAll() {
@@ -77,7 +77,7 @@ public class PersonService {
             image.setPreview(true);
             image.setName(multipartFile.getOriginalFilename());
             image.setData(multipartFile.getBytes());
-            imageService.save(image);
+            imageRepository.save(image);
             person.setImage(image);
         }
         return personRepository.save(person);
@@ -101,7 +101,7 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.NESTED)
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void update(Person person) {
         person.setEnabled(true);
         person.setStatus(Status.OFFLINE);
@@ -110,6 +110,12 @@ public class PersonService {
             person.setPassword(passwordEncoder.encode(person.getPassword()));
         }
         personRepository.save(person);
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void editUser(Person owner, Long roleId) {
+        owner.setRole(roleRepository.findById(roleId).orElse(null));
+        update(owner);
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
@@ -131,7 +137,8 @@ public class PersonService {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
-    public Person makeAdmin(Person person) {
+    public Person makeAdmin(String selectUser) {
+        Person person = personRepository.findPersonByUsername(selectUser);
         person.setRole(roleRepository.findByName("ADMIN"));
         return personRepository.save(person);
     }
@@ -151,9 +158,10 @@ public class PersonService {
     }
 
     @SneakyThrows
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public void changeImage(Person person, MultipartFile file) {
-        if (imageService.findByName(file.getOriginalFilename()) != null) {
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void changeImage(String username, MultipartFile file) {
+        Person person = personRepository.findPersonByUsername(username);
+        if (imageRepository.findByName(file.getOriginalFilename()) != null) {
             return;
         }
         if (file.getSize() != 0) {
@@ -161,18 +169,19 @@ public class PersonService {
             image.setPreview(true);
             image.setName(file.getOriginalFilename());
             image.setData(file.getBytes());
-            imageService.save(image);
+            imageRepository.save(image);
             person.setImage(image);
         }
         personRepository.save(person);
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public void removeImage(Person person) {
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void removeImage(String username) {
+        Person person = personRepository.findPersonByUsername(username);
         Image image = person.getImage();
         person.setImage(null);
         personRepository.save(person);
-        imageService.delete(image);
+        imageRepository.deleteById(image.getId());
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)

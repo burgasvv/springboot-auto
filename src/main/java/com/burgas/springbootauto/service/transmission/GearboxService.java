@@ -3,12 +3,14 @@ package com.burgas.springbootauto.service.transmission;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.repository.brand.BrandRepository;
 import com.burgas.springbootauto.repository.transmission.GearboxRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,9 +33,18 @@ public class GearboxService {
         return gearboxRepository.findGearboxByName(name);
     }
 
-    @Transactional
-    public void save(Gearbox gearbox) {
-        gearboxRepository.save(gearbox);
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public Long createGearbox(Gearbox gearbox, HttpServletRequest servletRequest) {
+        String[] selectedBrands = servletRequest.getParameterValues("selectedBrands");
+        Gearbox newGearbox = new Gearbox();
+        newGearbox.setName(gearbox.getName());
+        newGearbox.setStairs(gearbox.getStairs());
+        newGearbox.setImage(gearbox.getImage());
+        Arrays.stream(selectedBrands).toList().iterator().forEachRemaining(s ->
+                newGearbox.addBrand(brandRepository.findById(Long.valueOf(s)).orElse(null))
+        );
+        gearboxRepository.save(newGearbox);
+        return gearboxRepository.findGearboxByName(newGearbox.getName()).getId();
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
@@ -47,12 +58,12 @@ public class GearboxService {
         return gearboxRepository.findGearboxByName(newGearbox.getName()).getId();
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void update(Gearbox gearbox) {
         gearboxRepository.save(gearbox);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void delete(Long id) {
         Gearbox gearbox = gearboxRepository.findById(id).orElse(null);
         Objects.requireNonNull(gearbox).getBrands().forEach(brand -> brand.getGearboxes().remove(gearbox));

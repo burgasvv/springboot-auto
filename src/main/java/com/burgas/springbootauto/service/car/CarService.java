@@ -7,6 +7,7 @@ import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.car.CarRepository;
 import com.burgas.springbootauto.repository.car.TagRepository;
+import com.burgas.springbootauto.repository.image.ImageRepository;
 import com.burgas.springbootauto.repository.person.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -34,6 +35,7 @@ public class CarService {
     private final PersonRepository personRepository;
     private final TagRepository tagRepository;
     private final EquipmentService equipmentService;
+    private final ImageRepository imageRepository;
 
     private static @NotNull PageRequest getPageRequest(int page, int size) {
         return PageRequest.of(page - 1, size).withSort(Sort.by(Sort.Direction.DESC, "title"));
@@ -243,8 +245,10 @@ public class CarService {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
-    public void setPreviewImage(Car car, Image image) {
-        if (!car.isHasPreview()){
+    public void setPreviewImage(Long carId, Long imageId) {
+        Car car = carRepository.findById(carId).orElse(null);
+        Image image = imageRepository.findById(imageId).orElse(null);
+        if (!Objects.requireNonNull(car).isHasPreview()){
             car.setHasPreview(true);
         }
         car.getImages().stream().filter(Image::isPreview).forEach(im -> im.setPreview(false));
