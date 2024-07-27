@@ -3,8 +3,9 @@ package com.burgas.springbootauto.service.car;
 import com.burgas.springbootauto.entity.car.Category;
 import com.burgas.springbootauto.repository.car.CategoryRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -24,18 +25,17 @@ public class CategoryService {
         return categoryRepository.findById(id).orElse(null);
     }
 
-    @SneakyThrows
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void save(Category category) {
         categoryRepository.save(category);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void update(Category category) {
         categoryRepository.save(category);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void delete(Long id) {
         Category category = categoryRepository.findById(id).orElse(null);
         Objects.requireNonNull(category).getCars().forEach(car -> car.setCategory(null));

@@ -4,6 +4,8 @@ import com.burgas.springbootauto.entity.engine.EngineCharacteristics;
 import com.burgas.springbootauto.repository.engine.EngineCharacteristicsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -26,19 +28,9 @@ public class EngineCharacteristicsService {
         return engineCharacteristicsRepository.searchEngineCharacteristicsByEngineId(id);
     }
 
-    @Transactional
-    public void save(EngineCharacteristics engineCharacteristics) {
-        engineCharacteristicsRepository.save(engineCharacteristics);
-    }
-
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void update(EngineCharacteristics engineCharacteristics) {
         engineCharacteristicsRepository.save(engineCharacteristics);
-    }
-
-    @Transactional
-    public void delete(Long id) {
-        engineCharacteristicsRepository.deleteById(id);
     }
 
     @Transactional

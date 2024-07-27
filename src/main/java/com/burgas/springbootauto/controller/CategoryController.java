@@ -133,8 +133,7 @@ public class CategoryController {
         String searchDrive = request.getParameter("searchDrive");
         Page<Car> cars = carService.searchCategoryCarsByBrandAndClassificationNoSpaces(
                 category.getName(), searchBrand + searchClass + searchDrive, page, 25);
-        int totalPages = cars.getTotalPages();
-        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        List<Integer> pages = IntStream.rangeClosed(1, cars.getTotalPages()).boxed().toList();
         model.addAttribute("pages", pages);
         model.addAttribute("cars", cars.getContent());
         model.addAttribute("searchBrand", searchBrand);
