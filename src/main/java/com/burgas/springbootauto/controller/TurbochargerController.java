@@ -3,7 +3,6 @@ package com.burgas.springbootauto.controller;
 import com.burgas.springbootauto.entity.turbocharging.TurboType;
 import com.burgas.springbootauto.entity.turbocharging.Turbocharger;
 import com.burgas.springbootauto.service.brand.BrandService;
-import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.turbocharging.TurboTypeService;
 import com.burgas.springbootauto.service.turbocharging.TurbochargerService;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 public class TurbochargerController {
 
     private final TurbochargerService turbochargerService;
-    private final EquipmentService equipmentService;
     private final TurboTypeService turboTypeService;
     private final BrandService brandService;
     private final PersonService personService;
@@ -81,17 +79,7 @@ public class TurbochargerController {
 
     @PostMapping("/secure/add")
     public String addTurbocharger(@ModelAttribute Turbocharger turbocharger, @RequestParam Long turbotypeId) {
-        Turbocharger newTurbocharger = new Turbocharger();
-        newTurbocharger.setName(turbocharger.getName());
-        newTurbocharger.setBrand(turbocharger.getBrand());
-        newTurbocharger.setTurboType(turboTypeService.findById(turbotypeId));
-        newTurbocharger.setImage(turbocharger.getImage());
-        newTurbocharger.setRpm(turbocharger.getRpm());
-        newTurbocharger.setTorque(turbocharger.getTorque());
-        newTurbocharger.setDescription(turbocharger.getDescription());
-        turbochargerService.save(newTurbocharger);
-        Long id = turbochargerService.findByName(newTurbocharger.getName()).getId();
-        return "redirect:/turbochargers/" + id;
+        return "redirect:/turbochargers/" + turbochargerService.addTurbocharger(turbocharger, turbotypeId);
     }
 
     @GetMapping("/{id}/edit")
@@ -105,17 +93,13 @@ public class TurbochargerController {
 
     @PatchMapping("/{id}/edit")
     public String editTurbocharger(@ModelAttribute("turbocharger") Turbocharger turbocharger) {
-        turbochargerService.update(turbocharger);
+        turbochargerService.editTurbocharger(turbocharger);
         return "redirect:/turbochargers/{id}?brandId=" + turbocharger.getBrand().getId();
     }
 
     @DeleteMapping("/{id}/delete")
     public String deleteTurbocharger(@PathVariable("id") Long turbochargerId) {
-        Turbocharger turbocharger = turbochargerService.findById(turbochargerId);
-        turbocharger.removeEquipments(equipmentService.findAllByTurbochargerId(turbochargerId));
-        turbochargerService.update(turbocharger);
-        turbochargerService.delete(turbochargerId);
         //noinspection SpringMVCViewInspection
-        return "redirect:/brands/" + turbocharger.getBrand().getId() + "/turbo-types";
+        return "redirect:/brands/" + turbochargerService.delete(turbochargerId) + "/turbo-types";
     }
 }

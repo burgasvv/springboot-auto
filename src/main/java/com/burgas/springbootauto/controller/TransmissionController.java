@@ -3,7 +3,6 @@ package com.burgas.springbootauto.controller;
 import com.burgas.springbootauto.entity.transmission.Gearbox;
 import com.burgas.springbootauto.entity.transmission.Transmission;
 import com.burgas.springbootauto.service.brand.BrandService;
-import com.burgas.springbootauto.service.car.EquipmentService;
 import com.burgas.springbootauto.service.person.PersonService;
 import com.burgas.springbootauto.service.transmission.DriveTypeService;
 import com.burgas.springbootauto.service.transmission.GearboxService;
@@ -24,7 +23,6 @@ public class TransmissionController {
     private final BrandService brandService;
     private final GearboxService gearboxService;
     private final DriveTypeService driveTypeService;
-    private final EquipmentService equipmentService;
     private final PersonService personService;
 
     @GetMapping("/{id}")
@@ -56,7 +54,7 @@ public class TransmissionController {
         return "transmissions/findTransmissions";
     }
 
-    static void getSearchLists(Model model, PersonService personService, BrandService brandService,
+    public static void getSearchLists(Model model, PersonService personService, BrandService brandService,
                                GearboxService gearboxService, TransmissionService transmissionService, DriveTypeService driveTypeService) {
         model.addAttribute("user",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -91,18 +89,7 @@ public class TransmissionController {
 
     @PostMapping("/secure/add")
     public String addTransmission(@ModelAttribute Transmission transmission, @ModelAttribute Gearbox gearbox) {
-        Transmission newTransmission = new Transmission();
-        newTransmission.setName(transmission.getName());
-        newTransmission.setBrand(transmission.getBrand());
-        newTransmission.setGearbox(gearbox);
-        newTransmission.setFinalRatio(transmission.getFinalRatio());
-        newTransmission.setRatio(transmission.getRatio());
-        newTransmission.setDriveType(transmission.getDriveType());
-        newTransmission.setImage(transmission.getImage());
-        newTransmission.setDescription(transmission.getDescription());
-        transmissionService.save(newTransmission);
-        Long id = transmissionService.findByName(newTransmission.getName()).getId();
-        return "redirect:/transmissions/" + id;
+        return "redirect:/transmissions/" + transmissionService.addTransmission(transmission, gearbox);
     }
 
     @GetMapping("/{id}/edit")
@@ -117,17 +104,13 @@ public class TransmissionController {
 
     @PatchMapping("/{id}/edit")
     public String editTransmission(@ModelAttribute("transmission") Transmission transmission) {
-        transmissionService.update(transmission);
+        transmissionService.editTransmission(transmission);
         return "redirect:/transmissions/{id}?brandId=" + transmission.getBrand().getId();
     }
 
     @DeleteMapping("/{id}/delete")
     public String deleteTransmission(@PathVariable("id") Long transmissionId) {
-        Transmission transmission = transmissionService.findById(transmissionId);
-        transmission.removeEquipments(equipmentService.findAllByTransmissionId(transmissionId));
-        transmissionService.update(transmission);
-        transmissionService.delete(transmissionId);
         //noinspection SpringMVCViewInspection
-        return "redirect:/brands/" + transmission.getBrand().getId() + "/gearboxes";
+        return "redirect:/brands/" + transmissionService.delete(transmissionId) + "/gearboxes";
     }
 }

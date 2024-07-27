@@ -17,7 +17,6 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class BrandService {
 
     private final BrandRepository brandRepository;

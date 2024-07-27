@@ -190,8 +190,7 @@ public class PersonController {
         Person owner = personService.findPersonByUsername(name);
         model.addAttribute("owner", owner);
         Page<Equipment> equipments = equipmentService.findAllByPersonId(owner.getId(), page, 25);
-        int totalPages = equipments.getTotalPages();
-        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        List<Integer> pages = IntStream.rangeClosed(1, equipments.getTotalPages()).boxed().toList();
         model.addAttribute("pages", pages);
         model.addAttribute("equipments", equipments);
         model.addAttribute("guest",
@@ -211,8 +210,7 @@ public class PersonController {
         Person owner = personService.findPersonByUsername(name);
         model.addAttribute("owner", owner);
         Page<Equipment> equipments = equipmentService.searchEquipmentsByBrandAndCar(owner.getUsername(), search, page, 25);
-        int totalPages = equipments.getTotalPages();
-        List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
+        List<Integer> pages = IntStream.rangeClosed(1, equipments.getTotalPages()).boxed().toList();
         model.addAttribute("pages", pages);
         model.addAttribute("equipments", equipments);
         model.addAttribute("search", search);
@@ -238,10 +236,8 @@ public class PersonController {
 
     @GetMapping("/{name}/chats/{receiverName}")
     public String userChat(@PathVariable String name, @PathVariable String receiverName, Model model) {
-        Person owner = personService.findPersonByUsername(name);
-        Person receiver = personService.findPersonByUsername(receiverName);
-        model.addAttribute("owner", owner);
-        model.addAttribute("receiver", receiver);
+        model.addAttribute("owner", personService.findPersonByUsername(name));
+        model.addAttribute("receiver", personService.findPersonByUsername(receiverName));
         model.addAttribute("guest",
                 personService.findPersonByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
         );

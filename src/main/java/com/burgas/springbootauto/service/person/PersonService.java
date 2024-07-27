@@ -25,7 +25,6 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class PersonService {
 
     private final PersonRepository personRepository;

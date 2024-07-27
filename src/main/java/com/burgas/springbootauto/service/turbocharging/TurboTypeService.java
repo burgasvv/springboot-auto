@@ -3,12 +3,14 @@ package com.burgas.springbootauto.service.turbocharging;
 import com.burgas.springbootauto.entity.turbocharging.TurboType;
 import com.burgas.springbootauto.repository.brand.BrandRepository;
 import com.burgas.springbootauto.repository.turbocharging.TurboTypeRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,9 +33,18 @@ public class TurboTypeService {
         return turboTypeRepository.findByName(name);
     }
 
-    @Transactional
-    public void save(TurboType turboType) {
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public Long save(TurboType turboType, HttpServletRequest request) {
+        String[] turboTypeBrands = request.getParameterValues("selectedBrands");
+        TurboType newTurboType = new TurboType();
+        newTurboType.setName(turboType.getName());
+        newTurboType.setImage(turboType.getImage());
+        newTurboType.setDescription(turboType.getDescription());
+        Arrays.stream(turboTypeBrands).toList().forEach(s ->
+                newTurboType.addBrand(brandRepository.findById(Long.parseLong(s)).orElse(null))
+        );
         turboTypeRepository.save(turboType);
+        return turboTypeRepository.findByName(newTurboType.getName()).getId();
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
@@ -47,12 +58,12 @@ public class TurboTypeService {
         return turboTypeRepository.findByName(newTurboType.getName()).getId();
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void update(TurboType turboType) {
         turboTypeRepository.save(turboType);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void delete(Long id) {
         TurboType turboType = turboTypeRepository.findById(id).orElse(null);
         Objects.requireNonNull(turboType).getBrands()

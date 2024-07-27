@@ -12,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-
 @Controller
 @RequestMapping("/turbo-types")
 @RequiredArgsConstructor
@@ -51,17 +49,7 @@ public class TurboTypeController {
 
     @PostMapping("/secure/add")
     public String addTurboType(@ModelAttribute("turboType") TurboType turboType, HttpServletRequest request) {
-        String[] turboTypeBrands = request.getParameterValues("selectedBrands");
-        TurboType newTurboType = new TurboType();
-        newTurboType.setName(turboType.getName());
-        newTurboType.setImage(turboType.getImage());
-        newTurboType.setDescription(turboType.getDescription());
-        Arrays.stream(turboTypeBrands).toList().forEach(s ->
-                newTurboType.addBrand(brandService.findById(Long.parseLong(s)))
-        );
-        turboTypeService.save(newTurboType);
-        Long id = turboTypeService.findByName(newTurboType.getName()).getId();
-        return "redirect:/turbo-types/" + id;
+        return "redirect:/turbo-types/" + turboTypeService.save(turboType, request);
     }
 
     @GetMapping("/{id}/edit")
