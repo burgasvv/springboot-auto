@@ -11,12 +11,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ImageService {
 
     private final ImageRepository imageRepository;
     private final CarRepository carRepository;
+
+    public List<Image> findAll() {
+        return imageRepository.findAll();
+    }
 
     public Image findById(Long id) {
         return imageRepository.findById(id).orElse(null);

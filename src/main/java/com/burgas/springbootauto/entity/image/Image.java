@@ -32,21 +32,6 @@ public class Image {
             fetch = FetchType.LAZY)
     private Person person;
 
-//    @OneToOne(mappedBy = "image", cascade = {
-//            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
-//    }, fetch = FetchType.LAZY)
-//    private Brand brand;
-//
-//    @OneToOne(mappedBy = "image", cascade = {
-//            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
-//    }, fetch = FetchType.LAZY)
-//    private Category category;
-//
-//    @OneToOne(mappedBy = "image", cascade = {
-//            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
-//    }, fetch = FetchType.LAZY)
-//    private Classification classification;
-//
     @OneToOne(mappedBy = "image", cascade = {
             CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
     }, fetch = FetchType.LAZY)
