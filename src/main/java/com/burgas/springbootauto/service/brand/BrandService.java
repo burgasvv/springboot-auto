@@ -48,10 +48,6 @@ public class BrandService {
         return brandRepository.searchBrandsByTitleAndCar(title);
     }
 
-    public Brand findBrandByTitle(String title) {
-        return brandRepository.findBrandByTitle(title);
-    }
-
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public Long createBrand(Brand brand) {
         brandRepository.save(brand);
