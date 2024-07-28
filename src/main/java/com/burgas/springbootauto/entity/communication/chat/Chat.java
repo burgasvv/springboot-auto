@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.entity.chat;
+package com.burgas.springbootauto.entity.communication.chat;
 
 import com.burgas.springbootauto.entity.person.Person;
 import jakarta.persistence.*;

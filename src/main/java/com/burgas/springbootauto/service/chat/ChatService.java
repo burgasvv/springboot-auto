@@ -1,6 +1,6 @@
 package com.burgas.springbootauto.service.chat;
 
-import com.burgas.springbootauto.entity.chat.Chat;
+import com.burgas.springbootauto.entity.communication.chat.Chat;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.chat.ChatRepository;
 import lombok.RequiredArgsConstructor;

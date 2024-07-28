@@ -1,6 +1,6 @@
 package com.burgas.springbootauto.service.person;
 
-import com.burgas.springbootauto.entity.chat.MessageAmount;
+import com.burgas.springbootauto.entity.communication.chat.MessageAmount;
 import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.entity.person.Status;

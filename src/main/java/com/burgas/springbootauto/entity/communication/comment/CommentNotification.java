@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.entity.comment;
+package com.burgas.springbootauto.entity.communication.comment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

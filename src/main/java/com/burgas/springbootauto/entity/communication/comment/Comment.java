@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.entity.comment;
+package com.burgas.springbootauto.entity.communication.comment;
 
 import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.person.Person;

@@ -1,7 +1,7 @@
 package com.burgas.springbootauto.entity.car;
 
 import com.burgas.springbootauto.entity.brand.Brand;
-import com.burgas.springbootauto.entity.comment.Comment;
+import com.burgas.springbootauto.entity.communication.comment.Comment;
 import com.burgas.springbootauto.entity.image.Image;
 import com.burgas.springbootauto.entity.person.Person;
 import jakarta.persistence.*;

@@ -1,7 +1,7 @@
 package com.burgas.springbootauto.repository.chat;
 
-import com.burgas.springbootauto.entity.chat.Chat;
-import com.burgas.springbootauto.entity.chat.Message;
+import com.burgas.springbootauto.entity.communication.chat.Chat;
+import com.burgas.springbootauto.entity.communication.chat.Message;
 import com.burgas.springbootauto.entity.person.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

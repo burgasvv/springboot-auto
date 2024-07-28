@@ -1,11 +1,11 @@
 package com.burgas.springbootauto.controller;
 
 import com.burgas.springbootauto.entity.car.Car;
-import com.burgas.springbootauto.entity.chat.Chat;
-import com.burgas.springbootauto.entity.chat.Message;
-import com.burgas.springbootauto.entity.chat.MessageNotification;
-import com.burgas.springbootauto.entity.comment.Comment;
-import com.burgas.springbootauto.entity.comment.CommentNotification;
+import com.burgas.springbootauto.entity.communication.chat.Chat;
+import com.burgas.springbootauto.entity.communication.chat.Message;
+import com.burgas.springbootauto.entity.communication.chat.MessageNotification;
+import com.burgas.springbootauto.entity.communication.comment.Comment;
+import com.burgas.springbootauto.entity.communication.comment.CommentNotification;
 import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.service.car.CarService;
 import com.burgas.springbootauto.service.chat.ChatService;

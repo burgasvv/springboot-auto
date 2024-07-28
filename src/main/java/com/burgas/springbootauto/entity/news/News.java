@@ -1,9 +1,7 @@
 package com.burgas.springbootauto.entity.news;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.burgas.springbootauto.entity.communication.cheer.Cheer;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -29,6 +27,9 @@ public class News {
 
     @Column(columnDefinition = "TEXT")
     private String image;
+
+    @OneToOne(mappedBy = "news", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Cheer cheer;
 
     @Column
     private String date;

@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.entity.chat;
+package com.burgas.springbootauto.entity.communication.chat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
