@@ -17,23 +17,4 @@ public class FuelService {
     public List<Fuel> findAll() {
         return fuelRepository.findAll();
     }
-
-    public Fuel findById(Long id) {
-        return fuelRepository.findById(id).orElse(null);
-    }
-
-    @Transactional
-    public void save(Fuel fuel) {
-        fuelRepository.save(fuel);
-    }
-
-    @Transactional
-    public void update(Fuel fuel) {
-        fuelRepository.save(fuel);
-    }
-
-    @Transactional
-    public void delete(Long id) {
-        fuelRepository.deleteById(id);
-    }
 }

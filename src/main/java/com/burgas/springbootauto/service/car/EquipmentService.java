@@ -70,14 +70,6 @@ public class EquipmentService {
         return equipmentRepository.searchEquipmentsByBrandAndCar(username, search, pageRequest);
     }
 
-    public List<Equipment>findAllByTransmissionId(Long id) {
-        return equipmentRepository.findAllByTransmissionId(id);
-    }
-
-    public List<Equipment> findAllByTurbochargerId(Long id) {
-        return equipmentRepository.findAllByTurbochargerId(id);
-    }
-
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void save(Long equipmentId, Long userId) {
         Equipment equipment = equipmentRepository.findById(equipmentId).orElse(null);
@@ -206,7 +198,7 @@ public class EquipmentService {
         equipmentRepository.save(equipment);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public Image saveNewImage(Image image) {
         Image newImage = Image.builder().isPreview(true).name(image.getName() + UUID.randomUUID())
                 .data(image.getData()).build();

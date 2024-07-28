@@ -5,6 +5,8 @@ import com.burgas.springbootauto.entity.chat.Message;
 import com.burgas.springbootauto.repository.chat.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -26,13 +28,13 @@ public class MessageService {
         return messageRepository.findMessagesByChat(chat);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public Message save(Message message) {
         message.setDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm")));
         return messageRepository.save(message);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void read(Message message) {
         message.setRead(true);
         messageRepository.save(message);

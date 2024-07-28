@@ -5,6 +5,8 @@ import com.burgas.springbootauto.entity.person.Person;
 import com.burgas.springbootauto.repository.chat.ChatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -16,19 +18,7 @@ public class ChatService {
 
     private final ChatRepository chatRepository;
 
-    @SuppressWarnings("unused")
-    @Transactional
-    public Optional<Chat> findChatByPeople(List<Person> people) {
-        List<Long> list = people.stream().map(Person::getId).toList();
-        return chatRepository.findChatByPeople(list)
-                .or(() -> {
-                    Chat chat = Chat.builder().people(people).build();
-                    chatRepository.save(chat);
-                    return Optional.of(chat);
-                });
-    }
-
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public Optional<Chat> findChatBySenderAndReceiver(List<Person> people, String sender, String receiver) {
         return chatRepository.findChatBySenderAndReceiver(sender, receiver)
                 .or(() -> {

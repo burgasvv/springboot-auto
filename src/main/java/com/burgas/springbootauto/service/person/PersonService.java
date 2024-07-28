@@ -192,7 +192,7 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void plusMessage(Person person) {
         MessageAmount messageAmount = person.getMessageAmount();
         if (messageAmount == null) {
@@ -207,7 +207,7 @@ public class PersonService {
         }
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void minusMessage(Person person) {
         MessageAmount messageAmount = person.getMessageAmount();
         messageAmount.setAmount(messageAmount.getAmount() - 1L);
