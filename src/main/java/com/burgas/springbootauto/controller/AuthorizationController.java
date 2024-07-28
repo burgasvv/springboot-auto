@@ -138,10 +138,7 @@ public class AuthorizationController {
 
     @PostMapping("/logout-status")
     public String logoutStatus() {
-        Person user = personService.findPersonByUsername(
-                SecurityContextHolder.getContext().getAuthentication().getName()
-        );
-        personService.disconnectUser(user);
+        personService.disconnectUser();
         return "forward:/logout";
     }
 

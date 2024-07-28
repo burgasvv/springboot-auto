@@ -13,6 +13,7 @@ import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -89,8 +90,11 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public void disconnectUser(Person person) {
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+    public void disconnectUser() {
+        Person person = personRepository.findPersonByUsername(
+                SecurityContextHolder.getContext().getAuthentication().getName()
+        );
         person.setStatus(Status.OFFLINE);
         personRepository.save(person);
     }
