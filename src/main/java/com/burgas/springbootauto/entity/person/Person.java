@@ -71,8 +71,8 @@ public class Person implements UserDetails {
     @ManyToMany(mappedBy = "people", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private List<Chat>chats = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "people", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Cheer> cheers = new ArrayList<>();
+    @ManyToMany(mappedBy = "peopleLikesNews", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Cheer> newsCheers = new ArrayList<>();
 
     @JsonIgnore
     @OneToOne(mappedBy = "receiver", cascade = CascadeType.ALL)

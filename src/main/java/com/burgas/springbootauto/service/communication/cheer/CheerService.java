@@ -31,7 +31,7 @@ public class CheerService {
     public void newsCheerPlus(News article, Person person) {
         Cheer cheer = cheerRepository.findById(article.getId()).orElse(null);
         Objects.requireNonNull(cheer).setAmount(cheer.getAmount() + 1);
-        cheer.addPerson(person);
+        cheer.personLikedNews(person);
         cheerRepository.save(cheer);
     }
 
@@ -39,7 +39,7 @@ public class CheerService {
     public void newsCheerMinus(News article, Person person) {
         Cheer cheer = cheerRepository.findCheerByNewsId(article.getId()).orElse(null);
         Objects.requireNonNull(cheer).setAmount(cheer.getAmount() - 1);
-        cheer.removePerson(person);
+        cheer.personDislikedNews(person);
         cheerRepository.save(cheer);
     }
 }

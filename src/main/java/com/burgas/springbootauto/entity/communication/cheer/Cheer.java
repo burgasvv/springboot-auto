@@ -33,15 +33,15 @@ public class Cheer {
             joinColumns = @JoinColumn(name = "cheer_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id")
     )
-    private List<Person> people = new ArrayList<>();
+    private List<Person> peopleLikesNews = new ArrayList<>();
 
-    public void addPerson(Person person) {
-        this.people.add(person);
-        person.getCheers().add(this);
+    public void personLikedNews(Person person) {
+        this.peopleLikesNews.add(person);
+        person.getNewsCheers().add(this);
     }
 
-    public void removePerson(Person person) {
-        this.people.removeIf(p -> p.getId().equals(person.getId()));
-        person.getCheers().remove(this);
+    public void personDislikedNews(Person person) {
+        this.peopleLikesNews.removeIf(p -> p.getId().equals(person.getId()));
+        person.getNewsCheers().remove(this);
     }
 }
