@@ -1,8 +1,8 @@
-package com.burgas.springbootauto.service.chat;
+package com.burgas.springbootauto.service.communication.chat;
 
 import com.burgas.springbootauto.entity.communication.chat.Chat;
 import com.burgas.springbootauto.entity.communication.chat.Message;
-import com.burgas.springbootauto.repository.chat.MessageRepository;
+import com.burgas.springbootauto.repository.communication.chat.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;

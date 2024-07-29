@@ -3,10 +3,7 @@ package com.burgas.springbootauto.entity.communication.cheer;
 import com.burgas.springbootauto.entity.news.News;
 import com.burgas.springbootauto.entity.person.Person;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cheer {
@@ -30,10 +28,20 @@ public class Cheer {
     private News news;
 
     @SuppressWarnings("JpaDataSourceORMInspection")
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            joinColumns = @JoinColumn(name = "cheer_id"),
-            inverseJoinColumns = @JoinColumn(name = "person_id")
+            joinColumns = @JoinColumn(name = "cheer_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id")
     )
-    private List<Person>people = new ArrayList<>();
+    private List<Person> people = new ArrayList<>();
+
+    public void addPerson(Person person) {
+        this.people.add(person);
+        person.getCheers().add(this);
+    }
+
+    public void removePerson(Person person) {
+        this.people.removeIf(p -> p.getId().equals(person.getId()));
+        person.getCheers().remove(this);
+    }
 }

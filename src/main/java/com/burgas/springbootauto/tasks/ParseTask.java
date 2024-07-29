@@ -1,6 +1,8 @@
 package com.burgas.springbootauto.tasks;
 
+import com.burgas.springbootauto.entity.communication.cheer.Cheer;
 import com.burgas.springbootauto.entity.news.News;
+import com.burgas.springbootauto.repository.communication.cheer.CheerRepository;
 import com.burgas.springbootauto.service.news.NewsService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -18,6 +20,7 @@ import java.util.Objects;
 public class ParseTask {
 
     private final NewsService newsService;
+    private final CheerRepository cheerRepository;
 
     @SneakyThrows
     @Scheduled(fixedRate = 120000)
@@ -45,13 +48,13 @@ public class ParseTask {
                 }
 
                 if (!newsService.isExist(title)) {
-                    News news = new News();
-                    news.setUrl(href);
-                    news.setImage(image);
-                    news.setTitle(title);
-                    news.setDate(date);
-                    news.setContent(stringBuilder.toString());
+                    News news = News.builder()
+                            .url(href).image(image)
+                            .title(title).date(date)
+                            .content(stringBuilder.toString())
+                            .build();
                     newsService.save(news);
+                    cheerRepository.save(Cheer.builder().amount(0L).news(news).build());
                 }
             }
         }

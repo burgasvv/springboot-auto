@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.repository.chat;
+package com.burgas.springbootauto.repository.communication.chat;
 
 import com.burgas.springbootauto.entity.communication.chat.Chat;
 import org.springframework.data.jpa.repository.JpaRepository;

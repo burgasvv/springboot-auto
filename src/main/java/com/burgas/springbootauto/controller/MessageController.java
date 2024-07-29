@@ -1,16 +1,11 @@
 package com.burgas.springbootauto.controller;
 
-import com.burgas.springbootauto.entity.car.Car;
 import com.burgas.springbootauto.entity.communication.chat.Chat;
 import com.burgas.springbootauto.entity.communication.chat.Message;
 import com.burgas.springbootauto.entity.communication.chat.MessageNotification;
-import com.burgas.springbootauto.entity.communication.comment.Comment;
-import com.burgas.springbootauto.entity.communication.comment.CommentNotification;
 import com.burgas.springbootauto.entity.person.Person;
-import com.burgas.springbootauto.service.car.CarService;
-import com.burgas.springbootauto.service.chat.ChatService;
-import com.burgas.springbootauto.service.chat.MessageService;
-import com.burgas.springbootauto.service.comment.CommentService;
+import com.burgas.springbootauto.service.communication.chat.ChatService;
+import com.burgas.springbootauto.service.communication.chat.MessageService;
 import com.burgas.springbootauto.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -28,8 +23,6 @@ public class MessageController {
     private final MessageService messageService;
     private final PersonService personService;
     private final ChatService chatService;
-    private final CarService carService;
-    private final CommentService commentService;
 
     @MessageMapping("/private-message")
     public void getPrivateMessage(@Payload MessageNotification messageNotification) {
@@ -53,16 +46,5 @@ public class MessageController {
         messageService.read(messageService.findById(Long.valueOf(messageNotification.getContent())));
         messagingTemplate.convertAndSendToUser(messageNotification.getReceiver(),
                 "/topic/read-messages", messageNotification);
-    }
-
-    @MessageMapping("/car-comment")
-    public void getCarComment(@Payload CommentNotification commentNotification) {
-        Person author = personService.findPersonByUsername(commentNotification.getAuthor());
-        Car car = carService.findById(Long.valueOf(commentNotification.getObjectId()));
-        Comment comment = Comment.builder().author(author).car(car)
-                .content(commentNotification.getContent()).build();
-        comment.setNotification(commentNotification);
-        commentService.save(comment);
-        messagingTemplate.convertAndSend("/queue/car-comments", commentNotification);
     }
 }

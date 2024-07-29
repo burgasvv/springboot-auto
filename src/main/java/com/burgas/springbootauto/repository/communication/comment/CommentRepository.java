@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.repository.comment;
+package com.burgas.springbootauto.repository.communication.comment;
 
 import com.burgas.springbootauto.entity.communication.comment.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;

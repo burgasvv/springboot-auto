@@ -1,7 +1,7 @@
-package com.burgas.springbootauto.service.comment;
+package com.burgas.springbootauto.service.communication.comment;
 
 import com.burgas.springbootauto.entity.communication.comment.Comment;
-import com.burgas.springbootauto.repository.comment.CommentRepository;
+import com.burgas.springbootauto.repository.communication.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;

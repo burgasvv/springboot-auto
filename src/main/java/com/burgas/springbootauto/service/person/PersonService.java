@@ -7,7 +7,7 @@ import com.burgas.springbootauto.entity.person.Status;
 import com.burgas.springbootauto.repository.image.ImageRepository;
 import com.burgas.springbootauto.repository.person.PersonRepository;
 import com.burgas.springbootauto.repository.person.RoleRepository;
-import com.burgas.springbootauto.service.chat.MessageService;
+import com.burgas.springbootauto.service.communication.chat.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;

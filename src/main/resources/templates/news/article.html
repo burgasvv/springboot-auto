@@ -24,12 +24,55 @@
         <h1 th:text="${article.title}">Title</h1>
     </div>
     <div style="margin: 50px 100px" class="w3-animate-opacity">
-        <div class="w3-card w3-round-large w3-hover-shadow" style="width: 400px">
-            <h3 class="w3-tag w3-blue" th:text="|Дата: ${article.date}|" style="color: gray; width: 400px">Date</h3><br>
-            <div class="w3-container" style="text-align: center">
-                <img th:src="${article.image}" alt="image" class="w3-round-large">
+        <div>
+            <h2>
+                <a th:href="@{/news}">К новостям</a>
+            </h2>
+        </div>
+        <div style="display: inline-flex; margin-top: 50px">
+            <div class="w3-card w3-round-large w3-hover-shadow" style="width: 400px">
+                <h3 class="w3-tag w3-blue" th:text="|Дата: ${article.date}|" style="color: gray; width: 400px">Date</h3><br>
+                <div class="w3-container" style="text-align: center">
+                    <img th:src="${article.image}" alt="image" class="w3-round-large">
+                </div>
+                <br>
             </div>
-            <br>
+            <div id="divArticleCheerMain">
+                <div id="divArticleCheer" style="margin-left: 100px; margin-top: 300px">
+                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <div th:if="${article.cheer.people.contains(user)}">
+                            <form id="minusCheerForm" th:method="POST" th:action="@{/news/{id}/news-cheer-minus (id = ${article.id})}">
+                                <input type="hidden" id="minusObjectId" name="objectId" th:value="${article.id}">
+                                <input type="hidden" id="minusUsername" name="username" th:value="${user.username}">
+                                <input type="hidden" id="minus_csrf" name="_csrf" th:value="${_csrf.token}">
+                                <button class="w3-button w3-round w3-border" id="minusCheerButton" name="minusCheerButton"
+                                        style="display: inline-flex">
+                                    <img src="/resource/images/heart_full.png" alt="image" style="width: 20px">
+                                    <span th:text="${article.cheer.amount}" style="margin-left: 10px"></span>
+                                </button>
+                            </form>
+                        </div>
+                        <div th:if="${!article.cheer.people.contains(user)}">
+                            <form id="plusCheerForm" th:method="POST" th:action="@{/news/{id}/news-cheer-plus (id = ${article.id})}">
+                                <input type="hidden" id="plusObjectId" name="objectId" th:value="${article.id}">
+                                <input type="hidden" id="plusUsername" name="username" th:value="${user.username}">
+                                <input type="hidden" id="plus_csrf" name="_csrf" th:value="${_csrf.token}">
+                                <button class="w3-button w3-round w3-border" id="plusCheerButton" name="plusCheerButton"
+                                        style="display: inline-flex">
+                                    <img src="/resource/images/heart_empty.png" alt="image" style="width: 20px">
+                                    <span th:text="${article.cheer.amount}" style="margin-left: 10px"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${#authorization.expression('!isAuthenticated()')}">
+                        <div style="margin: 10px">
+                            <img src="/resource/images/heart_empty.png" alt="image" style="width: 20px">
+                            <span th:text="${article.cheer.amount}" style="margin-left: 10px"></span>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
         </div>
         <div class="w3-card w3-round-large w3-hover-shadow" style="width: 1000px">
             <div class="w3-container" style="margin: 20px">
