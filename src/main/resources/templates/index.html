@@ -60,12 +60,6 @@
                                             <span th:text="${article.cheer.amount}" style="margin-left: 10px"></span>
                                         </div>
                                     </th:block>
-                                    <th:block th:if="${#authorization.expression('!isAuthenticated()')}">
-                                        <div style="margin: 10px">
-                                            <img src="/resource/images/heart_empty.png" alt="image" style="width: 20px">
-                                            <span th:text="${article.cheer.amount}" style="margin-left: 10px"></span>
-                                        </div>
-                                    </th:block>
                                 </div>
                             </div>
                         </div>
