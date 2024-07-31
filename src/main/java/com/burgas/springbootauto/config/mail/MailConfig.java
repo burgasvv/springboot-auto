@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.config;
+package com.burgas.springbootauto.config.mail;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.config;
+package com.burgas.springbootauto.config.database;
 
 import com.burgas.springbootauto.entity.brand.Brand;
 import com.burgas.springbootauto.entity.car.*;

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import reactor.core.publisher.Flux;
 
 import java.io.ByteArrayInputStream;
 import java.util.Objects;
@@ -51,6 +52,16 @@ public class ImageController {
                             linkTo(methodOn(ImageController.class).viewImage(image.getId())).withSelfRel()
                     )
                 ).toList()
+        );
+    }
+
+    @GetMapping("/all")
+    public Flux<EntityModel<ImageForm>> getFluxImages() {
+        return Flux.fromIterable(
+                imageService.findAll().stream().map(image -> EntityModel.of(
+                        ImageForm.builder().name(image.getName()).isPreview(image.isPreview()).build(),
+                        linkTo(methodOn(ImageController.class).viewImage(image.getId())).withSelfRel()
+                )).toList()
         );
     }
 }

@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.config;
+package com.burgas.springbootauto.config.web;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;

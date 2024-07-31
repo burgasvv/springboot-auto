@@ -1,4 +1,4 @@
-package com.burgas.springbootauto.config;
+package com.burgas.springbootauto.config.security;
 
 import com.burgas.springbootauto.handler.CustomAuthenticationFailureHandler;
 import com.burgas.springbootauto.handler.CustomAuthenticationSuccessHandler;
