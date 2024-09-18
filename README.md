@@ -17,6 +17,7 @@ ___Монолитная___
   - [X] Spring boot Mail
   - [X] Lombock
   - [X] Jsoup
+  - [X] WebSockets
 + Frontend
   - [X] Thymeleaf
   - [X] AJAX
