@@ -29,3 +29,6 @@ ___Монолитная___
 
 ## Диаграмма взаимодействий и возможностей
 ![springboot-auto-diagram-png-final drawio](https://github.com/user-attachments/assets/54621e9b-3637-41b9-8978-5100bc17d40f)
+
+## Диаграмма базы данных
+![database](https://github.com/user-attachments/assets/90f24392-0ec7-4187-9d65-a697a0808a98)
